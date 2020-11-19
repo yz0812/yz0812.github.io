@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>spring事物不生效的几种情况 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="spring事物不生效的几种情况 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/01.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/01.jpg); height: 80vw;">
+          <h1 class="post-title">spring事物不生效的几种情况</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">spring事物不生效的几种情况</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-07-07 21:07:24">2020-07-07</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <p>事务不生效的几种情况</p>
+<ol>
+<li>方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。</li>
+<li>异常被catch住了。</li>
+<li>默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注解上面指定异常类型 <span style="color:red">@Transactional(rollbackFor=Exception.class)</li>
+</ol>
+<blockquote>
+<p>java里面将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等</p>
+</blockquote>
+<ol start="4">
+<li>据库引擎要支持事务，如果是MySQL，注意表要使用支持事务的引擎，比如innodb，如果是myisam，事务是不起作用的。</li>
+<li>是否开启了事物注解</li>
+</ol>
+<pre><code class="language-xml">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; proxy-target-class=&quot;true&quot;/&gt;
+</code></pre>
+<ol start="6">
+<li>spring是否扫描到你这个包，如下是扫描到org.test下面的包</li>
+</ol>
+<pre><code class="language-xml">&lt;context:component-scan base-package=&quot;org.test&quot; &gt;&lt;/context:component-scan&gt;
+</code></pre>
+<ol start="7">
+<li>在同一类中调用。比如a类的b方法调用了a的c方法</li>
+</ol>
+<h4 id="事物异常">事物异常</h4>
+<pre><code class="language-java">org.springframework.transaction.NoTransactionException: No transaction aspect-managed TransactionStatus in scope
+</code></pre>
+<blockquote>
+<p>sping的事务是通过注解配置上去的，而下面的那个方法并没有接口，在实现类里面只是一个简单的方法而已，对于事务的注解来说没有任何作用，所以在这个方法里面调用回滚的方法自然就报错了。</p>
+</blockquote>
+<blockquote>
+<p>解决方法,因为我这是service里面调用得一个内部方法,如果我在service方法中加入事务,那么报错所有数据都会回滚,这并不是我想要得,所以我将这个方法放到另外一个serivce里面去了</p>
+</blockquote>
+<h4 id="手动执行回滚">手动执行回滚</h4>
+<pre><code class="language-java">TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+</code></pre>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/72_uOp7Med/">
+              interview
+            </a>
+          
+            <a href="https://yz0812.top/tag/OO9AsLppIP/">
+              notepad
+            </a>
+          
+            <a href="https://yz0812.top/tag/IusPLq9nv3/">
+              java
+            </a>
+          
+            <a href="https://yz0812.top/tag/fog5GeKI9D/">
+              debug
+            </a>
+          
+            <a href="https://yz0812.top/tag/Ksbd-vR2dH/">
+              spring
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/nei-cun-yi-chu/">
+            <strong>内存溢出</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/sentinel-yan-zheng-ma-xian-liu/">
+            <strong>Sentinel验证码限流</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

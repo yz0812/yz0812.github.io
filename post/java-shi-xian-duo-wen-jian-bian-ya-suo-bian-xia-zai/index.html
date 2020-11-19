@@ -1,0 +1,348 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Java实现多文件边压缩边下载 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Java实现多文件边压缩边下载 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/03.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/03.jpg); height: 80vw;">
+          <h1 class="post-title">Java实现多文件边压缩边下载</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">Java实现多文件边压缩边下载</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-05-11 22:34:42">2020-05-11</time>
+        <span class="author vcard">
+          6 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <pre><code class="language-java"> //照片存放路径
+  @Value(&quot;${img.url:D:/download/image/}&quot;)
+  private String imgUrl;
+  
+  @Value(&quot;${img.suffix:.jpg}&quot;)
+  private String imgSuffix;
+
+  @Value(&quot;${csv.url:D:/download/csv/}&quot;)
+
+public void exportEmployee(HttpServletRequest request,
+      HttpServletResponse response, String employeeId) {
+
+    String[] employeeIds = employeeId.split(&quot;,&quot;);
+
+    //判断文件夹是否存在
+    if (!FileUtil.exist(csvUrl)) {
+      //创建文件夹
+      FileUtil.mkdir(csvUrl);
+    }
+
+    //查询
+    List&lt;EmployeeDto&gt; dtoList = employeeService.findEmployeeInId(employeeIds);
+    //存储照片
+    List&lt;File&gt; fileList = new ArrayList&lt;&gt;();
+    //写入cvs
+    List&lt;String[]&gt; csvList = new ArrayList();
+    //表头
+    String[] headArr = new String[]{&quot;人员编号&quot;, &quot;证件类型&quot;, &quot;人员类型&quot;, &quot;姓名&quot;, &quot;性别&quot;, &quot;出生日期&quot;, &quot;权限组名称&quot;, &quot;卡号&quot;,
+        &quot;卡号有效时间&quot;, &quot;部门&quot;, &quot;国家&quot;, &quot;省份&quot;, &quot;城市&quot;, &quot;人脸图片1&quot;, &quot;特征值1&quot;, &quot;人脸图片2&quot;, &quot;特征值2&quot;, &quot;人脸图片3&quot;, &quot;特征值3&quot;};
+    csvList.add(headArr);
+    String[] bodyArr;
+
+    for (EmployeeDto l : dtoList) {
+
+      //照片存储路径  imgUrl+部门+名字+imgSuffix
+      String photoUrl = imgUrl + l.getDepartmentName() + &quot;/&quot;;
+
+      //判断文件夹是否存在
+      if (!FileUtil.exist(photoUrl)) {
+        //创建文件夹
+        FileUtil.mkdir(photoUrl);
+      }
+
+      //判断照片是否存在
+      if (!FileUtil.isDirectory(photoUrl + l.getEmployeeName() + imgSuffix)) {
+        if (!ImageBase64Utils
+            .saveToImgByStr(l.getPhoto(), photoUrl, l.getEmployeeName() + imgSuffix)) {
+          log.error(&quot;{}图片保存本地失败&quot;, l.getPhoto());
+          return;
+        }
+      }
+
+      //添加照片文件
+      fileList.add(new File(photoUrl + l.getEmployeeName() + imgSuffix));
+      bodyArr = new String[headArr.length];
+      //人员编号
+      bodyArr[0] = l.getEmployeeId();
+      //姓名
+      bodyArr[3] = l.getEmployeeName();
+      //性别
+      bodyArr[4] = l.getSexId().equals(1) ? &quot;男&quot; : &quot;女&quot;;
+      //出生日期
+      bodyArr[5] = DateUtil.format(l.getBirthday(), &quot;yyyy-MM-dd&quot;);
+      //卡号有效时间
+      bodyArr[8] = &quot;2000/01/01-2037/12/31&quot;;
+      //部门
+      bodyArr[9] = l.getLayerorder().replaceAll(&quot;-&quot;, &quot;/&quot;);
+      //人脸图片1
+      bodyArr[13] = l.getEmployeeName() + imgSuffix;
+      csvList.add(bodyArr);
+    }
+    download(csvList,request,response,fileList);
+  }
+
+  /**
+   * 功能描述  创建csv文件,删除csv文件,创建zip,导出
+   *
+   * @param csvList 学员信息
+   * @param request HttpServletRequest
+   * @param response HttpServletResponse
+   * @param fileList 文件列表
+   * @return void
+   * @author yz
+   * @date 2019-08-28
+   */
+  public void download(List&lt;String[]&gt; csvList, HttpServletRequest request,
+      HttpServletResponse response, List&lt;File&gt; fileList) {
+    String csvName =
+        &quot;PersonnelInformation-&quot; + DateUtil.format(new Date(), &quot;yyyyMMddhhmmsss&quot;) + &quot;.csv&quot;;
+
+    //指定路径和编码 生成CSV
+    // CSV文件本身为一种简单文本格式，有编码区分。Excel读取CSV文件中含有中文时时必须为GBK编码（Windows平台下），否则会出现乱码。
+    CsvWriter writer = CsvUtil.getWriter(csvUrl + csvName, CharsetUtil.CHARSET_GBK);
+    //按行写出
+    writer.write(csvList);
+    //关闭写入
+    writer.close();
+    //响应头的设置
+    response.reset();
+    response.setCharacterEncoding(&quot;utf-8&quot;);
+    response.setContentType(&quot;multipart/form-data&quot;);
+
+    //创建csv文件
+    File csvFile = new File(csvUrl + csvName);
+    if (null == csvFile) {
+      log.error(&quot;csv文件不存在&quot;);
+      return;
+    }
+    //添加到压缩列表
+    fileList.add(csvFile);
+
+    //设置压缩包的名字
+    //解决不同浏览器压缩包名字含有中文时乱码的问题
+    String downloadName =
+        &quot;PersonnelInformation-&quot; + DateUtil.format(new Date(), &quot;yyyyMMddhhmmsss&quot;) + &quot;.zip&quot;;
+    String agent = request.getHeader(&quot;USER-AGENT&quot;);
+    try {
+      if (agent.contains(&quot;MSIE&quot;) || agent.contains(&quot;Trident&quot;)) {
+        downloadName = java.net.URLEncoder.encode(downloadName, &quot;UTF-8&quot;);
+      } else {
+        downloadName = new String(downloadName.getBytes(&quot;UTF-8&quot;), &quot;ISO-8859-1&quot;);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;fileName=\&quot;&quot; + downloadName + &quot;\&quot;&quot;);
+
+    //设置压缩流：直接写入response，实现边压缩边下载
+    ZipOutputStream zipos = null;
+    try {
+      zipos = new ZipOutputStream(new BufferedOutputStream(response.getOutputStream()));
+      //设置压缩方法
+      zipos.setMethod(ZipOutputStream.DEFLATED);
+    } catch (Exception e) {
+      log.error(&quot;设置压缩流出现异常&quot; + e.getMessage());
+      e.printStackTrace();
+    }
+
+    //循环将文件写入压缩流
+    DataOutputStream os = null;
+    for (int i = 0; i &lt; fileList.size(); i++) {
+
+      File file = fileList.get(i);
+      try {
+        //添加ZipEntry，并ZipEntry中写入文件流
+        //这里，加上i是防止要下载的文件有重名的导致下载失败
+        zipos.putNextEntry(new ZipEntry(file.getName()));
+        os = new DataOutputStream(zipos);
+        InputStream is = new FileInputStream(file);
+        byte[] b = new byte[100];
+        int length;
+        while ((length = is.read(b)) != -1) {
+          os.write(b, 0, length);
+        }
+        is.close();
+        zipos.closeEntry();
+      } catch (IOException e) {
+        log.error(&quot;循环将文件写入压缩流出现异常&quot; + e.getMessage());
+        e.printStackTrace();
+      }
+    }
+
+    //关闭流
+    try {
+      os.flush();
+      os.close();
+      zipos.close();
+    } catch (IOException e) {
+      log.error(&quot;关闭流现异常&quot; + e.getMessage());
+      e.printStackTrace();
+    }
+
+    //删除生成的csv
+    if (!FileUtil.del(csvUrl + csvName)) {
+      log.error(&quot;删除{}文件失败&quot;, csvName);
+    }
+  }
+
+  /**
+   * 功能描述 二进制转base64
+   *
+   * @param dtoList 查询出来的数据列表
+   * @return java.util.List&lt;com.yczn.dto.EmployeeDto&gt;
+   * @author yz
+   * @date 2019-08-27
+   */
+  private List&lt;EmployeeDto&gt; imgToString(List&lt;EmployeeDto&gt; dtoList) {
+    for (EmployeeDto employeeDto : dtoList) {
+
+      Encoder encoder = Base64.getEncoder();
+
+      employeeDto.setPhotoBase64(
+          employeeDto.getPhoto() != null ? encoder.encodeToString(employeeDto.getPhoto()) : &quot;&quot;);
+    }
+    return dtoList;
+  }
+</code></pre>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/OO9AsLppIP/">
+              notepad
+            </a>
+          
+            <a href="https://yz0812.top/tag/IusPLq9nv3/">
+              java
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/postman-chuang-jian-bian-liang/">
+            <strong>Postman创建变量</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/chang-yong-ruan-jian-an-zhuang/">
+            <strong>常用软件安装</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

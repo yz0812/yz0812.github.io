@@ -1,0 +1,205 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>redis特性 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="redis特性 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/09.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/09.jpg); height: 80vw;">
+          <h1 class="post-title">redis特性</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">redis特性</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-07-08 23:21:36">2020-07-08</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h2 id="redis特性">redis特性</h2>
+<h3 id="1-速度快">1. 速度快</h3>
+<ol>
+<li>内存：数据存储在内存中,读写数据的时候都不会受到硬盘 I/O 速度的限制，所以速度极快。不同介质速度也是不同的.比如ssd,和机械速度时不同的</li>
+<li>单线程：避免了不必要的上下文切换和竞争。不用考虑各种锁的问题，不存在加锁释放锁操作，不会因死锁而导致的性能消耗；</li>
+<li>Redis使用I/O多路复用技术，可以处理并发的连接。redis使用非阻塞I/O；</li>
+</ol>
+<blockquote>
+<p>redis使用多路复用技术，可以处理并发的连接。非阻塞IO 内部实现采用epoll，采用了epoll+自己实现的简单的事件框架。epoll中的读、写、关闭、连接都转化成了事件，然后利用epoll的多路复用特性，绝不在io上浪费一点时间。</p>
+</blockquote>
+<p>这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。</p>
+<h3 id="2-redis持久化">2. redis持久化</h3>
+<p>redis所有数据都保存在内存中,按理说会断电丢失数据.<br>
+硬盘是具有持久化特征的,比如说电脑蓝屏时也会将数据down pull到磁盘. redis也会将数据异步的写入到磁盘.提供了RDB 和AOF两种方式.进行持久化,然后进行恢复.</p>
+<h3 id="3-多种数据结构">3. 多种数据结构</h3>
+<p>String 最基本的数据类型,二进制安全</p>
+<p>hash  String组成的字典,适用于存储对象</p>
+<p>linked List 列表按照String元素插入的有序列表</p>
+<p>Sets String元素组成的无序集合,通过哈希实现,不允许重复</p>
+<p>sorted Set 通过分数来为集合中的成员进行从小到大的排序,不允许重复</p>
+<blockquote>
+<p>特殊类型</p>
+</blockquote>
+<p>bitMap 位图 很小的内存高效存储数据</p>
+<p>hyperLoglog超小内存唯一值计算12k,上亿或者是10亿都是12k</p>
+<p>GEO 地理信息位置 经度纬度</p>
+<h3 id="4-多语言">4. 多语言</h3>
+<ol>
+<li>java</li>
+<li>python</li>
+<li>php</li>
+<li>lua</li>
+<li>ruby</li>
+<li>nodejs</li>
+<li>等等</li>
+</ol>
+<h3 id="5-功能丰富">5. 功能丰富</h3>
+<ol>
+<li>消息订阅</li>
+<li>lua脚本</li>
+<li>事物</li>
+<li>pipeline</li>
+</ol>
+<h3 id="6-简单">6. 简单</h3>
+<ol>
+<li>不依赖外部库</li>
+<li>单线程模式</li>
+<li>23000行代码</li>
+</ol>
+<h3 id="6-高可用分布式">6. 高可用，分布式</h3>
+<ol>
+<li>2.8版本redis-sentinel支持高可用</li>
+<li>3.0版本redis-cluster支持分布式</li>
+</ol>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/LHICxWTwK/">
+              redis
+            </a>
+          
+            <a href="https://yz0812.top/tag/72_uOp7Med/">
+              interview
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/redis-ru-he-chi-jiu-hua/">
+            <strong>redis 如何持久化</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/stream-chang-yong-fang-fa/">
+            <strong>stream常用方法</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

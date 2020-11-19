@@ -1,0 +1,226 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vagrant安装所遇到的问题 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Vagrant安装所遇到的问题 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/01.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/01.jpg); height: 80vw;">
+          <h1 class="post-title">Vagrant安装所遇到的问题</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">Vagrant安装所遇到的问题</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-05-11 22:21:42">2020-05-11</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <p>环境：windows10<br>
+版本：Vagrant 2.2.6，VirtualBox 6.1.0</p>
+<pre><code>No usable default provider could be found for your system.
+
+Vagrant relies on interactions with 3rd party systems, known as
+&quot;providers&quot;, to provide Vagrant with resources to run development
+environments. Examples are VirtualBox, VMware, Hyper-V.
+
+The easiest solution to this message is to install VirtualBox, which
+is available for free on all major platforms.
+
+If you believe you already have a provider available, make sure it
+is properly installed and configured. You can see more details about
+why a particular provider isn't working by forcing usage with
+`vagrant up --provider=PROVIDER`, which should give you a more specific
+error message for that particular provider.
+</code></pre>
+<p>查询之后发现是 Vagrant 2.2.6 不支持 VirtualBox 6.1.0<br>
+修改 Vagrant安装路径<br>
+D:\Program Files\HashiCorp\Vagrant\embedded\gems\2.2.6\gems\vagrant-2.2.6\plugins\providers\virtualbox\plugin.rb<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/20200511222044.png" alt="" loading="lazy"><br>
+添加至61行下面 使用管理员身份</p>
+<pre><code>autoload :Version_6_1, File.expand_path(&quot;../driver/version_6_1&quot;, __FILE__)
+</code></pre>
+<p>再修改<br>
+D:\Program Files\HashiCorp\Vagrant\embedded\gems\2.2.6\gems\vagrant-2.2.6\plugins\providers\virtualbox\driver\meta.rb<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gat4mmpc5uj30m20pzwh3.jpg" alt="" loading="lazy"><br>
+添加至66行下面 使用管理员身份</p>
+<pre><code>&quot;6.1&quot; =&gt; Version_6_1,
+</code></pre>
+<p>再新增文件 version_6_1.rb</p>
+<pre><code>require File.expand_path(&quot;../version_6_0&quot;, __FILE__)
+
+module VagrantPlugins
+  module ProviderVirtualBox
+    module Driver
+      # Driver for VirtualBox 6.1.x
+      class Version_6_1 &lt; Version_6_0
+        def initialize(uuid)
+          super
+
+          @logger = Log4r::Logger.new(&quot;vagrant::provider::virtualbox_6_1&quot;)
+        end
+      end
+    end
+  end
+end
+</code></pre>
+<p>完成</p>
+<h5 id="vagrant-up-启动但是发现还是报错">vagrant up 启动但是发现还是报错</h5>
+<pre><code>Bringing machine 'default' up with 'virtualbox' provider...
+==&gt; default: Importing base box 'scotch/box'...
+==&gt; default: Matching MAC address for NAT networking...
+==&gt; default: Checking if box 'scotch/box' is up to date...
+==&gt; default: Setting the name of the VM: local-server_default_1457198371829_7646
+==&gt; default: Clearing any previously set network interfaces...
+==&gt; default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+    default: Adapter 2: hostonly
+==&gt; default: Forwarding ports...
+    default: 22 (guest) =&gt; 2222 (host) (adapter 1)
+==&gt; default: Booting VM...
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: [&quot;startvm&quot;, &quot;47af6fe7-aa62-4aa6-89d8-e2518f364183&quot;, &quot;--type&quot;, &quot;headless&quot;]
+
+Stderr: VBoxManage.exe: error: VT-x is disabled in the BIOS for all CPU modes (VERR_VMX_MSR_ALL_VMX_DISABLED)
+VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+</code></pre>
+<p>发现我开启了 Hyper-V</p>
+<p>控制面板\程序\程序和功能 启用或者关闭windows功能关闭 Hyper-V.<br>
+再 vagrant up 还是报错,然后bois启用Intel VT -X. 但是我的bois只有VT -D,也启用<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gat4ubu1ioj33402c07wn.jpg" alt="" loading="lazy"></p>
+<p>再vagrant up ,可以了</p>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/fog5GeKI9D/">
+              debug
+            </a>
+          
+            <a href="https://yz0812.top/tag/LksdY7kyFt/">
+              install
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/chang-yong-ruan-jian-an-zhuang/">
+            <strong>常用软件安装</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/about/">
+            <strong>关于</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

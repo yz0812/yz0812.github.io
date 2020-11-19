@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>redis 如何持久化 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="redis 如何持久化 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/10.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/10.jpg); height: 80vw;">
+          <h1 class="post-title">redis 如何持久化</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">redis 如何持久化</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-07-08 23:33:43">2020-07-08</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h2 id="redis-如何持久化">redis 如何持久化</h2>
+<h3 id="1rdb快照-保存某个时间的全量数据快照">1.RDB(快照) 保存某个时间的全量数据快照</h3>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/img/redis-config.jpg" alt="图片" loading="lazy"></figure>
+<p>保存策略</p>
+<blockquote>
+<p>save 900 1</p>
+<blockquote>
+<p>900秒内提交了一条数据,就产生一次快照</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>save 300 10</p>
+<blockquote>
+<p>300秒内提交了10条数据,就产生一次快照</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>save 60 10000</p>
+<blockquote>
+<p>60秒内提交了10000条数据,就产生一次快照</p>
+</blockquote>
+</blockquote>
+<p>为什么定义这么多策略?<br>
+应付不同的环境</p>
+<blockquote>
+<p>stop-writes-on-bgsave-error yes</p>
+<blockquote>
+<p>当备份进程报错时,就停止写入进程.保护持久化数据一致性的问题.如果自己的业务有完善的监护系统,可以关闭此选项</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>rdbcompression yes</p>
+<blockquote>
+<p>再备份的时候,将rdb文件进行压缩再保存.建议设置成no,因为redis本身就属于cpu密集型服务器,再开启压缩会带来更多cpu消耗,相比硬盘成本,cpu更值钱</br><br>
+如果你想要禁用RDB配置，也是非常容易的，只需要在save的最后一行写上：save &quot;&quot;</p>
+</blockquote>
+</blockquote>
+<h3 id="2rdb快照-持久化保存某个时间的全量数据快照">2.RDB(快照) 持久化:保存某个时间的全量数据快照</h3>
+<ol>
+<li>save: 阻塞redis的服务器进程,知道RDB文件被创建完毕.</li>
+<li>bgsave: Fork出一个子进程来创建RDB文件,不阻塞服务器进程.</li>
+</ol>
+<pre><code>127.0.0.1:6379&gt; save
+OK
+(11.68s)
+127.0.0.1:6379&gt; lastsave
+(integer) 1593269427
+127.0.0.1:6379&gt; bgsave
+Background saving started
+127.0.0.1:6379&gt; lastsave
+(integer) 1593269464
+</code></pre>
+<p>我们可以先删除 dump.rdb文件,然后再用save保存快照.可以看到阻塞了主线程11秒. lastsave可以查看备份时间.<br>
+bgsave会立即返回,然后过段时间再使用lsatsave查看,可以看到两个返回的时间是不一样的.</p>
+<h3 id="3自动化触发rdb持久化的方式">3.自动化触发RDB持久化的方式</h3>
+<ol>
+<li>根据redis.conf配置里面的 save m n定时触发(用的是besave)</li>
+<li>主从复制时,主节点自动触发</li>
+<li>执行Debug Reload</li>
+<li>执行Shutdown 且没有k开启AOF持久化</li>
+</ol>
+<p>save基本不会用到,所以来看看bgsave实现原理.<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/redis-bgsave.jpg" alt="bgsave" loading="lazy"></p>
+<h2 id="aofappend-only-file持久化保存写状态">AOF(Append-Only-File)持久化,保存写状态</h2>
+<ol>
+<li>记录下出查询以外所有的变更数据库状态的指令</li>
+<li>以append的形式追加保存到AOF文件中(增量)</li>
+</ol>
+<pre><code>appendonly no
+
+# The name of the append only file (default: &quot;appendonly.aof&quot;)
+appendfilename &quot;appendonly.aof&quot;
+
+# appendfsync always
+appendfsync everysec
+# appendfsync no
+</code></pre>
+<blockquote>
+<p>appendonly no</p>
+<blockquote>
+<p>是否开启AOF持久化</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>appendfilename &quot;appendonly.aof&quot;</p>
+<blockquote>
+<p>保存的文件名</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>appendfsync always</p>
+<blockquote>
+<p>一旦发生缓存区的内容发生变化就写入到aof文件</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>appendfsync everysec</p>
+<blockquote>
+<p>每隔一秒钟写入到aof文件</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>appendfsync no</p>
+<blockquote>
+<p>根据系统策略来保存,一般是等缓存区被填满了再保存.</p>
+</blockquote>
+</blockquote>
+<p>RDB和AOF的优缺点<br>
+RDB优点：全量数据快照，文件小，恢复快<br>
+RDB缺点：无法保存最近一次快照之后的数据<br>
+AOF优点：可读性高，适合保存增量数据，数据不容易丢失<br>
+AOF缺点：文件大，恢复时间长<br>
+RDB-AOF混合持久化方式<br>
+BGSAVE做镜像全量持久化，AOF做增量持久化</p>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/LHICxWTwK/">
+              redis
+            </a>
+          
+            <a href="https://yz0812.top/tag/72_uOp7Med/">
+              interview
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/redis-fen-bu-shi-suo/">
+            <strong>redis 分布式锁</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/redis-te-xing/">
+            <strong>redis特性</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

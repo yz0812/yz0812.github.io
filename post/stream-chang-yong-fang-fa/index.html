@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>stream常用方法 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="stream常用方法 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/08.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/08.jpg); height: 80vw;">
+          <h1 class="post-title">stream常用方法</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">stream常用方法</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-07-08 01:00:29">2020-07-08</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h4 id="1-剔除重复值">1. 剔除重复值</h4>
+<pre><code class="language-java">List&lt;T&gt; list = snList.stream().distinct().collect(Collectors.toList()
+</code></pre>
+<p>或者使用hutool的</p>
+<pre><code class="language-java">collUtil.distinct()
+</code></pre>
+<h4 id="2-切割liststring成为字符串">2. 切割List<String>成为字符串</h4>
+<pre><code class="language-java">String str = snList.stream().collect(Collectors.joining(&quot;','&quot;))
+</code></pre>
+<h4 id="3-将对listt进行筛选">3. 将对List<T>进行筛选</h4>
+<pre><code class="language-java">List&lt;String&gt; list = list.stream().map(l -&gt; l.getStr()).collect(Collectors.toList())
+</code></pre>
+<h4 id="4-判断listt某个值是否存在">4. 判断List<T>某个值是否存在</h4>
+<p>使用hutool的方法</p>
+<pre><code class="language-java">Filter&lt;String&gt; filterCustSn =s-&gt;s.equals(&quot;张三&quot;);
+if (StrUtil.isNotEmpty(CollUtil.findOne(snList,filterCustSn))){
+  continue;
+}
+</code></pre>
+<p>Stream</p>
+<pre><code class="language-java">boolean bol = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findAny().isPresent();
+</code></pre>
+<h4 id="5根据条件获取listt的某个值">5.根据条件获取List<T>的某个值</h4>
+<pre><code class="language-java">T t = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findFirst().get();
+</code></pre>
+<p>如果没有匹配的就会报错</p>
+<pre><code class="language-java">Exception in thread &quot;main&quot; java.util.NoSuchElementException: No value present
+	at java.util.Optional.get(Optional.java:135)
+</code></pre>
+<p>推荐使用下面的方法</p>
+<pre><code class="language-java">T t = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findFirst().orElse(null);
+</code></pre>
+<h4 id="6获取listt中金额最大值-bigdecimals类型">6.获取List<T>中金额最大值 bigDecimals类型</h4>
+<pre><code class="language-java">BigDecimal maxBig = Arrays.stream(bigDecimals).max(BigDecimal::compareTo).get()
+</code></pre>
+<h4 id="7打印">7.打印</h4>
+<pre><code class="language-java">Arrays.stream(strings).forEach(System.out::println)
+</code></pre>
+<h4 id="8排序">8.排序</h4>
+<pre><code class="language-java">List&lt;T&gt; sortList = list.stream().sorted(Comparator.comparing(T::getAge)) 
+//方法二
+List&lt;T&gt; sortList = Arrays.asList(strings).stream().mapToInt(Integer::parseInt).toArray();
+</code></pre>
+<h4 id="9查询listt所有匹配数据">9.查询List<T>所有匹配数据</h4>
+<pre><code class="language-java">List&lt;T&gt; list = list.stream().filter(b-&gt;b.getStr().equals(&quot;张三&quot;)).collect(
+    Collectors.joining()).trim()
+</code></pre>
+<h4 id="9合计-bigdecimals类型也可以使用">9.合计 bigDecimals类型也可以使用</h4>
+<pre><code class="language-java">double sum= dto.stream().mapToDouble((x)-&gt;x.getMoney().doubleValue()).sum()
+</code></pre>
+<!-- more -->
+<!-- more -->
+<!-- more -->
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/OO9AsLppIP/">
+              notepad
+            </a>
+          
+            <a href="https://yz0812.top/tag/IusPLq9nv3/">
+              java
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/redis-te-xing/">
+            <strong>redis特性</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/nei-cun-yi-chu/">
+            <strong>内存溢出</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

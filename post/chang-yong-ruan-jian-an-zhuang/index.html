@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>常用软件安装 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="常用软件安装 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/02.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/02.jpg); height: 80vw;">
+          <h1 class="post-title">常用软件安装</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">常用软件安装</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-05-11 22:30:48">2020-05-11</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h1 id="maven">maven</h1>
+<h3 id="1配置本地路径">1.配置本地路径</h3>
+<p>修改maven下的conf/settings.xml 文件</p>
+<pre><code class="language-xml">&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+          xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+		   &lt;localRepository&gt;D:\cache\mavenRepository&lt;/localRepository&gt;
+</code></pre>
+<h3 id="2设置阿里云镜像">2.设置阿里云镜像</h3>
+<p>找到mirrors,添加</p>
+<pre><code class="language-xml">
+ &lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        
+    &lt;/mirror&gt;
+</code></pre>
+<h1 id="mysql">MySQL</h1>
+<h3 id="1下载">1.下载</h3>
+<p><a href="https://dev.mysql.com/downloads/mysql/">下载 </a>解压版</p>
+<h3 id="2解压放到目录设置环境变量">2.解压放到目录设置环境变量</h3>
+<p>在path 下新增 D:\Program Files\mysql-8.0.18-winx64\bin</p>
+<h3 id="3在mysql的根目录下新建-myini文件">3.在mysql的根目录下新建 my.ini文件</h3>
+<pre><code>[mysqld]
+port = 3306
+basedir=D:/Program Files/mysql-8.0.18-winx64
+datadir=D:/Program Files/mysql-8.0.18-winx64/data 
+max_connections=200
+character-set-server=utf8
+default-storage-engine=INNODB
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+[mysql]
+default-character-set=utf8
+</code></pre>
+<p>注意修改basedir和datadir,并且<font color=#CC0000>斜杠</font>必须为<font color=#CC0000>/</font>不是<font color=#CC0000>\ </font>,<font color=#CC0000>不然会报错 </font>,<font color=#00CC00>正确:</font>D:/Program Files/mysql-8.0.18-winx64,<font color=#CC0000>错误:</font>D:\Program Files\mysql-8.0.18-winx64</p>
+<h3 id="4cmd安装">4.cmd安装</h3>
+<p>以管理员身份打开cmd命令窗口，将目录切换到MySQL的安装目录的bin目录下</p>
+<p>安装</p>
+<pre><code>mysqld -install
+</code></pre>
+<p>MySQL的初始化,并且会生成data文件夹</p>
+<pre><code>mysqld --initialize-insecure --user=mysql
+</code></pre>
+<p>开启MySQL服务</p>
+<pre><code>net start mysql
+</code></pre>
+<p>修改密码</p>
+<pre><code>mysqladmin -u root -p password 新密码
+Enter password: 旧密码
+</code></pre>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/LksdY7kyFt/">
+              install
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/java-shi-xian-duo-wen-jian-bian-ya-suo-bian-xia-zai/">
+            <strong>Java实现多文件边压缩边下载</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/vagrant-an-zhuang-suo-yu-dao-de-wen-ti/">
+            <strong>Vagrant安装所遇到的问题</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

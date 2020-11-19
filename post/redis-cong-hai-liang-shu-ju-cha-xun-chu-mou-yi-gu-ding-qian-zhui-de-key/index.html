@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>redis 从海量数据查询出某一固定前缀的key | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="redis 从海量数据查询出某一固定前缀的key | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/12.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/12.jpg); height: 80vw;">
+          <h1 class="post-title">redis 从海量数据查询出某一固定前缀的key</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">redis 从海量数据查询出某一固定前缀的key</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-07-08 23:35:25">2020-07-08</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h3 id="redis-从海量数据查询出某一固定前缀的key">redis 从海量数据查询出某一固定前缀的key</h3>
+<p>先插入1000W条数据</p>
+<pre><code class="language-java">
+import java.util.stream.IntStream;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Pipeline;
+
+public class TestRedis {
+
+  // 使用jedis实现pipeline调用
+  public static void main(String[] args) {
+    Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);
+    Pipeline pipeline = jedis.pipelined();
+    long startTime = System.currentTimeMillis();
+    IntStream.range(0, 10000000).forEach(it -&gt; pipeline.set(&quot;k&quot; + it, &quot;v&quot;+it ));
+    pipeline.syncAndReturnAll();
+    long endTime = System.currentTimeMillis();
+    System.out.println(endTime - startTime);
+  }
+}
+</code></pre>
+<p>我们可以先使用dbsize 查看总共有多少数据</p>
+<p>然后使用 keys k1*命令查询,查询出所有 k1前缀的数据,用时17秒.1111111条数据.</p>
+<p>keys 的缺点一次性返回所有匹配的数据,key数据量过大会导致服务器卡顿,对内存消耗比较大,可能会阻塞服务器.</p>
+<p>可以使用scan 命令</p>
+<p>scan cursor match k1* count 10</p>
+<p>基于游标的迭代器,需要基于上次一游标延续之前的迭代过程</p>
+<p>cursor 游标, 以0作为游标开始一次新的迭代,知道命令返回游标0完全一次遍历.</p>
+<p>不保证每次执行都会返回给定的数量,支持模糊查询</p>
+<p>一次返回的数量不可控,大概率符合给定的参数</p>
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/LHICxWTwK/">
+              redis
+            </a>
+          
+            <a href="https://yz0812.top/tag/72_uOp7Med/">
+              interview
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/redis-fen-bu-shi-suo/">
+            <strong>redis 分布式锁</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

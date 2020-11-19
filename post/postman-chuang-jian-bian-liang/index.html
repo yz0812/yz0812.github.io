@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Postman创建变量 | Gridea</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Postman创建变量 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://yz0812.top">
+        <span>Gridea</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/04.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/04.jpg); height: 80vw;">
+          <h1 class="post-title">Postman创建变量</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">Postman创建变量</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2020-05-11 22:36:13">2020-05-11</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <p>前言在学习security中使用postman获取access_token,每次token都不一样每次都要复制太麻烦了.后找到解决方法</p>
+<h3 id="1创建全局环境">1.创建全局环境</h3>
+<p>点击设置按钮<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4ms2z5vkj31hc0tawgi.jpg" alt="" loading="lazy"></p>
+<p>点击Globals<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4mvz7yx2j30nf0j9gm5.jpg" alt="" loading="lazy"></p>
+<p>VARIABLE 变量名<br>
+INITIAL VALUE 初始值<br>
+CURRENT VALUE 当前值</p>
+<h3 id="2创建局部环境">2.创建局部环境</h3>
+<p>点击设置按钮<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4mz2hm8yj31hc0t1dhi.jpg" alt="" loading="lazy"></p>
+<p>点击Add<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4n2w1sadj30np0jumxg.jpg" alt="" loading="lazy"></p>
+<p>Add Environment 环境名称<br>
+VARIABLE 变量名<br>
+INITIAL VALUE 初始值<br>
+CURRENT VALUE 当前值</p>
+<p>到目前我们添加了 loca全局变量,dev局部变量 参数为access_token,refresh_token,接下来告诉大家如何使用</p>
+<h3 id="3查看变量">3.查看变量</h3>
+<p><img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4n51ef8fj30be037743.jpg" alt="" loading="lazy"><br>
+第一个 No Environment是选择局部变量<br>
+第二个是查看全部变量<br>
+第三个是编辑</p>
+<h3 id="4赋值">4.赋值</h3>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4n6tkxzuj30uo0h8wfb.jpg" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">pm.test(&quot;Status code is 200&quot;, function () {
+    pm.response.to.have.status(200);
+    let json = JSON.parse(responseBody);//声明一个变量json，将JSON返回Body里面的值解析并给变量json
+    tests[&quot;a&quot;] = json.expires_in ===7200;//设置一个断言
+    pm.environment.set(&quot;refresh_token&quot;, json.refresh_token);
+    pm.environment.set(&quot;access_token&quot;, json.access_token);
+});
+
+</code></pre>
+<h3 id="5使用变量">5.使用变量</h3>
+<p>使用方法是{{变量名}}<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/img/00671aDrgy1gc4n8ns9i9j30oo09odg1.jpg" alt="" loading="lazy"></p>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://yz0812.top/tag/LksdY7kyFt/">
+              install
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://yz0812.top/post/sentinel-yan-zheng-ma-xian-liu/">
+            <strong>Sentinel验证码限流</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://yz0812.top/post/java-shi-xian-duo-wen-jian-bian-ya-suo-bian-xia-zai/">
+            <strong>Java实现多文件边压缩边下载</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://yz0812.top">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </p>
+    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://yz0812.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>
