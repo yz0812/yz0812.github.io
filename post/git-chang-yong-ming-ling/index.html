@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>内存溢出 | Gridea</title>
+<title> git常用命令 | Gridea</title>
 <meta name="description" content="温故而知新" />
 <link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605812656094">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 <link rel="stylesheet" href="https://yz0812.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="内存溢出 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title=" git常用命令 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -56,47 +56,107 @@
     </div>
     <article role="main" class="hentry has-cover">
       
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/06.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/06.jpg); height: 80vw;">
-          <h1 class="post-title">内存溢出</h1>
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/15.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/15.jpg); height: 80vw;">
+          <h1 class="post-title"> git常用命令</h1>
         </div>
       
-      <h1 class="entry-title" itemprop="headline">内存溢出</h1>
+      <h1 class="entry-title" itemprop="headline"> git常用命令</h1>
       <div class="entry-meta">
-        <time class="updated" datetime="2020-07-08 00:19:19">2020-07-08</time>
+        <time class="updated" datetime="2020-11-20 03:00:35">2020-11-20</time>
         <span class="author vcard">
           1 min read
         </span>
       </div>
       <div class="post-content yue">
-        <p>前言：使用tomcat部署项目之后，使用poi导出大约7W条数据是报错。然后查看日志发现是内存溢出。</p>
-<p>内存溢出报错信息</p>
+        <h4 id="1-分支">1. 分支</h4>
 <ol>
-<li>java.lang.OutOfMemoryError: Java heap space</li>
-<li>java.lang.OutOfMemoryError: PermGen space</li>
+<li>初始化本地仓库</li>
 </ol>
-<h3 id="解决方法">解决方法</h3>
-<p>设置tomcat的内存</p>
-<h4 id="1-如果是startupbat启动">1. 如果是startup.bat启动</h4>
-<p>设置bin目录下的catalina.bat文件</p>
-<pre><code class="language-xml">set JAVA_OPTS=%JAVA_OPTS% -server -Xms800m -Xmx800m -XX:MaxNewSize=256m -XX:PermSize=128m -XX:MaxPermSize=512m
-</code></pre>
-<img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard.png" width = "800" height = "200" alt="图片名称" align=center />
-<p><span style="font-weight:500">网上大神提示：在JVM中如果98％的时间是用于GC且可用的Heap size 不足2％的时候将抛出此异常信息。Heap Size 最大不要超过可用物理内存的80％，一般的要将-Xms和-Xmx选项设置为相同，而-Xmn为1/4的-Xmx值。</span></p>
-<h4 id="1windows服务执行方法一">1.windows服务执行方法一</h4>
-<p>注册表</p>
-<pre><code class="language-xml">HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node/Apache Software Foundation/Procrun 2.0/tomcat/Parameters/Java
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard1.png" alt="catalina.bat" loading="lazy"></figure>
-<h4 id="1windows服务执行方法二">1.windows服务执行方法二</h4>
-<p>打开tomcat6w.exe如果打不开执行service.bat install</p>
-<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard2.png" alt="catalina.bat" loading="lazy"></figure>
+<blockquote>
+<p>git init</p>
+</blockquote>
+<ol start="2">
+<li>查看本地和远程所有分支</li>
+</ol>
+<blockquote>
+<p>git branch -a</p>
+</blockquote>
+<ol start="3">
+<li>删除本地分支</li>
+</ol>
+<blockquote>
+<p>git branch -D branch_name</p>
+</blockquote>
+<ol start="4">
+<li>删除远程分支</li>
+</ol>
+<blockquote>
+<p>git push origin -d branch_name</p>
+</blockquote>
+<ol start="5">
+<li>创建本地分支</li>
+</ol>
+<blockquote>
+<p>git branch test</p>
+</blockquote>
+<ol start="6">
+<li>创建本地分支并且切换</li>
+</ol>
+<blockquote>
+<p>git checkout test</p>
+</blockquote>
+<ol start="7">
+<li>提交分支到远程</li>
+</ol>
+<blockquote>
+<p>git push origin sourcecode</p>
+</blockquote>
+<h4 id="2提交">2.提交</h4>
+<ol>
+<li>查看代码的修改状态</li>
+</ol>
+<blockquote>
+<p>git status</p>
+</blockquote>
+<ol start="2">
+<li>暂存需要提交的文件</li>
+</ol>
+<blockquote>
+<p>git add <file><br>
+git add . 后面加一个“.”，匹配所有的文件<br>
+git add -u   --update     update tracked files  更新所有改变的文件，即提交所有变化的文件<br>
+git add -A  --all         add changes from all tracked and untracked files  提交已被修改和已被删除</p>
+</blockquote>
+<ol start="3">
+<li>提交已暂存的文件</li>
+</ol>
+<blockquote>
+<p>git commit  -m &quot;first commit&quot;</p>
+</blockquote>
+<ol start="4">
+<li>绑定仓库</li>
+</ol>
+<blockquote>
+<p>git remote add origin https://github.com/yz0812/mdzx-wx-vue.git</p>
+</blockquote>
+<ol start="5">
+<li>推送</li>
+</ol>
+<blockquote>
+<p>git push -u origin master<br>
+放弃修改</p>
+</blockquote>
+<ol start="6">
+<li>$ git checkout .<br>
+7</li>
+</ol>
 
       </div>
       <div class="entry-block">
         <div class="entry-tags">
           
-            <a href="https://yz0812.top/tag/fog5GeKI9D/">
-              debug
+            <a href="https://yz0812.top/tag/OO9AsLppIP/">
+              notepad
             </a>
           
         </div>
@@ -106,8 +166,8 @@
       <section class="post-section prev-post">
         <div class="inner">
           <h3>前一篇</h3>
-          <a href="https://yz0812.top/post/stream-chang-yong-fang-fa/">
-            <strong>stream常用方法</strong>
+          <a href="https://yz0812.top/post/mac-ruan-jian-an-zhuang-ruan-jian/">
+            <strong>mac软件安装软件</strong>
           </a>
         </div>
       </section>
@@ -116,8 +176,8 @@
       <section class="post-section prev-post">
         <div class="inner">
           <h3>后一篇</h3>
-          <a href="https://yz0812.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/">
-            <strong>spring事物不生效的几种情况</strong>
+          <a href="https://yz0812.top/post/docker-elasticsearch-zi-dong-tui-chu/">
+            <strong>docker elasticsearch自动退出</strong>
           </a>
         </div>
       </section>

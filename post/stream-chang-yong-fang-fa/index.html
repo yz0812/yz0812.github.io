@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>stream常用方法 | Gridea</title>
 <meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605811360117">
+<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605812656094">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -64,7 +64,7 @@
       <div class="entry-meta">
         <time class="updated" datetime="2020-07-08 01:00:29">2020-07-08</time>
         <span class="author vcard">
-          2 min read
+          3 min read
         </span>
       </div>
       <div class="post-content yue">
@@ -115,12 +115,34 @@ List&lt;T&gt; sortList = Arrays.asList(strings).stream().mapToInt(Integer::parse
 <pre><code class="language-java">List&lt;T&gt; list = list.stream().filter(b-&gt;b.getStr().equals(&quot;张三&quot;)).collect(
     Collectors.joining()).trim()
 </code></pre>
-<h4 id="9合计-bigdecimals类型也可以使用">9.合计 bigDecimals类型也可以使用</h4>
+<h4 id="10合计-bigdecimals类型也可以使用">10.合计 bigDecimals类型也可以使用</h4>
 <pre><code class="language-java">double sum= dto.stream().mapToDouble((x)-&gt;x.getMoney().doubleValue()).sum()
 </code></pre>
-<!-- more -->
-<!-- more -->
-<!-- more -->
+<h3 id="11交集">11.交集</h3>
+<pre><code class="language-java">        List&lt;String&gt; intersection = list1.stream().filter(item -&gt; list2.contains(item)).collect(toList());
+        System.out.println(&quot;---交集 intersection---&quot;);
+        intersection.parallelStream().forEach(System.out :: println);
+</code></pre>
+<h3 id="12差集">12.差集</h3>
+<pre><code class="language-java">        //  (list2 - list1)
+        List&lt;String&gt; reduce2 = list2.stream().filter(item -&gt; !list1.contains(item)).collect(toList());
+        System.out.println(&quot;---差集 reduce2 (list2 - list1)---&quot;);
+        reduce2.parallelStream().forEach(System.out :: println);
+</code></pre>
+<h3 id="13并集">13.并集</h3>
+<pre><code> ```java
+    List&lt;String&gt; listAll = list1.parallelStream().collect(toList());
+    List&lt;String&gt; listAll2 = list2.parallelStream().collect(toList());
+    listAll.addAll(listAll2);
+    System.out.println(&quot;---并集 listAll---&quot;);
+    listAll.parallelStream().forEachOrdered(System.out :: println);
+</code></pre>
+<pre><code>### 14.去重并集
+       ```java
+       List&lt;String&gt; listAllDistinct = listAll.stream().distinct().collect(toList());
+       System.out.println(&quot;---得到去重并集 listAllDistinct---&quot;);
+       listAllDistinct.parallelStream().forEachOrdered(System.out :: println);
+</code></pre>
 
       </div>
       <div class="entry-block">
@@ -163,7 +185,7 @@ List&lt;T&gt; sortList = Arrays.asList(strings).stream().mapToInt(Integer::parse
     <footer class="footer">
   <div class="main">
     <a href="https://yz0812.top">
-      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605811360117" alt="Gridea">
+      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605812656094" alt="Gridea">
     </a>
     <div class="footer__social">
       

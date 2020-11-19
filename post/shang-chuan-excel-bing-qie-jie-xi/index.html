@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>内存溢出 | Gridea</title>
+<title>上传excel 并且解析 | Gridea</title>
 <meta name="description" content="温故而知新" />
 <link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605812656094">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 <link rel="stylesheet" href="https://yz0812.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="内存溢出 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="上传excel 并且解析 | Gridea - Atom Feed" href="https://yz0812.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -56,47 +56,33 @@
     </div>
     <article role="main" class="hentry has-cover">
       
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/06.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/06.jpg); height: 80vw;">
-          <h1 class="post-title">内存溢出</h1>
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/13.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/13.jpg); height: 80vw;">
+          <h1 class="post-title">上传excel 并且解析</h1>
         </div>
       
-      <h1 class="entry-title" itemprop="headline">内存溢出</h1>
+      <h1 class="entry-title" itemprop="headline">上传excel 并且解析</h1>
       <div class="entry-meta">
-        <time class="updated" datetime="2020-07-08 00:19:19">2020-07-08</time>
+        <time class="updated" datetime="2020-11-20 02:49:22">2020-11-20</time>
         <span class="author vcard">
           1 min read
         </span>
       </div>
       <div class="post-content yue">
-        <p>前言：使用tomcat部署项目之后，使用poi导出大约7W条数据是报错。然后查看日志发现是内存溢出。</p>
-<p>内存溢出报错信息</p>
-<ol>
-<li>java.lang.OutOfMemoryError: Java heap space</li>
-<li>java.lang.OutOfMemoryError: PermGen space</li>
-</ol>
-<h3 id="解决方法">解决方法</h3>
-<p>设置tomcat的内存</p>
-<h4 id="1-如果是startupbat启动">1. 如果是startup.bat启动</h4>
-<p>设置bin目录下的catalina.bat文件</p>
-<pre><code class="language-xml">set JAVA_OPTS=%JAVA_OPTS% -server -Xms800m -Xmx800m -XX:MaxNewSize=256m -XX:PermSize=128m -XX:MaxPermSize=512m
+        <pre><code class="language-java">@PostMapping(&quot;/upload&quot;) 
+public Result upload(@RequestParam MultipartFile file) throws IOException { InputStream inputStream = file.getInputStream(); 
+ExcelReader reader = ExcelUtil.getReader(inputStream); 
+List&lt;List&lt;Object&gt;&gt; readAll = reader.read(); 
+}
+
+
 </code></pre>
-<img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard.png" width = "800" height = "200" alt="图片名称" align=center />
-<p><span style="font-weight:500">网上大神提示：在JVM中如果98％的时间是用于GC且可用的Heap size 不足2％的时候将抛出此异常信息。Heap Size 最大不要超过可用物理内存的80％，一般的要将-Xms和-Xmx选项设置为相同，而-Xmn为1/4的-Xmx值。</span></p>
-<h4 id="1windows服务执行方法一">1.windows服务执行方法一</h4>
-<p>注册表</p>
-<pre><code class="language-xml">HKEY_LOCAL_MACHINE/SOFTWARE/Wow6432Node/Apache Software Foundation/Procrun 2.0/tomcat/Parameters/Java
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard1.png" alt="catalina.bat" loading="lazy"></figure>
-<h4 id="1windows服务执行方法二">1.windows服务执行方法二</h4>
-<p>打开tomcat6w.exe如果打不开执行service.bat install</p>
-<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/img/clipboard2.png" alt="catalina.bat" loading="lazy"></figure>
 
       </div>
       <div class="entry-block">
         <div class="entry-tags">
           
-            <a href="https://yz0812.top/tag/fog5GeKI9D/">
-              debug
+            <a href="https://yz0812.top/tag/IusPLq9nv3/">
+              java
             </a>
           
         </div>
@@ -106,8 +92,8 @@
       <section class="post-section prev-post">
         <div class="inner">
           <h3>前一篇</h3>
-          <a href="https://yz0812.top/post/stream-chang-yong-fang-fa/">
-            <strong>stream常用方法</strong>
+          <a href="https://yz0812.top/post/chang-yong-zheng-ze-biao-da-shi/">
+            <strong>常用正则表达式</strong>
           </a>
         </div>
       </section>
@@ -116,8 +102,8 @@
       <section class="post-section prev-post">
         <div class="inner">
           <h3>后一篇</h3>
-          <a href="https://yz0812.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/">
-            <strong>spring事物不生效的几种情况</strong>
+          <a href="https://yz0812.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/">
+            <strong>redis 从海量数据查询出某一固定前缀的key</strong>
           </a>
         </div>
       </section>
