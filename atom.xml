@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yz0812.top</id>
     <title>yz0812</title>
-    <updated>2020-11-19T19:08:12.988Z</updated>
+    <updated>2020-11-23T17:51:23.182Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yz0812.top"/>
     <link rel="self" href="https://yz0812.top/atom.xml"/>
@@ -10,135 +10,6 @@
     <logo>https://yz0812.top/images/avatar.png</logo>
     <icon>https://yz0812.top/favicon.ico</icon>
     <rights>All rights reserved 2020, yz0812</rights>
-    <entry>
-        <title type="html"><![CDATA[macos系统设置]]></title>
-        <id>https://yz0812.top/post/macos-xi-tong-she-zhi/</id>
-        <link href="https://yz0812.top/post/macos-xi-tong-she-zhi/">
-        </link>
-        <updated>2020-11-19T19:03:34.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="1在mac下安装一些软件时提示-来自身份不明开发者-或者-xxx已损坏打不开-您应该将它移到废纸篓">1.在MAC下安装一些软件时提示 <code>来自身份不明开发者</code> 或者 <code>xxx已损坏，打不开。您应该将它移到废纸篓</code></h3>
-<pre><code class="language-shell">sudo spctl --master-disable
-</code></pre>
-<p>那我们也可以通过修改系统配置来进行设置，我们打开<code>系统偏好设置 -&gt; 安全性与隐私 -&gt; 通用</code>，然后选中 <code>任何来源</code></p>
-<h3 id="2黑苹果命令下开启原生hidpi">2.黑苹果命令下开启原生HiDPI</h3>
-<pre><code class="language-shell">sh -c &quot;$(curl -fsSL https://html.sqlsec.com/hidpi.sh)&quot;
-</code></pre>
-<h3 id="3安装git">3.安装Git</h3>
-<p>首先安装Homebrew</p>
-<pre><code class="language-shell">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>然后再执行</p>
-<pre><code class="language-shell">brew install git
-</code></pre>
-<h3 id="4美化终端">4.美化终端</h3>
-<blockquote>
-<p>1.安装</p>
-</blockquote>
-<pre><code class="language-shell"># 下载oh-my-zsh
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
-# 创建一个新的配置文件
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-
-# 授权，如果不授权每次会有警告
-chmod 755 /usr/local/share/zsh
-chmod 755 /usr/local/share/zsh/site-functions
-
-</code></pre>
-<blockquote>
-<p>退出终端<code>Command + Q</code>，重新启动终端：</p>
-</blockquote>
-<h3 id="命令高亮插件">命令高亮插件</h3>
-<p><strong>插件名称：</strong><code>zsh-syntax-highlighting</code>。<br>
-<strong>效果：</strong><br>
-如果输入的命令不正确，命令不会变色，如果输入的命令正确，命令会变色：</p>
-<pre><code class="language-shell"># 下载命令高亮插件
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
-
-# 配置插件生效
-echo '# 命令高亮\nsource ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' &gt;&gt; ~/.zshrc
-
-</code></pre>
-<h3 id="命令提示插件">命令提示插件</h3>
-<p><strong>插件名称：</strong><code>zsh-autosuggestions</code>。<br>
-<strong>效果：</strong><br>
-输入过的命令，再次输入时，会显示最后一次历史命令，用<code>上下</code>可以切换更多历史命令，<code>回车</code>选中命令。</p>
-<pre><code class="language-shell"># 下载命令提示插件
-$ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-
-# 配置插件生效
-echo '# 命令提示\nsource ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' &gt;&gt; ~/.zshrc
-</code></pre>
-<h3 id="5docker-阿里云加速">5.docker 阿里云加速</h3>
-<p>打开<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">阿里云</a> 选择镜像中心-镜像加速器-mac。 然后就会看到</p>
-<blockquote>
-<p>在任务栏点击 Docker Desktop 应用图标 -&gt; Perferences，在左侧导航菜单选择 Docker Engine，在右侧输入栏编辑 json 文件。将https://colmcy5j.mirror.aliyuncs.com加到&quot;registry-mirrors&quot;的数组里，点击 Apply &amp; Restart按钮，等待Docker重启并应用配置的镜像加速器。</p>
-</blockquote>
-<p>然后现有的json为</p>
-<pre><code class="language-json">{
-  &quot;features&quot;: {
-    &quot;buildkit&quot;: true
-  },
-  &quot;experimental&quot;: false
-}
-</code></pre>
-<p>修改为</p>
-<pre><code class="language-json">{
-  &quot;features&quot;: {
-    &quot;buildkit&quot;: true
-  },
-  &quot;experimental&quot;: false,
-&quot;registry-mirrors&quot;: [
-    &quot;https://colmcy5j.mirror.aliyuncs.com&quot;
-  ]
-}
-</code></pre>
-<p>然后点击Apply &amp; Restart</p>
-<h3 id="6安装telnet">6.安装telnet</h3>
-<pre><code class="language-shell">brew install telnet
-</code></pre>
-<h3 id="7配置jdk环境">7.配置jdk环境</h3>
-<p>jdk的真实主目录如下：<br>
-/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</p>
-<pre><code class="language-shell">#打开终端，进入当前用户的home目录：
-
-cd ~/
-#打开.bash_profile并编辑：
-
-open .bash_profile
-#在文件的末尾加入这一行语句：
-
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
-
-
-</code></pre>
-<h3 id="8-jenkins-加速">8. Jenkins 加速</h3>
-<p>查看日志</p>
-<pre><code>docker logs -f jenkins
-</code></pre>
-<h4 id="插件下载管理">插件下载管理</h4>
-<p>先进入 <code>http://ip:9090/pluginManager/advanced</code>插件管理页，原来的地址是<code>https://updates.jenkins.io/update-center.json</code></p>
-<p>修改为 http://mirror.xmission.com/jenkins/updates/update-center.json</p>
-<p>重启</p>
-<p>cd 到updates目录,找到default.json文件</p>
-<pre><code class="language-shell">[_0_2_centos jenkins]# cd updates/
-[_0_2_centos updates]# ll
-total 2068
--rw-r--r-- 1 1000 1000 1824566 Dec 29 16:20 default.json
--rw-r--r-- 1 1000 1000    5350 Dec 29 16:20 hudson.tasks.Maven.MavenInstaller
--rw-r--r-- 1 1000 1000  279724 Dec 29 16:47 hudson.tools.JDKInstaller
-[_0_2_centos updates]# vi default.json
-</code></pre>
-<p>使用vi编辑文件，如下，替换所有插件下载的url</p>
-<pre><code class="language-shell">:1,$s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g
-
-:1,$s/http:\/\/www.google.com/https:\/\/www.baidu.com/g
-</code></pre>
-<p>进入vi先输入:然后再粘贴上边的:后边的命令，注意不要写两个冒号！<br>
-修改完成保存退出:wq</p>
-<p>然后重启</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[mac软件安装软件]]></title>
         <id>https://yz0812.top/post/mac-ruan-jian-an-zhuang-ruan-jian/</id>
@@ -565,6 +436,89 @@ BGSAVE做镜像全量持久化，AOF做增量持久化</p>
 <li>2.8版本redis-sentinel支持高可用</li>
 <li>3.0版本redis-cluster支持分布式</li>
 </ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[stream常用方法]]></title>
+        <id>https://yz0812.top/post/stream-chang-yong-fang-fa/</id>
+        <link href="https://yz0812.top/post/stream-chang-yong-fang-fa/">
+        </link>
+        <updated>2020-07-07T17:00:29.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="1-剔除重复值">1. 剔除重复值</h4>
+<pre><code class="language-java">List&lt;T&gt; list = snList.stream().distinct().collect(Collectors.toList()
+</code></pre>
+<p>或者使用hutool的</p>
+<pre><code class="language-java">collUtil.distinct()
+</code></pre>
+<h4 id="2-切割liststring成为字符串">2. 切割List<String>成为字符串</h4>
+<pre><code class="language-java">String str = snList.stream().collect(Collectors.joining(&quot;','&quot;))
+</code></pre>
+<h4 id="3-将对listt进行筛选">3. 将对List<T>进行筛选</h4>
+<pre><code class="language-java">List&lt;String&gt; list = list.stream().map(l -&gt; l.getStr()).collect(Collectors.toList())
+</code></pre>
+<h4 id="4-判断listt某个值是否存在">4. 判断List<T>某个值是否存在</h4>
+<p>使用hutool的方法</p>
+<pre><code class="language-java">Filter&lt;String&gt; filterCustSn =s-&gt;s.equals(&quot;张三&quot;);
+if (StrUtil.isNotEmpty(CollUtil.findOne(snList,filterCustSn))){
+  continue;
+}
+</code></pre>
+<p>Stream</p>
+<pre><code class="language-java">boolean bol = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findAny().isPresent();
+</code></pre>
+<h4 id="5根据条件获取listt的某个值">5.根据条件获取List<T>的某个值</h4>
+<pre><code class="language-java">T t = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findFirst().get();
+</code></pre>
+<p>如果没有匹配的就会报错</p>
+<pre><code class="language-java">Exception in thread &quot;main&quot; java.util.NoSuchElementException: No value present
+	at java.util.Optional.get(Optional.java:135)
+</code></pre>
+<p>推荐使用下面的方法</p>
+<pre><code class="language-java">T t = list.stream.filter(m-&gt;m.getStr().equals(&quot;张三&quot;)).findFirst().orElse(null);
+</code></pre>
+<h4 id="6获取listt中金额最大值-bigdecimals类型">6.获取List<T>中金额最大值 bigDecimals类型</h4>
+<pre><code class="language-java">BigDecimal maxBig = Arrays.stream(bigDecimals).max(BigDecimal::compareTo).get()
+</code></pre>
+<h4 id="7打印">7.打印</h4>
+<pre><code class="language-java">Arrays.stream(strings).forEach(System.out::println)
+</code></pre>
+<h4 id="8排序">8.排序</h4>
+<pre><code class="language-java">List&lt;T&gt; sortList = list.stream().sorted(Comparator.comparing(T::getAge)) 
+//方法二
+List&lt;T&gt; sortList = Arrays.asList(strings).stream().mapToInt(Integer::parseInt).toArray();
+</code></pre>
+<h4 id="9查询listt所有匹配数据">9.查询List<T>所有匹配数据</h4>
+<pre><code class="language-java">List&lt;T&gt; list = list.stream().filter(b-&gt;b.getStr().equals(&quot;张三&quot;)).collect(
+    Collectors.joining()).trim()
+</code></pre>
+<h4 id="10合计-bigdecimals类型也可以使用">10.合计 bigDecimals类型也可以使用</h4>
+<pre><code class="language-java">double sum= dto.stream().mapToDouble((x)-&gt;x.getMoney().doubleValue()).sum()
+</code></pre>
+<h3 id="11交集">11.交集</h3>
+<pre><code class="language-java">        List&lt;String&gt; intersection = list1.stream().filter(item -&gt; list2.contains(item)).collect(toList());
+        System.out.println(&quot;---交集 intersection---&quot;);
+        intersection.parallelStream().forEach(System.out :: println);
+</code></pre>
+<h3 id="12差集">12.差集</h3>
+<pre><code class="language-java">        //  (list2 - list1)
+        List&lt;String&gt; reduce2 = list2.stream().filter(item -&gt; !list1.contains(item)).collect(toList());
+        System.out.println(&quot;---差集 reduce2 (list2 - list1)---&quot;);
+        reduce2.parallelStream().forEach(System.out :: println);
+</code></pre>
+<h3 id="13并集">13.并集</h3>
+<pre><code> ```java
+    List&lt;String&gt; listAll = list1.parallelStream().collect(toList());
+    List&lt;String&gt; listAll2 = list2.parallelStream().collect(toList());
+    listAll.addAll(listAll2);
+    System.out.println(&quot;---并集 listAll---&quot;);
+    listAll.parallelStream().forEachOrdered(System.out :: println);
+</code></pre>
+<pre><code>### 14.去重并集
+       ```java
+       List&lt;String&gt; listAllDistinct = listAll.stream().distinct().collect(toList());
+       System.out.println(&quot;---得到去重并集 listAllDistinct---&quot;);
+       listAllDistinct.parallelStream().forEachOrdered(System.out :: println);
+</code></pre>
 ]]></content>
     </entry>
 </feed>
