@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
-    <title>yz0812</title>
-    <updated>2020-11-25T16:27:41.080Z</updated>
+    <title>wuc0714</title>
+    <updated>2020-11-25T16:35:26.904Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
     <subtitle>The more you know, the more you don&apos;t know</subtitle>
     <logo>https://wuc0714.top/images/avatar.png</logo>
     <icon>https://wuc0714.top/favicon.ico</icon>
-    <rights>All rights reserved 2020, yz0812</rights>
+    <rights>All rights reserved 2020, wuc0714</rights>
     <entry>
         <title type="html"><![CDATA[macos系统设置]]></title>
         <id>https://wuc0714.top/post/macos-xi-tong-she-zhi/</id>
