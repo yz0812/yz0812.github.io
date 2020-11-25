@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>macos系统设置 | yz0812</title>
 <meta name="description" content="The more you know, the more you don't know" />
-<link rel="shortcut icon" href="https://yz0812.top/favicon.ico?v=1605812879545">
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1606321656632">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
-<link rel="stylesheet" href="https://yz0812.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="macos系统设置 | yz0812 - Atom Feed" href="https://yz0812.top/atom.xml">
+<link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="macos系统设置 | yz0812 - Atom Feed" href="https://wuc0714.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -21,7 +21,7 @@
     <div class="site-nav has-cover">
       <div class="head">
   <div class="inner">
-    <a class="site-name" href="https://yz0812.top">
+    <a class="site-name" href="https://wuc0714.top">
         <span>yz0812</span>
     </a>
     <label class="burger" for="burger"></label>
@@ -64,7 +64,7 @@
       <div class="entry-meta">
         <time class="updated" datetime="2020-11-20 03:03:34">2020-11-20</time>
         <span class="author vcard">
-          4 min read
+          5 min read
         </span>
       </div>
       <div class="post-content yue">
@@ -164,7 +164,36 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Hom
 
 
 </code></pre>
-<h3 id="8-jenkins-加速">8. Jenkins 加速</h3>
+<h3 id="8-docker-compose安装jenkins">8. docker-compose安装jenkins</h3>
+<p>1.查询docker中是否有jenkins镜像</p>
+<pre><code class="language-shell">docker search jenkins
+</code></pre>
+<ol start="2">
+<li>查看镜像</li>
+</ol>
+<pre><code class="language-shell">docker images
+</code></pre>
+<ol start="3">
+<li>如果已经有jenkins就删除</li>
+</ol>
+<pre><code class="language-shell">docker rmi -f jenkins
+</code></pre>
+<ol start="4">
+<li>下载 jenkins镜像</li>
+</ol>
+<pre><code class="language-shell">docker pull jenkins/jenkins
+</code></pre>
+<ol start="5">
+<li>查看版本号</li>
+</ol>
+<pre><code class="language-shell">docker inspect Image ID
+</code></pre>
+<ol start="6">
+<li>执行</li>
+</ol>
+<pre><code class="language-shell">docker-compose up -d 
+</code></pre>
+<h3 id="9-jenkins-加速">9. Jenkins 加速</h3>
 <p>查看日志</p>
 <pre><code>docker logs -f jenkins
 </code></pre>
@@ -194,7 +223,7 @@ total 2068
       <div class="entry-block">
         <div class="entry-tags">
           
-            <a href="https://yz0812.top/tag/LksdY7kyFt/">
+            <a href="https://wuc0714.top/tag/LksdY7kyFt/">
               install
             </a>
           
@@ -206,7 +235,7 @@ total 2068
       <section class="post-section prev-post">
         <div class="inner">
           <h3>后一篇</h3>
-          <a href="https://yz0812.top/post/mac-ruan-jian-an-zhuang-ruan-jian/">
+          <a href="https://wuc0714.top/post/mac-ruan-jian-an-zhuang-ruan-jian/">
             <strong>mac软件安装软件</strong>
           </a>
         </div>
@@ -217,8 +246,8 @@ total 2068
 
     <footer class="footer">
   <div class="main">
-    <a href="https://yz0812.top">
-      <img class="avatar" src="https://yz0812.top/images/avatar.png?v=1605812879545" alt="yz0812">
+    <a href="https://wuc0714.top">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1606321656632" alt="yz0812">
     </a>
     <div class="footer__social">
       
@@ -246,11 +275,11 @@ total 2068
     <p class="footer__sosumi">
       联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
     </p>
-    <a class="footer-rss" href="https://yz0812.top/atom.xml">RSS</a>
+    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
   </div>
 </footer>
 
-<script src="https://yz0812.top/media/prism.js"></script>
+<script src="https://wuc0714.top/media/prism.js"></script>
 <script>
   Prism.highlightAll()
 </script>
