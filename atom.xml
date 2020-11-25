@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yz0812.top</id>
+    <id>https://wuc0714.top</id>
     <title>yz0812</title>
-    <updated>2020-11-23T17:51:23.182Z</updated>
+    <updated>2020-11-25T16:22:14.023Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yz0812.top"/>
-    <link rel="self" href="https://yz0812.top/atom.xml"/>
+    <link rel="alternate" href="https://wuc0714.top"/>
+    <link rel="self" href="https://wuc0714.top/atom.xml"/>
     <subtitle>The more you know, the more you don&apos;t know</subtitle>
-    <logo>https://yz0812.top/images/avatar.png</logo>
-    <icon>https://yz0812.top/favicon.ico</icon>
+    <logo>https://wuc0714.top/images/avatar.png</logo>
+    <icon>https://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2020, yz0812</rights>
     <entry>
         <title type="html"><![CDATA[mac软件安装软件]]></title>
-        <id>https://yz0812.top/post/mac-ruan-jian-an-zhuang-ruan-jian/</id>
-        <link href="https://yz0812.top/post/mac-ruan-jian-an-zhuang-ruan-jian/">
+        <id>https://wuc0714.top/post/mac-ruan-jian-an-zhuang-ruan-jian/</id>
+        <link href="https://wuc0714.top/post/mac-ruan-jian-an-zhuang-ruan-jian/">
         </link>
         <updated>2020-11-19T19:02:51.000Z</updated>
         <content type="html"><![CDATA[<h2 id="mac软件安装软件">mac软件安装软件</h2>
@@ -34,8 +34,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[ git常用命令]]></title>
-        <id>https://yz0812.top/post/git-chang-yong-ming-ling/</id>
-        <link href="https://yz0812.top/post/git-chang-yong-ming-ling/">
+        <id>https://wuc0714.top/post/git-chang-yong-ming-ling/</id>
+        <link href="https://wuc0714.top/post/git-chang-yong-ming-ling/">
         </link>
         <updated>2020-11-19T19:00:35.000Z</updated>
         <content type="html"><![CDATA[<h4 id="1-分支">1. 分支</h4>
@@ -124,8 +124,8 @@ git add -A  --all         add changes from all tracked and untracked files  提�
     </entry>
     <entry>
         <title type="html"><![CDATA[docker elasticsearch自动退出]]></title>
-        <id>https://yz0812.top/post/docker-elasticsearch-zi-dong-tui-chu/</id>
-        <link href="https://yz0812.top/post/docker-elasticsearch-zi-dong-tui-chu/">
+        <id>https://wuc0714.top/post/docker-elasticsearch-zi-dong-tui-chu/</id>
+        <link href="https://wuc0714.top/post/docker-elasticsearch-zi-dong-tui-chu/">
         </link>
         <updated>2020-11-19T18:58:37.000Z</updated>
         <content type="html"><![CDATA[<p>笔者：使用环境 macos</p>
@@ -134,8 +134,8 @@ git add -A  --all         add changes from all tracked and untracked files  提�
     </entry>
     <entry>
         <title type="html"><![CDATA[常用正则表达式]]></title>
-        <id>https://yz0812.top/post/chang-yong-zheng-ze-biao-da-shi/</id>
-        <link href="https://yz0812.top/post/chang-yong-zheng-ze-biao-da-shi/">
+        <id>https://wuc0714.top/post/chang-yong-zheng-ze-biao-da-shi/</id>
+        <link href="https://wuc0714.top/post/chang-yong-zheng-ze-biao-da-shi/">
         </link>
         <updated>2020-11-19T18:57:15.000Z</updated>
         <content type="html"><![CDATA[<p>常用正则表达式 18位身份证件号 [1]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$</p>
@@ -145,8 +145,8 @@ git add -A  --all         add changes from all tracked and untracked files  提�
     </entry>
     <entry>
         <title type="html"><![CDATA[上传excel 并且解析]]></title>
-        <id>https://yz0812.top/post/shang-chuan-excel-bing-qie-jie-xi/</id>
-        <link href="https://yz0812.top/post/shang-chuan-excel-bing-qie-jie-xi/">
+        <id>https://wuc0714.top/post/shang-chuan-excel-bing-qie-jie-xi/</id>
+        <link href="https://wuc0714.top/post/shang-chuan-excel-bing-qie-jie-xi/">
         </link>
         <updated>2020-11-19T18:49:22.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-java">@PostMapping(&quot;/upload&quot;) 
@@ -161,8 +161,8 @@ List&lt;List&lt;Object&gt;&gt; readAll = reader.read();
     </entry>
     <entry>
         <title type="html"><![CDATA[redis 从海量数据查询出某一固定前缀的key]]></title>
-        <id>https://yz0812.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/</id>
-        <link href="https://yz0812.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/">
+        <id>https://wuc0714.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/</id>
+        <link href="https://wuc0714.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/">
         </link>
         <updated>2020-07-08T15:35:25.000Z</updated>
         <content type="html"><![CDATA[<h3 id="redis-从海量数据查询出某一固定前缀的key">redis 从海量数据查询出某一固定前缀的key</h3>
@@ -198,8 +198,8 @@ public class TestRedis {
     </entry>
     <entry>
         <title type="html"><![CDATA[redis 分布式锁]]></title>
-        <id>https://yz0812.top/post/redis-fen-bu-shi-suo/</id>
-        <link href="https://yz0812.top/post/redis-fen-bu-shi-suo/">
+        <id>https://wuc0714.top/post/redis-fen-bu-shi-suo/</id>
+        <link href="https://wuc0714.top/post/redis-fen-bu-shi-suo/">
         </link>
         <updated>2020-07-08T15:34:30.000Z</updated>
         <content type="html"><![CDATA[<h2 id="redis-实现分布式锁">redis 实现分布式锁</h2>
@@ -256,8 +256,8 @@ java代码</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[redis 如何持久化]]></title>
-        <id>https://yz0812.top/post/redis-ru-he-chi-jiu-hua/</id>
-        <link href="https://yz0812.top/post/redis-ru-he-chi-jiu-hua/">
+        <id>https://wuc0714.top/post/redis-ru-he-chi-jiu-hua/</id>
+        <link href="https://wuc0714.top/post/redis-ru-he-chi-jiu-hua/">
         </link>
         <updated>2020-07-08T15:33:43.000Z</updated>
         <content type="html"><![CDATA[<h2 id="redis-如何持久化">redis 如何持久化</h2>
@@ -378,8 +378,8 @@ BGSAVE做镜像全量持久化，AOF做增量持久化</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[redis特性]]></title>
-        <id>https://yz0812.top/post/redis-te-xing/</id>
-        <link href="https://yz0812.top/post/redis-te-xing/">
+        <id>https://wuc0714.top/post/redis-te-xing/</id>
+        <link href="https://wuc0714.top/post/redis-te-xing/">
         </link>
         <updated>2020-07-08T15:21:36.000Z</updated>
         <content type="html"><![CDATA[<h2 id="redis特性">redis特性</h2>
@@ -440,8 +440,8 @@ BGSAVE做镜像全量持久化，AOF做增量持久化</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[stream常用方法]]></title>
-        <id>https://yz0812.top/post/stream-chang-yong-fang-fa/</id>
-        <link href="https://yz0812.top/post/stream-chang-yong-fang-fa/">
+        <id>https://wuc0714.top/post/stream-chang-yong-fang-fa/</id>
+        <link href="https://wuc0714.top/post/stream-chang-yong-fang-fa/">
         </link>
         <updated>2020-07-07T17:00:29.000Z</updated>
         <content type="html"><![CDATA[<h4 id="1-剔除重复值">1. 剔除重复值</h4>
