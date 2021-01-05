@@ -2,14 +2,24 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2020-11-30T17:14:44.248Z</updated>
+    <updated>2021-01-05T15:33:17.469Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
     <subtitle>The more you know, the more you don&apos;t know</subtitle>
     <logo>https://wuc0714.top/images/avatar.png</logo>
     <icon>https://wuc0714.top/favicon.ico</icon>
-    <rights>All rights reserved 2020, wuc0714</rights>
+    <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[maven添加jar到本地仓库]]></title>
+        <id>https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/</id>
+        <link href="https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/">
+        </link>
+        <updated>2020-12-15T15:13:23.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-shell">mvn install:install-file -Dfile=/Users/yz/Downloads/kaptcha-2.3.jar  -DgroupId=com.google.code -DartifactId=kaptcha -Dversion=2.3.2 -Dpackaging=jar
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[macos系统设置]]></title>
         <id>https://wuc0714.top/post/macos-xi-tong-she-zhi/</id>
@@ -166,6 +176,16 @@ total 2068
 <p>进入vi先输入:然后再粘贴上边的:后边的命令，注意不要写两个冒号！<br>
 修改完成保存退出:wq</p>
 <p>然后重启</p>
+<h3 id="10mvn-配置环境变量">10.mvn 配置环境变量</h3>
+<pre><code class="language-shell">vi ~/.bash_profile
+</code></pre>
+<p>编辑</p>
+<pre><code class="language-shell">export M3_HOME=/usr/local/maven/apache-maven-3.6.3
+export PATH=$M3_HOME/bin:$PATH
+</code></pre>
+<p>执行如下命令使配置的环境变量生效：</p>
+<pre><code class="language-shell">source ~/.bash_profile
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -178,7 +198,7 @@ total 2068
 <p>通讯： QQ，微信</p>
 <p>远程：<a href="https://www.todesk.com/download.html">todesk</a>，<a href="https://sunlogin.oray.com/download/">向日葵</a>，<a href="https://www.macwk.com/soft/microsoft-remote-desktop-beta">Microsoft Remote Desktop</a></p>
 <p>娱乐：网易云音乐</p>
-<p>系统：<a href="https://www.macwk.com/soft/istat-menus">iStat Menu</a></p>
+<p>系统：<a href="https://www.macwk.com/soft/istat-menus">iStat Menu</a>，Hidden Bar</p>
 <p>编辑器：<a href="https://typora.io/">Trpora</a>，<a href="https://code.visualstudio.com/Download">vscode</a>，<a href="https://www.jetbrains.com/idea/download/#section=mac">IntelliJ IDEA</a>，<a href="https://www.jetbrains.com/edu-products/download/#section=pycharm-edu">PyCharm</a></p>
 <p>笔记：网易云笔记</p>
 <p>图床：<a href="https://github.com/Molunerfinn/picgo/releases">PicGO</a></p>
@@ -186,7 +206,7 @@ total 2068
 <p>压缩: The Unarchiver</p>
 <p>数据库：<a href="https://www.macwk.com/soft/navicat-premium">Navicat</a></p>
 <p>博客：<a href="https://gridea.dev/">Gridea</a></p>
-<p>工作：<a href="https://www.docker.com/get-started">Docker</a>，有道词典，<a href="https://gitee.com/qishibo/AnotherRedisDesktopManager/releases/">AnotherRedisDesktopManager</a>，<a href="https://www.postman.com/downloads/">PostMan</a>，<a href="https://www.macwk.com/soft/office">office</a>,<a href="https://www.kdocs.cn/welcome">wps</a>,<a href="https://git-scm.com/downloads">Git</a>，<a href="https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html">JDK</a></p>
+<p>工作：<a href="https://www.docker.com/get-started">Docker</a>，有道词典，<a href="https://gitee.com/qishibo/AnotherRedisDesktopManager/releases/">AnotherRedisDesktopManager</a>，<a href="https://www.postman.com/downloads/">PostMan</a>，<a href="https://www.macwk.com/soft/office">office</a>,<a href="https://www.kdocs.cn/welcome">wps</a>,<a href="https://git-scm.com/downloads">Git</a>，<a href="https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html">JDK</a><a href="https://www.telerik.com/download/fiddler/fiddler-everywhere-osx">fiddler-everywhere</a></p>
 <p>日常工具：百度云网盘，<a href="https://www.macwk.com/soft/1password">1password</a></p>
 ]]></content>
     </entry>
@@ -539,68 +559,6 @@ AOF优点：可读性高，适合保存增量数据，数据不容易丢失<br>
 AOF缺点：文件大，恢复时间长<br>
 RDB-AOF混合持久化方式<br>
 BGSAVE做镜像全量持久化，AOF做增量持久化</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[redis特性]]></title>
-        <id>https://wuc0714.top/post/redis-te-xing/</id>
-        <link href="https://wuc0714.top/post/redis-te-xing/">
-        </link>
-        <updated>2020-07-08T15:21:36.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="redis特性">redis特性</h2>
-<h3 id="1-速度快">1. 速度快</h3>
-<ol>
-<li>内存：数据存储在内存中,读写数据的时候都不会受到硬盘 I/O 速度的限制，所以速度极快。不同介质速度也是不同的.比如ssd,和机械速度时不同的</li>
-<li>单线程：避免了不必要的上下文切换和竞争。不用考虑各种锁的问题，不存在加锁释放锁操作，不会因死锁而导致的性能消耗；</li>
-<li>Redis使用I/O多路复用技术，可以处理并发的连接。redis使用非阻塞I/O；</li>
-</ol>
-<blockquote>
-<p>redis使用多路复用技术，可以处理并发的连接。非阻塞IO 内部实现采用epoll，采用了epoll+自己实现的简单的事件框架。epoll中的读、写、关闭、连接都转化成了事件，然后利用epoll的多路复用特性，绝不在io上浪费一点时间。</p>
-</blockquote>
-<p>这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。</p>
-<h3 id="2-redis持久化">2. redis持久化</h3>
-<p>redis所有数据都保存在内存中,按理说会断电丢失数据.<br>
-硬盘是具有持久化特征的,比如说电脑蓝屏时也会将数据down pull到磁盘. redis也会将数据异步的写入到磁盘.提供了RDB 和AOF两种方式.进行持久化,然后进行恢复.</p>
-<h3 id="3-多种数据结构">3. 多种数据结构</h3>
-<p>String 最基本的数据类型,二进制安全</p>
-<p>hash  String组成的字典,适用于存储对象</p>
-<p>linked List 列表按照String元素插入的有序列表</p>
-<p>Sets String元素组成的无序集合,通过哈希实现,不允许重复</p>
-<p>sorted Set 通过分数来为集合中的成员进行从小到大的排序,不允许重复</p>
-<blockquote>
-<p>特殊类型</p>
-</blockquote>
-<p>bitMap 位图 很小的内存高效存储数据</p>
-<p>hyperLoglog超小内存唯一值计算12k,上亿或者是10亿都是12k</p>
-<p>GEO 地理信息位置 经度纬度</p>
-<h3 id="4-多语言">4. 多语言</h3>
-<ol>
-<li>java</li>
-<li>python</li>
-<li>php</li>
-<li>lua</li>
-<li>ruby</li>
-<li>nodejs</li>
-<li>等等</li>
-</ol>
-<h3 id="5-功能丰富">5. 功能丰富</h3>
-<ol>
-<li>消息订阅</li>
-<li>lua脚本</li>
-<li>事物</li>
-<li>pipeline</li>
-</ol>
-<h3 id="6-简单">6. 简单</h3>
-<ol>
-<li>不依赖外部库</li>
-<li>单线程模式</li>
-<li>23000行代码</li>
-</ol>
-<h3 id="6-高可用分布式">6. 高可用，分布式</h3>
-<ol>
-<li>2.8版本redis-sentinel支持高可用</li>
-<li>3.0版本redis-cluster支持分布式</li>
-</ol>
 ]]></content>
     </entry>
 </feed>

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>macos系统设置 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
-<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1606756481710">
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1609860788429">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -218,6 +218,16 @@ total 2068
 <p>进入vi先输入:然后再粘贴上边的:后边的命令，注意不要写两个冒号！<br>
 修改完成保存退出:wq</p>
 <p>然后重启</p>
+<h3 id="10mvn-配置环境变量">10.mvn 配置环境变量</h3>
+<pre><code class="language-shell">vi ~/.bash_profile
+</code></pre>
+<p>编辑</p>
+<pre><code class="language-shell">export M3_HOME=/usr/local/maven/apache-maven-3.6.3
+export PATH=$M3_HOME/bin:$PATH
+</code></pre>
+<p>执行如下命令使配置的环境变量生效：</p>
+<pre><code class="language-shell">source ~/.bash_profile
+</code></pre>
 
       </div>
       <div class="entry-block">
@@ -230,6 +240,15 @@ total 2068
         </div>
       </div>
     </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/">
+            <strong>maven添加jar到本地仓库</strong>
+          </a>
+        </div>
+      </section>
     
     
       <section class="post-section prev-post">
@@ -247,7 +266,7 @@ total 2068
     <footer class="footer">
   <div class="main">
     <a href="https://wuc0714.top">
-      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1606756481710" alt="wuc0714">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1609860788429" alt="wuc0714">
     </a>
     <div class="footer__social">
       
