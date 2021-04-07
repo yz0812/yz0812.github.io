@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>慕课网996笔记 | wuc0714</title>
+<meta name="description" content="The more you know, the more you don't know" />
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1617804552989">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="慕课网996笔记 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://wuc0714.top">
+        <span>wuc0714</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/19.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/19.jpg); height: 80vw;">
+          <h1 class="post-title">慕课网996笔记</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">慕课网996笔记</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2021-04-07 22:05:07">2021-04-07</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h2 id="1函数式接口">1.函数式接口</h2>
+<p>自定义函数接口</p>
+<ol>
+<li>只有一个方法只有一个方法</li>
+<li>函数式注解@FunctionInterface</li>
+<li>函数式接口的抽象方法签名: 函数描述符</li>
+</ol>
+<p>可以定义一个或者多个statis方法<br>
+可以定义一个default方法<br>
+默认函数接口</p>
+<h2 id="2-流处理">2 流处理</h2>
+<h3 id="1-操作流程">1. 操作流程</h3>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/stream.png" alt="" loading="lazy"></figure>
+<h3 id="2-操作分类">2. 操作分类</h3>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E5%88%86%E7%B1%BB.png" alt="" loading="lazy"></figure>
+<h3 id="3-操作详解">3. 操作详解</h3>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E6%93%8D%E4%BD%9C.png" alt="" loading="lazy"></figure>
+<h2 id="3-生成流的四种方式">3. 生成流的四种方式</h2>
+<h3 id="1-数值">1. 数值</h3>
+<pre><code class="language-java"> Stream&lt;Integer&gt; stream = Stream.of(1, 2, 34, 9, 52, 7);
+</code></pre>
+<h3 id="2-数组集合">2. 数组,集合</h3>
+<pre><code class="language-java">      IntStream arrStream = Arrays.stream(arr);
+</code></pre>
+<h3 id="3-函数">3. 函数</h3>
+<pre><code class="language-java">    Stream&lt;Double&gt; generate = Stream.generate(Math::random).limit(100L);
+</code></pre>
+<h3 id="4-文件">4. 文件</h3>
+<pre><code class="language-java">  Stream&lt;String&gt; lineStream = Files.lines(Paths.get(&quot;D:/test.java&quot;));
+</code></pre>
+<h2 id="4-常见收集器">4. 常见收集器</h2>
+<p>收集成为一个list</p>
+<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
+                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
+                .collect(Collectors.toList());
+</code></pre>
+<p>按照条件分组</p>
+<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
+                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
+                .collect(Collectors.toList());
+</code></pre>
+<pre><code class="language-java">  Map&lt;Boolean, List&lt;Sku&gt;&gt; map = list.stream().collect(Collectors.partitioningBy(sku -&gt; sku.getTotalPrice() &gt; 200));
+</code></pre>
+<h2 id="5资源关闭">5.资源关闭</h2>
+<p>传统关闭方式<br>
+try-&gt;catch-&gt;finally<br>
+jdk7新关闭方式<br>
+try-&gt;with-&gt;resource</p>
+<pre><code class="language-java">import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
+public class FileCopyTest {
+    String originUrl =&quot;&quot;;
+    String targetUrl =&quot;&quot;;
+
+    @Test
+    public void copyFile() {
+        // file in/out put stream
+        FileInputStream originStream = null;
+        FileOutputStream fileOutputStream = null;
+        File file;
+        try {
+            originStream = new FileInputStream(originUrl);
+            fileOutputStream = new FileOutputStream(targetUrl);
+
+            int content;
+            // iterator and read/out put byte
+            while ((content = originStream.read()) != -1) {
+                fileOutputStream.write(content);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (originStream != null) {
+                try {
+                    originStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void copyFileNewTest() {
+        try (
+                FileInputStream inputStream = new FileInputStream(originUrl);
+                FileOutputStream outputStream = new FileOutputStream(targetUrl);
+        ) {
+            int content;
+            // iterator and read/out put byte
+            while ((content = inputStream.read()) != -1) {
+                outputStream.write(content);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre>
+<h2 id="6-optional空判断">6 Optional空判断</h2>
+<pre><code class="language-java">    @Test
+    public void optionTest() {
+    		//三总定义方式
+        Optional&lt;Object&gt; o = Optional.empty();
+        Optional&lt;Integer&gt; integer = Optional.of(1);
+        Optional&lt;Object&gt; optional = Optional.ofNullable(null);
+        //空值操作
+        boolean present = optional.isPresent();
+        optional.ifPresent(System.out::println);
+        Object we = optional.orElse(&quot;we&quot;);
+        optional.orElseGet(() -&gt; { return &quot;else&quot;; });
+        optional.orElseThrow(() -&gt; { throw new RuntimeException(&quot;引用缺失&quot;); });
+    }
+
+</code></pre>
+<h2 id="7-线程池图解">7 线程池图解</h2>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%AE%80%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://wuc0714.top/tag/OO9AsLppIP/">
+              notepad
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://wuc0714.top/post/vue-bug/">
+            <strong>vue bug</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/">
+            <strong>maven添加jar到本地仓库</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://wuc0714.top">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1617804552989" alt="wuc0714">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
+    </p>
+    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://wuc0714.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

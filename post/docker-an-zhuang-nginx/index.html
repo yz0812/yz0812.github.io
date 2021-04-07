@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>docker elasticsearch自动退出 | wuc0714</title>
+<title> docker 安装nginx | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1617804552989">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 <link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="docker elasticsearch自动退出 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title=" docker 安装nginx | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -56,48 +56,97 @@
     </div>
     <article role="main" class="hentry has-cover">
       
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/14.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/14.jpg); height: 80vw;">
-          <h1 class="post-title">docker elasticsearch自动退出</h1>
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/21.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/21.jpg); height: 80vw;">
+          <h1 class="post-title"> docker 安装nginx</h1>
         </div>
       
-      <h1 class="entry-title" itemprop="headline">docker elasticsearch自动退出</h1>
+      <h1 class="entry-title" itemprop="headline"> docker 安装nginx</h1>
       <div class="entry-meta">
-        <time class="updated" datetime="2020-11-20 02:58:37">2020-11-20</time>
+        <time class="updated" datetime="2021-04-07 22:06:13">2021-04-07</time>
         <span class="author vcard">
-          1 min read
+          2 min read
         </span>
       </div>
       <div class="post-content yue">
-        <p>笔者：使用环境 macos</p>
-<p>elk elasticsearch自动退出 exited with code 137； 网上查询资料发现是说内存不错的原因，然后我就把分配的jvm从512加到1024加到2048发现还是一样，最后发现需要增加的是docker内存。</p>
+        <h2 id="docker-安装nginx">docker 安装nginx</h2>
+<p>先上docker-compose 配置</p>
+<pre><code class="language-yaml">  nginx:
+    #restart: always
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - tomcat:tomcat
+    volumes:
+      - /Users/docker/yz/nginx/nginx.conf:/etc/nginx/nginx.conf #配置文件
+      - /Users/docker/yz/nginx/conf.d:/etc/nginx/conf.d #配置文件
+      - /Users/docker/yz/nginx/log:/var/log/nginx #日志地址
+      - /Users/docker/yz/nginxWeb:/Users/docker/yz/nginxWeb #映射虚拟地址
+
+  tomcat: 
+    image: tomcat:9.0
+    container_name: tomcat9.0
+    #restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /Users/docker/yz/tomcat9.0/logs:/usr/local/tomcat/logs
+      - /Users/docker/yz/tomcat9.0/webapps:/usr/local/tomcat/webapps
+</code></pre>
+<ul>
+<li>
+<p>nginx正向代理一直显示文件404,找不到文件地址,原因是没有在docker-compose.yml里面做映射</p>
+</li>
+<li>
+<p>nginx反向代理需要在docker-compose.yml配置links 然后再在 nginx.conf 配置</p>
+<pre><code class="language-yaml">    upstream tomcat_client {
+        server tomcat:8080 weight=1;
+    } 
+    server {
+        listen       80;
+
+        location / {
+            proxy_pass   http://tomcat_client;
+            index  index.html index.htm;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+</code></pre>
+</li>
+</ul>
 
       </div>
       <div class="entry-block">
         <div class="entry-tags">
           
-            <a href="https://wuc0714.top/tag/fog5GeKI9D/">
-              debug
+            <a href="https://wuc0714.top/tag/nginx/">
+              nginx
+            </a>
+          
+            <a href="https://wuc0714.top/tag/docker/">
+              docker
+            </a>
+          
+            <a href="https://wuc0714.top/tag/72_uOp7Med/">
+              interview
             </a>
           
         </div>
       </div>
     </article>
     
-      <section class="post-section prev-post">
-        <div class="inner">
-          <h3>前一篇</h3>
-          <a href="https://wuc0714.top/post/git-chang-yong-ming-ling/">
-            <strong> git常用命令</strong>
-          </a>
-        </div>
-      </section>
-    
     
       <section class="post-section prev-post">
         <div class="inner">
           <h3>后一篇</h3>
-          <a href="https://wuc0714.top/post/chang-yong-zheng-ze-biao-da-shi/">
-            <strong>常用正则表达式</strong>
+          <a href="https://wuc0714.top/post/vue-bug/">
+            <strong>vue bug</strong>
           </a>
         </div>
       </section>

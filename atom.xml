@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-01-05T15:37:40.055Z</updated>
+    <updated>2021-04-07T14:09:21.461Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
@@ -11,12 +11,229 @@
     <icon>https://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
     <entry>
+        <title type="html"><![CDATA[ docker 安装nginx]]></title>
+        <id>https://wuc0714.top/post/docker-an-zhuang-nginx/</id>
+        <link href="https://wuc0714.top/post/docker-an-zhuang-nginx/">
+        </link>
+        <updated>2021-04-07T14:06:13.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="docker-安装nginx">docker 安装nginx</h2>
+<p>先上docker-compose 配置</p>
+<pre><code class="language-yaml">  nginx:
+    #restart: always
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - tomcat:tomcat
+    volumes:
+      - /Users/docker/yz/nginx/nginx.conf:/etc/nginx/nginx.conf #配置文件
+      - /Users/docker/yz/nginx/conf.d:/etc/nginx/conf.d #配置文件
+      - /Users/docker/yz/nginx/log:/var/log/nginx #日志地址
+      - /Users/docker/yz/nginxWeb:/Users/docker/yz/nginxWeb #映射虚拟地址
+
+  tomcat: 
+    image: tomcat:9.0
+    container_name: tomcat9.0
+    #restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /Users/docker/yz/tomcat9.0/logs:/usr/local/tomcat/logs
+      - /Users/docker/yz/tomcat9.0/webapps:/usr/local/tomcat/webapps
+</code></pre>
+<ul>
+<li>
+<p>nginx正向代理一直显示文件404,找不到文件地址,原因是没有在docker-compose.yml里面做映射</p>
+</li>
+<li>
+<p>nginx反向代理需要在docker-compose.yml配置links 然后再在 nginx.conf 配置</p>
+<pre><code class="language-yaml">    upstream tomcat_client {
+        server tomcat:8080 weight=1;
+    } 
+    server {
+        listen       80;
+
+        location / {
+            proxy_pass   http://tomcat_client;
+            index  index.html index.htm;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+    }
+</code></pre>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[vue bug]]></title>
+        <id>https://wuc0714.top/post/vue-bug/</id>
+        <link href="https://wuc0714.top/post/vue-bug/">
+        </link>
+        <updated>2021-04-07T14:05:52.000Z</updated>
+        <content type="html"><![CDATA[<p>element bug</p>
+<p>input text无法编辑,v-model绑定的值没有定义</p>
+<p>input text读取之后无法编辑</p>
+<p>原因在Vue实例创建时，v-model绑定的值并未声明，因此就没有被Vue转换为响应式的属性，自然就不会触发视图的更新</p>
+<pre><code class="language-javascript">      this.$set(this.remarkInfoForm, 'remarkContent', row.remarkContent)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[慕课网996笔记]]></title>
+        <id>https://wuc0714.top/post/mu-ke-wang-996-bi-ji/</id>
+        <link href="https://wuc0714.top/post/mu-ke-wang-996-bi-ji/">
+        </link>
+        <updated>2021-04-07T14:05:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1函数式接口">1.函数式接口</h2>
+<p>自定义函数接口</p>
+<ol>
+<li>只有一个方法只有一个方法</li>
+<li>函数式注解@FunctionInterface</li>
+<li>函数式接口的抽象方法签名: 函数描述符</li>
+</ol>
+<p>可以定义一个或者多个statis方法<br>
+可以定义一个default方法<br>
+默认函数接口</p>
+<h2 id="2-流处理">2 流处理</h2>
+<h3 id="1-操作流程">1. 操作流程</h3>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/stream.png" alt="" loading="lazy"></figure>
+<h3 id="2-操作分类">2. 操作分类</h3>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E5%88%86%E7%B1%BB.png" alt="" loading="lazy"></figure>
+<h3 id="3-操作详解">3. 操作详解</h3>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E6%93%8D%E4%BD%9C.png" alt="" loading="lazy"></figure>
+<h2 id="3-生成流的四种方式">3. 生成流的四种方式</h2>
+<h3 id="1-数值">1. 数值</h3>
+<pre><code class="language-java"> Stream&lt;Integer&gt; stream = Stream.of(1, 2, 34, 9, 52, 7);
+</code></pre>
+<h3 id="2-数组集合">2. 数组,集合</h3>
+<pre><code class="language-java">      IntStream arrStream = Arrays.stream(arr);
+</code></pre>
+<h3 id="3-函数">3. 函数</h3>
+<pre><code class="language-java">    Stream&lt;Double&gt; generate = Stream.generate(Math::random).limit(100L);
+</code></pre>
+<h3 id="4-文件">4. 文件</h3>
+<pre><code class="language-java">  Stream&lt;String&gt; lineStream = Files.lines(Paths.get(&quot;D:/test.java&quot;));
+</code></pre>
+<h2 id="4-常见收集器">4. 常见收集器</h2>
+<p>收集成为一个list</p>
+<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
+                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
+                .collect(Collectors.toList());
+</code></pre>
+<p>按照条件分组</p>
+<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
+                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
+                .collect(Collectors.toList());
+</code></pre>
+<pre><code class="language-java">  Map&lt;Boolean, List&lt;Sku&gt;&gt; map = list.stream().collect(Collectors.partitioningBy(sku -&gt; sku.getTotalPrice() &gt; 200));
+</code></pre>
+<h2 id="5资源关闭">5.资源关闭</h2>
+<p>传统关闭方式<br>
+try-&gt;catch-&gt;finally<br>
+jdk7新关闭方式<br>
+try-&gt;with-&gt;resource</p>
+<pre><code class="language-java">import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
+public class FileCopyTest {
+    String originUrl =&quot;&quot;;
+    String targetUrl =&quot;&quot;;
+
+    @Test
+    public void copyFile() {
+        // file in/out put stream
+        FileInputStream originStream = null;
+        FileOutputStream fileOutputStream = null;
+        File file;
+        try {
+            originStream = new FileInputStream(originUrl);
+            fileOutputStream = new FileOutputStream(targetUrl);
+
+            int content;
+            // iterator and read/out put byte
+            while ((content = originStream.read()) != -1) {
+                fileOutputStream.write(content);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (originStream != null) {
+                try {
+                    originStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void copyFileNewTest() {
+        try (
+                FileInputStream inputStream = new FileInputStream(originUrl);
+                FileOutputStream outputStream = new FileOutputStream(targetUrl);
+        ) {
+            int content;
+            // iterator and read/out put byte
+            while ((content = inputStream.read()) != -1) {
+                outputStream.write(content);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+</code></pre>
+<h2 id="6-optional空判断">6 Optional空判断</h2>
+<pre><code class="language-java">    @Test
+    public void optionTest() {
+    		//三总定义方式
+        Optional&lt;Object&gt; o = Optional.empty();
+        Optional&lt;Integer&gt; integer = Optional.of(1);
+        Optional&lt;Object&gt; optional = Optional.ofNullable(null);
+        //空值操作
+        boolean present = optional.isPresent();
+        optional.ifPresent(System.out::println);
+        Object we = optional.orElse(&quot;we&quot;);
+        optional.orElseGet(() -&gt; { return &quot;else&quot;; });
+        optional.orElseThrow(() -&gt; { throw new RuntimeException(&quot;引用缺失&quot;); });
+    }
+
+</code></pre>
+<h2 id="7-线程池图解">7 线程池图解</h2>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%AE%80%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[maven添加jar到本地仓库]]></title>
         <id>https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/</id>
         <link href="https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/">
         </link>
         <updated>2020-12-15T15:13:23.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-shell">mvn install:install-file -Dfile=/Users/yz/Downloads/kaptcha-2.3.jar  -DgroupId=com.google.code -DartifactId=kaptcha -Dversion=2.3.2 -Dpackaging=jar
+        <content type="html"><![CDATA[<!-- more -->
+<pre><code class="language-shell">mvn install:install-file -Dfile=/Users/yz/Downloads/kaptcha-2.3.jar  -DgroupId=com.google.code -DartifactId=kaptcha -Dversion=2.3.2 -Dpackaging=jar
 </code></pre>
 ]]></content>
     </entry>
@@ -198,7 +415,7 @@ export PATH=$M3_HOME/bin:$PATH
 <p>通讯： QQ，微信</p>
 <p>远程：<a href="https://www.todesk.com/download.html">todesk</a>，<a href="https://sunlogin.oray.com/download/">向日葵</a>，<a href="https://www.macwk.com/soft/microsoft-remote-desktop-beta">Microsoft Remote Desktop</a></p>
 <p>娱乐：网易云音乐</p>
-<p>系统：<a href="https://www.macwk.com/soft/istat-menus">iStat Menu</a>，Hidden Bar</p>
+<p>系统：<a href="https://www.macwk.com/soft/istat-menus">iStat Menu</a>，Hidden Bar，<a href="https://iina.io/">iina</a></p>
 <p>编辑器：<a href="https://typora.io/">Trpora</a>，<a href="https://code.visualstudio.com/Download">vscode</a>，<a href="https://www.jetbrains.com/idea/download/#section=mac">IntelliJ IDEA</a>，<a href="https://www.jetbrains.com/edu-products/download/#section=pycharm-edu">PyCharm</a></p>
 <p>笔记：网易云笔记</p>
 <p>图床：<a href="https://github.com/Molunerfinn/picgo/releases">PicGO</a></p>
@@ -342,223 +559,6 @@ List&lt;List&lt;Object&gt;&gt; readAll = reader.read();
             &lt;version&gt;4.1.2&lt;/version&gt;
         &lt;/dependency&gt;
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[redis 从海量数据查询出某一固定前缀的key]]></title>
-        <id>https://wuc0714.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/</id>
-        <link href="https://wuc0714.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/">
-        </link>
-        <updated>2020-07-08T15:35:25.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="redis-从海量数据查询出某一固定前缀的key">redis 从海量数据查询出某一固定前缀的key</h3>
-<p>先插入1000W条数据</p>
-<pre><code class="language-java">
-import java.util.stream.IntStream;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Pipeline;
-
-public class TestRedis {
-
-  // 使用jedis实现pipeline调用
-  public static void main(String[] args) {
-    Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);
-    Pipeline pipeline = jedis.pipelined();
-    long startTime = System.currentTimeMillis();
-    IntStream.range(0, 10000000).forEach(it -&gt; pipeline.set(&quot;k&quot; + it, &quot;v&quot;+it ));
-    pipeline.syncAndReturnAll();
-    long endTime = System.currentTimeMillis();
-    System.out.println(endTime - startTime);
-  }
-}
-</code></pre>
-<p>我们可以先使用dbsize 查看总共有多少数据</p>
-<p>然后使用 keys k1*命令查询,查询出所有 k1前缀的数据,用时17秒.1111111条数据.</p>
-<p>keys 的缺点一次性返回所有匹配的数据,key数据量过大会导致服务器卡顿,对内存消耗比较大,可能会阻塞服务器.</p>
-<p>可以使用scan 命令</p>
-<p>scan cursor match k1* count 10</p>
-<p>基于游标的迭代器,需要基于上次一游标延续之前的迭代过程</p>
-<p>cursor 游标, 以0作为游标开始一次新的迭代,知道命令返回游标0完全一次遍历.</p>
-<p>不保证每次执行都会返回给定的数量,支持模糊查询</p>
-<p>一次返回的数量不可控,大概率符合给定的参数</p>]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[redis 分布式锁]]></title>
-        <id>https://wuc0714.top/post/redis-fen-bu-shi-suo/</id>
-        <link href="https://wuc0714.top/post/redis-fen-bu-shi-suo/">
-        </link>
-        <updated>2020-07-08T15:34:30.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="redis-实现分布式锁">redis 实现分布式锁</h2>
-<h3 id="1setnx">1.setnx</h3>
-<p>使用setnx 命令创建一个值.创建之后不可以被更改,因为一直被占用</br><br>
-使用expire设置设置生存时间,过期之后就会自动删除</p>
-<pre><code>127.0.0.1:6379&gt; setnx locknx test
-(integer) 1
-127.0.0.1:6379&gt; setnx locknx t
-(integer) 0
-127.0.0.1:6379&gt; get locknx
-&quot;test&quot;
-127.0.0.1:6379&gt; expire locknx 2
-(integer) 1
-127.0.0.1:6379&gt; setnx locknx t
-(integer) 1
-127.0.0.1:6379&gt; get locknx
-&quot;t&quot;
-</code></pre>
-<p>用java实现</p>
-<pre><code class="language-java">  Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);
-    long status = jedis.setnx(&quot;locknx&quot;,&quot;test&quot;);
-    //成功
-    if (status==1){
-      jedis.expire(&quot;locknx&quot;,10);
-      //执行独占资源操作
-    }
-</code></pre>
-<p>但是这种方式还是有问题如果执行到第一步时就报错了,没有释放资源,那么这个锁就会一直被占用</p>
-<h3 id="2set-key-value-ex-seconds-px-milliseconds-nxxx">2.SET key value [EX seconds] [PX milliseconds] [NX|XX]</h3>
-<p>EX seconds ： 将键的过期时间设置为 seconds 秒。 执行 SET key value EX seconds 的效果等同于执行 SETEX key seconds value 。</p>
-<p>PX milliseconds ： 将键的过期时间设置为 milliseconds 毫秒。 执行 SET key value PX milliseconds 的效果等同于执行 PSETEX key milliseconds value 。</p>
-<p>NX ： 只在键不存在时， 才对键进行设置操作。 执行 SET key value NX 的效果等同于执行 SETNX key value 。</p>
-<p>XX ： 只在键已经存在时， 才对键进行设置操作。</p>
-<pre><code>127.0.0.1:6379&gt; set locknx test ex 10 nx
-OK
-127.0.0.1:6379&gt; set locknx test ex 10 nx
-(nil)
-127.0.0.1:6379&gt;
-</code></pre>
-<p>第一次执行返回ok,然就在10秒内再执行就返回nil.<br>
-java代码</p>
-<pre><code class="language-java">    Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);
-    String result = jedis.set(&quot;locknx&quot;,&quot;test&quot;,&quot;nx&quot;,&quot;ex&quot;,10);
-    //成功
-    if (result.equals(&quot;ok&quot;)){
-      //执行独占资源操作
-    }
-</code></pre>
-<p>大量key同时过期的注意事项<br>
-集中过期,由于清除大量的key很耗时,会出现短暂卡顿.<br>
-解决办法:在设置key过期时,给每个key加上随机值.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[redis 如何持久化]]></title>
-        <id>https://wuc0714.top/post/redis-ru-he-chi-jiu-hua/</id>
-        <link href="https://wuc0714.top/post/redis-ru-he-chi-jiu-hua/">
-        </link>
-        <updated>2020-07-08T15:33:43.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="redis-如何持久化">redis 如何持久化</h2>
-<h3 id="1rdb快照-保存某个时间的全量数据快照">1.RDB(快照) 保存某个时间的全量数据快照</h3>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/img/redis-config.jpg" alt="图片" loading="lazy"></figure>
-<p>保存策略</p>
-<blockquote>
-<p>save 900 1</p>
-<blockquote>
-<p>900秒内提交了一条数据,就产生一次快照</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>save 300 10</p>
-<blockquote>
-<p>300秒内提交了10条数据,就产生一次快照</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>save 60 10000</p>
-<blockquote>
-<p>60秒内提交了10000条数据,就产生一次快照</p>
-</blockquote>
-</blockquote>
-<p>为什么定义这么多策略?<br>
-应付不同的环境</p>
-<blockquote>
-<p>stop-writes-on-bgsave-error yes</p>
-<blockquote>
-<p>当备份进程报错时,就停止写入进程.保护持久化数据一致性的问题.如果自己的业务有完善的监护系统,可以关闭此选项</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>rdbcompression yes</p>
-<blockquote>
-<p>再备份的时候,将rdb文件进行压缩再保存.建议设置成no,因为redis本身就属于cpu密集型服务器,再开启压缩会带来更多cpu消耗,相比硬盘成本,cpu更值钱</br><br>
-如果你想要禁用RDB配置，也是非常容易的，只需要在save的最后一行写上：save &quot;&quot;</p>
-</blockquote>
-</blockquote>
-<h3 id="2rdb快照-持久化保存某个时间的全量数据快照">2.RDB(快照) 持久化:保存某个时间的全量数据快照</h3>
-<ol>
-<li>save: 阻塞redis的服务器进程,知道RDB文件被创建完毕.</li>
-<li>bgsave: Fork出一个子进程来创建RDB文件,不阻塞服务器进程.</li>
-</ol>
-<pre><code>127.0.0.1:6379&gt; save
-OK
-(11.68s)
-127.0.0.1:6379&gt; lastsave
-(integer) 1593269427
-127.0.0.1:6379&gt; bgsave
-Background saving started
-127.0.0.1:6379&gt; lastsave
-(integer) 1593269464
-</code></pre>
-<p>我们可以先删除 dump.rdb文件,然后再用save保存快照.可以看到阻塞了主线程11秒. lastsave可以查看备份时间.<br>
-bgsave会立即返回,然后过段时间再使用lsatsave查看,可以看到两个返回的时间是不一样的.</p>
-<h3 id="3自动化触发rdb持久化的方式">3.自动化触发RDB持久化的方式</h3>
-<ol>
-<li>根据redis.conf配置里面的 save m n定时触发(用的是besave)</li>
-<li>主从复制时,主节点自动触发</li>
-<li>执行Debug Reload</li>
-<li>执行Shutdown 且没有k开启AOF持久化</li>
-</ol>
-<p>save基本不会用到,所以来看看bgsave实现原理.<br>
-<img src="https://gitee.com/yz0812/mypic/raw/master/img/redis-bgsave.jpg" alt="bgsave" loading="lazy"></p>
-<h2 id="aofappend-only-file持久化保存写状态">AOF(Append-Only-File)持久化,保存写状态</h2>
-<ol>
-<li>记录下出查询以外所有的变更数据库状态的指令</li>
-<li>以append的形式追加保存到AOF文件中(增量)</li>
-</ol>
-<pre><code>appendonly no
-
-# The name of the append only file (default: &quot;appendonly.aof&quot;)
-appendfilename &quot;appendonly.aof&quot;
-
-# appendfsync always
-appendfsync everysec
-# appendfsync no
-</code></pre>
-<blockquote>
-<p>appendonly no</p>
-<blockquote>
-<p>是否开启AOF持久化</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>appendfilename &quot;appendonly.aof&quot;</p>
-<blockquote>
-<p>保存的文件名</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>appendfsync always</p>
-<blockquote>
-<p>一旦发生缓存区的内容发生变化就写入到aof文件</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>appendfsync everysec</p>
-<blockquote>
-<p>每隔一秒钟写入到aof文件</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>appendfsync no</p>
-<blockquote>
-<p>根据系统策略来保存,一般是等缓存区被填满了再保存.</p>
-</blockquote>
-</blockquote>
-<p>RDB和AOF的优缺点<br>
-RDB优点：全量数据快照，文件小，恢复快<br>
-RDB缺点：无法保存最近一次快照之后的数据<br>
-AOF优点：可读性高，适合保存增量数据，数据不容易丢失<br>
-AOF缺点：文件大，恢复时间长<br>
-RDB-AOF混合持久化方式<br>
-BGSAVE做镜像全量持久化，AOF做增量持久化</p>
 ]]></content>
     </entry>
 </feed>
