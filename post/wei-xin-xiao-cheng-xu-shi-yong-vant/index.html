@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>微信小程序使用vant | wuc0714</title>
+<meta name="description" content="The more you know, the more you don't know" />
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1618933083056">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="微信小程序使用vant | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://wuc0714.top">
+        <span>wuc0714</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/22.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/22.jpg); height: 80vw;">
+          <h1 class="post-title">微信小程序使用vant</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">微信小程序使用vant</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2021-04-20 23:35:44">2021-04-20</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h2 id="微信小程序使用vant构建">微信小程序使用Vant构建</h2>
+<ol>
+<li>
+<p>创建好后使用 npm init 命令构建package.json文件</p>
+</li>
+<li>
+<p>安装vant</p>
+</li>
+</ol>
+<pre><code class="language-sh"># 通过 npm 安装
+npm i @vant/weapp -S --production
+
+# 通过 yarn 安装
+yarn add @vant/weapp --production
+
+# 安装 0.x 版本
+npm i vant-weapp -S --production
+</code></pre>
+<ol start="3">
+<li>
+<p>修改 app.json</p>
+<ul>
+<li>将 app.json 中的 <code>&quot;style&quot;: &quot;v2&quot;</code> 去除，小程序的<a href="https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html#style">新版基础组件</a>强行加上了许多样式，难以覆盖，不关闭将造成部分组件样式混乱。</li>
+</ul>
+</li>
+<li>
+<p>步骤三 修改 project.config.json<br>
+开发者工具创建的项目，miniprogramRoot 默认为 miniprogram，package.json 在其外部，npm 构建无法正常工作。</p>
+</li>
+</ol>
+<p>需要手动在 project.config.json 内添加如下配置，使开发者工具可以正确索引到 npm 依赖的位置。</p>
+<p>{<br>
+...<br>
+&quot;setting&quot;: {<br>
+...<br>
+&quot;packNpmManually&quot;: true,<br>
+&quot;packNpmRelationList&quot;: [<br>
+{<br>
+&quot;packageJsonPath&quot;: &quot;./package.json&quot;,<br>
+&quot;miniprogramNpmDistDir&quot;: &quot;./&quot;<br>
+}<br>
+]<br>
+}<br>
+}<br>
+注意： 由于目前新版开发者工具创建的小程序目录文件结构问题，npm构建的文件目录为miniprogram_npm，并且开发工具会默认在当前目录下创建miniprogram_npm的文件名，所以新版本的miniprogramNpmDistDir配置为'./'即可</p>
+<ol start="5">
+<li>
+<p>构建 npm 包  打开微信开发者工具，点击 工具 -&gt; 构建 npm，并勾选 使用 npm 模块 选项，构建完成后，即可引入组件。<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/20210408011924.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>使用</p>
+<h3 id="引入组件">引入组件</h3>
+<p>以 Button 组件为例，只需要在<code>app.json</code>或<code>index.json</code>中配置 Button 对应的路径即可。</p>
+<p>所有组件文档中的引入路径均以 npm 安装为例，如果你是通过下载源代码的方式使用 @vant/weapp，请将路径修改为项目中 @vant/weapp 所在的目录。</p>
+<pre><code class="language-json">// 通过 npm 安装
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;@vant/weapp/button/index&quot;
+}
+// 通过下载源码使用 es6版本
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;path/to/@vant/weapp/dist/button/index&quot;
+}
+// 通过下载源码使用 es5版本
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;path/to/@vant/weapp/lib/button/index&quot;
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="使用组件">使用组件</h3>
+<p>引入组件后，可以在 wxml 中直接使用组件</p>
+<pre><code class="language-xml">&lt;van-button type=&quot;primary&quot;&gt;按钮&lt;/van-button&gt;
+</code></pre>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://wuc0714.top/tag/880hupr9Q/">
+              小程序
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/">
+            <strong>微信小程序使用 Eslint</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://wuc0714.top/post/docker-an-zhuang-nginx/">
+            <strong> docker 安装nginx</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://wuc0714.top">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1618933083056" alt="wuc0714">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
+    </p>
+    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://wuc0714.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

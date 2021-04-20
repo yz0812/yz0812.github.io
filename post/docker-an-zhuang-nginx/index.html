@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title> docker 安装nginx | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
-<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1617804816127">
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1618933083056">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -119,7 +119,20 @@
     }
 </code></pre>
 </li>
+<li>
+<p>nginx docker使用反向代理</p>
+</li>
 </ul>
+<p>server_name 在mac中无法使用localhost,127.0.0.1</p>
+<pre><code class="language-yaml">  server {
+        listen       80;
+        server_name  192.168.3.33;
+        location / {
+            proxy_set_header Host $host;
+            proxy_pass http://192.168.3.33:8761;
+        }
+    }
+</code></pre>
 
       </div>
       <div class="entry-block">
@@ -133,13 +146,18 @@
               docker
             </a>
           
-            <a href="https://wuc0714.top/tag/72_uOp7Med/">
-              interview
-            </a>
-          
         </div>
       </div>
     </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-vant/">
+            <strong>微信小程序使用vant</strong>
+          </a>
+        </div>
+      </section>
     
     
       <section class="post-section prev-post">
@@ -157,7 +175,7 @@
     <footer class="footer">
   <div class="main">
     <a href="https://wuc0714.top">
-      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1617804816127" alt="wuc0714">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1618933083056" alt="wuc0714">
     </a>
     <div class="footer__social">
       
