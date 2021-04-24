@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-04-22T16:31:17.449Z</updated>
+    <updated>2021-04-24T14:59:33.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
@@ -10,6 +10,63 @@
     <logo>https://wuc0714.top/images/avatar.png</logo>
     <icon>https://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[jenkins 升级]]></title>
+        <id>https://wuc0714.top/post/jenkins-sheng-ji/</id>
+        <link href="https://wuc0714.top/post/jenkins-sheng-ji/">
+        </link>
+        <updated>2021-04-24T14:58:28.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="1更换安装源">1.更换安装源</h3>
+<p><strong>jenkins 更换安装源</strong>,进入<code>http://127.0.0.1:8091/pluginManager/advanced</code>,高级设置</p>
+<p>修改站点为清华源地址<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code></p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210424204159.png" alt="" loading="lazy"></figure>
+<h3 id="2修改下载地址">2.修改下载地址</h3>
+<p>进入/jenkins/updates/ 找到default.json</p>
+<p>这是老版本的替换命令，具体来说就是将<code>updates.jenkins-ci.org</code>替换为<code>mirrors.tuna.tsinghua.edu.cn</code>，<code>www.google.com</code>替换为<code>www.baidu.com</code>：</p>
+<pre><code class="language-sh">sed -i 's#http://updates.jenkins-ci.org/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
+</code></pre>
+<p>当然，在最新的jenkins版本中，已经有了调整，配置文件中的地址不再是<code>updates.jenkins-ci.org</code> ,而是将<code>https://updates.jenkins.io/download</code></p>
+<p>替换为<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins</code></p>
+<pre><code class="language-shell">sed -i 's#https://updates.jenkins.io/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
+</code></pre>
+<h3 id="3jenkins更新war包">3.jenkins更新war包</h3>
+<p>1.查询container_id</p>
+<pre><code class="language-docker">docker container ls
+</code></pre>
+<p>2.进入容器,使用root身份</p>
+<pre><code class="language-sh">docker exec -it -u root [container_id] /bin/bash
+</code></pre>
+<p>3.其次，执行命令查看java进程</p>
+<pre><code class="language-shell">root@dd7cdfba9d52:/# ps -ef | grep java
+jenkins      8     1  1 19:57 ?        00:01:15 java -Duser.home=/var/jenkins_home -Djenkins.model.Jenkins.slaveAgentPort=50000 -jar /usr/share/jenkins/jenkins.war
+root       103    95  0 21:02 pts/0    00:00:00 grep java
+root@dd7cdfba9d52:/# 
+</code></pre>
+<p>4.下载最新的war包</p>
+<pre><code class="language-shell"># 进入容器之后进入进入war存放地址
+cd /usr/share/jenkins/
+# 将之前的war修改名字
+cp jenkins.war jenkins.war.2.60.3.bak
+# 创建文件夹用于存放新下载的war
+mkdir other-version
+# 进入文件夹
+cd other-version/
+# 下载新的war
+wget https://updates.jenkins.io/download/war/2.289/jenkins.war
+# 进入存放目录
+cd /usr/share/jenkins
+# 删除旧war
+rm jenkins.war
+# 进入新的文件夹
+cd other-version
+# 移动war
+mv jenkins.war ../
+# 退出
+exit
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/5C7C2708-33CE-4EE3-8B00-850496E27E7E.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[微信小程序使用 Eslint]]></title>
         <id>https://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/</id>
@@ -888,96 +945,6 @@ export PATH=$M3_HOME/bin:$PATH
 <p>博客：<a href="https://gridea.dev/">Gridea</a></p>
 <p>工作：<a href="https://www.docker.com/get-started">Docker</a>，有道词典，<a href="https://gitee.com/qishibo/AnotherRedisDesktopManager/releases/">AnotherRedisDesktopManager</a>，<a href="https://www.postman.com/downloads/">PostMan</a>，<a href="https://www.macwk.com/soft/office">office</a>,<a href="https://www.kdocs.cn/welcome">wps</a>,<a href="https://git-scm.com/downloads">Git</a>，<a href="https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html">JDK</a><a href="https://www.telerik.com/download/fiddler/fiddler-everywhere-osx">fiddler-everywhere</a></p>
 <p>日常工具：百度云网盘，<a href="https://www.macwk.com/soft/1password">1password</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ git常用命令]]></title>
-        <id>https://wuc0714.top/post/git-chang-yong-ming-ling/</id>
-        <link href="https://wuc0714.top/post/git-chang-yong-ming-ling/">
-        </link>
-        <updated>2020-11-19T19:00:35.000Z</updated>
-        <content type="html"><![CDATA[<h4 id="1-分支">1. 分支</h4>
-<ol>
-<li>初始化本地仓库</li>
-</ol>
-<blockquote>
-<p>git init</p>
-</blockquote>
-<ol start="2">
-<li>查看本地和远程所有分支</li>
-</ol>
-<blockquote>
-<p>git branch -a</p>
-</blockquote>
-<ol start="3">
-<li>删除本地分支</li>
-</ol>
-<blockquote>
-<p>git branch -D branch_name</p>
-</blockquote>
-<ol start="4">
-<li>删除远程分支</li>
-</ol>
-<blockquote>
-<p>git push origin -d branch_name</p>
-</blockquote>
-<ol start="5">
-<li>创建本地分支</li>
-</ol>
-<blockquote>
-<p>git branch test</p>
-</blockquote>
-<ol start="6">
-<li>创建本地分支并且切换</li>
-</ol>
-<blockquote>
-<p>git checkout test</p>
-</blockquote>
-<ol start="7">
-<li>提交分支到远程</li>
-</ol>
-<blockquote>
-<p>git push origin sourcecode</p>
-</blockquote>
-<h4 id="2提交">2.提交</h4>
-<ol>
-<li>查看代码的修改状态</li>
-</ol>
-<blockquote>
-<p>git status</p>
-</blockquote>
-<ol start="2">
-<li>暂存需要提交的文件</li>
-</ol>
-<blockquote>
-<p>git add <file><br>
-git add . 后面加一个“.”，匹配所有的文件<br>
-git add -u   --update     update tracked files  更新所有改变的文件，即提交所有变化的文件<br>
-git add -A  --all         add changes from all tracked and untracked files  提交已被修改和已被删除</p>
-</blockquote>
-<ol start="3">
-<li>提交已暂存的文件</li>
-</ol>
-<blockquote>
-<p>git commit  -m &quot;first commit&quot;</p>
-</blockquote>
-<ol start="4">
-<li>绑定仓库</li>
-</ol>
-<blockquote>
-<p>git remote add origin https://github.com/yz0812/mdzx-wx-vue.git</p>
-</blockquote>
-<ol start="5">
-<li>推送</li>
-</ol>
-<blockquote>
-<p>git push -u origin master<br>
-放弃修改</p>
-</blockquote>
-<ol start="6">
-<li>$ git checkout .<br>
-7</li>
-</ol>
 ]]></content>
     </entry>
 </feed>

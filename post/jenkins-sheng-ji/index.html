@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>jenkins 升级 | wuc0714</title>
+<meta name="description" content="The more you know, the more you don't know" />
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1619276369175">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="jenkins 升级 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://wuc0714.top">
+        <span>wuc0714</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/23.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/23.jpg); height: 80vw;">
+          <h1 class="post-title">jenkins 升级</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">jenkins 升级</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2021-04-24 22:58:28">2021-04-24</time>
+        <span class="author vcard">
+          3 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <h3 id="1更换安装源">1.更换安装源</h3>
+<p><strong>jenkins 更换安装源</strong>,进入<code>http://127.0.0.1:8091/pluginManager/advanced</code>,高级设置</p>
+<p>修改站点为清华源地址<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code></p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210424204159.png" alt="" loading="lazy"></figure>
+<h3 id="2修改下载地址">2.修改下载地址</h3>
+<p>进入/jenkins/updates/ 找到default.json</p>
+<p>这是老版本的替换命令，具体来说就是将<code>updates.jenkins-ci.org</code>替换为<code>mirrors.tuna.tsinghua.edu.cn</code>，<code>www.google.com</code>替换为<code>www.baidu.com</code>：</p>
+<pre><code class="language-sh">sed -i 's#http://updates.jenkins-ci.org/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
+</code></pre>
+<p>当然，在最新的jenkins版本中，已经有了调整，配置文件中的地址不再是<code>updates.jenkins-ci.org</code> ,而是将<code>https://updates.jenkins.io/download</code></p>
+<p>替换为<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins</code></p>
+<pre><code class="language-shell">sed -i 's#https://updates.jenkins.io/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
+</code></pre>
+<h3 id="3jenkins更新war包">3.jenkins更新war包</h3>
+<p>1.查询container_id</p>
+<pre><code class="language-docker">docker container ls
+</code></pre>
+<p>2.进入容器,使用root身份</p>
+<pre><code class="language-sh">docker exec -it -u root [container_id] /bin/bash
+</code></pre>
+<p>3.其次，执行命令查看java进程</p>
+<pre><code class="language-shell">root@dd7cdfba9d52:/# ps -ef | grep java
+jenkins      8     1  1 19:57 ?        00:01:15 java -Duser.home=/var/jenkins_home -Djenkins.model.Jenkins.slaveAgentPort=50000 -jar /usr/share/jenkins/jenkins.war
+root       103    95  0 21:02 pts/0    00:00:00 grep java
+root@dd7cdfba9d52:/# 
+</code></pre>
+<p>4.下载最新的war包</p>
+<pre><code class="language-shell"># 进入容器之后进入进入war存放地址
+cd /usr/share/jenkins/
+# 将之前的war修改名字
+cp jenkins.war jenkins.war.2.60.3.bak
+# 创建文件夹用于存放新下载的war
+mkdir other-version
+# 进入文件夹
+cd other-version/
+# 下载新的war
+wget https://updates.jenkins.io/download/war/2.289/jenkins.war
+# 进入存放目录
+cd /usr/share/jenkins
+# 删除旧war
+rm jenkins.war
+# 进入新的文件夹
+cd other-version
+# 移动war
+mv jenkins.war ../
+# 退出
+exit
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/5C7C2708-33CE-4EE3-8B00-850496E27E7E.png" alt="" loading="lazy"></figure>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://wuc0714.top/tag/j5_Bc3jyS/">
+              jenkins
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/">
+            <strong>微信小程序使用 Eslint</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://wuc0714.top">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1619276369175" alt="wuc0714">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
+    </p>
+    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://wuc0714.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>
