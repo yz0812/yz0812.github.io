@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-04-24T15:22:23.892Z</updated>
+    <updated>2021-04-24T15:28:24.917Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
     <entry>
-        <title type="html"><![CDATA[jenkins 升级]]></title>
+        <title type="html"><![CDATA[docker安装的jenkins升级]]></title>
         <id>https://wuc0714.top/post/jenkins-sheng-ji/</id>
         <link href="https://wuc0714.top/post/jenkins-sheng-ji/">
         </link>
