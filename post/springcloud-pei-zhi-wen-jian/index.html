@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | wuc0714</title>
+<title>springcloud配置文件 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1620037158370">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 <link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="关于 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="springcloud配置文件 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -56,39 +56,61 @@
     </div>
     <article role="main" class="hentry has-cover">
       
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/1422309649_preview_2018-06-25_17-09-48.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/1422309649_preview_2018-06-25_17-09-48.jpg); height: 80vw;">
-          <h1 class="post-title">关于</h1>
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/24.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/24.jpg); height: 80vw;">
+          <h1 class="post-title">springcloud配置文件</h1>
         </div>
       
-      <h1 class="entry-title" itemprop="headline">关于</h1>
+      <h1 class="entry-title" itemprop="headline">springcloud配置文件</h1>
       <div class="entry-meta">
-        <time class="updated" datetime="2019-01-25 19:09:48">2019-01-25</time>
+        <time class="updated" datetime="2021-05-03 18:17:58">2021-05-03</time>
         <span class="author vcard">
           1 min read
         </span>
       </div>
       <div class="post-content yue">
-        <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
+        <pre><code class="language-yaml"># 公用环境
+spring:
+    application:
+        name: spring-cloud-alibbaba
+# 连字符
+--- 
+spring:
+  profiles: dev
+---
+spring:
+  profiles: pro
+management:
+  endpoint:
+    health:
+        show-details: always
+  endpoints:
+    web:
+      exposure:
+          include: '*'
+</code></pre>
+<p>可以在一个配置文件写多个环境的配置</p>
 
       </div>
       <div class="entry-block">
         <div class="entry-tags">
           
+            <a href="https://wuc0714.top/tag/hWFgAWK2c/">
+              springcloud
+            </a>
+          
         </div>
       </div>
     </article>
     
+    
       <section class="post-section prev-post">
         <div class="inner">
-          <h3>前一篇</h3>
-          <a href="https://wuc0714.top/post/vagrant-an-zhuang-suo-yu-dao-de-wen-ti/">
-            <strong>Vagrant安装所遇到的问题</strong>
+          <h3>后一篇</h3>
+          <a href="https://wuc0714.top/post/jenkins-sheng-ji/">
+            <strong>docker安装的jenkins升级</strong>
           </a>
         </div>
       </section>
-    
     
 
     
