@@ -1,0 +1,217 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ribbon自定义负载均衡策略 | wuc0714</title>
+<meta name="description" content="The more you know, the more you don't know" />
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1620576814003">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="ribbon自定义负载均衡策略 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="site-nav has-cover">
+      <div class="head">
+  <div class="inner">
+    <a class="site-name" href="https://wuc0714.top">
+        <span>wuc0714</span>
+    </a>
+    <label class="burger" for="burger"></label>
+    <input id="burger" type="checkbox">
+    <button class="burger">
+      <div>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <nav class="info_nav">
+      
+        
+          <a href="/">首页</a>
+        
+      
+        
+          <a href="/archives">归档</a>
+        
+      
+        
+          <a href="/tags">标签</a>
+        
+      
+        
+          <a href="/post/about">关于</a>
+        
+      
+    </nav>
+  </div>
+</div>
+    </div>
+    <article role="main" class="hentry has-cover">
+      
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/25.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/25.jpg); height: 80vw;">
+          <h1 class="post-title">ribbon自定义负载均衡策略</h1>
+        </div>
+      
+      <h1 class="entry-title" itemprop="headline">ribbon自定义负载均衡策略</h1>
+      <div class="entry-meta">
+        <time class="updated" datetime="2021-05-10 00:10:02">2021-05-10</time>
+        <span class="author vcard">
+          2 min read
+        </span>
+      </div>
+      <div class="post-content yue">
+        <p>细粒度配置自定义,java代码实现</p>
+<pre><code class="language-java">/**
+*必须放在启动类外面的包,不然会被启动类扫描到,出现父子上下文重叠
+*/
+@Configuration
+public class RibbonConfiguration {
+    @Bean
+    public IRule ribbonRule(){
+        return new RandomRule();
+    }
+}
+</code></pre>
+<pre><code class="language-java">package com.yz.alibaba.config;
+
+import com.yz.configuration.RibbonConfiguration;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@RibbonClient(name = &quot;spring-cloud-alibaba-nacos&quot;,configuration = RibbonConfiguration.class)
+//全局配置
+//@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
+public class UserRibbonConfiguration {
+}
+
+</code></pre>
+<p>配置文件实现</p>
+<pre><code class="language-yaml">#服务名
+spring-cloud-alibaba-nacos:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><em><strong>配置方式</strong></em></th>
+<th><em><strong>优点</strong></em></th>
+<th><em><strong>缺点</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码配置</td>
+<td>基于代码更加灵活</td>
+<td>有小坑(父子上下文),线上修改得重新打包,发布</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>易上手,配置更加直观,线上发布无需重新打包发布,优先级更高</td>
+<td>极端场景下没有代码配置方式灵活</td>
+</tr>
+</tbody>
+</table>
+<p>ribbon的策略主要有以下几种:</p>
+<ul>
+<li>com.netflix.loadbalancer.RandomRule #配置规则 随机</li>
+<li>com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询</li>
+<li>com.netflix.loadbalancer.RetryRule #配置规则 重试</li>
+<li>com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重</li>
+<li>com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略</li>
+</ul>
+<p>随机:几个提供者间随机访问</p>
+<p>轮询:轮流访问</p>
+<p>重试:在一段时间内通过RoundRobinRule选择服务实例，一段时间内没有选择出服务则线程终止</p>
+<p>RestTemplate 第一次调用时间比较久,所以使用饥饿加载</p>
+<pre><code class="language-java">ribbon:
+  eager-load:
+    clients: spring-cloud-alibaba-nacos
+    enabled: true
+</code></pre>
+
+      </div>
+      <div class="entry-block">
+        <div class="entry-tags">
+          
+            <a href="https://wuc0714.top/tag/hWFgAWK2c/">
+              springcloud
+            </a>
+          
+        </div>
+      </div>
+    </article>
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>前一篇</h3>
+          <a href="https://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/">
+            <strong>扩展ribbon,支持naocs权重</strong>
+          </a>
+        </div>
+      </section>
+    
+    
+      <section class="post-section prev-post">
+        <div class="inner">
+          <h3>后一篇</h3>
+          <a href="https://wuc0714.top/post/springcloud-pei-zhi-wen-jian/">
+            <strong>springcloud配置文件</strong>
+          </a>
+        </div>
+      </section>
+    
+
+    
+
+    <footer class="footer">
+  <div class="main">
+    <a href="https://wuc0714.top">
+      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1620576814003" alt="wuc0714">
+    </a>
+    <div class="footer__social">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <p class="footer__sosumi">
+      联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
+    </p>
+    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
+  </div>
+</footer>
+
+<script src="https://wuc0714.top/media/prism.js"></script>
+<script>
+  Prism.highlightAll()
+</script>
+
+  </body>
+</html>

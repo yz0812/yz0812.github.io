@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-05-05T13:25:36.796Z</updated>
+    <updated>2021-05-09T16:13:45.497Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wuc0714.top"/>
     <link rel="self" href="https://wuc0714.top/atom.xml"/>
@@ -10,6 +10,388 @@
     <logo>https://wuc0714.top/images/avatar.png</logo>
     <icon>https://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[feign远程调用]]></title>
+        <id>https://wuc0714.top/post/feign-yuan-cheng-diao-yong/</id>
+        <link href="https://wuc0714.top/post/feign-yuan-cheng-diao-yong/">
+        </link>
+        <updated>2021-05-09T16:12:52.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一feign远程调用">一.feign远程调用</h2>
+<h3 id="1导入包">1.导入包</h3>
+<pre><code class="language-xml">   &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+   &lt;/dependency&gt;
+</code></pre>
+<h3 id="2加上注解enablefeignclients">2.加上注解@EnableFeignClients</h3>
+<h3 id="3编写client">3.编写client</h3>
+<pre><code class="language-java">//name 服务名
+@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;)
+public interface UserCenterFeignClient {
+    @GetMapping(&quot;/user/{id}&quot;)
+     String user(@PathVariable String id) ;
+}
+
+</code></pre>
+<h1 id="二feign细粒度配置自定义-代码方式">二.feign细粒度配置自定义-代码方式</h1>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>打印内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NONE(默认值)</td>
+<td>不记录任何日志</td>
+</tr>
+<tr>
+<td>BASIC(适合生产环境使用)</td>
+<td>仅记录请求方法,URL,响应代码以及执行时间</td>
+</tr>
+<tr>
+<td>HEADERS</td>
+<td>记录BASIC级别的基础上,记录请求和响应的header</td>
+</tr>
+<tr>
+<td>FULL</td>
+<td>记录请求和响应的header,body元数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1编写配置类">1.编写配置类</h3>
+<pre><code class="language-java">/**
+ * feign的配置类
+ * 这个类别加@configuration,否则必须挪到@ComponentScan扫描不到的包，及application意外险
+ * 否则父子上下文重叠
+ */
+public class UserCenterFeignConfiguration {
+    @Bean
+    public Logger.Level level(){
+        //让feign打印所有请求
+       return  Logger.Level.FULL;
+    }
+}
+</code></pre>
+<h3 id="2feignclient注解增加配置">2.@FeignClient注解增加配置</h3>
+<pre><code class="language-java">@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;,configuration = UserCenterFeignConfiguration.class)
+public interface UserCenterFeignClient {
+    @GetMapping(&quot;/user/{id}&quot;)
+     String user(@PathVariable String id) ;
+}
+</code></pre>
+<h3 id="3修改日志级别">3.修改日志级别</h3>
+<pre><code class="language-yaml">logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+</code></pre>
+<h1 id="二feign细粒度配置自定义-属性配置">二.feign细粒度配置自定义-属性配置</h1>
+<p>修改配置</p>
+<pre><code class="language-yaml">logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+feign:
+  client:
+    config:
+      spring-cloud-alibaba-nacos:
+        loggerLevel: full
+</code></pre>
+<h1 id="三feign细粒度配置自定义-全局配置">三.feign细粒度配置自定义-全局配置</h1>
+<ol>
+<li>
+<p>修改启动类注解<span style="color:red">@EnableFeignClients(defaultConfiguration = UserCenterFeignConfiguration.class)</span> UserCenterFeignConfiguration为自定义配置类</p>
+</li>
+<li>
+<p>修改配置文件</p>
+</li>
+</ol>
+<pre><code>logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+</code></pre>
+<h1 id="四支持的配置项">四.支持的配置项</h1>
+<pre><code class="language-java">private Level loggerLevel;       //日志级别
+private Integer connectTimeout;  //链接超时时间
+private Integer readTimeout;     //读取超时时间
+private Class&lt;Retryer&gt; retryer;  //重试策略
+private Class&lt;ErrorDecoder&gt; errorDecoder; //错误解码器
+private List&lt;Class&lt;RequestInterceptor&gt;&gt; requestInterceptors; //拦截器
+private Boolean decode404; //是否对404错误码解码
+private Class&lt;Decoder&gt; decoder; //解码器
+private Class&lt;Encoder&gt; encoder; //编码器
+private Class&lt;Contract&gt; contract; //契约
+private ExceptionPropagationPolicy exceptionPropagationPolicy; //异常传播策略
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210507011811.png" alt="" loading="lazy"></figure>
+<h1 id="五代码配置属性配置对比">五.代码配置,属性配置对比</h1>
+<table>
+<thead>
+<tr>
+<th>配置方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码方式</td>
+<td>基于代码,更加灵活</td>
+<td>如果Feign的配置类加了@Configuration注解,需要注意父子上下文,<br/>线上修改得重新打包</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>易上手<br>配置更加直观<br/>线上修改无需重新打包发布,优先级更高</td>
+<td>极端场景下,没有代码配置方式更加灵活</td>
+</tr>
+</tbody>
+</table>
+<h1 id="六feignclient注解异常">六.@FeignClient注解异常</h1>
+<pre><code class="language-java">Description:The bean 'spring-cloud-alibaba-nacos.FeignClientSpecification' could not be registered. A bean with that name has already been defined and overriding is disabled.Action:Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+</code></pre>
+<p>@FeignClient name重复,在配置文件增加配置<span style="color:red">spring.main.allow-bean-definition-overriding=true</span></p>
+<h1 id="七feign继承">七.feign继承</h1>
+<p>spring官方不推荐使用,不符合微服务特性,但是挺多公司使用,一致性,方便</p>
+<p>使用方式</p>
+<p>公共访问接口-&gt; 服务提供者实现公共访问接口-&gt; feign继承公共访问接口-&gt;接口调用feign</p>
+<h4 id="1-公共访问接口-公共服务类">1. 公共访问接口-公共服务类</h4>
+<pre><code class="language-java">@RequestMapping(&quot;/hs2&quot;)public interface InheritanceService {    @RequestMapping(value = &quot;/hello1&quot;, method = RequestMethod.GET)    String hello(@RequestParam(&quot;name&quot;) String name);    @RequestMapping(value = &quot;/hello2&quot;, method = RequestMethod.GET)    Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException;    @RequestMapping(value = &quot;/hello3&quot;, method = RequestMethod.POST)    String hello(@RequestBody Book book);}
+</code></pre>
+<h4 id="2服务提供者实现公共访问接口-服务a">2.服务提供者实现公共访问接口-服务A</h4>
+<pre><code class="language-java">@RestControllerpublic class InheritanceFeignController implements InheritanceService {    @Override    public String hello(@RequestParam(&quot;name&quot;) String name) {        return &quot;hello &quot; + name + &quot;!&quot;;    }    @Override    public Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException {      Book book = new Book();        book.setName(URLDecoder.decode(name,&quot;UTF-8&quot;));        book.setAuthor(URLDecoder.decode(author,&quot;UTF-8&quot;));        book.setPrice(price);        System.out.println(book);        return book;    }    @Override    public String hello(@RequestBody Book book) {        return &quot;书名为：&quot; + book.getName() + &quot;;作者为：&quot; + book.getAuthor();    }}
+</code></pre>
+<h4 id="3feign继承公共访问接口-服务b">3.feign继承公共访问接口-服务B</h4>
+<pre><code class="language-java">@FeignClient(&quot;spring-cloud-alibaba-nacos&quot;)public interface InheritanceFeignClient extends InheritanceService {}
+</code></pre>
+<h4 id="4接口调用feign-服务b">4.接口调用feign-服务B</h4>
+<pre><code class="language-java">@RestController@RequiredArgsConstructor(onConstructor = @_(@Autowired))public class InheritanceFeignController {    private final InheritanceService inheritanceService;    @RequestMapping(&quot;/hello1&quot;)    public String hello1() {        return inheritanceService.hello(&quot;张三&quot;);    }    @RequestMapping(value = &quot;/hello2&quot;)    public Book hello2() throws UnsupportedEncodingException {        Book book = inheritanceService.hello(URLEncoder.encode(&quot;三国演义&quot;,&quot;UTF-8&quot;), URLEncoder.encode(&quot;罗贯中&quot;,&quot;UTF-8&quot;), 33);        System.out.println(book);        return book;    }    @RequestMapping(&quot;/hello3&quot;)    public String hello3() {        Book book = new Book();        book.setName(&quot;红楼梦&quot;);        book.setPrice(44);        book.setAuthor(&quot;曹雪芹&quot;);        return inheritanceService.hello(book);    }}
+</code></pre>
+<h1 id="八如何使用feign构造多参数的请求">八.如何使用Feign构造多参数的请求</h1>
+<h2 id="get请求多参数的url">GET请求多参数的URL</h2>
+<p>假设需请求的URL包含多个参数，例如<code>http://microservice-provider-user/get?id=1&amp;username=张三</code> ，该如何使用Feign构造呢？</p>
+<p>我们知道，Spring Cloud为Feign添加了Spring MVC的注解支持，那么我们不妨按照Spring MVC的写法尝试一下：</p>
+<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get0(User user);}
+</code></pre>
+<p>然而，这种写法并不正确，控制台会输出类似如下的异常。</p>
+<pre><code class="language-shell">feign.FeignException: status 405 reading UserFeignClient#get0(User); content:{&quot;timestamp&quot;:1482676142940,&quot;status&quot;:405,&quot;error&quot;:&quot;Method Not Allowed&quot;,&quot;exception&quot;:&quot;org.springframework.web.HttpRequestMethodNotSupportedException&quot;,&quot;message&quot;:&quot;Request method 'POST' not supported&quot;,&quot;path&quot;:&quot;/get&quot;}
+</code></pre>
+<p>由异常可知，尽管我们指定了GET方法，Feign依然会使用POST方法发送请求。于是导致了异常。正确写法如下</p>
+<h3 id="方法一推荐">方法一[推荐]</h3>
+<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @GetMapping(&quot;/get&quot;)  public User get0(@SpringQueryMap User user);}
+</code></pre>
+<h3 id="方法二推荐">方法二[推荐]</h3>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get1(@RequestParam(&quot;id&quot;) Long id, @RequestParam(&quot;username&quot;) String username);}
+</code></pre>
+<p>这是最为直观的方式，URL有几个参数，Feign接口中的方法就有几个参数。使用@RequestParam注解指定请求的参数是什么。</p>
+<h3 id="方法三不推荐">方法三[不推荐]</h3>
+<p>多参数的URL也可使用Map来构建。当目标URL参数非常多的时候，可使用这种方式简化Feign接口的编写。</p>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get2(@RequestParam Map&lt;String, Object&gt; map);}
+</code></pre>
+<p>在调用时，可使用类似以下的代码。</p>
+<pre><code class="language-java">public User get(String username, String password) {  HashMap&lt;String, Object&gt; map = Maps.newHashMap();  map.put(&quot;id&quot;, &quot;1&quot;);  map.put(&quot;username&quot;, &quot;张三&quot;);  return this.userFeignClient.get2(map);}
+</code></pre>
+<p><strong>注意</strong>：这种方式不建议使用。主要是因为可读性不好，而且如果参数为空的时候会有一些问题，例如<code>map.put(&quot;username&quot;, null);</code> 会导致<code>microservice-provider-user</code> 服务接收到的username是<code>&quot;&quot;</code> ，而不是null。</p>
+<h2 id="post请求包含多个参数">POST请求包含多个参数</h2>
+<p>下面来讨论如何使用Feign构造包含多个参数的POST请求。假设服务提供者的Controller是这样编写的：</p>
+<pre><code class="language-java">@RestControllerpublic class UserController {  @PostMapping(&quot;/post&quot;)  public User post(@RequestBody User user) {    ...  }}
+</code></pre>
+<p>我们要如何使用Feign去请求呢？答案非常简单，示例：</p>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/post&quot;, method = RequestMethod.POST)  public User post(@RequestBody User user);}
+</code></pre>
+<h1 id="九resttemplate-vs-feign">九.RestTemplate VS Feign</h1>
+<table>
+<thead>
+<tr>
+<th>角度</th>
+<th>RestTemplate</th>
+<th>Feign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可读性,可维护性</td>
+<td>一般</td>
+<td>极佳</td>
+</tr>
+<tr>
+<td>开发体验</td>
+<td>欠佳</td>
+<td>极佳</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>很好</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>极佳</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<h1 id="十feign线程池">十.feign线程池</h1>
+<p>导入包</p>
+<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-httpclient&lt;/artifactId&gt;&lt;/dependency&gt;
+</code></pre>
+<p>还可以使用</p>
+<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-okhttp&lt;/artifactId&gt;&lt;/dependency&gt;
+</code></pre>
+<pre><code class="language-yaml">feign:  #okhttp   httpclient:    #是否开启    enabled: true    #最大连接数    max-connections: 200    #最大路由    max-connections-per-route: 50    #存活时间    time-to-live: 900    #存活时间单位    time-to-live-unit: minutes    #跟随重定向    follow-redirects: true    #连接超时时间    connection-timeout: 2000    #超时重试时间    connection-timer-repeat: 3000
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[扩展ribbon,支持naocs权重]]></title>
+        <id>https://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/</id>
+        <link href="https://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/">
+        </link>
+        <updated>2021-05-09T16:11:29.000Z</updated>
+        <content type="html"><![CDATA[<p>÷编写代码</p>
+<pre><code class="language-java">import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.ribbon.NacosServer;
+import com.alibaba.nacos.api.exception.NacosException;
+import com.alibaba.nacos.api.naming.NamingService;
+import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.netflix.client.config.IClientConfig;
+import com.netflix.loadbalancer.AbstractLoadBalancerRule;
+import com.netflix.loadbalancer.BaseLoadBalancer;
+import com.netflix.loadbalancer.Server;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Slf4j
+public class NacosWeightedRule extends AbstractLoadBalancerRule {
+    @Autowired
+    private NacosDiscoveryProperties nacosDiscoveryProperties;
+
+    @Override
+    public void initWithNiwsConfig(IClientConfig iClientConfig) {
+        //读取配置文件，并且初始化
+    }
+
+    @Override
+    public Server choose(Object o) {
+        try {
+            BaseLoadBalancer loadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
+            //获得服务名
+            String name = loadBalancer.getName();
+            //拿到服务相关的api
+            NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
+            //nacos client自动通过基于权重的负载均衡算法，给我们选择一个实例
+            Instance instant = namingService.selectOneHealthyInstance(name);
+            log.info(&quot;选择的实例是：prot={},instant={}&quot;, instant.getPort(), instant);
+            return new NacosServer(instant);
+        } catch (NacosException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+}
+</code></pre>
+<p>修改配置类</p>
+<pre><code class="language-java">@Configuration
+public class RibbonConfiguration {
+    @Bean
+    public IRule ribbonRule() {
+        return new NacosWeightedRule();
+    }
+}
+
+</code></pre>
+<p>在配置文件中使用</p>
+<pre><code class="language-yaml">spring-cloud-alibaba-nacos:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.yz.alibaba.config.NacosWeightedRule
+</code></pre>
+<p>修改nacos权重<br>
+<img src="https://gitee.com/yz0812/mypic/raw/master/20210505221219.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ribbon自定义负载均衡策略]]></title>
+        <id>https://wuc0714.top/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/</id>
+        <link href="https://wuc0714.top/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/">
+        </link>
+        <updated>2021-05-09T16:10:02.000Z</updated>
+        <content type="html"><![CDATA[<p>细粒度配置自定义,java代码实现</p>
+<pre><code class="language-java">/**
+*必须放在启动类外面的包,不然会被启动类扫描到,出现父子上下文重叠
+*/
+@Configuration
+public class RibbonConfiguration {
+    @Bean
+    public IRule ribbonRule(){
+        return new RandomRule();
+    }
+}
+</code></pre>
+<pre><code class="language-java">package com.yz.alibaba.config;
+
+import com.yz.configuration.RibbonConfiguration;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@RibbonClient(name = &quot;spring-cloud-alibaba-nacos&quot;,configuration = RibbonConfiguration.class)
+//全局配置
+//@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
+public class UserRibbonConfiguration {
+}
+
+</code></pre>
+<p>配置文件实现</p>
+<pre><code class="language-yaml">#服务名
+spring-cloud-alibaba-nacos:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><em><strong>配置方式</strong></em></th>
+<th><em><strong>优点</strong></em></th>
+<th><em><strong>缺点</strong></em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码配置</td>
+<td>基于代码更加灵活</td>
+<td>有小坑(父子上下文),线上修改得重新打包,发布</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>易上手,配置更加直观,线上发布无需重新打包发布,优先级更高</td>
+<td>极端场景下没有代码配置方式灵活</td>
+</tr>
+</tbody>
+</table>
+<p>ribbon的策略主要有以下几种:</p>
+<ul>
+<li>com.netflix.loadbalancer.RandomRule #配置规则 随机</li>
+<li>com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询</li>
+<li>com.netflix.loadbalancer.RetryRule #配置规则 重试</li>
+<li>com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重</li>
+<li>com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略</li>
+</ul>
+<p>随机:几个提供者间随机访问</p>
+<p>轮询:轮流访问</p>
+<p>重试:在一段时间内通过RoundRobinRule选择服务实例，一段时间内没有选择出服务则线程终止</p>
+<p>RestTemplate 第一次调用时间比较久,所以使用饥饿加载</p>
+<pre><code class="language-java">ribbon:
+  eager-load:
+    clients: spring-cloud-alibaba-nacos
+    enabled: true
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[springcloud配置文件]]></title>
         <id>https://wuc0714.top/post/springcloud-pei-zhi-wen-jian/</id>
@@ -613,327 +995,6 @@ npm i vant-weapp -S --production
 <p>input text读取之后无法编辑</p>
 <p>原因在Vue实例创建时，v-model绑定的值并未声明，因此就没有被Vue转换为响应式的属性，自然就不会触发视图的更新</p>
 <pre><code class="language-javascript">      this.$set(this.remarkInfoForm, 'remarkContent', row.remarkContent)
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[慕课网996笔记]]></title>
-        <id>https://wuc0714.top/post/mu-ke-wang-996-bi-ji/</id>
-        <link href="https://wuc0714.top/post/mu-ke-wang-996-bi-ji/">
-        </link>
-        <updated>2021-04-07T14:05:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1函数式接口">1.函数式接口</h2>
-<p>自定义函数接口</p>
-<ol>
-<li>只有一个方法只有一个方法</li>
-<li>函数式注解@FunctionInterface</li>
-<li>函数式接口的抽象方法签名: 函数描述符</li>
-</ol>
-<p>可以定义一个或者多个statis方法<br>
-可以定义一个default方法<br>
-默认函数接口</p>
-<h2 id="2-流处理">2 流处理</h2>
-<h3 id="1-操作流程">1. 操作流程</h3>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/stream.png" alt="" loading="lazy"></figure>
-<h3 id="2-操作分类">2. 操作分类</h3>
-<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E5%88%86%E7%B1%BB.png" alt="" loading="lazy"></figure>
-<h3 id="3-操作详解">3. 操作详解</h3>
-<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/stream%E6%93%8D%E4%BD%9C.png" alt="" loading="lazy"></figure>
-<h2 id="3-生成流的四种方式">3. 生成流的四种方式</h2>
-<h3 id="1-数值">1. 数值</h3>
-<pre><code class="language-java"> Stream&lt;Integer&gt; stream = Stream.of(1, 2, 34, 9, 52, 7);
-</code></pre>
-<h3 id="2-数组集合">2. 数组,集合</h3>
-<pre><code class="language-java">      IntStream arrStream = Arrays.stream(arr);
-</code></pre>
-<h3 id="3-函数">3. 函数</h3>
-<pre><code class="language-java">    Stream&lt;Double&gt; generate = Stream.generate(Math::random).limit(100L);
-</code></pre>
-<h3 id="4-文件">4. 文件</h3>
-<pre><code class="language-java">  Stream&lt;String&gt; lineStream = Files.lines(Paths.get(&quot;D:/test.java&quot;));
-</code></pre>
-<h2 id="4-常见收集器">4. 常见收集器</h2>
-<p>收集成为一个list</p>
-<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
-                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
-                .collect(Collectors.toList());
-</code></pre>
-<p>按照条件分组</p>
-<pre><code class="language-java">   List&lt;Sku&gt; collect = list.stream()
-                .filter(sku -&gt; sku.getTotalPrice() &gt; 200)
-                .collect(Collectors.toList());
-</code></pre>
-<pre><code class="language-java">  Map&lt;Boolean, List&lt;Sku&gt;&gt; map = list.stream().collect(Collectors.partitioningBy(sku -&gt; sku.getTotalPrice() &gt; 200));
-</code></pre>
-<h2 id="5资源关闭">5.资源关闭</h2>
-<p>传统关闭方式<br>
-try-&gt;catch-&gt;finally<br>
-jdk7新关闭方式<br>
-try-&gt;with-&gt;resource</p>
-<pre><code class="language-java">import org.junit.Test;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-
-public class FileCopyTest {
-    String originUrl =&quot;&quot;;
-    String targetUrl =&quot;&quot;;
-
-    @Test
-    public void copyFile() {
-        // file in/out put stream
-        FileInputStream originStream = null;
-        FileOutputStream fileOutputStream = null;
-        File file;
-        try {
-            originStream = new FileInputStream(originUrl);
-            fileOutputStream = new FileOutputStream(targetUrl);
-
-            int content;
-            // iterator and read/out put byte
-            while ((content = originStream.read()) != -1) {
-                fileOutputStream.write(content);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fileOutputStream != null) {
-                try {
-                    fileOutputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (originStream != null) {
-                try {
-                    originStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    @Test
-    public void copyFileNewTest() {
-        try (
-                FileInputStream inputStream = new FileInputStream(originUrl);
-                FileOutputStream outputStream = new FileOutputStream(targetUrl);
-        ) {
-            int content;
-            // iterator and read/out put byte
-            while ((content = inputStream.read()) != -1) {
-                outputStream.write(content);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-</code></pre>
-<h2 id="6-optional空判断">6 Optional空判断</h2>
-<pre><code class="language-java">    @Test
-    public void optionTest() {
-    		//三总定义方式
-        Optional&lt;Object&gt; o = Optional.empty();
-        Optional&lt;Integer&gt; integer = Optional.of(1);
-        Optional&lt;Object&gt; optional = Optional.ofNullable(null);
-        //空值操作
-        boolean present = optional.isPresent();
-        optional.ifPresent(System.out::println);
-        Object we = optional.orElse(&quot;we&quot;);
-        optional.orElseGet(() -&gt; { return &quot;else&quot;; });
-        optional.orElseThrow(() -&gt; { throw new RuntimeException(&quot;引用缺失&quot;); });
-    }
-
-</code></pre>
-<h2 id="7-线程池图解">7 线程池图解</h2>
-<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%AE%80%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="6"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="https://gitee.com/yz0812/mypic/raw/master/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[maven添加jar到本地仓库]]></title>
-        <id>https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/</id>
-        <link href="https://wuc0714.top/post/maven-tian-jia-jar-dao-ben-di-cang-ku/">
-        </link>
-        <updated>2020-12-15T15:13:23.000Z</updated>
-        <content type="html"><![CDATA[<!-- more -->
-<pre><code class="language-shell">mvn install:install-file -Dfile=/Users/yz/Downloads/kaptcha-2.3.jar  -DgroupId=com.google.code -DartifactId=kaptcha -Dversion=2.3.2 -Dpackaging=jar
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[macos系统设置]]></title>
-        <id>https://wuc0714.top/post/macos-xi-tong-she-zhi/</id>
-        <link href="https://wuc0714.top/post/macos-xi-tong-she-zhi/">
-        </link>
-        <updated>2020-11-19T19:03:34.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="1在mac下安装一些软件时提示-来自身份不明开发者-或者-xxx已损坏打不开-您应该将它移到废纸篓">1.在MAC下安装一些软件时提示 <code>来自身份不明开发者</code> 或者 <code>xxx已损坏，打不开。您应该将它移到废纸篓</code></h3>
-<pre><code class="language-shell">sudo spctl --master-disable
-</code></pre>
-<p>那我们也可以通过修改系统配置来进行设置，我们打开<code>系统偏好设置 -&gt; 安全性与隐私 -&gt; 通用</code>，然后选中 <code>任何来源</code></p>
-<h3 id="2黑苹果命令下开启原生hidpi">2.黑苹果命令下开启原生HiDPI</h3>
-<pre><code class="language-shell">sh -c &quot;$(curl -fsSL https://html.sqlsec.com/hidpi.sh)&quot;
-</code></pre>
-<h3 id="3安装git">3.安装Git</h3>
-<p>首先安装Homebrew</p>
-<pre><code class="language-shell">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>然后再执行</p>
-<pre><code class="language-shell">brew install git
-</code></pre>
-<h3 id="4美化终端">4.美化终端</h3>
-<blockquote>
-<p>1.安装</p>
-</blockquote>
-<pre><code class="language-shell"># 下载oh-my-zsh
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
-# 创建一个新的配置文件
-cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-
-# 授权，如果不授权每次会有警告
-chmod 755 /usr/local/share/zsh
-chmod 755 /usr/local/share/zsh/site-functions
-
-</code></pre>
-<blockquote>
-<p>退出终端<code>Command + Q</code>，重新启动终端：</p>
-</blockquote>
-<h3 id="命令高亮插件">命令高亮插件</h3>
-<p><strong>插件名称：</strong><code>zsh-syntax-highlighting</code>。<br>
-<strong>效果：</strong><br>
-如果输入的命令不正确，命令不会变色，如果输入的命令正确，命令会变色：</p>
-<pre><code class="language-shell"># 下载命令高亮插件
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
-
-# 配置插件生效
-echo '# 命令高亮\nsource ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' &gt;&gt; ~/.zshrc
-
-</code></pre>
-<h3 id="命令提示插件">命令提示插件</h3>
-<p><strong>插件名称：</strong><code>zsh-autosuggestions</code>。<br>
-<strong>效果：</strong><br>
-输入过的命令，再次输入时，会显示最后一次历史命令，用<code>上下</code>可以切换更多历史命令，<code>回车</code>选中命令。</p>
-<pre><code class="language-shell"># 下载命令提示插件
-$ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-
-# 配置插件生效
-echo '# 命令提示\nsource ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh' &gt;&gt; ~/.zshrc
-</code></pre>
-<h3 id="5docker-阿里云加速">5.docker 阿里云加速</h3>
-<p>打开<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">阿里云</a> 选择镜像中心-镜像加速器-mac。 然后就会看到</p>
-<blockquote>
-<p>在任务栏点击 Docker Desktop 应用图标 -&gt; Perferences，在左侧导航菜单选择 Docker Engine，在右侧输入栏编辑 json 文件。将https://colmcy5j.mirror.aliyuncs.com加到&quot;registry-mirrors&quot;的数组里，点击 Apply &amp; Restart按钮，等待Docker重启并应用配置的镜像加速器。</p>
-</blockquote>
-<p>然后现有的json为</p>
-<pre><code class="language-json">{
-  &quot;features&quot;: {
-    &quot;buildkit&quot;: true
-  },
-  &quot;experimental&quot;: false
-}
-</code></pre>
-<p>修改为</p>
-<pre><code class="language-json">{
-  &quot;features&quot;: {
-    &quot;buildkit&quot;: true
-  },
-  &quot;experimental&quot;: false,
-&quot;registry-mirrors&quot;: [
-    &quot;https://colmcy5j.mirror.aliyuncs.com&quot;
-  ]
-}
-</code></pre>
-<p>然后点击Apply &amp; Restart</p>
-<h3 id="6安装telnet">6.安装telnet</h3>
-<pre><code class="language-shell">brew install telnet
-</code></pre>
-<h3 id="7配置jdk环境">7.配置jdk环境</h3>
-<p>jdk的真实主目录如下：<br>
-/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home</p>
-<pre><code class="language-shell">#打开终端，进入当前用户的home目录：
-
-cd ~/
-#打开.bash_profile并编辑：
-
-open .bash_profile
-#在文件的末尾加入这一行语句：
-
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home
-
-
-</code></pre>
-<h3 id="8-docker-compose安装jenkins">8. docker-compose安装jenkins</h3>
-<p>1.查询docker中是否有jenkins镜像</p>
-<pre><code class="language-shell">docker search jenkins
-</code></pre>
-<ol start="2">
-<li>查看镜像</li>
-</ol>
-<pre><code class="language-shell">docker images
-</code></pre>
-<ol start="3">
-<li>如果已经有jenkins就删除</li>
-</ol>
-<pre><code class="language-shell">docker rmi -f jenkins
-</code></pre>
-<ol start="4">
-<li>下载 jenkins镜像</li>
-</ol>
-<pre><code class="language-shell">docker pull jenkins/jenkins
-</code></pre>
-<ol start="5">
-<li>查看版本号</li>
-</ol>
-<pre><code class="language-shell">docker inspect Image ID
-</code></pre>
-<ol start="6">
-<li>执行</li>
-</ol>
-<pre><code class="language-shell">docker-compose up -d 
-</code></pre>
-<h3 id="9-jenkins-加速">9. Jenkins 加速</h3>
-<p>查看日志</p>
-<pre><code>docker logs -f jenkins
-</code></pre>
-<h4 id="插件下载管理">插件下载管理</h4>
-<p>先进入 <code>http://ip:9090/pluginManager/advanced</code>插件管理页，原来的地址是<code>https://updates.jenkins.io/update-center.json</code></p>
-<p>修改为 http://mirror.xmission.com/jenkins/updates/update-center.json</p>
-<p>重启</p>
-<p>cd 到updates目录,找到default.json文件</p>
-<pre><code class="language-shell">[_0_2_centos jenkins]# cd updates/
-[_0_2_centos updates]# ll
-total 2068
--rw-r--r-- 1 1000 1000 1824566 Dec 29 16:20 default.json
--rw-r--r-- 1 1000 1000    5350 Dec 29 16:20 hudson.tasks.Maven.MavenInstaller
--rw-r--r-- 1 1000 1000  279724 Dec 29 16:47 hudson.tools.JDKInstaller
-[_0_2_centos updates]# vi default.json
-</code></pre>
-<p>使用vi编辑文件，如下，替换所有插件下载的url</p>
-<pre><code class="language-shell">:1,$s/http:\/\/updates.jenkins-ci.org\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g
-
-:1,$s/http:\/\/www.google.com/https:\/\/www.baidu.com/g
-</code></pre>
-<p>进入vi先输入:然后再粘贴上边的:后边的命令，注意不要写两个冒号！<br>
-修改完成保存退出:wq</p>
-<p>然后重启</p>
-<h3 id="10mvn-配置环境变量">10.mvn 配置环境变量</h3>
-<pre><code class="language-shell">vi ~/.bash_profile
-</code></pre>
-<p>编辑</p>
-<pre><code class="language-shell">export M3_HOME=/usr/local/maven/apache-maven-3.6.3
-export PATH=$M3_HOME/bin:$PATH
-</code></pre>
-<p>执行如下命令使配置的环境变量生效：</p>
-<pre><code class="language-shell">source ~/.bash_profile
 </code></pre>
 ]]></content>
     </entry>
