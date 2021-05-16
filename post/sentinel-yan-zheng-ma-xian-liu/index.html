@@ -4,71 +4,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sentinel验证码限流 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
-<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1621187418895">
-<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-
+<link rel="shortcut icon" href="https://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Sentinel验证码限流 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-
-
-
+<script src="https://wuc0714.top/media/js/jquery.min.js"></script>
+<script src="https://wuc0714.top/media/js/masonry.pkgd.min.js"></script>
+<script src="https://wuc0714.top/media/js/aos.js"></script>
+<script src="https://wuc0714.top/media/js/pace.min.js"></script>
+<script src="https://wuc0714.top/media/js/view-image.min.js"></script>
+<script src="https://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
+<script src="https://wuc0714.top/media/js/functions.js"></script>
+    <meta name="referrer" content="never">
+    <meta name="description" content="&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
+    &lt;artifactId&gt;sentinel-zuul-adapter&lt;/ar..." />
+    <meta name="keywords" content="notepad" />
+    <script src="https://wuc0714.top/media/js/waterfall.min.js"></script>
+    <script src="https://wuc0714.top/media/js/prism.min.js"></script>
   </head>
   <body>
-    <div class="site-nav has-cover">
-      <div class="head">
-  <div class="inner">
-    <a class="site-name" href="https://wuc0714.top">
-        <span>wuc0714</span>
-    </a>
-    <label class="burger" for="burger"></label>
-    <input id="burger" type="checkbox">
-    <button class="burger">
-      <div>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
-    <nav class="info_nav">
-      
-        
-          <a href="/">首页</a>
-        
-      
-        
-          <a href="/archives">归档</a>
-        
-      
-        
-          <a href="/tags">标签</a>
-        
-      
-        
-          <a href="/post/about">关于</a>
-        
-      
-    </nav>
-  </div>
-</div>
-    </div>
-    <article role="main" class="hentry has-cover">
-      
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/05.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/05.jpg); height: 80vw;">
-          <h1 class="post-title">Sentinel验证码限流</h1>
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
         </div>
-      
-      <h1 class="entry-title" itemprop="headline">Sentinel验证码限流</h1>
-      <div class="entry-meta">
-        <time class="updated" datetime="2020-05-11 22:43:45">2020-05-11</time>
-        <span class="author vcard">
-          4 min read
-        </span>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://wuc0714.top"><img src="" alt=""></a>
+            </div>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                <li class=""><a href="https://wuc0714.top" class="menu">首页</a></li>
+                
+                  <li class="" >
+                    <a href="/" class="menu">
+                      首页
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/post/about" class="menu">
+                      关于
+                    </a>
+                  </li>
+                
+                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
+              </ul>
+            </nav>
+            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
+        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
+          <div class="search-wrapper section">
+            <form id="gridea-search-form" data-update="1621187807117" action="/search/index.html" class="search-form" _lpchecked="1">
+              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
+              <button type="submit" class="submit" aria-label="Submit">
+                <i class="fa fa-search-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="post-content yue">
-        <pre><code class="language-java">&lt;dependency&gt;
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/05.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-05-11"><i class="fa fa-calendar"></i><span class="lately">1 年前</span></time>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://wuc0714.top/tag/OO9AsLppIP/" class="ctag ctag-0 ctag-OO9AsLppIP" aria-label="">notepad</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">Sentinel验证码限流</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <pre><code class="language-java">&lt;dependency&gt;
     &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
     &lt;artifactId&gt;sentinel-zuul-adapter&lt;/artifactId&gt;
     &lt;version&gt;1.6.3&lt;/version&gt;
@@ -158,79 +203,265 @@ count：限流阈值</li>
 <p>用户可以通过 GatewayRuleManager.loadRules(rules) 手动加载网关规则，或通过 GatewayRuleManager.register2Property(property) 注册动态规则源动态推送（推荐方式）。</p>
 <p>所以上面的限流规则为：60秒内同一个IP，同一个key最多访问10次。</p>
 
-      </div>
-      <div class="entry-block">
-        <div class="entry-tags">
-          
-            <a href="https://wuc0714.top/tag/OO9AsLppIP/">
-              notepad
-            </a>
-          
-        </div>
-      </div>
-    </article>
-    
-      <section class="post-section prev-post">
-        <div class="inner">
-          <h3>前一篇</h3>
-          <a href="https://wuc0714.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/">
-            <strong>spring事物不生效的几种情况</strong>
-          </a>
-        </div>
-      </section>
-    
-    
-      <section class="post-section prev-post">
-        <div class="inner">
-          <h3>后一篇</h3>
-          <a href="https://wuc0714.top/post/postman-chuang-jian-bian-liang/">
-            <strong>Postman创建变量</strong>
-          </a>
-        </div>
-      </section>
-    
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
 
-    
+            <section class="related section">
+              
+              <article class="prev grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/01.jpg');"></div>
+                 <a href="https://wuc0714.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-07-07">2020-07-07</time>
+                  <h4 class="title white no-margin">spring事物不生效的几种情况</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/04.jpg');"></div>
+                 <a href="https://wuc0714.top/post/postman-chuang-jian-bian-liang/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-05-11">2020-05-11</time>
+                  <h4 class="title white no-margin">Postman创建变量</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
 
-    <footer class="footer">
-  <div class="main">
-    <a href="https://wuc0714.top">
-      <img class="avatar" src="https://wuc0714.top/images/avatar.png?v=1621187418895" alt="wuc0714">
-    </a>
-    <div class="footer__social">
-      
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div id="comments" class="bg-white hosted ">
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              </div>
+              <div class="clear"></div>
+            
+
+            </div>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wuc0714.top/post/docker-geng-xin-sentinel-ban-ben/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/30.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2021-05-17">2021-05-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://wuc0714.top/post/docker-geng-xin-sentinel-ban-ben/">docker更新sentinel版本</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wuc0714.top/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/29.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2021-05-17">2021-05-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://wuc0714.top/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/">sentinel推模式持久化-与nacos</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wuc0714.top/post/sentienl-xian-liu/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/28.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2021-05-17">2021-05-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://wuc0714.top/post/sentienl-xian-liu/">sentienl限流</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                      <a href="https://wuc0714.top/tag/CRcloJmMj/" class="ctag ctag-0 ctag-CRcloJmMj" aria-label="">sentinel</a>
+                    
+                      <a href="https://wuc0714.top/tag/hWFgAWK2c/" class="ctag ctag-1 ctag-hWFgAWK2c" aria-label="">springcloud</a>
+                    
+                      <a href="https://wuc0714.top/tag/j5_Bc3jyS/" class="ctag ctag-2 ctag-j5_Bc3jyS" aria-label="">jenkins</a>
+                    
+                      <a href="https://wuc0714.top/tag/docker/" class="ctag ctag-3 ctag-docker" aria-label="">docker</a>
+                    
+                      <a href="https://wuc0714.top/tag/880hupr9Q/" class="ctag ctag-4 ctag-880hupr9Q" aria-label="">小程序</a>
+                    
+                      <a href="https://wuc0714.top/tag/nginx/" class="ctag ctag-5 ctag-nginx" aria-label="">nginx</a>
+                    
+                      <a href="https://wuc0714.top/tag/vue/" class="ctag ctag-6 ctag-vue" aria-label="">vue</a>
+                    
+                      <a href="https://wuc0714.top/tag/fog5GeKI9D/" class="ctag ctag-7 ctag-fog5GeKI9D" aria-label="">debug</a>
+                    
+                      <a href="https://wuc0714.top/tag/OO9AsLppIP/" class="ctag ctag-8 ctag-OO9AsLppIP" aria-label="">notepad</a>
+                    
+                      <a href="https://wuc0714.top/tag/LksdY7kyFt/" class="ctag ctag-9 ctag-LksdY7kyFt" aria-label="">install</a>
+                    
+                      <a href="https://wuc0714.top/tag/IusPLq9nv3/" class="ctag ctag-10 ctag-IusPLq9nv3" aria-label="">java</a>
+                    
+                      <a href="https://wuc0714.top/tag/LHICxWTwK/" class="ctag ctag-11 ctag-LHICxWTwK" aria-label="">redis</a>
+                    
+                      <a href="https://wuc0714.top/tag/72_uOp7Med/" class="ctag ctag-12 ctag-72_uOp7Med" aria-label="">interview</a>
+                    
+                      <a href="https://wuc0714.top/tag/Ksbd-vR2dH/" class="ctag ctag-13 ctag-Ksbd-vR2dH" aria-label="">spring</a>
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://wuc0714.top/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">wuc0714</a></h4>
+                    <p class="founder">The more you know, the more you don&#39;t know</p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="logo">
+          <a href="https://wuc0714.top"><img src="" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          ©2019 共 33 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
         
-      
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    
+    <div class="clear"></div>
+
         
+
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
+    <script src="https://wuc0714.top/media/js/functions-post.js"></script>
+
     </div>
-    <p class="footer__sosumi">
-      联系我 <a href="mailto:yz_0812@outlook.com">邮箱</a>
-    </p>
-    <a class="footer-rss" href="https://wuc0714.top/atom.xml">RSS</a>
-  </div>
-</footer>
-
-<script src="https://wuc0714.top/media/prism.js"></script>
-<script>
-  Prism.highlightAll()
-</script>
-
+    <!-- end: #wrapper -->
   </body>
 </html>
