@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>上传excel 并且解析 | wuc0714</title>
+<title>docker更新sentinel版本 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="https://wuc0714.top/favicon.ico?v=1621187418895">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 <link rel="stylesheet" href="https://wuc0714.top/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="上传excel 并且解析 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="docker更新sentinel版本 | wuc0714 - Atom Feed" href="https://wuc0714.top/atom.xml">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
@@ -56,61 +56,71 @@
     </div>
     <article role="main" class="hentry has-cover">
       
-        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/13.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/13.jpg); height: 80vw;">
-          <h1 class="post-title">上传excel 并且解析</h1>
+        <div class="entry-cover js-cover" data-src="https://gitee.com/yz0812/mypic/raw/master/img/30.jpg" data-width="900" data-height="423" style="background-image:url(https://gitee.com/yz0812/mypic/raw/master/img/30.jpg); height: 80vw;">
+          <h1 class="post-title">docker更新sentinel版本</h1>
         </div>
       
-      <h1 class="entry-title" itemprop="headline">上传excel 并且解析</h1>
+      <h1 class="entry-title" itemprop="headline">docker更新sentinel版本</h1>
       <div class="entry-meta">
-        <time class="updated" datetime="2020-11-20 02:49:22">2020-11-20</time>
+        <time class="updated" datetime="2021-05-17 01:49:36">2021-05-17</time>
         <span class="author vcard">
           1 min read
         </span>
       </div>
       <div class="post-content yue">
-        <pre><code class="language-java">@PostMapping(&quot;/upload&quot;) 
-public Result upload(@RequestParam MultipartFile file) throws IOException { InputStream inputStream = file.getInputStream(); 
-ExcelReader reader = ExcelUtil.getReader(inputStream); 
-List&lt;List&lt;Object&gt;&gt; readAll = reader.read(); 
-}
-
+        <blockquote>
+<p>本机环境 macOS Big Sur 11.0.1</p>
+<p>docker v20.10.5</p>
+</blockquote>
+<h3 id="1将sentinel打包成jar">1.将sentinel打包成jar</h3>
+<p><span style='color:red'>在配置文件中使用127.0.0.1:8848的地址无效,需要使用本机内网IP</span></p>
+<h3 id="2进入sentinel容器">2.进入sentinel容器</h3>
+<pre><code class="language-shell">#查看container_id
+docker container ls  
+#进入容器
+sudo docker exec -it -u root 52fe0732a674 /bin/bash 
+#查看地址
+pwd
 </code></pre>
-<p>pom.xml</p>
-<pre><code class="language-xml"> &lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml --&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
-            &lt;version&gt;4.1.2&lt;/version&gt;
-        &lt;/dependency&gt;
+<h3 id="3上传文件到容器">3.上传文件到容器</h3>
+<pre><code class="language-shell">#下载到本地 docker cp container_id:容器地址 本地地址
+docker cp 52fe0732a674:/bladex/sentinel/app.jar /Users
+#上传到容器 docker cp 本地地址 container_id:容器地址
+docker cp /Users/workPackage/idea/Sentinel/sentinel-dashboard/target/sentinel-dashboard.jar 52fe0732a674:/bladex/sentinel/
 </code></pre>
+<h3 id="4重命名">4.重命名</h3>
+<pre><code class="language-shell">#查看是否上传成功
+bash-4.4# ls
+app.jar                 sentinel-dashboard.jar
+#删除原有的 app.jar
+bash-4.4# rm app.jar
+#重命名
+bash-4.4# mv sentinel-dashboard.jar app.jar
+</code></pre>
+<h3 id="5重新启动docker即可">5.重新启动Docker即可</h3>
 
       </div>
       <div class="entry-block">
         <div class="entry-tags">
           
-            <a href="https://wuc0714.top/tag/IusPLq9nv3/">
-              java
+            <a href="https://wuc0714.top/tag/CRcloJmMj/">
+              sentinel
+            </a>
+          
+            <a href="https://wuc0714.top/tag/hWFgAWK2c/">
+              springcloud
             </a>
           
         </div>
       </div>
     </article>
     
-      <section class="post-section prev-post">
-        <div class="inner">
-          <h3>前一篇</h3>
-          <a href="https://wuc0714.top/post/chang-yong-zheng-ze-biao-da-shi/">
-            <strong>常用正则表达式</strong>
-          </a>
-        </div>
-      </section>
-    
     
       <section class="post-section prev-post">
         <div class="inner">
           <h3>后一篇</h3>
-          <a href="https://wuc0714.top/post/redis-cong-hai-liang-shu-ju-cha-xun-chu-mou-yi-gu-ding-qian-zhui-de-key/">
-            <strong>redis 从海量数据查询出某一固定前缀的key</strong>
+          <a href="https://wuc0714.top/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/">
+            <strong>sentinel推模式持久化-与nacos</strong>
           </a>
         </div>
       </section>
