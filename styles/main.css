@@ -3074,14 +3074,14 @@ section.widget_epcl_tweets p small {
 #footer section.widget_epcl_tweets p small {
   color: #fff;
 }
-section.widget_epcl_tweets p i.fa-twitter {
+section.widget_epcl_tweets p i.fa-gitee {
   font-size: 21px;
   position: absolute;
   left: 0;
   top: 5px;
   color: #1da1f2;
 }
-#footer section.widget_epcl_tweets p i.fa-twitter {
+#footer section.widget_epcl_tweets p i.fa-gitee {
   color: #fff;
 }
 section.widget_epcl_tweets p:last-of-type {
@@ -3153,10 +3153,10 @@ section.widget_epcl_tweets p:last-of-type {
 .widget_epcl_social div.icons a.youtube:hover {
   background: #eb1c1c;
 }
-.widget_epcl_social div.icons a.twitter {
+.widget_epcl_social div.icons a.gitee {
   background: #63CDF1;
 }
-.widget_epcl_social div.icons a.twitter:hover {
+.widget_epcl_social div.icons a.gitee:hover {
   background: #39c0ed;
 }
 .widget_epcl_social div.icons a.flickr {
@@ -5454,7 +5454,7 @@ div.epcl-share a.whatsapp {
 div.epcl-share a.facebook {
   color: #3B5998;
 }
-div.epcl-share a.twitter {
+div.epcl-share a.gitee {
   color: #00ACED;
 }
 div.epcl-share a.googleplus {
@@ -5709,7 +5709,7 @@ div.epcl-share a.vk {
 #single .share-buttons .epcl-button.facebook {
   background: #135CB6 !important;
 }
-#single .share-buttons .epcl-button.twitter {
+#single .share-buttons .epcl-button.gitee {
   background: #00ACED !important;
 }
 #single .share-buttons .epcl-button.googleplus {
@@ -8341,7 +8341,7 @@ body[data-aos-easing=ease-in-out-quart] [data-aos] {
   color: #fff;
 }
 /* icomoon diy */
-.fa-twitter:before {
+.fa-gitee:before {
   content: "\ef7b";
 }
 .fa-github:before {
