@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://github.com/yz0812/yz0812.github.io.git</id>
+    <id>http://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-05-18T14:15:39.941Z</updated>
+    <updated>2021-05-18T14:17:04.549Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://github.com/yz0812/yz0812.github.io.git"/>
-    <link rel="self" href="https://github.com/yz0812/yz0812.github.io.git/atom.xml"/>
+    <link rel="alternate" href="http://wuc0714.top"/>
+    <link rel="self" href="http://wuc0714.top/atom.xml"/>
     <subtitle>The more you know, the more you don&apos;t know</subtitle>
-    <logo>https://github.com/yz0812/yz0812.github.io.git/images/avatar.png</logo>
-    <icon>https://github.com/yz0812/yz0812.github.io.git/favicon.ico</icon>
+    <logo>http://wuc0714.top/images/avatar.png</logo>
+    <icon>http://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
     <entry>
         <title type="html"><![CDATA[docker更新sentinel版本]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/docker-geng-xin-sentinel-ban-ben/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/docker-geng-xin-sentinel-ban-ben/">
+        <id>http://wuc0714.top/post/docker-geng-xin-sentinel-ban-ben/</id>
+        <link href="http://wuc0714.top/post/docker-geng-xin-sentinel-ban-ben/">
         </link>
         <updated>2021-05-16T17:49:36.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -50,8 +50,8 @@ bash-4.4# mv sentinel-dashboard.jar app.jar
     </entry>
     <entry>
         <title type="html"><![CDATA[sentinel推模式持久化-与nacos]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/">
+        <id>http://wuc0714.top/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/</id>
+        <link href="http://wuc0714.top/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/">
         </link>
         <updated>2021-05-16T17:48:50.000Z</updated>
         <content type="html"><![CDATA[<p><strong>推模式持久化,是将数据推送到Naocs或者其他配置中心,所以需要改造Sentinel源码</strong></p>
@@ -571,8 +571,8 @@ public class DegradeRuleNacosPublisher implements DynamicRulePublisher&lt;List&l
     </entry>
     <entry>
         <title type="html"><![CDATA[sentienl限流]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/sentienl-xian-liu/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/sentienl-xian-liu/">
+        <id>http://wuc0714.top/post/sentienl-xian-liu/</id>
+        <link href="http://wuc0714.top/post/sentienl-xian-liu/">
         </link>
         <updated>2021-05-16T17:47:45.000Z</updated>
         <content type="html"><![CDATA[<p>官方文档:<a href="https://sentinelguard.io/zh-cn/docs">https://sentinelguard.io/zh-cn/docs</a></p>
@@ -1375,8 +1375,8 @@ public class FileDataSourceInit implements InitFunc {
     </entry>
     <entry>
         <title type="html"><![CDATA[feign远程调用]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/feign-yuan-cheng-diao-yong/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/feign-yuan-cheng-diao-yong/">
+        <id>http://wuc0714.top/post/feign-yuan-cheng-diao-yong/</id>
+        <link href="http://wuc0714.top/post/feign-yuan-cheng-diao-yong/">
         </link>
         <updated>2021-05-09T16:12:52.000Z</updated>
         <content type="html"><![CDATA[<h2 id="一feign远程调用">一.feign远程调用</h2>
@@ -1611,8 +1611,8 @@ private ExceptionPropagationPolicy exceptionPropagationPolicy; //异常传播策
     </entry>
     <entry>
         <title type="html"><![CDATA[扩展ribbon,支持naocs权重]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/">
+        <id>http://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/</id>
+        <link href="http://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/">
         </link>
         <updated>2021-05-09T16:11:29.000Z</updated>
         <content type="html"><![CDATA[<p>÷编写代码</p>
@@ -1679,8 +1679,8 @@ public class RibbonConfiguration {
     </entry>
     <entry>
         <title type="html"><![CDATA[ribbon自定义负载均衡策略]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/">
+        <id>http://wuc0714.top/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/</id>
+        <link href="http://wuc0714.top/post/ribbon-zi-ding-yi-fu-zai-jun-heng-ce-lue/">
         </link>
         <updated>2021-05-09T16:10:02.000Z</updated>
         <content type="html"><![CDATA[<p>细粒度配置自定义,java代码实现</p>
@@ -1757,8 +1757,8 @@ spring-cloud-alibaba-nacos:
     </entry>
     <entry>
         <title type="html"><![CDATA[springcloud配置文件]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/springcloud-pei-zhi-wen-jian/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/springcloud-pei-zhi-wen-jian/">
+        <id>http://wuc0714.top/post/springcloud-pei-zhi-wen-jian/</id>
+        <link href="http://wuc0714.top/post/springcloud-pei-zhi-wen-jian/">
         </link>
         <updated>2021-05-03T10:17:58.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-yaml"># 公用环境
@@ -1786,8 +1786,8 @@ management:
     </entry>
     <entry>
         <title type="html"><![CDATA[docker安装的jenkins升级]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/jenkins-sheng-ji/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/jenkins-sheng-ji/">
+        <id>http://wuc0714.top/post/jenkins-sheng-ji/</id>
+        <link href="http://wuc0714.top/post/jenkins-sheng-ji/">
         </link>
         <updated>2021-04-24T14:58:28.000Z</updated>
         <content type="html"><![CDATA[<h3 id="1更换安装源">1.更换安装源</h3>
@@ -1843,8 +1843,8 @@ exit
     </entry>
     <entry>
         <title type="html"><![CDATA[微信小程序使用 Eslint]]></title>
-        <id>https://github.com/yz0812/yz0812.github.io.git/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/</id>
-        <link href="https://github.com/yz0812/yz0812.github.io.git/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/">
+        <id>http://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/</id>
+        <link href="http://wuc0714.top/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/">
         </link>
         <updated>2021-04-20T15:37:11.000Z</updated>
         <content type="html"><![CDATA[<p>原生微信小程序安装Eslint</p>
