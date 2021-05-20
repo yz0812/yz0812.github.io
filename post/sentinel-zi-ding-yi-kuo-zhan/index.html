@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>fiddler操作手册 | wuc0714</title>
+<title>sentinel 自定义扩展 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="http://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="http://wuc0714.top/styles/main.css">
@@ -15,19 +15,9 @@
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
     <meta name="referrer" content="never">
-    <meta name="description" content="Fiddler 页面一览
-
-
-
-一.抓取http或者https请求
-
-fiddler无法抓取127.0.0.1的请求?
-
-
-使用IE浏览器
-使用http://localhost.fiddler 代替http://localhost
-使用 h..." />
-    <meta name="keywords" content="教程" />
+    <meta name="description" content="import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
+import com.alibaba.csp.sentinel.slots.block.Bl..." />
+    <meta name="keywords" content="sentinel,springcloud" />
     <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
     <script src="http://wuc0714.top/media/js/prism.min.js"></script>
   </head>
@@ -95,23 +85,25 @@ fiddler无法抓取127.0.0.1的请求?
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/31.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/32.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2021-05-19"><i class="fa fa-calendar"></i><span class="lately">2 天前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2021-05-20"><i class="fa fa-calendar"></i><span class="lately">9 分钟前</span></time>
               
-              <a href="http://wuc0714.top/post/fiddler-cao-zuo-shou-ce/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/fiddler-cao-zuo-shou-ce/"> </span>
+              <a href="http://wuc0714.top/post/sentinel-zi-ding-yi-kuo-zhan/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/sentinel-zi-ding-yi-kuo-zhan/"> </span>
               </a>
-              <span id="/fiddler-cao-zuo-shou-ce/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              <span id="/sentinel-zi-ding-yi-kuo-zhan/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
               
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="http://wuc0714.top/tag/EXPhuDLUo/" class="ctag ctag-0 ctag-EXPhuDLUo" aria-label="">教程</a>
+                      <a href="http://wuc0714.top/tag/CRcloJmMj/" class="ctag ctag-0 ctag-CRcloJmMj" aria-label="">sentinel</a>
+                    
+                      <a href="http://wuc0714.top/tag/hWFgAWK2c/" class="ctag ctag-1 ctag-hWFgAWK2c" aria-label="">springcloud</a>
                     
               </div>
-              <h1 class="title ularge white bold">fiddler操作手册</h1>
+              <h1 class="title ularge white bold">sentinel 自定义扩展</h1>
             </div>
           </div>
         </div>  
@@ -121,74 +113,53 @@ fiddler无法抓取127.0.0.1的请求?
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>Fiddler 页面一览</p>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210518224954.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/1621349920.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/1621351461.jpg" alt="" loading="lazy"></figure>
-<h3 id="一抓取http或者https请求">一.抓取http或者https请求</h3>
-<blockquote>
-<p>fiddler无法抓取127.0.0.1的请求?</p>
-</blockquote>
-<ol>
-<li>使用IE浏览器</li>
-<li>使用<a href="http://localhost.fiddler/">http://localhost.fiddler</a> 代替http://localhost</li>
-<li><s>使用 http://localhost. 在locahost后面加一个点号</s></li>
-<li>使用 http://machinename 使用机器名</li>
-<li>增加host映射</li>
-</ol>
-<blockquote>
-<p>fiddler无法抓取浏览器请求?</p>
-</blockquote>
-<ul>
-<li>我使用了翻墙插件,关闭翻墙插件即可</li>
-</ul>
-<blockquote>
-<p>fiddler无法抓取请求?</p>
-</blockquote>
-<ul>
-<li>设置-&gt;HTTPS-&gt;Trust root certificate(验证凭证)</li>
-</ul>
-<blockquote>
-<p>fiddler无法抓取HTTPS请求</p>
-</blockquote>
-<ul>
-<li>设置-&gt;HTTPS-&gt;Capture HTTPS traffic<span style='color:red'>(勾选)</span></li>
-<li>设置-&gt;HTTPS-&gt;Ignore server certificate errors(unsafe)<span style='color:red'>(勾选)</span></li>
-</ul>
-<h3 id="二移动端抓包">二.移动端抓包</h3>
-<ol>
-<li>
-<p>设置-&gt;Conections-&gt;Allow remote computers to connect<span style='color:red'>(勾选)</span></p>
-</li>
-<li>
-<p>查询局域网IP,然后在浏览器访问查看是否正常,8866是fiddler默认监听端口</p>
-</li>
-</ol>
-<pre><code class="language-http">http://192.168.3.33:8866/
-</code></pre>
-<ol start="3">
-<li>在手机浏览器访问</li>
-<li>点击<span style='color:red'>FiddlerRoot certificate</span>下载凭证</li>
-</ol>
-<p>![image-20210518235634189](/Users/yz/Library/Application Support/typora-user-images/image-20210518235634189.png)</p>
-<ol start="5">
-<li>安装凭证</li>
-</ol>
-<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210519000027.png" alt="" loading="lazy"></figure>
-<ol start="6">
-<li>修改wifi代理</li>
-</ol>
-<p>![image-20210519000210755](/Users/yz/Library/Application Support/typora-user-images/image-20210519000210755.png)</p>
-<ol start="7">
-<li>完成</li>
-</ol>
-<h3 id="3抓取java程序请求">3.抓取JAVA程序请求</h3>
-<p>设置VM options</p>
-<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/20210519001842.png" alt="" loading="lazy"></figure>
-<pre><code>-DproxySet=true
--DproxyHost=127.0.0.1
--DproxyPort=8866
-</code></pre>
+                  <p>import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;<br>
+import com.alibaba.csp.sentinel.slots.block.BlockException;<br>
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;<br>
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;<br>
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;<br>
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;<br>
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;<br>
+import com.fasterxml.jackson.databind.ObjectMapper;<br>
+import lombok.AllArgsConstructor;<br>
+import lombok.Builder;<br>
+import lombok.Data;<br>
+import lombok.NoArgsConstructor;<br>
+import org.springframework.stereotype.Component;</p>
+<p>import javax.servlet.http.HttpServletRequest;<br>
+import javax.servlet.http.HttpServletResponse;<br>
+import java.io.IOException;<br>
+@Component<br>
+public class MyUrlBlockHandler implements UrlBlockHandler {<br>
+@Override<br>
+public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {<br>
+ErrorMsg msg = null;<br>
+if (e instanceof FlowException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;限流了&quot;).build();<br>
+}else if(e instanceof DegradeException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;降级了&quot;).build();<br>
+}else if(e instanceof ParamFlowException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;热点参数限流&quot;).build();<br>
+}else if(e instanceof SystemBlockException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;系统规则（负载不满足）&quot;).build();<br>
+}else if(e instanceof AuthorityException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;授权规则不通过&quot;).build();<br>
+}<br>
+httpServletResponse.setStatus(500);<br>
+httpServletResponse.setCharacterEncoding(&quot;UTF-8&quot;);<br>
+httpServletResponse.setHeader(&quot;Content-Type&quot;,&quot;application/json;charset=utf-8&quot;);<br>
+httpServletResponse.setContentType(&quot;application/json;charset=utf-8&quot;);<br>
+new ObjectMapper().writeValue(httpServletResponse.getWriter(),msg);<br>
+}<br>
+}<br>
+@Data<br>
+@Builder<br>
+@AllArgsConstructor<br>
+@NoArgsConstructor<br>
+class ErrorMsg{<br>
+private Integer status;<br>
+private String msg;<br>
+}</p>
 
                 </div>
                 <div class="clear"></div>
@@ -198,26 +169,13 @@ fiddler无法抓取127.0.0.1的请求?
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/32.jpg');"></div>
-                 <a href="http://wuc0714.top/post/sentinel-zi-ding-yi-kuo-zhan/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2021-05-20">2021-05-20</time>
-                  <h4 class="title white no-margin">sentinel 自定义扩展</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="http://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/30.jpg');"></div>
-                 <a href="http://wuc0714.top/post/docker-geng-xin-sentinel-ban-ben/" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/31.jpg');"></div>
+                 <a href="http://wuc0714.top/post/fiddler-cao-zuo-shou-ce/" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2021-05-17">2021-05-17</time>
-                  <h4 class="title white no-margin">docker更新sentinel版本</h4>
+                  <time datetime="2021-05-19">2021-05-19</time>
+                  <h4 class="title white no-margin">fiddler操作手册</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="http://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">

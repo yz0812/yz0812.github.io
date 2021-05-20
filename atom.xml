@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-05-18T17:58:56.411Z</updated>
+    <updated>2021-05-20T16:07:18.441Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://wuc0714.top"/>
     <link rel="self" href="http://wuc0714.top/atom.xml"/>
@@ -10,6 +10,61 @@
     <logo>http://wuc0714.top/images/avatar.png</logo>
     <icon>http://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[sentinel 自定义扩展]]></title>
+        <id>http://wuc0714.top/post/sentinel-zi-ding-yi-kuo-zhan/</id>
+        <link href="http://wuc0714.top/post/sentinel-zi-ding-yi-kuo-zhan/">
+        </link>
+        <updated>2021-05-20T15:58:08.000Z</updated>
+        <content type="html"><![CDATA[<p>import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;<br>
+import com.alibaba.csp.sentinel.slots.block.BlockException;<br>
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;<br>
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;<br>
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;<br>
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;<br>
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;<br>
+import com.fasterxml.jackson.databind.ObjectMapper;<br>
+import lombok.AllArgsConstructor;<br>
+import lombok.Builder;<br>
+import lombok.Data;<br>
+import lombok.NoArgsConstructor;<br>
+import org.springframework.stereotype.Component;</p>
+<p>import javax.servlet.http.HttpServletRequest;<br>
+import javax.servlet.http.HttpServletResponse;<br>
+import java.io.IOException;<br>
+@Component<br>
+public class MyUrlBlockHandler implements UrlBlockHandler {<br>
+@Override<br>
+public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {<br>
+ErrorMsg msg = null;<br>
+if (e instanceof FlowException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;限流了&quot;).build();<br>
+}else if(e instanceof DegradeException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;降级了&quot;).build();<br>
+}else if(e instanceof ParamFlowException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;热点参数限流&quot;).build();<br>
+}else if(e instanceof SystemBlockException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;系统规则（负载不满足）&quot;).build();<br>
+}else if(e instanceof AuthorityException){<br>
+msg = ErrorMsg.builder().status(100).msg(&quot;授权规则不通过&quot;).build();<br>
+}<br>
+httpServletResponse.setStatus(500);<br>
+httpServletResponse.setCharacterEncoding(&quot;UTF-8&quot;);<br>
+httpServletResponse.setHeader(&quot;Content-Type&quot;,&quot;application/json;charset=utf-8&quot;);<br>
+httpServletResponse.setContentType(&quot;application/json;charset=utf-8&quot;);<br>
+new ObjectMapper().writeValue(httpServletResponse.getWriter(),msg);<br>
+}<br>
+}<br>
+@Data<br>
+@Builder<br>
+@AllArgsConstructor<br>
+@NoArgsConstructor<br>
+class ErrorMsg{<br>
+private Integer status;<br>
+private String msg;<br>
+}</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[fiddler操作手册]]></title>
         <id>http://wuc0714.top/post/fiddler-cao-zuo-shou-ce/</id>
@@ -1858,63 +1913,6 @@ management:
           include: '*'
 </code></pre>
 <p>可以在一个配置文件写多个环境的配置</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[docker安装的jenkins升级]]></title>
-        <id>http://wuc0714.top/post/jenkins-sheng-ji/</id>
-        <link href="http://wuc0714.top/post/jenkins-sheng-ji/">
-        </link>
-        <updated>2021-04-24T14:58:28.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="1更换安装源">1.更换安装源</h3>
-<p><strong>jenkins 更换安装源</strong>,进入<code>http://127.0.0.1:8091/pluginManager/advanced</code>,高级设置</p>
-<p>修改站点为清华源地址<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code></p>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210424204159.png" alt="" loading="lazy"></figure>
-<h3 id="2修改下载地址">2.修改下载地址</h3>
-<p>进入/jenkins/updates/ 找到default.json</p>
-<p>这是老版本的替换命令，具体来说就是将<code>updates.jenkins-ci.org</code>替换为<code>mirrors.tuna.tsinghua.edu.cn</code>，<code>www.google.com</code>替换为<code>www.baidu.com</code>：</p>
-<pre><code class="language-sh">sed -i 's#http://updates.jenkins-ci.org/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
-</code></pre>
-<p>当然，在最新的jenkins版本中，已经有了调整，配置文件中的地址不再是<code>updates.jenkins-ci.org</code> ,而是将<code>https://updates.jenkins.io/download</code></p>
-<p>替换为<code>https://mirrors.tuna.tsinghua.edu.cn/jenkins</code></p>
-<pre><code class="language-shell">sed -i 's#https://updates.jenkins.io/download#https://mirrors.tuna.tsinghua.edu.cn/jenkins#g' default.json &amp;&amp; sed -i 's#http://www.google.com#https://www.baidu.com#g' default.json
-</code></pre>
-<h3 id="3jenkins更新war包">3.jenkins更新war包</h3>
-<p>1.查询container_id</p>
-<pre><code class="language-docker">docker container ls
-</code></pre>
-<p>2.进入容器,使用root身份</p>
-<pre><code class="language-sh">docker exec -it -u root [container_id] /bin/bash
-</code></pre>
-<p>3.其次，执行命令查看java进程</p>
-<pre><code class="language-shell">root@dd7cdfba9d52:/# ps -ef | grep java
-jenkins      8     1  1 19:57 ?        00:01:15 java -Duser.home=/var/jenkins_home -Djenkins.model.Jenkins.slaveAgentPort=50000 -jar /usr/share/jenkins/jenkins.war
-root       103    95  0 21:02 pts/0    00:00:00 grep java
-root@dd7cdfba9d52:/# 
-</code></pre>
-<p>4.下载最新的war包</p>
-<pre><code class="language-shell"># 进入容器之后进入进入war存放地址
-cd /usr/share/jenkins/
-# 将之前的war修改名字
-cp jenkins.war jenkins.war.2.60.3.bak
-# 创建文件夹用于存放新下载的war
-mkdir other-version
-# 进入文件夹
-cd other-version/
-# 下载新的war
-wget https://updates.jenkins.io/download/war/2.289/jenkins.war
-# 进入存放目录
-cd /usr/share/jenkins
-# 删除旧war
-rm jenkins.war
-# 进入新的文件夹
-cd other-version
-# 移动war
-mv jenkins.war ../
-# 退出
-exit
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/5C7C2708-33CE-4EE3-8B00-850496E27E7E.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
