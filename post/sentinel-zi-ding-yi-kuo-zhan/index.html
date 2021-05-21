@@ -15,8 +15,9 @@
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
     <meta name="referrer" content="never">
-    <meta name="description" content="import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
-import com.alibaba.csp.sentinel.slots.block.Bl..." />
+    <meta name="description" content="1.自定义返回值扩展
+import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
+import com.alibaba.csp.sentinel.slo..." />
     <meta name="keywords" content="sentinel,springcloud" />
     <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
     <script src="http://wuc0714.top/media/js/prism.min.js"></script>
@@ -72,7 +73,7 @@ import com.alibaba.csp.sentinel.slots.block.Bl..." />
       <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
         <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
           <div class="search-wrapper section">
-            <form id="gridea-search-form" data-update="1621593530215" action="/search/index.html" class="search-form" _lpchecked="1">
+            <form id="gridea-search-form" data-update="1621593818369" action="/search/index.html" class="search-form" _lpchecked="1">
               <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
               <button type="submit" class="submit" aria-label="Submit">
                 <i class="fa fa-search-line"></i>
@@ -113,53 +114,99 @@ import com.alibaba.csp.sentinel.slots.block.Bl..." />
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;<br>
-import com.alibaba.csp.sentinel.slots.block.BlockException;<br>
-import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;<br>
-import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;<br>
-import com.alibaba.csp.sentinel.slots.block.flow.FlowException;<br>
-import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;<br>
-import com.alibaba.csp.sentinel.slots.system.SystemBlockException;<br>
-import com.fasterxml.jackson.databind.ObjectMapper;<br>
-import lombok.AllArgsConstructor;<br>
-import lombok.Builder;<br>
-import lombok.Data;<br>
-import lombok.NoArgsConstructor;<br>
-import org.springframework.stereotype.Component;</p>
-<p>import javax.servlet.http.HttpServletRequest;<br>
-import javax.servlet.http.HttpServletResponse;<br>
-import java.io.IOException;<br>
-@Component<br>
-public class MyUrlBlockHandler implements UrlBlockHandler {<br>
-@Override<br>
-public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {<br>
-ErrorMsg msg = null;<br>
-if (e instanceof FlowException){<br>
-msg = ErrorMsg.builder().status(100).msg(&quot;限流了&quot;).build();<br>
-}else if(e instanceof DegradeException){<br>
-msg = ErrorMsg.builder().status(100).msg(&quot;降级了&quot;).build();<br>
-}else if(e instanceof ParamFlowException){<br>
-msg = ErrorMsg.builder().status(100).msg(&quot;热点参数限流&quot;).build();<br>
-}else if(e instanceof SystemBlockException){<br>
-msg = ErrorMsg.builder().status(100).msg(&quot;系统规则（负载不满足）&quot;).build();<br>
-}else if(e instanceof AuthorityException){<br>
-msg = ErrorMsg.builder().status(100).msg(&quot;授权规则不通过&quot;).build();<br>
-}<br>
-httpServletResponse.setStatus(500);<br>
-httpServletResponse.setCharacterEncoding(&quot;UTF-8&quot;);<br>
-httpServletResponse.setHeader(&quot;Content-Type&quot;,&quot;application/json;charset=utf-8&quot;);<br>
-httpServletResponse.setContentType(&quot;application/json;charset=utf-8&quot;);<br>
-new ObjectMapper().writeValue(httpServletResponse.getWriter(),msg);<br>
-}<br>
-}<br>
-@Data<br>
-@Builder<br>
-@AllArgsConstructor<br>
-@NoArgsConstructor<br>
-class ErrorMsg{<br>
-private Integer status;<br>
-private String msg;<br>
-}</p>
+                  <h3 id="1自定义返回值扩展">1.自定义返回值扩展</h3>
+<pre><code class="language-java">import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+@Component
+public class MyUrlBlockHandler implements UrlBlockHandler {
+    @Override
+    public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {
+        ErrorMsg msg = null;
+        if (e instanceof FlowException){
+            msg = ErrorMsg.builder().status(100).msg(&quot;限流了&quot;).build();
+        }else if(e instanceof DegradeException){
+            msg = ErrorMsg.builder().status(100).msg(&quot;降级了&quot;).build();
+        }else if(e instanceof ParamFlowException){
+            msg = ErrorMsg.builder().status(100).msg(&quot;热点参数限流&quot;).build();
+        }else if(e instanceof SystemBlockException){
+            msg = ErrorMsg.builder().status(100).msg(&quot;系统规则（负载不满足）&quot;).build();
+        }else if(e instanceof AuthorityException){
+            msg = ErrorMsg.builder().status(100).msg(&quot;授权规则不通过&quot;).build();
+        }
+        httpServletResponse.setStatus(500);
+        httpServletResponse.setCharacterEncoding(&quot;UTF-8&quot;);
+        httpServletResponse.setHeader(&quot;Content-Type&quot;,&quot;application/json;charset=utf-8&quot;);
+        httpServletResponse.setContentType(&quot;application/json;charset=utf-8&quot;);
+        new ObjectMapper().writeValue(httpServletResponse.getWriter(),msg);
+    }
+}
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+class ErrorMsg{
+    private Integer status;
+    private String msg;
+}
+</code></pre>
+<h3 id="2实现区分来源">2.实现区分来源</h3>
+<pre><code class="language-java">import com.alibaba.csp.sentinel.adapter.servlet.callback.RequestOriginParser;
+import com.alibaba.csp.sentinel.util.StringUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
+@Component
+public class MyRequestOriginPareser implements RequestOriginParser {
+    @Override
+    public String parseOrigin(HttpServletRequest httpServletRequest) {
+        //参数中获取origin的参数并返回
+        String origin  =httpServletRequest.getParameter(&quot;origin&quot;);
+        if(StringUtil.isBlank(origin)){
+            throw new IllegalArgumentException(&quot;origin must be specified&quot;);
+        }
+        return origin;
+    }
+}
+
+</code></pre>
+<h3 id="3restfuurl支持">3.RESTfuURL支持</h3>
+<pre><code class="language-java">import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlCleaner;
+import org.apache.commons.lang.math.NumberUtils;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
+@Component
+public class MyUrlCleaner implements UrlCleaner {
+    @Override
+    public String clean(String s) {
+        String[] split = s.split(&quot;/&quot;);
+        return Arrays.stream(split).map(str -&gt; {
+                    if (NumberUtils.isNumber(str)) {
+                        return &quot;{number}&quot;;
+                    }
+                    return str;
+                }
+        ).reduce((a, b) -&gt; a + &quot;/&quot; + b).orElse(&quot;&quot;);
+
+    }
+}
+</code></pre>
 
                 </div>
                 <div class="clear"></div>
