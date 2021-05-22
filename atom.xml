@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-05-21T10:43:41.893Z</updated>
+    <updated>2021-05-22T14:11:20.254Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://wuc0714.top"/>
     <link rel="self" href="http://wuc0714.top/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>http://wuc0714.top/images/avatar.png</logo>
     <icon>http://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[idea 插件]]></title>
+        <id>http://wuc0714.top/post/idea-cha-jian/</id>
+        <link href="http://wuc0714.top/post/idea-cha-jian/">
+        </link>
+        <updated>2021-05-22T10:52:44.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li><a href="https://gitee.com/zys981029/RestfulTool">RestfulTool</a> Restful接口插件</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[sentinel 自定义扩展]]></title>
         <id>http://wuc0714.top/post/sentinel-zi-ding-yi-kuo-zhan/</id>
@@ -181,7 +192,7 @@ public class MyUrlCleaner implements UrlCleaner {
 <h3 id="3抓取java程序请求">3.抓取JAVA程序请求</h3>
 <p>设置VM options</p>
 <figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/20210519001842.png" alt="" loading="lazy"></figure>
-<pre><code>-DproxySet=true
+<pre><code class="language-properties">-DproxySet=true
 -DproxyHost=127.0.0.1
 -DproxyPort=8866
 </code></pre>
@@ -1930,35 +1941,6 @@ spring-cloud-alibaba-nacos:
     clients: spring-cloud-alibaba-nacos
     enabled: true
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[springcloud配置文件]]></title>
-        <id>http://wuc0714.top/post/springcloud-pei-zhi-wen-jian/</id>
-        <link href="http://wuc0714.top/post/springcloud-pei-zhi-wen-jian/">
-        </link>
-        <updated>2021-05-03T10:17:58.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-yaml"># 公用环境
-spring:
-    application:
-        name: spring-cloud-alibbaba
-# 连字符
---- 
-spring:
-  profiles: dev
----
-spring:
-  profiles: pro
-management:
-  endpoint:
-    health:
-        show-details: always
-  endpoints:
-    web:
-      exposure:
-          include: '*'
-</code></pre>
-<p>可以在一个配置文件写多个环境的配置</p>
 ]]></content>
     </entry>
 </feed>
