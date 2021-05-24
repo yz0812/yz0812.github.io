@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>spring事物不生效的几种情况 | wuc0714</title>
+<title>RockerMq | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="http://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="http://wuc0714.top/styles/main.css">
@@ -14,17 +14,11 @@
 <script src="http://wuc0714.top/media/js/view-image.min.js"></script>
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
-    <meta name="referrer" content="never">
-    <meta name="description" content="事务不生效的几种情况
-
-方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。
-异常被catch住了。
-默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注..." />
-    <meta name="keywords" content="interview,notepad,java,debug,spring" />
-    <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
-    <script src="http://wuc0714.top/media/js/prism.min.js"></script>
   </head>
   <body>
+    <!-- start: #wrapper -->
+    <div class="wrapper">
+      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -85,149 +79,71 @@
         </div>
       </div>
 
-      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
-
-        <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/01.jpg');">
-            <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-07-07"><i class="fa fa-calendar"></i><span class="lately">1 年前</span></time>
-              
-              <a href="http://wuc0714.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/"> </span>
-              </a>
-              <span id="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
-              
-            </div>
-            <div class="info">
-              <div class="tags ">
-                
-                      <a href="http://wuc0714.top/tag/72_uOp7Med/" class="ctag ctag-0 ctag-72_uOp7Med" aria-label="">interview</a>
-                    
-                      <a href="http://wuc0714.top/tag/OO9AsLppIP/" class="ctag ctag-1 ctag-OO9AsLppIP" aria-label="">notepad</a>
-                    
-                      <a href="http://wuc0714.top/tag/IusPLq9nv3/" class="ctag ctag-2 ctag-IusPLq9nv3" aria-label="">java</a>
-                    
-                      <a href="http://wuc0714.top/tag/fog5GeKI9D/" class="ctag ctag-3 ctag-fog5GeKI9D" aria-label="">debug</a>
-                    
-                      <a href="http://wuc0714.top/tag/Ksbd-vR2dH/" class="ctag ctag-4 ctag-Ksbd-vR2dH" aria-label="">spring</a>
-                    
-              </div>
-              <h1 class="title ularge white bold">spring事物不生效的几种情况</h1>
-            </div>
-          </div>
-        </div>  
-
+      <main id="home" class="main fullcover no-sidebar content">
+        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
         <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile">
-            <article class="main-article post">
-              <section class="post-content">
-                <div class="text">
-                  <p>事务不生效的几种情况</p>
-<ol>
-<li>方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。</li>
-<li>异常被catch住了。</li>
-<li>默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注解上面指定异常类型 <span style="color:red">@Transactional(rollbackFor=Exception.class)</li>
-</ol>
-<blockquote>
-<p>java里面将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等</p>
-</blockquote>
-<ol start="4">
-<li>据库引擎要支持事务，如果是MySQL，注意表要使用支持事务的引擎，比如innodb，如果是myisam，事务是不起作用的。</li>
-<li>是否开启了事物注解</li>
-</ol>
-<pre><code class="language-xml">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; proxy-target-class=&quot;true&quot;/&gt;
-</code></pre>
-<ol start="6">
-<li>spring是否扫描到你这个包，如下是扫描到org.test下面的包</li>
-</ol>
-<pre><code class="language-xml">&lt;context:component-scan base-package=&quot;org.test&quot; &gt;&lt;/context:component-scan&gt;
-</code></pre>
-<ol start="7">
-<li>在同一类中调用。比如a类的b方法调用了a的c方法</li>
-</ol>
-<h4 id="事物异常">事物异常</h4>
-<pre><code class="language-java">org.springframework.transaction.NoTransactionException: No transaction aspect-managed TransactionStatus in scope
-</code></pre>
-<blockquote>
-<p>sping的事务是通过注解配置上去的，而下面的那个方法并没有接口，在实现类里面只是一个简单的方法而已，对于事务的注解来说没有任何作用，所以在这个方法里面调用回滚的方法自然就报错了。</p>
-</blockquote>
-<blockquote>
-<p>解决方法,因为我这是service里面调用得一个内部方法,如果我在service方法中加入事务,那么报错所有数据都会回滚,这并不是我想要得,所以我将这个方法放到另外一个serivce里面去了</p>
-</blockquote>
-<h4 id="手动执行回滚">手动执行回滚</h4>
-<pre><code class="language-java">TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-</code></pre>
+          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
+                
+            <!-- start: .articles -->
+            <div class="main-article post">
+  <h2 class="year"># RockerMq</h2>
+    
+      <article class="item default grid-33 tablet-grid-50 np-mobile">
+        <a href="http://wuc0714.top/post/rockermq-fen-bu-shi-shi-wu/" class="thumb hover-effect">
+          <span class="fullimage cover" style="display: block;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/36.jpg');"></span>
+        </a>
+        <div class="info gradient-effect">
+          <time datetime="2021-05-25">2021-05-25</time>
+          <h4 class="title usmall">
+            <a href="http://wuc0714.top/post/rockermq-fen-bu-shi-shi-wu/">RockerMq分布式事务</a>
+          </h4>
+        </div>
+      </article>
 
-                </div>
-                <div class="clear"></div>
-              </section>
-            </article>
-            <div class="clear"></div>
+    
+      <article class="item default grid-33 tablet-grid-50 np-mobile">
+        <a href="http://wuc0714.top/post/rockemq-fa-song-xiao-xi/" class="thumb hover-effect">
+          <span class="fullimage cover" style="display: block;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/35.jpg');"></span>
+        </a>
+        <div class="info gradient-effect">
+          <time datetime="2021-05-25">2021-05-25</time>
+          <h4 class="title usmall">
+            <a href="http://wuc0714.top/post/rockemq-fa-song-xiao-xi/">RockeMq发送消息</a>
+          </h4>
+        </div>
+      </article>
 
-            <section class="related section">
-              
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/06.jpg');"></div>
-                 <a href="http://wuc0714.top/post/nei-cun-yi-chu/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-07-08">2020-07-08</time>
-                  <h4 class="title white no-margin">内存溢出</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="http://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-              
-              <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/05.jpg');"></div>
-                 <a href="http://wuc0714.top/post/sentinel-yan-zheng-ma-xian-liu/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-05-11">2020-05-11</time>
-                  <h4 class="title white no-margin">Sentinel验证码限流</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="http://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
+    
+      <article class="item default grid-33 tablet-grid-50 np-mobile">
+        <a href="http://wuc0714.top/post/docker-an-zhuang-rockermq/" class="thumb hover-effect">
+          <span class="fullimage cover" style="display: block;background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/34.jpg');"></span>
+        </a>
+        <div class="info gradient-effect">
+          <time datetime="2021-05-25">2021-05-25</time>
+          <h4 class="title usmall">
+            <a href="http://wuc0714.top/post/docker-an-zhuang-rockermq/">docker安装rockerMq</a>
+          </h4>
+        </div>
+      </article>
 
-                <div class="clear"></div>
-            </section>
-
-              <div class="clear"></div>
-              
+    
+    <div class="clear"></div>
+</div>
+            <!-- end: .articles -->
             
-              <div id="comments" class="bg-white hosted ">
-                <div class="clear"></div>
-<script>
-jQuery(document).ready(function($){
-    $('.vemoji-btn').text('😀');
-    $("#comments").on('click', 'span.vat',function(){
-        $(this).parent('div.vmeta').next("div.vcontent").after($("div.vwrap"));
-        $('textarea#veditor').focus();
-    })
-    if(window.location.hash){
-        var checkExist = setInterval(function() {
-            if ($(window.location.hash).length) {
-                $('html, body').animate({scrollTop: $(window.location.hash).offset().top-200}, 600);
-                clearInterval(checkExist);
-            }
-        }, 100);
-    }
-})
-</script>
-
+                        <div class="epcl-pagination section">
+              <div class="nav">
+                
+                
               </div>
-            
-
             </div>
+            
           </div>
+          </div>
+        </div>
       </main>
 
-          <footer id="footer" class="grid-container">
+        <footer id="footer" class="grid-container">
         <div class="widgets row gradient-effect">
             <div class="default-sidebar border-effect">
               <div class="grid-33 tablet-grid-50 mobile-grid-100">
@@ -462,9 +378,6 @@ jQuery(document).ready(function($){
     })
 </script>
     
-
-      
-    <script src="http://wuc0714.top/media/js/functions-post.js"></script>
 
     </div>
     <!-- end: #wrapper -->

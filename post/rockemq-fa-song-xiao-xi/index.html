@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>spring事物不生效的几种情况 | wuc0714</title>
+<title>RockeMq发送消息 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="http://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="http://wuc0714.top/styles/main.css">
@@ -15,12 +15,12 @@
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
     <meta name="referrer" content="never">
-    <meta name="description" content="事务不生效的几种情况
-
-方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。
-异常被catch住了。
-默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注..." />
-    <meta name="keywords" content="interview,notepad,java,debug,spring" />
+    <meta name="description" content="1.使用spring-boot-rocketmq 发送消息
+1.1消息生产者spring-cloud-alibaba-rocketmq-producer
+pom.xml
+&lt;dependency&gt;
+    &lt;groupId&..." />
+    <meta name="keywords" content="RockerMq,springcloud" />
     <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
     <script src="http://wuc0714.top/media/js/prism.min.js"></script>
   </head>
@@ -88,31 +88,25 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/01.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/35.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-07-07"><i class="fa fa-calendar"></i><span class="lately">1 年前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2021-05-25"><i class="fa fa-calendar"></i><span class="lately">2 分钟前</span></time>
               
-              <a href="http://wuc0714.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/"> </span>
+              <a href="http://wuc0714.top/post/rockemq-fa-song-xiao-xi/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/rockemq-fa-song-xiao-xi/"> </span>
               </a>
-              <span id="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              <span id="/rockemq-fa-song-xiao-xi/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
               
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="http://wuc0714.top/tag/72_uOp7Med/" class="ctag ctag-0 ctag-72_uOp7Med" aria-label="">interview</a>
+                      <a href="http://wuc0714.top/tag/0ZwbDlQRt/" class="ctag ctag-0 ctag-0ZwbDlQRt" aria-label="">RockerMq</a>
                     
-                      <a href="http://wuc0714.top/tag/OO9AsLppIP/" class="ctag ctag-1 ctag-OO9AsLppIP" aria-label="">notepad</a>
-                    
-                      <a href="http://wuc0714.top/tag/IusPLq9nv3/" class="ctag ctag-2 ctag-IusPLq9nv3" aria-label="">java</a>
-                    
-                      <a href="http://wuc0714.top/tag/fog5GeKI9D/" class="ctag ctag-3 ctag-fog5GeKI9D" aria-label="">debug</a>
-                    
-                      <a href="http://wuc0714.top/tag/Ksbd-vR2dH/" class="ctag ctag-4 ctag-Ksbd-vR2dH" aria-label="">spring</a>
+                      <a href="http://wuc0714.top/tag/hWFgAWK2c/" class="ctag ctag-1 ctag-hWFgAWK2c" aria-label="">springcloud</a>
                     
               </div>
-              <h1 class="title ularge white bold">spring事物不生效的几种情况</h1>
+              <h1 class="title ularge white bold">RockeMq发送消息</h1>
             </div>
           </div>
         </div>  
@@ -122,40 +116,163 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>事务不生效的几种情况</p>
-<ol>
-<li>方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。</li>
-<li>异常被catch住了。</li>
-<li>默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注解上面指定异常类型 <span style="color:red">@Transactional(rollbackFor=Exception.class)</li>
-</ol>
-<blockquote>
-<p>java里面将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等</p>
-</blockquote>
-<ol start="4">
-<li>据库引擎要支持事务，如果是MySQL，注意表要使用支持事务的引擎，比如innodb，如果是myisam，事务是不起作用的。</li>
-<li>是否开启了事物注解</li>
-</ol>
-<pre><code class="language-xml">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; proxy-target-class=&quot;true&quot;/&gt;
+                  <h3 id="1使用spring-boot-rocketmq-发送消息">1.使用spring-boot-rocketmq 发送消息</h3>
+<h4 id="11消息生产者spring-cloud-alibaba-rocketmq-producer">1.1消息生产者spring-cloud-alibaba-rocketmq-producer</h4>
+<p><strong>pom.xml</strong></p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt;
+    &lt;artifactId&gt;rocketmq-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;2.2.0&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
-<ol start="6">
-<li>spring是否扫描到你这个包，如下是扫描到org.test下面的包</li>
-</ol>
-<pre><code class="language-xml">&lt;context:component-scan base-package=&quot;org.test&quot; &gt;&lt;/context:component-scan&gt;
+<p><strong>application.yml</strong></p>
+<pre><code class="language-yaml">spring:
+  application:
+    name: spring-cloud-alibaba-rocketmq-producer
+server:
+  port: 6031
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    #必填
+    group: test-group
 </code></pre>
-<ol start="7">
-<li>在同一类中调用。比如a类的b方法调用了a的c方法</li>
-</ol>
-<h4 id="事物异常">事物异常</h4>
-<pre><code class="language-java">org.springframework.transaction.NoTransactionException: No transaction aspect-managed TransactionStatus in scope
+<p><strong>RocketMqTestController</strong></p>
+<pre><code class="language-java">@RestController
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class RocketMqTestController {
+    private final RocketMQTemplate rocketMQTemplate;
+
+    @GetMapping(&quot;senStr&quot;)
+    public String senStr(String str) {
+        rocketMQTemplate.convertAndSend(&quot;add-bonus&quot;, str);
+        return str;
+    }
+
+    @GetMapping(&quot;senObject&quot;)
+    public ShareDTO senObject(String str) {
+      ShareDTO shareDTO =  ShareDTO.builder().id(1).name(str).thisDate(new Date()).build();
+        rocketMQTemplate.convertAndSend(&quot;add-bonus&quot;,shareDTO);
+        return shareDTO;
+    }
+}
 </code></pre>
+<p><strong>ShareDTO</strong></p>
+<pre><code class="language-java">@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class ShareDTO {
+    private Integer id;
+    private String name;
+    @JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)
+    private Date thisDate;
+}
+</code></pre>
+<h4 id="12消息生产者spring-cloud-alibaba-rocketmq-consumer">1.2消息生产者spring-cloud-alibaba-rocketmq-consumer</h4>
+<p><strong>pom.xml</strong></p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt;
+    &lt;artifactId&gt;rocketmq-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;2.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p><strong>application.yml</strong></p>
+<pre><code class="language-yaml">spring:
+  application:
+    name: spring-cloud-alibaba-rocketmq-producer
+server:
+  port: 6031
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    #必填
+    group: test-group
+</code></pre>
+<p><strong>BonusListener</strong></p>
+<pre><code class="language-java">@Component
+@Slf4j
+@RocketMQMessageListener(consumerGroup = &quot;test-group&quot;,topic = &quot;add-bonus&quot;)
+public class BonusListener implements RocketMQListener&lt;Object&gt; {
+    @Override
+    public void onMessage(Object o) {
+        log.info(&quot;接收参数:{}&quot;,o);
+    }
+}
+</code></pre>
+<h3 id="2使用spring-cloud-starter-stream-rocketmq-发送消息">2.使用spring-cloud-starter-stream-rocketmq 发送消息</h3>
+<h4 id="21-spring-cloud-alibaba-stream-rocketmq-producer-生产者">2.1 spring-cloud-alibaba-stream-rocketmq-producer 生产者</h4>
+<p><strong>pom.xml</strong></p>
+<pre><code class="language-xml">&lt;!-- RocketMQ 依赖 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-stream-rocketmq&lt;/artifactId&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;org.springframework.integration&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-integration-core&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.integration&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-integration-core&lt;/artifactId&gt;
+    &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p><strong>application.yml</strong></p>
+<pre><code class="language-yaml">spring:  application:    name: spring-cloud-alibaba-rocketmq-producer    # RocketMQ 相关配置    stream:      rocketmq:        binder:          name-server: 127.0.0.1:9876      bindings:        output1: {destination: test-topic1, content-type: application/json}        output2: {destination: test-topic2, content-type: application/json}server:  port: 6033
+</code></pre>
+<p><strong>MainController</strong></p>
+<pre><code class="language-java">/** * @author linke * @date 2020-01-19 下午 21:08 * @description */@RestController@RequiredArgsConstructor(onConstructor = @_(@Autowired))public class MainController {    private final ProduceService produceService;    @RequestMapping(value = &quot;/send&quot;, method = RequestMethod.GET)    public String send(String msg) {        produceService.send(msg);        return &quot;字符串消息发送成功!&quot;;    }    @RequestMapping(value = &quot;/sendWithTags&quot;, method = RequestMethod.GET)    public String sendWithTags(String msg) {        produceService.sendWithTags(msg, &quot;tagStr&quot;);        return &quot;带tag字符串消息发送成功!&quot;;    }    @RequestMapping(value = &quot;/sendObject&quot;, method = RequestMethod.GET)    public String sendObject(int index) {        produceService.sendObject(new ShareDTO(index, &quot;foo&quot;,new Date()), &quot;tagObj&quot;);        return &quot;Object对象消息发送成功!&quot;;    }}
+</code></pre>
+<p><strong>MySource</strong></p>
+<pre><code class="language-java">public interface MySource {    @Output(&quot;output1&quot;)    MessageChannel output1();    @Output(&quot;output2&quot;)    MessageChannel output2();}
+</code></pre>
+<p><strong>ProduceService</strong></p>
+<pre><code class="language-java">@Slf4j@Service@RequiredArgsConstructor(onConstructor = @_(@Autowired))public class ProduceService {    private final MySource source;    /**     * 发送字符串     *     * @param msg     */    public void send(String msg) {        Message message = MessageBuilder.withPayload(msg)                .build();        source.output1().send(message);    }    /**     * 发送带tag的字符串     *     * @param msg     * @param tag     */    public void sendWithTags(String msg, String tag) {        Message message = MessageBuilder.withPayload(msg)                .setHeader(RocketMQHeaders.TAGS, tag)                .build();        source.output1().send(message);    }    /**     * 发送对象     *     * @param msg     * @param tag     * @param &lt;T&gt;     */    public &lt;T&gt; void sendObject(T msg, String tag) {        Message message = MessageBuilder.withPayload(msg)                .setHeader(RocketMQHeaders.TAGS, tag)                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)                .build();        source.output2().send(message);    }}
+</code></pre>
+<p><strong>SrpingCloudAlibabaStreamRocketProducerApplication</strong></p>
+<pre><code class="language-java">@SpringBootApplication@EnableBinding({MySource.class})public class SrpingCloudAlibabaStreamRocketProducerApplication {    public static void main(String[] args) {        SpringApplication.run(SrpingCloudAlibabaStreamRocketProducerApplication.class, args);    }}
+</code></pre>
+<h4 id="22-spring-cloud-alibaba-stream-rocketmq-consumer消费者">2.2 spring-cloud-alibaba-stream-rocketmq-consumer消费者</h4>
+<p><strong>pom.xml</strong></p>
+<pre><code class="language-xml">&lt;!-- RocketMQ 依赖 --&gt;&lt;dependency&gt;    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;    &lt;artifactId&gt;spring-cloud-starter-stream-rocketmq&lt;/artifactId&gt;    &lt;exclusions&gt;        &lt;exclusion&gt;            &lt;groupId&gt;org.springframework.integration&lt;/groupId&gt;            &lt;artifactId&gt;spring-integration-core&lt;/artifactId&gt;        &lt;/exclusion&gt;    &lt;/exclusions&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.integration&lt;/groupId&gt;    &lt;artifactId&gt;spring-integration-core&lt;/artifactId&gt;    &lt;version&gt;5.2.1.RELEASE&lt;/version&gt;&lt;/dependency&gt;
+</code></pre>
+<p><strong>application.yml</strong></p>
+<pre><code class="language-yaml">spring:  application:    name: spring-cloud-alibaba-rocketmq-producer    # RocketMQ 相关配置    stream:      rocketmq:        binder:          name-server: 127.0.0.1:9876        bindings:          input1: {consumer.orderly: true}  #是否排序          input2: {consumer.tags: tagStr}   #订阅 带tag值为tagStr的字符串          input3: {consumer.tags: tagObj}   #订阅 带tag值为tabObj的字符串      bindings:        input1: {destination: test-topic1, content-type: text/plain, group: test-group1, consumer.maxAttempts: 1}        input2: {destination: test-topic1, content-type: application/plain, group: test-group2, consumer.maxAttempts: 1}        input3: {destination: test-topic2, content-type: application/plain, group: test-group3, consumer.maxAttempts: 1}server:  port: 6030
+</code></pre>
+<p><strong>ReceiveService</strong></p>
+<pre><code class="language-java">@Service@Slf4jpublic class ReceiveService {    @StreamListener(&quot;input1&quot;)    public void receiveInput1(String receiveMsg) {        log.info(&quot;input1 接收到了消息：&quot; + receiveMsg);    }    @StreamListener(&quot;input2&quot;)    public void receiveInput2(String receiveMsg) {        log.info(&quot;input2 接收到了消息：&quot; + receiveMsg);    }    @StreamListener(&quot;input3&quot;)    public void receiveInput3(@Payload ShareDTO foo) {        log.info(&quot;input3 接收到了消息：&quot; + foo.toString());    }    @StreamListener(&quot;input4&quot;)    public void receiveInput4(@Payload ShareDTO foo) {        log.info(&quot;input4 接收到了消息：&quot; + foo.toString());    }}
+</code></pre>
+<p><strong>MyConsumer</strong></p>
+<pre><code class="language-java">public interface MyConsumer {    @Input(&quot;input1&quot;)    SubscribableChannel input1();    @Input(&quot;input2&quot;)    SubscribableChannel input2();    @Input(&quot;input3&quot;)    SubscribableChannel input3();    @Input(&quot;input4&quot;)    SubscribableChannel input4();}
+</code></pre>
+<p><strong>SrpingCloudAlibabaStreamRocketConsumerApplication</strong></p>
+<pre><code class="language-java">@SpringBootApplication@EnableBinding({MyConsumer.class})public class SrpingCloudAlibabaStreamRocketConsumerApplication {    public static void main(String[] args) {        SpringApplication.run(SrpingCloudAlibabaStreamRocketConsumerApplication.class, args);    }}
+</code></pre>
+<h3 id="3spring-cloud-starter-stream-rocketmq-消息过滤">3.spring-cloud-starter-stream-rocketmq 消息过滤</h3>
+<p><strong>生产者</strong></p>
 <blockquote>
-<p>sping的事务是通过注解配置上去的，而下面的那个方法并没有接口，在实现类里面只是一个简单的方法而已，对于事务的注解来说没有任何作用，所以在这个方法里面调用回滚的方法自然就报错了。</p>
+<pre><code>生产者设置一下header，比如my-header，值根据你的需要填写：
+</code></pre>
 </blockquote>
-<blockquote>
-<p>解决方法,因为我这是service里面调用得一个内部方法,如果我在service方法中加入事务,那么报错所有数据都会回滚,这并不是我想要得,所以我将这个方法放到另外一个serivce里面去了</p>
-</blockquote>
-<h4 id="手动执行回滚">手动执行回滚</h4>
-<pre><code class="language-java">TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+<pre><code class="language-java">@Autowiredprivate Source source;public String testStream() {  this.source.output()    .send(    MessageBuilder    .withPayload(&quot;消息体&quot;)    .setHeader(&quot;my-header&quot;,&quot;你的header&quot;)    .build()  );  return &quot;success&quot;;}
+</code></pre>
+<p><strong>消费者</strong></p>
+<pre><code class="language-java">@Service@Slf4jpublic class TestStreamConsumer {    @StreamListener(value = Sink.INPUT,condition = &quot;headers['my-header']=='你的header'&quot;)    public void receive(String messageBody) {        log.info(&quot;通过stream收到了消息：messageBody ={}&quot;, messageBody);    }}
+</code></pre>
+<h3 id="4异常处理">4.异常处理</h3>
+<h5 id="41全局异常">4.1全局异常</h5>
+<pre><code class="language-java">@Service@Slf4jpublic class ReceiveService {    @StreamListener(&quot;input1&quot;)    public void receiveInput1(String receiveMsg) {        log.info(&quot;input1 接收到了消息：&quot; + receiveMsg);    }    @StreamListener(&quot;input2&quot;)    public void receiveInput2(String receiveMsg) {        log.info(&quot;input2 接收到了消息：&quot; + receiveMsg);    }    @StreamListener(&quot;input3&quot;)    public void receiveInput3(@Payload ShareDTO foo) {        log.info(&quot;input3 接收到了消息：&quot; + foo.toString());    }    @StreamListener(&quot;input4&quot;)    public void receiveInput4(@Payload ShareDTO foo) {        log.info(&quot;input4 接收到了消息：&quot; + foo.toString());    }    /**     * 全局异常     * @param message     */    @StreamListener(&quot;errorChannel&quot;)    public void error(Message&lt;?&gt; message) {        ErrorMessage errorMessage = (ErrorMessage) message;        System.out.println(&quot;Handling ERROR: &quot; + errorMessage);    }}
+</code></pre>
+<h5 id="42-局部异常">4.2 局部异常</h5>
+<p>配置</p>
+<pre><code class="language-yaml">spring:  cloud:    stream:      bindings:        input:          destination: my-destination          group: my-group        output:          destination: my-destination
+</code></pre>
+<p>代码</p>
+<pre><code class="language-java">@Slf4j@SpringBootApplication@EnableBinding({Processor.class})@EnableSchedulingpublic class ConsumerApplication {    public static void main(String[] args) {        SpringApplication.run(ConsumerApplication.class, args);    }    @StreamListener(value = Processor.INPUT)    public void handle(String body) {        throw new RuntimeException(&quot;x&quot;);    }    @ServiceActivator(inputChannel = &quot;my-destination.my-group.errors&quot;)    public void handleError(ErrorMessage message) {        Throwable throwable = message.getPayload();        log.error(&quot;截获异常&quot;, throwable);        Message&lt;?&gt; originalMessage = message.getOriginalMessage();        assert originalMessage != null;        log.info(&quot;原始消息体 = {}&quot;, new String((byte[]) originalMessage.getPayload()));    }    @Bean    @InboundChannelAdapter(value = Processor.OUTPUT,            poller = @Poller(fixedDelay = &quot;1000&quot;, maxMessagesPerPoll = &quot;1&quot;))    public MessageSource&lt;String&gt; test() {        return () -&gt; new GenericMessage&lt;&gt;(&quot;adfdfdsafdsfa&quot;);    }}
 </code></pre>
 
                 </div>
@@ -167,11 +284,11 @@
             <section class="related section">
               
               <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/06.jpg');"></div>
-                 <a href="http://wuc0714.top/post/nei-cun-yi-chu/" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/36.jpg');"></div>
+                 <a href="http://wuc0714.top/post/rockermq-fen-bu-shi-shi-wu/" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-07-08">2020-07-08</time>
-                  <h4 class="title white no-margin">内存溢出</h4>
+                  <time datetime="2021-05-25">2021-05-25</time>
+                  <h4 class="title white no-margin">RockerMq分布式事务</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="http://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
@@ -181,11 +298,11 @@
               
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/05.jpg');"></div>
-                 <a href="http://wuc0714.top/post/sentinel-yan-zheng-ma-xian-liu/" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/34.jpg');"></div>
+                 <a href="http://wuc0714.top/post/docker-an-zhuang-rockermq/" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-05-11">2020-05-11</time>
-                  <h4 class="title white no-margin">Sentinel验证码限流</h4>
+                  <time datetime="2021-05-25">2021-05-25</time>
+                  <h4 class="title white no-margin">docker安装rockerMq</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="http://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>spring事物不生效的几种情况 | wuc0714</title>
+<title>RockerMq分布式事务 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="http://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="http://wuc0714.top/styles/main.css">
@@ -15,12 +15,16 @@
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
     <meta name="referrer" content="never">
-    <meta name="description" content="事务不生效的几种情况
+    <meta name="description" content="rockectMq分布式事务
+流程图
 
-方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。
-异常被catch住了。
-默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注..." />
-    <meta name="keywords" content="interview,notepad,java,debug,spring" />
+文件结构
+
+执行一个订单扣费发货流程
+执行sql
+CREATE TABLE `t_trade_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMEN..." />
+    <meta name="keywords" content="RockerMq,springcloud" />
     <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
     <script src="http://wuc0714.top/media/js/prism.min.js"></script>
   </head>
@@ -88,31 +92,25 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/01.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/36.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-07-07"><i class="fa fa-calendar"></i><span class="lately">1 年前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2021-05-25"><i class="fa fa-calendar"></i><span class="lately">几秒前</span></time>
               
-              <a href="http://wuc0714.top/post/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/"> </span>
+              <a href="http://wuc0714.top/post/rockermq-fen-bu-shi-shi-wu/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/rockermq-fen-bu-shi-shi-wu/"> </span>
               </a>
-              <span id="/spring-shi-wu-bu-sheng-xiao-de-ji-chong-qing-kuang/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              <span id="/rockermq-fen-bu-shi-shi-wu/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
               
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="http://wuc0714.top/tag/72_uOp7Med/" class="ctag ctag-0 ctag-72_uOp7Med" aria-label="">interview</a>
+                      <a href="http://wuc0714.top/tag/0ZwbDlQRt/" class="ctag ctag-0 ctag-0ZwbDlQRt" aria-label="">RockerMq</a>
                     
-                      <a href="http://wuc0714.top/tag/OO9AsLppIP/" class="ctag ctag-1 ctag-OO9AsLppIP" aria-label="">notepad</a>
-                    
-                      <a href="http://wuc0714.top/tag/IusPLq9nv3/" class="ctag ctag-2 ctag-IusPLq9nv3" aria-label="">java</a>
-                    
-                      <a href="http://wuc0714.top/tag/fog5GeKI9D/" class="ctag ctag-3 ctag-fog5GeKI9D" aria-label="">debug</a>
-                    
-                      <a href="http://wuc0714.top/tag/Ksbd-vR2dH/" class="ctag ctag-4 ctag-Ksbd-vR2dH" aria-label="">spring</a>
+                      <a href="http://wuc0714.top/tag/hWFgAWK2c/" class="ctag ctag-1 ctag-hWFgAWK2c" aria-label="">springcloud</a>
                     
               </div>
-              <h1 class="title ularge white bold">spring事物不生效的几种情况</h1>
+              <h1 class="title ularge white bold">RockerMq分布式事务</h1>
             </div>
           </div>
         </div>  
@@ -122,41 +120,258 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>事务不生效的几种情况</p>
-<ol>
-<li>方法的访问级别不是public，这点是由spring aop决定的。不能加statis，final。</li>
-<li>异常被catch住了。</li>
-<li>默认情况下unchecked异常会回滚，如果是checked异常则不回滚。这个时候需要在注解上面指定异常类型 <span style="color:red">@Transactional(rollbackFor=Exception.class)</li>
-</ol>
-<blockquote>
-<p>java里面将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等</p>
-</blockquote>
-<ol start="4">
-<li>据库引擎要支持事务，如果是MySQL，注意表要使用支持事务的引擎，比如innodb，如果是myisam，事务是不起作用的。</li>
-<li>是否开启了事物注解</li>
-</ol>
-<pre><code class="language-xml">    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; proxy-target-class=&quot;true&quot;/&gt;
+                  <h4 id="rockectmq分布式事务">rockectMq分布式事务</h4>
+<p>流程图</p>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20190510231845733.png" alt="" loading="lazy"></figure>
+<p><strong>文件结构</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/20210524235111.png" alt="" loading="lazy"></figure>
+<p><strong>执行一个订单扣费发货流程</strong></p>
+<p>执行sql</p>
+<pre><code class="language-sql">CREATE TABLE `t_trade_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `goods_id` int(11) NOT NULL COMMENT '商品ID',
+  `goods_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
+  `status` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE `t_transaction_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `transaction_Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事务id',
+  `remark` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`, `transaction_Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
 </code></pre>
-<ol start="6">
-<li>spring是否扫描到你这个包，如下是扫描到org.test下面的包</li>
-</ol>
-<pre><code class="language-xml">&lt;context:component-scan base-package=&quot;org.test&quot; &gt;&lt;/context:component-scan&gt;
+<p><strong>创建实体</strong></p>
+<pre><code class="language-java">@Data
+@TableName(&quot;t_transaction_log&quot;)
+public class TransactionLog implements Serializable {
+
+    private static final long serialVersionUID = 1268216478456291093L;
+
+    @TableId(value = &quot;ID&quot;, type = IdType.AUTO)
+    private Long id;
+    @TableField(&quot;TRANSACTION_ID&quot;)
+    private String transactionId;
+    @TableField(&quot;REMARK&quot;)
+    private String remark;
+}
 </code></pre>
-<ol start="7">
-<li>在同一类中调用。比如a类的b方法调用了a的c方法</li>
-</ol>
-<h4 id="事物异常">事物异常</h4>
-<pre><code class="language-java">org.springframework.transaction.NoTransactionException: No transaction aspect-managed TransactionStatus in scope
+<pre><code class="language-java">@Data
+@TableName(&quot;t_trade_log&quot;)
+public class TradeLog implements Serializable {
+
+    private static final long serialVersionUID = 3902838426348137002L;
+
+    @TableId(value = &quot;ID&quot;, type = IdType.AUTO)
+    private Long id;
+
+    @TableField(&quot;GOODS_ID&quot;)
+    private String goodsId;
+    @TableField(&quot;GOODS_NAME&quot;)
+    private String goodsName;
+    @TableField(&quot;STATUS&quot;)
+    private String status;
+
+    @DateTimeFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)
+    @JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)
+    @TableField(&quot;CREATE_TIME&quot;)
+    private Date createTime;
+}
 </code></pre>
-<blockquote>
-<p>sping的事务是通过注解配置上去的，而下面的那个方法并没有接口，在实现类里面只是一个简单的方法而已，对于事务的注解来说没有任何作用，所以在这个方法里面调用回滚的方法自然就报错了。</p>
-</blockquote>
-<blockquote>
-<p>解决方法,因为我这是service里面调用得一个内部方法,如果我在service方法中加入事务,那么报错所有数据都会回滚,这并不是我想要得,所以我将这个方法放到另外一个serivce里面去了</p>
-</blockquote>
-<h4 id="手动执行回滚">手动执行回滚</h4>
-<pre><code class="language-java">TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+<h4 id="1生产端">1.生产端</h4>
+<p><strong>service</strong></p>
+<pre><code class="language-java">public interface ITradeLogService extends IService&lt;TradeLog&gt; {
+    void orderAndPay(TradeLog tradeLog);
+    void pay(TradeLog tradeLog, String transactionId);
+}
 </code></pre>
+<pre><code class="language-java">@Slf4j
+@Service(&quot;tradeLogService&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class TradeLogServiceImpl extends ServiceImpl&lt;TradeLogMapper, TradeLog&gt; implements ITradeLogService {
+
+
+    private final RocketMQTemplate rocketMQTemplate;
+
+    private  final TransactionLogMapper transactionLogMapper;
+
+    @Override
+    public void orderAndPay(TradeLog tradeLog) {
+        // 检测库存
+        log.info(&quot;检测商品Id为{}，名称为{}的商品库存，库存充足&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+
+        String transactionId = UUID.randomUUID().toString();
+        // 往RocketMQ发送事务消息
+        this.rocketMQTemplate.sendMessageInTransaction(
+                &quot;pay-success&quot;, // 事务消息topic
+                MessageBuilder.withPayload(tradeLog)
+                        .setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
+                        .build(), // 消息
+                tradeLog // 额外参数，供后续回调使用
+        );
+    }
+
+    @Override
+    @Transactional
+    public void pay(TradeLog tradeLog, String transactionId) {
+        tradeLog.setCreateTime(new Date());
+        tradeLog.setStatus(&quot;下单并支付成功&quot;);
+        // 保存支付日志
+        this.save(tradeLog);
+        log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        // 记录事务日志
+        TransactionLog transactionLog = new TransactionLog();
+        transactionLog.setTransactionId(transactionId);
+        String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);
+        transactionLog.setRemark(remark);
+        transactionLogMapper.insert(transactionLog);
+        log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);
+    }
+
+}
+</code></pre>
+<p><strong>RocketMQ消息监听器</strong></p>
+<pre><code class="language-java">@Slf4j
+@Component
+@RocketMQTransactionListener
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class MyRocketMQListener implements RocketMQLocalTransactionListener {
+
+
+    private final ITradeLogService tradeLogService;
+
+    private final TransactionLogMapper transactionLogMapper;
+
+    /**
+     * 执行本地事务
+     *
+     * @param message 消息
+     * @param o       额外参数
+     * @return RocketMQ事务状态
+     */
+    @Override
+    public RocketMQLocalTransactionState executeLocalTransaction(Message message, Object o) {
+        MessageHeaders headers = message.getHeaders();
+        String transicationId = (String) headers.get(RocketMQHeaders.TRANSACTION_ID);
+
+        try {
+            TradeLog tradeLog = (TradeLog) o;
+            this.tradeLogService.pay(tradeLog, transicationId); // 对应图中第3步，执行本地事务
+            log.info(&quot;本地事务执行成功，往RocketMQ发送COMMIT&quot;);
+            return RocketMQLocalTransactionState.COMMIT; // 对应图中第4步，COMMIT，半消息经过COMMIT后，消息消费端就可以消费这条消息了
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info(&quot;本地事务回滚，往RocketMQ发送ROLLBACK&quot;, e);
+            return RocketMQLocalTransactionState.ROLLBACK; // 对应途中第4步，ROLLBACK
+        }
+    }
+
+    /**
+     * RocketMQ回查本地事务状态，这个过程对应图中第5步
+     *
+     * @param message 消息
+     * @return RocketMQ事务状态
+     */
+    @Override
+    public RocketMQLocalTransactionState checkLocalTransaction(Message message) {
+        MessageHeaders headers = message.getHeaders();
+        String transicationId = (String) headers.get(RocketMQHeaders.TRANSACTION_ID);
+        log.info(&quot;RocketMQ事务状态回查&quot;);
+        // 从数据库中根据事务Id查询对应的事务日志，对应图中第6步
+        TransactionLog transactionLog = transactionLogMapper.selectOne(
+                new LambdaQueryWrapper&lt;TransactionLog&gt;().eq(TransactionLog::getTransactionId, transicationId)
+        );
+        // 对应图中的第7步骤
+        return transactionLog != null ? RocketMQLocalTransactionState.COMMIT : RocketMQLocalTransactionState.ROLLBACK;
+    }
+}
+</code></pre>
+<p><strong>controller</strong></p>
+<pre><code class="language-java">@RestController
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class RocketMqTestController {
+
+    private final ITradeLogService tradeLogService;
+
+    @GetMapping(&quot;pay&quot;)
+    public void orderAndPay(TradeLog tradeLog) {
+        this.tradeLogService.orderAndPay(tradeLog);
+    }
+}
+</code></pre>
+<h4 id="2消费端">2.消费端</h4>
+<pre><code class="language-java">public interface ITradeLogService extends IService&lt;TradeLog&gt; {
+    void packageAndSend(TradeLog tradeLog);
+}
+</code></pre>
+<pre><code class="language-java">@Slf4j
+@Service(&quot;tradeLogService&quot;)
+public class TradeLogServiceImpl extends ServiceImpl&lt;TradeLogMapper, TradeLog&gt; implements ITradeLogService {
+
+    @Override
+    @Transactional
+    public void packageAndSend(TradeLog tradeLog) {
+        TradeLog tl = new TradeLog();
+        tl.setGoodsId(tradeLog.getGoodsId());
+        tl.setGoodsName(tradeLog.getGoodsName());
+        tl.setStatus(&quot;打包完毕，开始物流配送！&quot;);
+        tl.setCreateTime(new Date());
+
+        this.save(tl);
+        log.info(&quot;商品ID为{}，名称为{}的商品打包完毕，开始物流配送&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+    }
+}
+</code></pre>
+<p><strong>监听器</strong></p>
+<pre><code class="language-java">@Slf4j
+@Component
+@RocketMQMessageListener(consumerGroup = &quot;test-group&quot;, topic = &quot;pay-success&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class MyRocketMQListener implements RocketMQListener&lt;TradeLog&gt; {
+
+    private  final ITradeLogService tradeLogService;
+
+    @Override
+    public void onMessage(TradeLog tradeLog) {
+        log.info(&quot;监听到用户已经下单并支付成功ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        this.tradeLogService.packageAndSend(tradeLog);
+    }
+}
+</code></pre>
+<h4 id="3开始测试">3.开始测试</h4>
+<h5 id="31正常测试">3.1正常测试</h5>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/20210524235959.png" alt="" loading="lazy"></figure>
+<p>数据库正常显示</p>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210524235913.png" alt="" loading="lazy"></figure>
+<h5 id="32-异常测试">3.2 异常测试</h5>
+<p>在生产者的TradeLogServiceImpl的pay方法加入抛出异常代码</p>
+<pre><code class="language-java">@Override@Transactionalpublic void pay(TradeLog tradeLog, String transactionId) {    tradeLog.setCreateTime(new Date());    tradeLog.setStatus(&quot;下单并支付成功&quot;);    // 保存支付日志    this.save(tradeLog);    log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());    // 记录事务日志    TransactionLog transactionLog = new TransactionLog();    transactionLog.setTransactionId(transactionId);    String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);    transactionLog.setRemark(remark);    transactionLogMapper.insert(transactionLog);    log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);    throw  new RuntimeException(&quot;抛出一个异常&quot;);}
+</code></pre>
+<p>然后执行,查看</p>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/20210525000532.png" alt="" loading="lazy"></figure>
+<p>日志打印</p>
+<pre><code class="language-java">2021-05-25 00:04:58.637  INFO 68453 --- [nio-6031-exec-2] c.yz.alibaba.listner.MyRocketMQListener  : 本地事务回滚，往RocketMQ发送ROLLBACK
+</code></pre>
+<h5 id="33-异常回查">3.3 异常回查</h5>
+<p><strong>抛出异常的代码删除,并且打上断点</strong></p>
+<figure data-type="image" tabindex="6"><img src="https://gitee.com/yz0812/mypic/raw/master/20210525000921.png" alt="" loading="lazy"></figure>
+<p><strong>执行到断点,打印</strong></p>
+<pre><code class="language-java">2021-05-25 00:10:38.464  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 检测商品Id为123，名称为测试的商品库存，库存充足2021-05-25 00:10:38.782  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 用户已经下单并支付成功商品ID为123，名称为测试的商品2021-05-25 00:10:38.790  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 事务ID为f14ff797-26ee-4c3a-a46e-6209c347f3d6的本地事务执行成功
+</code></pre>
+<p><strong>终端杀死生产者进程</strong></p>
+<pre><code class="language-shell">➜  ~ lsof -i tcp:6031COMMAND   PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAMEPostman  2216   yz   81u  IPv6 0x3948355ab07483a9      0t0  TCP localhost:62594-&gt;localhost:6031 (ESTABLISHED)java    71122   yz  184u  IPv6 0x3948355aae8dc3a9      0t0  TCP *:6031 (LISTEN)java    71122   yz  209u  IPv6 0x3948355ab0748a09      0t0  TCP localhost:6031-&gt;localhost:62594 (ESTABLISHED)➜  ~ kill -9 71122
+</code></pre>
+<p><strong>启动生产者服务,日志打印</strong></p>
+<pre><code class="language-java">2021-05-25 00:12:35.495  INFO 71943 --- [pool-1-thread-1] c.yz.alibaba.listner.MyRocketMQListener  : RocketMQ事务状态回查
+</code></pre>
+<p><strong>数据库</strong></p>
+<figure data-type="image" tabindex="7"><img src="https://gitee.com/yz0812/mypic/raw/master/20210525001340.png" alt="" loading="lazy"></figure>
 
                 </div>
                 <div class="clear"></div>
@@ -166,26 +381,13 @@
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/06.jpg');"></div>
-                 <a href="http://wuc0714.top/post/nei-cun-yi-chu/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-07-08">2020-07-08</time>
-                  <h4 class="title white no-margin">内存溢出</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="http://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/05.jpg');"></div>
-                 <a href="http://wuc0714.top/post/sentinel-yan-zheng-ma-xian-liu/" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/35.jpg');"></div>
+                 <a href="http://wuc0714.top/post/rockemq-fa-song-xiao-xi/" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-05-11">2020-05-11</time>
-                  <h4 class="title white no-margin">Sentinel验证码限流</h4>
+                  <time datetime="2021-05-25">2021-05-25</time>
+                  <h4 class="title white no-margin">RockeMq发送消息</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="http://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">
