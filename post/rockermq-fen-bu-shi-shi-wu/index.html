@@ -79,7 +79,7 @@ CREATE TABLE `t_trade_log`  (
       <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
         <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
           <div class="search-wrapper section">
-            <form id="gridea-search-form" data-update="1622647649952" action="/search/index.html" class="search-form" _lpchecked="1">
+            <form id="gridea-search-form" data-update="1622783474060" action="/search/index.html" class="search-form" _lpchecked="1">
               <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
               <button type="submit" class="submit" aria-label="Submit">
                 <i class="fa fa-search-line"></i>
@@ -351,7 +351,23 @@ public class MyRocketMQListener implements RocketMQListener&lt;TradeLog&gt; {
 <figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210524235913.png" alt="" loading="lazy"></figure>
 <h5 id="32-异常测试">3.2 异常测试</h5>
 <p>在生产者的TradeLogServiceImpl的pay方法加入抛出异常代码</p>
-<pre><code class="language-java">@Override@Transactionalpublic void pay(TradeLog tradeLog, String transactionId) {    tradeLog.setCreateTime(new Date());    tradeLog.setStatus(&quot;下单并支付成功&quot;);    // 保存支付日志    this.save(tradeLog);    log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());    // 记录事务日志    TransactionLog transactionLog = new TransactionLog();    transactionLog.setTransactionId(transactionId);    String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);    transactionLog.setRemark(remark);    transactionLogMapper.insert(transactionLog);    log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);    throw  new RuntimeException(&quot;抛出一个异常&quot;);}
+<pre><code class="language-java"> @Override
+    @Transactional
+    public void pay(TradeLog tradeLog, String transactionId) {
+        tradeLog.setCreateTime(new Date());
+        tradeLog.setStatus(&quot;下单并支付成功&quot;);
+        // 保存支付日志
+        this.save(tradeLog);
+        log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        // 记录事务日志
+        TransactionLog transactionLog = new TransactionLog();
+        transactionLog.setTransactionId(transactionId);
+        String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);
+        transactionLog.setRemark(remark);
+        transactionLogMapper.insert(transactionLog);
+        log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);
+       throw  new RuntimeException(&quot;抛出一个异常&quot;);
+}
 </code></pre>
 <p>然后执行,查看</p>
 <figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/20210525000532.png" alt="" loading="lazy"></figure>
