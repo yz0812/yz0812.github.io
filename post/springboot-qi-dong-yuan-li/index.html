@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>常用正则表达式 | wuc0714</title>
+<title>springboot启动原理 | wuc0714</title>
 <meta name="description" content="The more you know, the more you don't know" />
 <link rel="shortcut icon" href="http://wuc0714.top/favicon.ico">
 <link rel="stylesheet" href="http://wuc0714.top/styles/main.css">
@@ -15,9 +15,9 @@
 <script src="http://wuc0714.top/media/js/jquery.magnific-popup.min.js"></script>
 <script src="http://wuc0714.top/media/js/functions.js"></script>
     <meta name="referrer" content="never">
-    <meta name="description" content="常用正则表达式 18位身份证件号 [1]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$
-姓名2-10 /^([\u..." />
-    <meta name="keywords" content="java" />
+    <meta name="description" content="   public static ConfigurableApplicationContext run(Class&lt;?&gt;[] primarySources, String[] args) {
+       return (new..." />
+    <meta name="keywords" content="spring" />
     <script src="http://wuc0714.top/media/js/waterfall.min.js"></script>
     <script src="http://wuc0714.top/media/js/prism.min.js"></script>
   </head>
@@ -85,23 +85,23 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/14.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/37.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-11-20"><i class="fa fa-calendar"></i><span class="lately">7 个月前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2021-06-29"><i class="fa fa-calendar"></i><span class="lately">几秒前</span></time>
               
-              <a href="http://wuc0714.top/post/chang-yong-zheng-ze-biao-da-shi/#comments" class="comments meta-info" title="">
-                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/chang-yong-zheng-ze-biao-da-shi/"> </span>
+              <a href="http://wuc0714.top/post/springboot-qi-dong-yuan-li/#comments" class="comments meta-info" title="">
+                <i class="fa fa-comment remixicon"></i><span class="comment-count valine-comment-count" data-xid="/springboot-qi-dong-yuan-li/"> </span>
               </a>
-              <span id="/chang-yong-zheng-ze-biao-da-shi/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
+              <span id="/springboot-qi-dong-yuan-li/" class="leancloud_visitors views-counter meta-info" title=""><i class="fa fa-leancloud remixicon"></i><span class="leancloud-visitors-count"></span></span>
               
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="http://wuc0714.top/tag/IusPLq9nv3/" class="ctag ctag-0 ctag-IusPLq9nv3" aria-label="">java</a>
+                      <a href="http://wuc0714.top/tag/Ksbd-vR2dH/" class="ctag ctag-0 ctag-Ksbd-vR2dH" aria-label="">spring</a>
                     
               </div>
-              <h1 class="title ularge white bold">常用正则表达式</h1>
+              <h1 class="title ularge white bold">springboot启动原理</h1>
             </div>
           </div>
         </div>  
@@ -111,9 +111,104 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>常用正则表达式 18位身份证件号 [1]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$</p>
-<p>姓名2-10 /^([\u4E00-\u9FFF]|\w){2,10}$/</p>
-<p>手机号码 /^1[3456789]\d{9}$/</p>
+                  <pre><code class="language-java">   public static ConfigurableApplicationContext run(Class&lt;?&gt;[] primarySources, String[] args) {
+       return (new SpringApplication(primarySources)).run(args);
+   }
+</code></pre>
+<h3 id="1-new-一个springapplication-对象进行初始化">1. new 一个SpringApplication 对象,进行初始化</h3>
+<pre><code class="language-java">   public SpringApplication(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources) {
+       this.sources = new LinkedHashSet();
+       this.bannerMode = Mode.CONSOLE;
+       this.logStartupInfo = true;
+       this.addCommandLineProperties = true;
+       this.addConversionService = true;
+       this.headless = true;
+       this.registerShutdownHook = true;
+       this.additionalProfiles = new HashSet();
+       this.isCustomEnvironment = false;
+       this.lazyInitialization = false;
+       this.resourceLoader = resourceLoader;
+       Assert.notNull(primarySources, &quot;PrimarySources must not be null&quot;);
+       this.primarySources = new LinkedHashSet(Arrays.asList(primarySources));
+       this.webApplicationType = WebApplicationType.deduceFromClasspath();
+       this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
+       this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+       this.mainApplicationClass = this.deduceMainApplicationClass();
+   }
+</code></pre>
+<ul>
+<li>
+<p>推断WebApplicationType，主要思想就是在当前的classpath下搜索特定的类</p>
+</li>
+<li>
+<p>搜索META-INF\spring.factories文件配置的ApplicationContextInitializer的实现类</p>
+</li>
+<li>
+<p>搜索META-INF\spring.factories文件配置的ApplicationListenerr的实现类</p>
+</li>
+<li>
+<p>推断MainApplication的Class</p>
+</li>
+</ul>
+<h3 id="2-运行run方法">2. 运行run方法</h3>
+<ol>
+<li>创建一个StopWatch并执行start方法，这个类主要记录任务的执行时间</li>
+<li>配置Headless属性，Headless模式是在缺少显示屏、键盘或者鼠标时候的系统配置</li>
+<li>在文件META-INF\spring.factories中获取SpringApplicationRunListener接口的实现类EventPublishingRunListener，主要发布SpringApplicationEvent</li>
+<li>把输入参数转成DefaultApplicationArguments类</li>
+<li>创建Environment并设置比如环境信息，系统熟悉，输入参数和profile信息</li>
+<li>打印Banner信息</li>
+<li>创建Application的上下文，根据WebApplicationTyp来创建Context类，如果非web项目则创建AnnotationConfigApplicationContext，在构造方法中初始化AnnotatedBeanDefinitionReader和ClassPathBeanDefinitionScanner</li>
+<li>在文件META-INF\spring.factories中获取SpringBootExceptionReporter接口的实现类FailureAnalyzers</li>
+<li>准备application的上下文<br>
+9.1  初始化ApplicationContextInitializer<br>
+9.2 执行Initializer的contextPrepared方法，发布ApplicationContextInitializedEvent事件<br>
+9.3 如果延迟加载，在上下文添加处理器LazyInitializationBeanFactoryPostProcessor<br>
+9.4 执行加载方法，BeanDefinitionLoader.load方法，主要初始化了AnnotatedGenericBeanDefinition<br>
+9.5 执行Initializer的contextLoaded方法，发布ApplicationContextInitializedEvent事件</li>
+<li>刷新上下文（<strong>后文会单独分析refresh方法</strong>），在这里真正加载bean到容器中。如果是web容器，会在onRefresh方法中创建一个Server并启动。</li>
+</ol>
+<pre><code class="language-java">  public ConfigurableApplicationContext run(String... args) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        ConfigurableApplicationContext context = null;
+        Collection&lt;SpringBootExceptionReporter&gt; exceptionReporters = new ArrayList();
+        this.configureHeadlessProperty();
+        SpringApplicationRunListeners listeners = this.getRunListeners(args);
+        listeners.starting();
+
+        Collection exceptionReporters;
+        try {
+            ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+            ConfigurableEnvironment environment = this.prepareEnvironment(listeners, applicationArguments);
+            this.configureIgnoreBeanInfo(environment);
+            Banner printedBanner = this.printBanner(environment);
+            context = this.createApplicationContext();
+            exceptionReporters = this.getSpringFactoriesInstances(SpringBootExceptionReporter.class, new Class[]{ConfigurableApplicationContext.class}, context);
+            this.prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+            this.refreshContext(context);
+            this.afterRefresh(context, applicationArguments);
+            stopWatch.stop();
+            if (this.logStartupInfo) {
+                (new StartupInfoLogger(this.mainApplicationClass)).logStarted(this.getApplicationLog(), stopWatch);
+            }
+
+            listeners.started(context);
+            this.callRunners(context, applicationArguments);
+        } catch (Throwable var10) {
+            this.handleRunFailure(context, var10, exceptionReporters, listeners);
+            throw new IllegalStateException(var10);
+        }
+
+        try {
+            listeners.running(context);
+            return context;
+        } catch (Throwable var9) {
+            this.handleRunFailure(context, var9, exceptionReporters, (SpringApplicationRunListeners)null);
+            throw new IllegalStateException(var9);
+        }
+    }
+</code></pre>
 
                 </div>
                 <div class="clear"></div>
@@ -123,26 +218,13 @@
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/14.jpg');"></div>
-                 <a href="http://wuc0714.top/post/docker-elasticsearch-zi-dong-tui-chu/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-11-20">2020-11-20</time>
-                  <h4 class="title white no-margin">docker elasticsearch自动退出</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="http://wuc0714.top/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/13.jpg');"></div>
-                 <a href="http://wuc0714.top/post/shang-chuan-excel-bing-qie-jie-xi/" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://gitee.com/yz0812/mypic/raw/master/img/36.jpg');"></div>
+                 <a href="http://wuc0714.top/post/springboot-zi-dong-zhuang-pei-yuan-li/" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-11-20">2020-11-20</time>
-                  <h4 class="title white no-margin">上传excel 并且解析</h4>
+                  <time datetime="2021-06-29">2021-06-29</time>
+                  <h4 class="title white no-margin">springboot自动装配原理</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="http://wuc0714.top/media/images/right-arrow.svg" width="15" alt="Left Arrow">
