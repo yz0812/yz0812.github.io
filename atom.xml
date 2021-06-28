@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-06-04T05:52:55.648Z</updated>
+    <updated>2021-06-28T17:24:21.809Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://wuc0714.top"/>
     <link rel="self" href="http://wuc0714.top/atom.xml"/>
@@ -10,6 +10,62 @@
     <logo>http://wuc0714.top/images/avatar.png</logo>
     <icon>http://wuc0714.top/favicon.ico</icon>
     <rights>All rights reserved 2021, wuc0714</rights>
+    <entry>
+        <title type="html"><![CDATA[springboot自动装配原理]]></title>
+        <id>http://wuc0714.top/post/springboot-zi-dong-zhuang-pei-yuan-li/</id>
+        <link href="http://wuc0714.top/post/springboot-zi-dong-zhuang-pei-yuan-li/">
+        </link>
+        <updated>2021-06-28T17:23:31.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210625005502.png" alt="" loading="lazy"></figure>
+<blockquote>
+<ol>
+<li>SpringBootApplition是一个组合注解,包含了三个重要注解</li>
+</ol>
+<blockquote>
+<ol start="2">
+<li>
+<p>CompomentScan 默认扫描当前类所在的包及其子包下包含的注解，将@Controller/@Service/@Component/@Repository等注解加载到IOC容器中</p>
+</li>
+<li>
+<p>SpringBootConfiguration 这个注解的底层是一个@Configuration注解，意思被@Configuration注解修饰的类是一个IOC容器，支持JavaConfig的方式来进行配置；</p>
+</li>
+<li>
+<p>EnableAutoConfiguration 是一个组合注解</p>
+</li>
+</ol>
+<blockquote>
+<ol start="5">
+<li>AutoConfigurationPackage <strong>添加该注解的类所在的package</strong> 作为 <strong>自动配置package</strong> 进行管理。</li>
+<li>@Import({AutoConfigurationImportSelector.class}) 借助EnableAutoConfigurationImportSelector类，注解找到META-INF/spring.factories文件中的所有自动配置类,将所有符合条件的@Configuration配置都加载到Ioc容器，借助SpringFactoriesLoader工具类实现自动配置</li>
+</ol>
+</blockquote>
+</blockquote>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数据结构]]></title>
+        <id>http://wuc0714.top/post/shu-ju-jie-gou/</id>
+        <link href="http://wuc0714.top/post/shu-ju-jie-gou/">
+        </link>
+        <updated>2021-06-28T17:09:07.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="1二叉树">1.二叉树</h1>
+<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609190228.png" alt="" loading="lazy"></figure>
+<p>即每个结点都最多只有两个子结点的树.</p>
+<h1 id="2平衡二叉树">2.平衡二叉树</h1>
+<figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609190330.png" alt="" loading="lazy"></figure>
+<p>保持绝对的平衡,每次插入新节点之后需要旋转的次数不能预知。</p>
+<h1 id="3红黑树">3.红黑树</h1>
+<p>![image-20210609190426078](/Users/yz/Library/Application Support/typora-user-images/image-20210609190426078.png)</p>
+<p>红黑树和AVL树类似，都是在进行插入和删除操作时通过特定操作保持二叉查找树的平衡，从而获得较高的查找性能.</p>
+<h1 id="4b-tree平衡多路查找树">4.B-Tree（平衡多路查找树）</h1>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192551.png" alt="" loading="lazy"></figure>
+<p>一个节点可以存放2个数据,可以拥有三个子节点.</p>
+<h1 id="5b-tree">5.B+-Tree</h1>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192727.png" alt="" loading="lazy"></figure>
+<p>B-Tree优化而来</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[docker安装rockerMq]]></title>
         <id>http://wuc0714.top/post/docker-an-zhuang-rockermq/</id>
@@ -1905,310 +1961,6 @@ public class FileDataSourceInit implements InitFunc {
 </code></pre>
 <p>然后在resources目录下下面添加 MATE-INF&gt;services目录添加 com.alibaba.csp.sentinel.init.InitFunc 文件</p>
 <p>然后在文件里面添加 所在地址全称例如  com.yz.alibaba.init.FileDataSourceInit</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[feign远程调用]]></title>
-        <id>http://wuc0714.top/post/feign-yuan-cheng-diao-yong/</id>
-        <link href="http://wuc0714.top/post/feign-yuan-cheng-diao-yong/">
-        </link>
-        <updated>2021-05-09T16:12:52.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一feign远程调用">一.feign远程调用</h2>
-<h3 id="1导入包">1.导入包</h3>
-<pre><code class="language-xml">   &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
-   &lt;/dependency&gt;
-</code></pre>
-<h3 id="2加上注解enablefeignclients">2.加上注解@EnableFeignClients</h3>
-<h3 id="3编写client">3.编写client</h3>
-<pre><code class="language-java">//name 服务名
-@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;)
-public interface UserCenterFeignClient {
-    @GetMapping(&quot;/user/{id}&quot;)
-     String user(@PathVariable String id) ;
-}
-
-</code></pre>
-<h1 id="二feign细粒度配置自定义-代码方式">二.feign细粒度配置自定义-代码方式</h1>
-<table>
-<thead>
-<tr>
-<th>级别</th>
-<th>打印内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NONE(默认值)</td>
-<td>不记录任何日志</td>
-</tr>
-<tr>
-<td>BASIC(适合生产环境使用)</td>
-<td>仅记录请求方法,URL,响应代码以及执行时间</td>
-</tr>
-<tr>
-<td>HEADERS</td>
-<td>记录BASIC级别的基础上,记录请求和响应的header</td>
-</tr>
-<tr>
-<td>FULL</td>
-<td>记录请求和响应的header,body元数据</td>
-</tr>
-</tbody>
-</table>
-<h3 id="1编写配置类">1.编写配置类</h3>
-<pre><code class="language-java">/**
- * feign的配置类
- * 这个类别加@configuration,否则必须挪到@ComponentScan扫描不到的包，及application意外险
- * 否则父子上下文重叠
- */
-public class UserCenterFeignConfiguration {
-    @Bean
-    public Logger.Level level(){
-        //让feign打印所有请求
-       return  Logger.Level.FULL;
-    }
-}
-</code></pre>
-<h3 id="2feignclient注解增加配置">2.@FeignClient注解增加配置</h3>
-<pre><code class="language-java">@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;,configuration = UserCenterFeignConfiguration.class)
-public interface UserCenterFeignClient {
-    @GetMapping(&quot;/user/{id}&quot;)
-     String user(@PathVariable String id) ;
-}
-</code></pre>
-<h3 id="3修改日志级别">3.修改日志级别</h3>
-<pre><code class="language-yaml">logging:
-  level:
-    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
-</code></pre>
-<h1 id="二feign细粒度配置自定义-属性配置">二.feign细粒度配置自定义-属性配置</h1>
-<p>修改配置</p>
-<pre><code class="language-yaml">logging:
-  level:
-    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
-feign:
-  client:
-    config:
-      spring-cloud-alibaba-nacos:
-        loggerLevel: full
-</code></pre>
-<h1 id="三feign细粒度配置自定义-全局配置">三.feign细粒度配置自定义-全局配置</h1>
-<ol>
-<li>
-<p>修改启动类注解<span style="color:red">@EnableFeignClients(defaultConfiguration = UserCenterFeignConfiguration.class)</span> UserCenterFeignConfiguration为自定义配置类</p>
-</li>
-<li>
-<p>修改配置文件</p>
-</li>
-</ol>
-<pre><code>logging:
-  level:
-    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: full
-</code></pre>
-<h1 id="四支持的配置项">四.支持的配置项</h1>
-<pre><code class="language-java">private Level loggerLevel;       //日志级别
-private Integer connectTimeout;  //链接超时时间
-private Integer readTimeout;     //读取超时时间
-private Class&lt;Retryer&gt; retryer;  //重试策略
-private Class&lt;ErrorDecoder&gt; errorDecoder; //错误解码器
-private List&lt;Class&lt;RequestInterceptor&gt;&gt; requestInterceptors; //拦截器
-private Boolean decode404; //是否对404错误码解码
-private Class&lt;Decoder&gt; decoder; //解码器
-private Class&lt;Encoder&gt; encoder; //编码器
-private Class&lt;Contract&gt; contract; //契约
-private ExceptionPropagationPolicy exceptionPropagationPolicy; //异常传播策略
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://gitee.com/yz0812/mypic/raw/master/20210507011811.png" alt="" loading="lazy"></figure>
-<h1 id="五代码配置属性配置对比">五.代码配置,属性配置对比</h1>
-<table>
-<thead>
-<tr>
-<th>配置方式</th>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>代码方式</td>
-<td>基于代码,更加灵活</td>
-<td>如果Feign的配置类加了@Configuration注解,需要注意父子上下文,<br/>线上修改得重新打包</td>
-</tr>
-<tr>
-<td>属性配置</td>
-<td>易上手<br>配置更加直观<br/>线上修改无需重新打包发布,优先级更高</td>
-<td>极端场景下,没有代码配置方式更加灵活</td>
-</tr>
-</tbody>
-</table>
-<h1 id="六feignclient注解异常">六.@FeignClient注解异常</h1>
-<pre><code class="language-java">Description:The bean 'spring-cloud-alibaba-nacos.FeignClientSpecification' could not be registered. A bean with that name has already been defined and overriding is disabled.Action:Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
-</code></pre>
-<p>@FeignClient name重复,在配置文件增加配置<span style="color:red">spring.main.allow-bean-definition-overriding=true</span></p>
-<h1 id="七feign继承">七.feign继承</h1>
-<p>spring官方不推荐使用,不符合微服务特性,但是挺多公司使用,一致性,方便</p>
-<p>使用方式</p>
-<p>公共访问接口-&gt; 服务提供者实现公共访问接口-&gt; feign继承公共访问接口-&gt;接口调用feign</p>
-<h4 id="1-公共访问接口-公共服务类">1. 公共访问接口-公共服务类</h4>
-<pre><code class="language-java">@RequestMapping(&quot;/hs2&quot;)public interface InheritanceService {    @RequestMapping(value = &quot;/hello1&quot;, method = RequestMethod.GET)    String hello(@RequestParam(&quot;name&quot;) String name);    @RequestMapping(value = &quot;/hello2&quot;, method = RequestMethod.GET)    Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException;    @RequestMapping(value = &quot;/hello3&quot;, method = RequestMethod.POST)    String hello(@RequestBody Book book);}
-</code></pre>
-<h4 id="2服务提供者实现公共访问接口-服务a">2.服务提供者实现公共访问接口-服务A</h4>
-<pre><code class="language-java">@RestControllerpublic class InheritanceFeignController implements InheritanceService {    @Override    public String hello(@RequestParam(&quot;name&quot;) String name) {        return &quot;hello &quot; + name + &quot;!&quot;;    }    @Override    public Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException {      Book book = new Book();        book.setName(URLDecoder.decode(name,&quot;UTF-8&quot;));        book.setAuthor(URLDecoder.decode(author,&quot;UTF-8&quot;));        book.setPrice(price);        System.out.println(book);        return book;    }    @Override    public String hello(@RequestBody Book book) {        return &quot;书名为：&quot; + book.getName() + &quot;;作者为：&quot; + book.getAuthor();    }}
-</code></pre>
-<h4 id="3feign继承公共访问接口-服务b">3.feign继承公共访问接口-服务B</h4>
-<pre><code class="language-java">@FeignClient(&quot;spring-cloud-alibaba-nacos&quot;)public interface InheritanceFeignClient extends InheritanceService {}
-</code></pre>
-<h4 id="4接口调用feign-服务b">4.接口调用feign-服务B</h4>
-<pre><code class="language-java">@RestController@RequiredArgsConstructor(onConstructor = @_(@Autowired))public class InheritanceFeignController {    private final InheritanceService inheritanceService;    @RequestMapping(&quot;/hello1&quot;)    public String hello1() {        return inheritanceService.hello(&quot;张三&quot;);    }    @RequestMapping(value = &quot;/hello2&quot;)    public Book hello2() throws UnsupportedEncodingException {        Book book = inheritanceService.hello(URLEncoder.encode(&quot;三国演义&quot;,&quot;UTF-8&quot;), URLEncoder.encode(&quot;罗贯中&quot;,&quot;UTF-8&quot;), 33);        System.out.println(book);        return book;    }    @RequestMapping(&quot;/hello3&quot;)    public String hello3() {        Book book = new Book();        book.setName(&quot;红楼梦&quot;);        book.setPrice(44);        book.setAuthor(&quot;曹雪芹&quot;);        return inheritanceService.hello(book);    }}
-</code></pre>
-<h1 id="八如何使用feign构造多参数的请求">八.如何使用Feign构造多参数的请求</h1>
-<h2 id="get请求多参数的url">GET请求多参数的URL</h2>
-<p>假设需请求的URL包含多个参数，例如<code>http://microservice-provider-user/get?id=1&amp;username=张三</code> ，该如何使用Feign构造呢？</p>
-<p>我们知道，Spring Cloud为Feign添加了Spring MVC的注解支持，那么我们不妨按照Spring MVC的写法尝试一下：</p>
-<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get0(User user);}
-</code></pre>
-<p>然而，这种写法并不正确，控制台会输出类似如下的异常。</p>
-<pre><code class="language-shell">feign.FeignException: status 405 reading UserFeignClient#get0(User); content:{&quot;timestamp&quot;:1482676142940,&quot;status&quot;:405,&quot;error&quot;:&quot;Method Not Allowed&quot;,&quot;exception&quot;:&quot;org.springframework.web.HttpRequestMethodNotSupportedException&quot;,&quot;message&quot;:&quot;Request method 'POST' not supported&quot;,&quot;path&quot;:&quot;/get&quot;}
-</code></pre>
-<p>由异常可知，尽管我们指定了GET方法，Feign依然会使用POST方法发送请求。于是导致了异常。正确写法如下</p>
-<h3 id="方法一推荐">方法一[推荐]</h3>
-<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @GetMapping(&quot;/get&quot;)  public User get0(@SpringQueryMap User user);}
-</code></pre>
-<h3 id="方法二推荐">方法二[推荐]</h3>
-<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get1(@RequestParam(&quot;id&quot;) Long id, @RequestParam(&quot;username&quot;) String username);}
-</code></pre>
-<p>这是最为直观的方式，URL有几个参数，Feign接口中的方法就有几个参数。使用@RequestParam注解指定请求的参数是什么。</p>
-<h3 id="方法三不推荐">方法三[不推荐]</h3>
-<p>多参数的URL也可使用Map来构建。当目标URL参数非常多的时候，可使用这种方式简化Feign接口的编写。</p>
-<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get2(@RequestParam Map&lt;String, Object&gt; map);}
-</code></pre>
-<p>在调用时，可使用类似以下的代码。</p>
-<pre><code class="language-java">public User get(String username, String password) {  HashMap&lt;String, Object&gt; map = Maps.newHashMap();  map.put(&quot;id&quot;, &quot;1&quot;);  map.put(&quot;username&quot;, &quot;张三&quot;);  return this.userFeignClient.get2(map);}
-</code></pre>
-<p><strong>注意</strong>：这种方式不建议使用。主要是因为可读性不好，而且如果参数为空的时候会有一些问题，例如<code>map.put(&quot;username&quot;, null);</code> 会导致<code>microservice-provider-user</code> 服务接收到的username是<code>&quot;&quot;</code> ，而不是null。</p>
-<h2 id="post请求包含多个参数">POST请求包含多个参数</h2>
-<p>下面来讨论如何使用Feign构造包含多个参数的POST请求。假设服务提供者的Controller是这样编写的：</p>
-<pre><code class="language-java">@RestControllerpublic class UserController {  @PostMapping(&quot;/post&quot;)  public User post(@RequestBody User user) {    ...  }}
-</code></pre>
-<p>我们要如何使用Feign去请求呢？答案非常简单，示例：</p>
-<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/post&quot;, method = RequestMethod.POST)  public User post(@RequestBody User user);}
-</code></pre>
-<h1 id="九resttemplate-vs-feign">九.RestTemplate VS Feign</h1>
-<table>
-<thead>
-<tr>
-<th>角度</th>
-<th>RestTemplate</th>
-<th>Feign</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>可读性,可维护性</td>
-<td>一般</td>
-<td>极佳</td>
-</tr>
-<tr>
-<td>开发体验</td>
-<td>欠佳</td>
-<td>极佳</td>
-</tr>
-<tr>
-<td>性能</td>
-<td>很好</td>
-<td>中等</td>
-</tr>
-<tr>
-<td>灵活性</td>
-<td>极佳</td>
-<td>中等</td>
-</tr>
-</tbody>
-</table>
-<h1 id="十feign线程池">十.feign线程池</h1>
-<p>导入包</p>
-<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-httpclient&lt;/artifactId&gt;&lt;/dependency&gt;
-</code></pre>
-<p>还可以使用</p>
-<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-okhttp&lt;/artifactId&gt;&lt;/dependency&gt;
-</code></pre>
-<pre><code class="language-yaml">feign:  #okhttp   httpclient:    #是否开启    enabled: true    #最大连接数    max-connections: 200    #最大路由    max-connections-per-route: 50    #存活时间    time-to-live: 900    #存活时间单位    time-to-live-unit: minutes    #跟随重定向    follow-redirects: true    #连接超时时间    connection-timeout: 2000    #超时重试时间    connection-timer-repeat: 3000
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[扩展ribbon,支持naocs权重]]></title>
-        <id>http://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/</id>
-        <link href="http://wuc0714.top/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/">
-        </link>
-        <updated>2021-05-09T16:11:29.000Z</updated>
-        <content type="html"><![CDATA[<p>÷编写代码</p>
-<pre><code class="language-java">import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
-import com.alibaba.cloud.nacos.ribbon.NacosServer;
-import com.alibaba.nacos.api.exception.NacosException;
-import com.alibaba.nacos.api.naming.NamingService;
-import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.netflix.client.config.IClientConfig;
-import com.netflix.loadbalancer.AbstractLoadBalancerRule;
-import com.netflix.loadbalancer.BaseLoadBalancer;
-import com.netflix.loadbalancer.Server;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-
-@Slf4j
-public class NacosWeightedRule extends AbstractLoadBalancerRule {
-    @Autowired
-    private NacosDiscoveryProperties nacosDiscoveryProperties;
-
-    @Override
-    public void initWithNiwsConfig(IClientConfig iClientConfig) {
-        //读取配置文件，并且初始化
-    }
-
-    @Override
-    public Server choose(Object o) {
-        try {
-            BaseLoadBalancer loadBalancer = (BaseLoadBalancer) this.getLoadBalancer();
-            //获得服务名
-            String name = loadBalancer.getName();
-            //拿到服务相关的api
-            NamingService namingService = nacosDiscoveryProperties.namingServiceInstance();
-            //nacos client自动通过基于权重的负载均衡算法，给我们选择一个实例
-            Instance instant = namingService.selectOneHealthyInstance(name);
-            log.info(&quot;选择的实例是：prot={},instant={}&quot;, instant.getPort(), instant);
-            return new NacosServer(instant);
-        } catch (NacosException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-}
-</code></pre>
-<p>修改配置类</p>
-<pre><code class="language-java">@Configuration
-public class RibbonConfiguration {
-    @Bean
-    public IRule ribbonRule() {
-        return new NacosWeightedRule();
-    }
-}
-
-</code></pre>
-<p>在配置文件中使用</p>
-<pre><code class="language-yaml">spring-cloud-alibaba-nacos:
-  ribbon:
-    NFLoadBalancerRuleClassName: com.yz.alibaba.config.NacosWeightedRule
-</code></pre>
-<p>修改nacos权重<br>
-<img src="https://gitee.com/yz0812/mypic/raw/master/20210505221219.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
