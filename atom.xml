@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://wuc0714.top</id>
     <title>wuc0714</title>
-    <updated>2021-06-28T17:55:50.243Z</updated>
+    <updated>2021-07-05T14:25:46.744Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://wuc0714.top"/>
     <link rel="self" href="http://wuc0714.top/atom.xml"/>
@@ -162,13 +162,13 @@
 <figure data-type="image" tabindex="2"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609190330.png" alt="" loading="lazy"></figure>
 <p>保持绝对的平衡,每次插入新节点之后需要旋转的次数不能预知。</p>
 <h1 id="3红黑树">3.红黑树</h1>
-<p>![image-20210609190426078](/Users/yz/Library/Application Support/typora-user-images/image-20210609190426078.png)</p>
+<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/20210705222520.png" alt="" loading="lazy"></figure>
 <p>红黑树和AVL树类似，都是在进行插入和删除操作时通过特定操作保持二叉查找树的平衡，从而获得较高的查找性能.</p>
 <h1 id="4b-tree平衡多路查找树">4.B-Tree（平衡多路查找树）</h1>
-<figure data-type="image" tabindex="3"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192551.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192551.png" alt="" loading="lazy"></figure>
 <p>一个节点可以存放2个数据,可以拥有三个子节点.</p>
 <h1 id="5b-tree">5.B+-Tree</h1>
-<figure data-type="image" tabindex="4"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192727.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://gitee.com/yz0812/mypic/raw/master/20210609192727.png" alt="" loading="lazy"></figure>
 <p>B-Tree优化而来</p>
 ]]></content>
     </entry>
