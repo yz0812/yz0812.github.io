@@ -1,0 +1,2473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yz0812.github.io</id>
+    <title>yz</title>
+    <updated>2024-08-01T17:39:32.973Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://yz0812.github.io"/>
+    <link rel="self" href="https://yz0812.github.io/atom.xml"/>
+    <subtitle>少年拥有了时间,时间带走了年少</subtitle>
+    <logo>https://yz0812.github.io/images/avatar.png</logo>
+    <icon>https://yz0812.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, yz</rights>
+    <entry>
+        <title type="html"><![CDATA[guava 常用工具类]]></title>
+        <id>https://yz0812.github.io/post/guava-chang-yong-gong-ju-lei/</id>
+        <link href="https://yz0812.github.io/post/guava-chang-yong-gong-ju-lei/">
+        </link>
+        <updated>2024-08-01T17:38:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="字符处理">字符处理</h2>
+<h3 id="caseformat-命名格式转换">CaseFormat 命名格式转换</h3>
+<p>用于在不同的命名格式之间进行转换。常见的命名格式包括下划线分隔（如 <code>LOWER_UNDERSCORE</code>）、驼峰命名（如 <code>LOWER_CAMEL</code> 和 <code>UPPER_CAMEL</code>）、中划线分隔（如 <code>LOWER_HYPHEN</code>）等。</p>
+<p>以下是 <code>CaseFormat</code> 支持的几种命名格式：</p>
+<ul>
+<li>LOWER_HYPHEN（如 lower-hyphen）</li>
+<li>LOWER_UNDERSCORE（如 lower_underscore）</li>
+<li>LOWER_CAMEL（如 lowerCamel）</li>
+<li>UPPER_CAMEL（如 UpperCamel）</li>
+<li>UPPER_UNDERSCORE（如 UPPER_UNDERSCORE）</li>
+</ul>
+<pre><code class="language-java"> 	    // 示例字符串
+        String lowerUnderscore = &quot;example_string&quot;;
+        String lowerHyphen = &quot;example-string&quot;;
+        String lowerCamel = &quot;exampleString&quot;;
+        String upperCamel = &quot;ExampleString&quot;;
+        String upperUnderscore = &quot;EXAMPLE_STRING&quot;;
+
+		// 下划线分隔 -&gt; 驼峰命名
+        String result1 = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, lowerUnderscore);
+        System.out.println(&quot;LOWER_UNDERSCORE to LOWER_CAMEL: &quot; + result1);
+
+        // 中划线分隔 -&gt; 下划线分隔
+        String result2 = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, lowerHyphen);
+        System.out.println(&quot;LOWER_HYPHEN to LOWER_UNDERSCORE: &quot; + result2);
+
+        // 驼峰命名 -&gt; 大写驼峰命名
+        String result3 = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, lowerCamel);
+        System.out.println(&quot;LOWER_CAMEL to UPPER_CAMEL: &quot; + result3);
+
+        // 大写驼峰命名 -&gt; 下划线分隔
+        String result4 = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, upperCamel);
+        System.out.println(&quot;UPPER_CAMEL to LOWER_UNDERSCORE: &quot; + result4);
+
+        // 大写下划线分隔 -&gt; 小写中划线分隔
+        String result5 = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, upperUnderscore);
+        System.out.println(&quot;UPPER_UNDERSCORE to LOWER_HYPHEN: &quot; + result5);
+</code></pre>
+<h3 id="charmatcher-字符串的匹配与过滤">CharMatcher 字符串的匹配与过滤</h3>
+<p>用于处理字符和字符串的匹配与过滤。<code>CharMatcher</code> 提供了一种方便的方式来匹配、过滤、替换字符串中的字符，支持多种预定义的匹配器（如匹配字母、数字、空白字符等）以及自定义匹配器。</p>
+<p>以下是一些常用的 <code>CharMatcher</code> 方法和预定义的匹配器：</p>
+<ul>
+<li><code>CharMatcher.any()</code>: 匹配任何字符。</li>
+<li><code>CharMatcher.none()</code>: 不匹配任何字符。</li>
+<li><code>CharMatcher.whitespace()</code>: 匹配空白字符（空格、制表符等）。</li>
+<li><code>CharMatcher.digit()</code>: 匹配数字字符。</li>
+<li><code>CharMatcher.javaLetter()</code>: 匹配 Java 字母字符。</li>
+<li><code>CharMatcher.javaDigit()</code>: 匹配 Java 数字字符。</li>
+<li><code>CharMatcher.is(char c)</code>: 匹配指定的字符。</li>
+<li><code>CharMatcher.isNot(char c)</code>: 匹配不是指定的字符。</li>
+<li><code>CharMatcher.inRange(char startInclusive, char endInclusive)</code>: 匹配指定范围内的字符。</li>
+</ul>
+<p>以下是一些常用的操作方法：</p>
+<ul>
+<li><code>retainFrom(CharSequence sequence)</code>: 保留匹配的字符。</li>
+<li><code>removeFrom(CharSequence sequence)</code>: 移除匹配的字符。</li>
+<li><code>replaceFrom(CharSequence sequence, char replacement)</code>: 替换匹配的字符。</li>
+<li><code>collapseFrom(CharSequence sequence, char replacement)</code>: 将连续匹配的字符替换为单个字符。</li>
+<li><code>trimFrom(CharSequence sequence)</code>: 去除字符串前后的匹配字符。</li>
+</ul>
+<pre><code class="language-java">        String input = &quot;This is a sample text, 1234!&quot;;
+
+        // 保留数字字符
+        String digitsOnly = CharMatcher.digit().retainFrom(input);
+        System.out.println(&quot;Digits only: &quot; + digitsOnly); // 输出: 1234
+
+        // 移除空白字符
+        String noWhitespace = CharMatcher.whitespace().removeFrom(input);
+        System.out.println(&quot;No whitespace: &quot; + noWhitespace); // 输出: Thisisasampletext,1234!
+
+        // 将所有字母转换为大写
+        String upperCaseLetters = CharMatcher.javaLetter().replaceFrom(input, c -&gt; Character.toUpperCase(c));
+        System.out.println(&quot;Upper case letters: &quot; + upperCaseLetters); // 输出: THIS IS A SAMPLE TEXT, 1234!
+
+        // 将连续的空白字符替换为单个空格
+        String collapsedWhitespace = CharMatcher.whitespace().collapseFrom(input, ' ');
+        System.out.println(&quot;Collapsed whitespace: &quot; + collapsedWhitespace); // 输出: This is a sample text, 1234!
+
+        // 去除字符串前后的标点符号
+        String trimPunctuation = CharMatcher.javaLetterOrDigit().negate().trimFrom(input);
+        System.out.println(&quot;Trim punctuation: &quot; + trimPunctuation); // 输出: This is a sample text, 1234
+
+        // 自定义匹配器：匹配所有小写字母
+        CharMatcher lowerCaseMatcher = CharMatcher.inRange('a', 'z');
+        String lowerCaseLetters = lowerCaseMatcher.retainFrom(input);
+        System.out.println(&quot;Lower case letters: &quot; + lowerCaseLetters); // 输出: hisisasampletext
+ 
+</code></pre>
+<h3 id="converter-类型转换">Converter 类型转换</h3>
+<p>用于在两种类型之间进行转换。<code>Converter</code> 提供了一种类型安全的方式来实现双向转换，可以定义从类型 A 到类型 B 的转换逻辑，以及从类型 B 到类型 A 的逆向转换逻辑。</p>
+<p>以下是 <code>Converter</code> 类的一些关键方法：</p>
+<ul>
+<li><code>doForward(A a)</code>: 将类型 A 转换为类型 B。</li>
+<li><code>doBackward(B b)</code>: 将类型 B 转换为类型 A。</li>
+<li><code>convert(A a)</code>: 调用 <code>doForward</code> 方法进行转换。</li>
+<li><code>reverse()</code>: 返回一个新的 <code>Converter</code>，其转换逻辑与当前 <code>Converter</code> 相反。</li>
+<li><code>andThen(Converter&lt;B, C&gt; other)</code>: 返回一个组合转换器，先应用当前转换器再应用 <code>other</code> 转换器。</li>
+</ul>
+<pre><code class="language-java">import com.google.common.base.Converter;
+
+public class ConverterExample {
+    public static void main(String[] args) {
+        // 创建一个字符串到整数的转换器
+        Converter&lt;String, Integer&gt; stringToIntegerConverter = new Converter&lt;String, Integer&gt;() {
+            @Override
+            protected Integer doForward(String s) {
+                return Integer.valueOf(s);
+            }
+
+            @Override
+            protected String doBackward(Integer integer) {
+                return integer.toString();
+            }
+        };
+
+        // 使用转换器进行正向转换
+        String str = &quot;1234&quot;;
+        Integer intValue = stringToIntegerConverter.convert(str);
+        System.out.println(&quot;String to Integer: &quot; + intValue); // 输出: 1234
+
+        // 使用转换器进行反向转换
+        String reversedStr = stringToIntegerConverter.reverse().convert(intValue);
+        System.out.println(&quot;Integer to String: &quot; + reversedStr); // 输出: 1234
+
+        // 创建一个小写到大写的转换器
+        Converter&lt;String, String&gt; lowerToUpperConverter = new Converter&lt;String, String&gt;() {
+            @Override
+            protected String doForward(String s) {
+                return s.toUpperCase();
+            }
+
+            @Override
+            protected String doBackward(String s) {
+                return s.toLowerCase();
+            }
+        };
+
+        // 组合转换器：先将字符串转换为整数，再将整数转换为大写字符串
+        Converter&lt;String, String&gt; combinedConverter = stringToIntegerConverter.andThen(new Converter&lt;Integer, String&gt;() {
+            @Override
+            protected String doForward(Integer integer) {
+                return &quot;Number: &quot; + integer;
+            }
+
+            @Override
+            protected Integer doBackward(String s) {
+                return Integer.valueOf(s.replace(&quot;Number: &quot;, &quot;&quot;));
+            }
+        });
+
+        // 使用组合转换器进行转换
+        String combinedResult = combinedConverter.convert(str);
+        System.out.println(&quot;Combined Converter Result: &quot; + combinedResult); // 输出: Number: 1234
+
+        // 使用组合转换器进行反向转换
+        String originalStr = combinedConverter.reverse().convert(combinedResult);
+        System.out.println(&quot;Original String: &quot; + originalStr); // 输出: 1234
+    }
+}
+
+</code></pre>
+<h3 id="defaults-默认值">Defaults 默认值</h3>
+<p><code>com.google.common.base.Defaults</code> 是 Google Guava 库中的一个类，用于提供 Java 基本数据类型和一些常见对象类型的默认值。这个类主要用在需要默认值的场景下，比如在反射或者泛型编程中。</p>
+<pre><code class="language-java">        boolean defaultBoolean = Defaults.defaultValue(boolean.class);
+        byte defaultByte = Defaults.defaultValue(byte.class);
+        char defaultChar = Defaults.defaultValue(char.class);
+        double defaultDouble = Defaults.defaultValue(double.class);
+        float defaultFloat = Defaults.defaultValue(float.class);
+        int defaultInt = Defaults.defaultValue(int.class);
+        long defaultLong = Defaults.defaultValue(long.class);
+        short defaultShort = Defaults.defaultValue(short.class);
+</code></pre>
+<h3 id="joiner-多字符串处理">Joiner 多字符串处理</h3>
+<p>用于将多个字符串或对象连接成一个字符串。它提供了一种简洁而强大的方式来处理字符串连接，支持处理 <code>null</code> 值以及指定分隔</p>
+<p><em>常用方法</em></p>
+<p><code>on(String delimiter)</code>: 指定分隔符。</p>
+<p><code>skipNulls()</code>: 跳过 <code>null</code> 值。</p>
+<p><code>useForNull(String nullText)</code>: 将 <code>null</code> 值替换为指定的字符串。</p>
+<p><code>join(Iterable&lt;?&gt; parts)</code>: 将集合中的元素连接成一个字符串。</p>
+<p><code>join(Object[] parts)</code>: 将数组中的元素连接成一个字符串。</p>
+<p><code>join(Object first, Object second, Object... rest)</code>: 将多个参数连接成一个字符串。</p>
+<h3 id="splitter-字符串拆分">Splitter 字符串拆分</h3>
+<p>用于将字符串拆分为子字符串。它提供了比 <code>String.split</code> 更加灵活和强大的功能，支持多种拆分模式和选项，例如去除空白字符串、去除结果中的空格、限制拆分结果的数量等。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li>
+<p><strong>基础拆分</strong>：</p>
+<ul>
+<li><code>Splitter.on(char separator)</code>: 基于单个字符进行拆分。</li>
+<li><code>Splitter.on(String separator)</code>: 基于字符串进行拆分。</li>
+<li><code>Splitter.onPattern(String pattern)</code>: 基于正则表达式进行拆分。</li>
+<li><code>Splitter.on(CharMatcher charMatcher)</code>: 基于 <code>CharMatcher</code> 进行拆分。</li>
+</ul>
+</li>
+<li>
+<p><strong>配置选项</strong>：</p>
+<ul>
+<li><code>omitEmptyStrings()</code>: 忽略空字符串。</li>
+<li><code>trimResults()</code>: 去除结果中的空格。</li>
+<li><code>trimResults(CharMatcher charMatcher)</code>: 根据 <code>CharMatcher</code> 去除结果中的字符。</li>
+<li><code>limit(int limit)</code>: 限制拆分结果的数量。</li>
+</ul>
+</li>
+<li>
+<p><strong>结果类型</strong>：</p>
+<ul>
+<li><code>split(CharSequence sequence)</code>: 拆分字符串，返回 <code>Iterable&lt;String&gt;</code>。</li>
+<li><code>splitToList(CharSequence sequence)</code>: 拆分字符串，返回 <code>List&lt;String&gt;</code>。</li>
+<li><code>splitToMap(CharSequence sequence)</code>: 将字符串拆分为键值对，返回 <code>Map&lt;String, String&gt;</code>。</li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h3 id="strings-字符串处理">Strings 字符串处理</h3>
+<p>提供了许多静态方法，用于处理和操作字符串。它包含了很多常用的字符串操作方法，可以简化代码并提高可读性。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li><strong>空字符串处理</strong>：
+<ul>
+<li><code>isNullOrEmpty(String string)</code>: 检查字符串是否为 <code>null</code> 或空。</li>
+<li><code>nullToEmpty(String string)</code>: 将 <code>null</code> 转换为空字符串。</li>
+<li><code>emptyToNull(String string)</code>: 将空字符串转换为 <code>null</code>。</li>
+</ul>
+</li>
+<li><strong>填充和重复</strong>：
+<ul>
+<li><code>padStart(String string, int minLength, char padChar)</code>: 用指定字符在字符串开头进行填充，使其达到指定长度。</li>
+<li><code>padEnd(String string, int minLength, char padChar)</code>: 用指定字符在字符串末尾进行填充，使其达到指定长度。</li>
+<li><code>repeat(String string, int count)</code>: 重复字符串指定次数。</li>
+</ul>
+</li>
+<li><strong>常用方法</strong>：
+<ul>
+<li><code>commonPrefix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共前缀。</li>
+<li><code>commonSuffix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共后缀。</li>
+</ul>
+</li>
+</ol>
+<h2 id="集合处理">集合处理</h2>
+<h3 id="lists">Lists</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li><strong><code>Lists.newArrayList()</code></strong>: 创建一个可变的、空的 <code>ArrayList</code>。</li>
+<li><strong><code>Lists.newArrayList(E... elements)</code></strong>: 使用指定的元素创建一个可变的 <code>ArrayList</code>。</li>
+<li>**<code>Lists.newLinkedList(): </code>**创建一个可变的、空的 <code>LinkedList</code>。</li>
+<li><strong><code>Lists.partition(List&lt;T&gt; list, int size)</code></strong>: 将一个 <code>List</code> 分割成若干个子列表，每个子列表的大小为指定的 <code>size</code>。</li>
+<li><strong><code>Lists.reverse(List&lt;T&gt; list)</code></strong>:   返回一个包含相同元素但顺序相反的 <code>List</code>。</li>
+<li><strong><code>Lists.transform(List&lt;F&gt; fromList, Function&lt;? super F, ? extends T&gt; function)</code></strong>:  返回一个新的 <code>List</code>，该列表是通过将给定列表的每个元素传递给给定函数的结果构成的视图。</li>
+</ol>
+<h3 id="maps">Maps</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Maps.newHashMap(): </code>**创建一个空的、可变的 <code>HashMap</code>。</li>
+<li><strong><code>Maps.newHashMapWithExpectedSize(int expectedSize)</code></strong>: 创建一个具有指定初始容量的 <code>HashMap</code>。</li>
+<li>**<code>Maps.newLinkedHashMap(): </code>**创建一个空的、可变的 <code>LinkedHashMap</code>。</li>
+<li>**<code>Maps.newTreeMap(): </code>**创建一个空的、可变的 <code>TreeMap</code>。</li>
+<li><strong><code>Maps.newConcurrentMap()</code></strong>: 创建一个空的、可变的 <code>ConcurrentMap</code>。</li>
+<li><strong><code>Maps.uniqueIndex(Iterable&lt;V&gt; values, Function&lt;? super V, K&gt; keyFunction)</code></strong>: 根据指定的键函数创建一个 <code>ImmutableMap</code>，键是由给定函数生成的。</li>
+<li><strong><code>Maps.difference(Map&lt;K, V&gt; left, Map&lt;K, V&gt; right)</code></strong>: 返回两个 <code>Map</code> 的差异视图。</li>
+</ol>
+<h3 id="range-范围">Range 范围</h3>
+<p><code>Range</code> 类可以表示一个区间，如 [1, 5]，(1, 5]，[1, 5)，(1, 5) 等等。它支持各种各样的操作，包括检查区间是否包含某个值、区间是否相交、区间的并集和交集等。</p>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Range.closed(C lower, C upper):</code>**创建一个包含下限和上限的范围 <code>[lower, upper]</code>。</li>
+<li><strong><code>Range.closedOpen(C lower, C upper)</code></strong>:创建一个包含下限但不包含上限的范围 <code>[lower, upper)</code>。</li>
+<li><strong><code>Range.openClosed(C lower, C upper)</code></strong>:创建一个不包含下限但包含上限的范围 <code>(lower, upper]</code>。</li>
+<li><strong><code>Range.open(C lower, C upper)</code></strong>:创建一个不包含下限和上限的范围 <code>(lower, upper)</code>。</li>
+<li><strong><code>Range.atLeast(C endpoint)</code></strong>:创建一个从指定值开始的范围 <code>[endpoint, ∞)</code>。</li>
+<li><strong><code>Range.atMost(C endpoint)</code></strong>:创建一个到指定值为止的范围 <code>(-∞, endpoint]</code>。</li>
+<li><strong><code>Range.greaterThan(C endpoint)</code></strong>:创建一个大于指定值的范围 <code>(endpoint, ∞)</code>。</li>
+<li><strong><code>Range.lessThan(C endpoint)</code></strong>:创建一个小于指定值的范围 <code>(-∞, endpoint)</code>。</li>
+<li><strong><code>Range.contains(C value)</code></strong>:检查范围是否包含指定值。</li>
+<li><strong><code>Range.isConnected(Range&lt;C&gt; other)</code></strong>:检查两个范围是否相连。</li>
+<li><strong><code>Range.intersection(Range&lt;C&gt; connectedRange)</code></strong>:返回两个相连范围的交集。</li>
+<li><strong><code>Range.span(Range&lt;C&gt; other)</code></strong>:返回两个范围的并集。</li>
+</ol>
+<h3 id="set">Set</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Sets.newHashSet()</code>**创建一个空的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSet(E... elements)</code>**创建一个包含指定元素的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSetWithExpectedSize(int expectedSize)</code>**创建一个具有指定初始容量的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet()</code>**创建一个空的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet(Iterable&lt;? extends E&gt; elements)</code>**创建一个包含指定元素的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newTreeSet()</code>**创建一个空的 <code>TreeSet</code>。</li>
+<li>**<code>Sets.newTreeSet(Comparator&lt;? super E&gt; comparator)</code>**创建一个带有比较器的空 <code>TreeSet</code>。</li>
+<li>**<code>Sets.union(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的并集。</li>
+<li>**<code>Sets.intersection(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的交集。</li>
+<li>**<code>Sets.difference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回第一个集合与第二个集合的差集。</li>
+<li>**<code>Sets.symmetricDifference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的对称差集。</li>
+<li>**<code>Sets.cartesianProduct(Set&lt;E&gt;... sets)</code>**返回多个集合的笛卡尔积。</li>
+<li>**<code>Sets.powerSet(Set&lt;E&gt; set)</code>**返回给定集合的幂集。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JPA 小方法]]></title>
+        <id>https://yz0812.github.io/post/jpa-xiao-fang-fa/</id>
+        <link href="https://yz0812.github.io/post/jpa-xiao-fang-fa/">
+        </link>
+        <updated>2024-04-25T16:41:02.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1生命周期注解">1.生命周期注解</h2>
+<p>JPA 生命周期事件注解的执行顺序如下：</p>
+<ol>
+<li><code>@PrePersist</code>: 在实体对象被持久化到数据库之前调用。</li>
+<li><code>@PostPersist</code>: 在实体对象被持久化到数据库之后调用。</li>
+<li><code>@PreUpdate</code>: 在实体对象更新到数据库之前调用。</li>
+<li><code>@PostUpdate</code>: 在实体对象更新到数据库之后调用。</li>
+<li><code>@PreRemove</code>: 在实体对象从数据库中移除之前调用。</li>
+<li><code>@PostRemove</code>: 在实体对象从数据库中移除之后调用。</li>
+<li><code>@PostLoad</code>: 在实体对象从数据库加载到内存后调用。</li>
+</ol>
+<h3 id="1-entitylisteners">1. @EntityListeners</h3>
+<blockquote>
+<p><strong><code>@EntityListeners</code> 是 Java Persistence API (JPA) 中的一个注解，用于将实体监听器（Entity Listeners）与特定的实体类关联起来。实体监听器是一种特殊的类，用于在实体对象的生命周期事件发生时执行相应的操作。<code>@EntityListeners</code> 注解的作用是将这些监听器与实体类进行绑定，以便在实体类触发相应事件时调用监听器中定义的方法。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+@EntityListeners(EmployeeListener.class)
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+}
+
+public class EmployeeListener {
+    @PrePersist
+    public void prePersist(Employee employee) {
+        // 在实体对象被持久化到数据库之前调用
+        System.out.println(&quot;Employee prePersist: &quot; + employee.getName());
+    }
+
+    @PostPersist
+    public void postPersist(Employee employee) {
+        // 在实体对象被持久化到数据库之后调用
+        System.out.println(&quot;Employee postPersist: &quot; + employee.getName());
+    }
+
+ 
+}
+</code></pre>
+<h3 id="2-prepersist">2. @PrePersist</h3>
+<blockquote>
+<p><strong><code>@PrePersist</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象被持久化到数据库之前要执行的方法。当执行持久化操作时，例如调用 <code>EntityManager</code> 的 <code>persist</code> 方法保存实体对象时，被标记了 <code>@PrePersist</code> 注解的方法将在实体对象被持久化之前被调用。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PrePersist
+    public void prePersist() {
+        // 在实体对象被持久化到数据库之前调用
+        System.out.println(&quot;PrePersist: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+}
+</code></pre>
+<h3 id="3-postpersist">3. @PostPersist</h3>
+<blockquote>
+<p><strong><code>@PostPersist</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象被持久化到数据库之后要执行的方法。当执行持久化操作时，例如调用 <code>EntityManager</code> 的 <code>persist</code> 方法保存实体对象后，被标记了 <code>@PostPersist</code> 注解的方法将在实体对象被持久化之后被调用。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PostPersist
+    public void postPersist() {
+        // 在实体对象被持久化到数据库之后调用
+        System.out.println(&quot;PostPersist: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+}
+</code></pre>
+<h3 id="4-preupdate">4. @PreUpdate</h3>
+<blockquote>
+<p><strong><code>@PreUpdate</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象更新到数据库之前要执行的方法。当执行更新操作时，例如调用 <code>EntityManager</code> 的 <code>merge</code> 方法更新实体对象时，被标记了 <code>@PreUpdate</code> 注解的方法将在实体对象更新之前被调用</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PreUpdate
+    public void preUpdate() {
+        // 在实体对象更新到数据库之前调用
+        System.out.println(&quot;PreUpdate: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+}
+</code></pre>
+<h3 id="5-postupdate">5. @PostUpdate</h3>
+<blockquote>
+<p><strong><code>@PostUpdate</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象更新到数据库之后要执行的方法。当执行更新操作时，例如调用 <code>EntityManager</code> 的 <code>merge</code> 方法更新实体对象后，被标记了 <code>@PostUpdate</code> 注解的方法将在实体对象更新之后被调用</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PostUpdate
+    public void postUpdate() {
+        // 在实体对象更新到数据库之后调用
+        System.out.println(&quot;PostUpdate: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+}
+</code></pre>
+<h3 id="6-preremove">6. @PreRemove</h3>
+<blockquote>
+<p><strong><code>@PreRemove</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象从数据库中移除之前要执行的方法。当执行删除操作时，例如调用 <code>EntityManager</code> 的 <code>remove</code> 方法删除实体对象时，被标记了 <code>@PreRemove</code> 注解的方法将在实体对象被移除之前被调用。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PreRemove
+    public void preRemove() {
+        // 在实体对象从数据库中移除之前调用
+        System.out.println(&quot;PreRemove: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+}
+</code></pre>
+<h3 id="7-postremove">7. @PostRemove</h3>
+<blockquote>
+<p>** <code>@PostRemove</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象从数据库中移除之后要执行的方法。当执行删除操作时，例如调用 <code>EntityManager</code> 的 <code>remove</code> 方法删除实体对象后，被标记了 <code>@PostRemove</code> 注解的方法将在实体对象被移除之后被调用。**</p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PostRemove
+    public void postRemove() {
+        // 在实体对象从数据库中移除之后调用
+        System.out.println(&quot;PostRemove: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+
+}
+</code></pre>
+<h3 id="8-postload">8. @PostLoad</h3>
+<blockquote>
+<p><strong><code>@PostLoad</code> 是 Java Persistence API (JPA) 的一个生命周期事件注解，用于指定在实体对象从数据库加载到内存后要执行的方法。当从数据库中检索实体对象时，被标记了 <code>@PostLoad</code> 注解的方法将在实体对象加载到内存后被调用。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+
+    @PostLoad
+    public void postLoad() {
+        // 在实体对象从数据库加载到内存后调用
+        System.out.println(&quot;PostLoad: &quot; + name);
+        // 可在这里执行其他逻辑操作
+    }
+
+}
+</code></pre>
+<h3 id="9-dynamicupdate">9. @DynamicUpdate</h3>
+<blockquote>
+<p><strong><code>@DynamicUpdate</code> 是 Hibernate 框架提供的一个注解，用于指定只更新发生变化的字段到数据库，而忽略未发生变化的字段。它可以应用于实体类上，表示在执行更新操作时，只更新被修改的字段，而不更新所有字段。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+@Table(name = &quot;employees&quot;)
+@DynamicUpdate
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+    private double salary;
+}
+</code></pre>
+<p>执行数据操作</p>
+<pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(&quot;myPersistenceUnit&quot;);
+        EntityManager em = emf.createEntityManager();
+
+        // 创建一个新的 Employee 对象
+        Employee employee = new Employee();
+        employee.setName(&quot;John&quot;);
+        employee.setDepartment(&quot;IT&quot;);
+        employee.setSalary(5000.0);
+
+        // 将对象保存到数据库
+        em.getTransaction().begin();
+        em.persist(employee);
+        em.getTransaction().commit();
+
+        // 更新 Employee 对象的部门和薪水字段
+        em.getTransaction().begin();
+        employee.setDepartment(&quot;HR&quot;);
+        employee.setSalary(6000.0);
+        em.getTransaction().commit();
+
+        em.close();
+        emf.close();
+    }
+}
+</code></pre>
+<p>使用 <code>@DynamicUpdate</code> 注解时生成的更新语句（只更新发生变化的字段）：</p>
+<pre><code class="language-sql">UPDATE employees SET department = 'HR', salary = 6000.0 WHERE id = 1;
+</code></pre>
+<p>未使用 <code>@DynamicUpdate</code> 注解时生成的更新语句（更新所有字段）：</p>
+<pre><code class="language-sql">UPDATE employees SET name = 'John', department = 'HR', salary = 6000.0 WHERE id = 1;
+</code></pre>
+<h3 id="10-dynamicinsert">10. @DynamicInsert</h3>
+<blockquote>
+<p><strong><code>@DynamicInsert</code> 是 Hibernate 框架提供的一个注解，用于指定在执行插入操作时，只插入非空字段到数据库，而忽略空值字段。它可以应用于实体类上，表示在执行插入操作时，只插入非空字段，而不插入空值字段。</strong></p>
+</blockquote>
+<pre><code class="language-java">import javax.persistence.*;
+
+@Entity
+@Table(name = &quot;employees&quot;)
+@DynamicInsert
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String department;
+    private double salary;
+
+}
+</code></pre>
+<p>执行数据操作</p>
+<pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(&quot;myPersistenceUnit&quot;);
+        EntityManager em = emf.createEntityManager();
+
+        // 创建一个新的 Employee 对象
+        Employee employee = new Employee();
+        employee.setName(&quot;John&quot;);
+        employee.setDepartment(&quot;IT&quot;);
+
+        // 将对象保存到数据库
+        em.getTransaction().begin();
+        em.persist(employee);
+        em.getTransaction().commit();
+
+        em.close();
+        emf.close();
+    }
+}
+</code></pre>
+<p>使用 <code>@DynamicInsert</code> 注解时生成的更新语句（只插入非空字段）：</p>
+<pre><code class="language-sql">INSERT INTO employees (name, department) VALUES ('John', 'IT');
+</code></pre>
+<p>未使用 <code>@DynamicInsert</code> 注解时生成的更新语句（插入所有字段）：</p>
+<pre><code class="language-sql">INSERT INTO employees (id, name, department, salary) VALUES (1, 'John', 'IT', 5000.0);
+</code></pre>
+<h2 id="2-projections投影">2. Projections（投影）</h2>
+<blockquote>
+<p><strong><code>Projections</code> 是一种功能，用于选择实体中的特定字段，以创建自定义的投影对象。投影对象是一个接口或类，仅包含您所选择的字段，而不是整个实体的所有字段。</strong></p>
+<p><strong>通过使用投影，您可以在查询结果中返回仅包含所需字段的对象，而不是完整的实体对象。这有助于减少数据传输量和内存消耗，提高性能，并使查询结果更加精确和专注。</strong></p>
+</blockquote>
+<h3 id="接口投影interface-projections">接口投影（Interface Projections）</h3>
+<p><strong>接口投影（Interface Projections）：使用接口来定义投影对象，并在接口中声明所需的字段访问方法。Spring Data JPA 将根据投影接口的定义来映射查询结果，并返回仅包含所需字段的投影对象。</strong></p>
+<pre><code class="language-java">public interface EmployeeProjection {
+    String getName();
+    String getDepartment();
+}
+
+List&lt;EmployeeProjection&gt; findByDepartment(String department);
+</code></pre>
+<h3 id="closed-projections">（Closed Projections）</h3>
+<p><strong>使用自定义的类来定义投影对象，并在类中声明所需的字段和构造方法。通过使用 <code>Projections.constructor</code> 方法，您可以将查询结果映射到自定义的投影类，并选择所需的字段。</strong></p>
+<pre><code class="language-java">public class EmployeeProjection {
+    private String name;
+    private String department;
+
+    public EmployeeProjection(String name, String department) {
+        this.name = name;
+        this.department = department;
+    }
+}
+
+List&lt;EmployeeProjection&gt; findByDepartment(String department);
+</code></pre>
+<h3 id="动态投影-dynamic-projections">动态投影 (Dynamic Projections)</h3>
+<p><strong>您可以通过动态投影实现在运行时选择不同字段的能力。动态投影允许您根据查询需求在运行时选择要返回的字段，而不是在编译时固定选择字段。</strong></p>
+<pre><code class="language-java">public interface PersonRepository extends Repository&lt;Person, Long&gt; {
+    // ...
+
+    &lt;T&gt; T findByLastName(String lastName, Class&lt;T&gt; type);
+}
+
+
+Person person = personRepository.findByLastName(&quot;Doe&quot;, Person.class);
+PersonView personView = personRepository.findByLastName(&quot;Doe&quot;, PersonView.class);
+PersonDto personDto = personRepository.findByLastName(&quot;Doe&quot;, PersonDto.class);
+</code></pre>
+<h3 id="开放式投影open-projections">开放式投影（open projections）</h3>
+<p><strong>开放式投影。 这些投影使我们能够定义具有不匹配名称和在运行时计算的返回值的接口方法。</strong></p>
+<pre><code class="language-java">public interface PersonView {
+    // ...
+
+    @Value(&quot;#{target.firstName + ' ' + target.lastName}&quot;)
+    String getFullName();
+}
+
+  PersonView findByLastName(String lastName);
+</code></pre>
+<h2 id="3-规范specification">3. 规范（Specification）</h2>
+<h3 id="基本使用">基本使用</h3>
+<p><strong>使用 Spring Data JPA 进行复杂查询时，可以使用 Specification（规范）来构建动态查询条件。Specification 可以帮助您以一种类型安全的方式根据运行时条件动态构建查询。</strong></p>
+<pre><code class="language-java">import org.springframework.data.jpa.domain.Specification;
+
+public class EmployeeSpecifications {
+    public static Specification&lt;Employee&gt; hasName(String name) {
+        return (root, query, criteriaBuilder) -&gt; {
+            if (name != null) {
+                return criteriaBuilder.equal(root.get(&quot;name&quot;), name);
+            }
+            return null;
+        };
+    }
+
+    public static Specification&lt;Employee&gt; hasAgeGreaterThan(int age) {
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.greaterThan(root.get(&quot;age&quot;), age);
+    }
+
+    public static Specification&lt;Employee&gt; hasDepartment(String department) {
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(&quot;department&quot;), department);
+    }
+
+    // 添加更多的 Specification 方法，以满足您的查询需求
+}
+</code></pre>
+<p>Service</p>
+<pre><code class="language-java">import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class EmployeeService {
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    public List&lt;Employee&gt; findEmployees(String name, int age, String department) {
+        Specification&lt;Employee&gt; spec = Specification.where(EmployeeSpecifications.hasName(name))
+                .and(EmployeeSpecifications.hasAgeGreaterThan(age))
+                .and(EmployeeSpecifications.hasDepartment(department));
+
+        return employeeRepository.findAll(spec);
+    }
+}
+</code></pre>
+<p>Repository</p>
+<pre><code class="language-java">import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository&lt;Employee, Long&gt;, JpaSpecificationExecutor&lt;Employee&gt; {
+}
+</code></pre>
+<p>复杂一点的servier</p>
+<pre><code class="language-java">    @Override
+    public Page&lt;EsAlarm&gt; page(EsPageRspVO vo) {
+        Assert.notNull(vo.getProjectId(), ResultCode.NO_PROJECT_ID.getMessage());
+        //条件定义
+        Specification&lt;EsAlarm&gt; specification = (root, query, cb) -&gt; {
+            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();
+
+
+            Predicate deletedPredicate = cb.equal(root.get(EsAlarm.Fields.deleted), Deleted.UN_DELETED.getCode());
+            predicates.add(deletedPredicate);
+
+            Predicate projectPredicate = cb.equal(root.get(EsAlarm.Fields.projectId), vo.getProjectId());
+            predicates.add(projectPredicate);
+
+            if (vo.getProcessingStatus() != null) {
+                Predicate predicate = cb.equal(root.get(EsAlarm.Fields.processingStatus), vo.getProcessingStatus());
+                predicates.add(predicate);
+            }
+
+            if (StrUtil.isNotBlank(vo.getDeviceKeywords())) {
+                Predicate predicate = cb.or(
+                        cb.like(root.get(EsAlarm.Fields.deviceNo).as(String.class), StringConstant.likeString(vo.getDevice())),
+                        cb.like(root.get(EsAlarm.Fields.deviceName).as(String.class), StringConstant.likeString(vo.getDevice()))
+                );
+                predicates.add(predicate);
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+
+        };
+        Pageable pageable = PageRequest.of(vo.getPageNo() - 1, vo.getPageSize(), vo.getSortOption());
+        //查询
+        return esAlarmRepository.findAll(specification, pageable);
+    }
+</code></pre>
+<h3 id="工具类">工具类</h3>
+<p>基础工具类</p>
+<pre><code class="language-java">
+import cn.hutool.core.collection.CollUtil;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ *
+ * @author yz
+ * @date 2024/03/15
+ */
+
+public class JpaSpecification&lt;T&gt; {
+
+    private final List&lt;Specification&lt;T&gt;&gt; specifications;
+    private Sort sort;
+
+    public JpaSpecification() {
+        specifications = new ArrayList&lt;&gt;();
+    }
+
+    public static &lt;T&gt; JpaSpecification&lt;T&gt; getInstance() {
+        return new JpaSpecification&lt;&gt;();
+    }
+
+    public JpaSpecification&lt;T&gt; addSpecification(Specification&lt;T&gt; specification) {
+        if (specification != null) {
+            specifications.add(specification);
+        }
+
+        return this;
+    }
+
+    public JpaSpecification&lt;T&gt; withSort(Sort sort) {
+        this.sort = sort;
+        return this;
+    }
+
+
+    public Specification&lt;T&gt; build() {
+        return (Root&lt;T&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder criteriaBuilder) -&gt; {
+            Predicate[] predicates = specifications.stream()
+                    .map(spec -&gt; spec.toPredicate(root, query, criteriaBuilder))
+                    .toArray(Predicate[]::new);
+
+            query.where(predicates);
+
+            if (sort != null) {
+                query.orderBy(sort.stream()
+                        .map(order -&gt; {
+                            String property = order.getProperty();
+                            Expression&lt;String&gt; orderExpr = root.get(property);
+                            if (order.isIgnoreCase()) {
+                                orderExpr = criteriaBuilder.lower(orderExpr);
+                            }
+                            return order.isAscending() ? criteriaBuilder.asc(orderExpr) : criteriaBuilder.desc(orderExpr);
+                        })
+                        .toArray(javax.persistence.criteria.Order[]::new));
+            }
+
+            return criteriaBuilder.and(predicates);
+        };
+    }
+
+    public static &lt;T&gt; Specification&lt;T&gt; hasCreateTime(List&lt;Date&gt; queryTime) {
+        if (CollUtil.isEmpty(queryTime)) {
+            return null;
+        }
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.between(root.get(&quot;createTime&quot;), queryTime.get(0), queryTime.get(1));
+    }
+
+
+    public static &lt;T&gt; Specification&lt;T&gt; hasDelete() {
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(&quot;deleted&quot;), 0);
+    }
+
+    public static &lt;T&gt; Specification&lt;T&gt; hasDeviceId(Integer deviceId) {
+        if (deviceId == null) {
+            return null;
+        }
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(&quot;deviceId&quot;), deviceId);
+    }
+
+    public static &lt;T&gt; Specification&lt;T&gt; hasProjectId(Integer projectId) {
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(&quot;projectId&quot;), projectId);
+    }
+}
+</code></pre>
+<p>模块通用工具类</p>
+<pre><code class="language-java">
+public class ElevatorSpecification&lt;T&gt; {
+
+    private final JpaSpecification&lt;T&gt; jpaSpecifications;
+
+
+    public ElevatorSpecification() {
+        jpaSpecifications = new JpaSpecification&lt;&gt;();
+    }
+
+    public static &lt;T&gt; ElevatorSpecification&lt;T&gt; getInstance() {
+        return new ElevatorSpecification&lt;&gt;();
+    }
+
+    public static Specification&lt;AirConditionerRecord&gt; hasAirOperationType(String code) {
+        if (StrUtil.isNotBlank(code)) {
+            return null;
+        }
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(AirConditionerRecord.Fields.operationType), code);
+    }
+
+    public ElevatorSpecification&lt;T&gt; withSort(Sort sort) {
+        jpaSpecifications.withSort(sort);
+        return this;
+    }
+
+    public ElevatorSpecification&lt;T&gt; addSpecification(Specification&lt;T&gt; specification) {
+        jpaSpecifications.addSpecification(specification);
+        return this;
+    }
+
+    public Specification&lt;T&gt; build() {
+        return jpaSpecifications.build();
+    }
+
+    public static &lt;T&gt; Specification&lt;T&gt; hasAirStatus(Integer value) {
+        return (root, query, criteriaBuilder) -&gt; criteriaBuilder.equal(root.get(AirConditionerRecord.Fields.status), value);
+    }
+
+
+}
+
+</code></pre>
+<p>使用方法</p>
+<pre><code class="language-java">    default Optional&lt;AirConditionerRecord&gt; findLastSwitchRecord(Integer deviceId, Integer value, Integer projectId) {
+        Specification&lt;AirConditionerRecord&gt; spec = ElevatorSpecification.&lt;AirConditionerRecord&gt;getInstance()
+                .addSpecification(JpaSpecification.hasDelete())
+                .addSpecification(JpaSpecification.hasProjectId(projectId))
+                .addSpecification(JpaSpecification.hasDeviceId(deviceId))
+                .addSpecification(ElevatorSpecification.hasAirOperationType(AirConditionerOperationTypeEnums.SWITCH.code))
+                .addSpecification(ElevatorSpecification.hasAirStatus(value))
+                .withSort(Sort.by(Sort.Direction.DESC, AirConditionerRecord.Fields.id))
+                .build();
+        return findOne(spec);
+    }
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ oh-my-zsh 安装]]></title>
+        <id>https://yz0812.github.io/post/oh-my-zsh-an-zhuang/</id>
+        <link href="https://yz0812.github.io/post/oh-my-zsh-an-zhuang/">
+        </link>
+        <updated>2023-09-19T20:52:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="oh-my-zsh-安装">oh-my-zsh 安装</h2>
+<h3 id="1安装-zsh">1.安装 zsh</h3>
+<p><code>linux</code> 下：</p>
+<pre><code class="language-shell"> yum install zsh
+</code></pre>
+<p><code>mac</code>下：</p>
+<pre><code class="language-shell">brew install zsh
+</code></pre>
+<h3 id="2安装-oh-my-zsh">2.安装 oh-my-zsh</h3>
+<pre><code class="language-shell"># 这里需要下载的是https://github.com/ohmyzsh/ohmyzsh ,但是github因为某些原因下不来,所以后面都使用gitee
+wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh
+# 然后给install.sh添加权限：
+chmod +x install.sh
+</code></pre>
+<p>编辑 install.sh</p>
+<pre><code class="language-shell">vim install.sh
+</code></pre>
+<p>找到以下部分修改：</p>
+<pre><code class="language-sh"># Default settings
+REPO=${REPO:-ohmyzsh/ohmyzsh}
+REMOTE=${REMOTE:-https://github.com/${REPO}.git}
+BRANCH=${BRANCH:-master}
+# 修改其中的github为gitee,还有-ohmyzsh/ohmyzsh修改为-mirrors/oh-my-zsh
+REPO=${REPO:-mirrors/oh-my-zsh}
+REMOTE=${REMOTE:-https://gitee.com/${REPO}.git}
+</code></pre>
+<p>然后执行<code> ./install.sh</code></p>
+<h3 id="3配置-zsh">3.配置 zsh</h3>
+<pre><code class="language-shell">vim ~/.zshrc
+</code></pre>
+<p>修改主题：</p>
+<pre><code class="language-sh">ZSH_THEME=&quot;robbyrussell&quot;
+# 改为
+ZSH_THEME=&quot;ys&quot;
+</code></pre>
+<p>修改插件：</p>
+<pre><code class="language-sh">plugins=(git)
+# 改为
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+</code></pre>
+<h3 id="4-下载插件">4. 下载插件</h3>
+<pre><code class="language-shell">git clone https://gitee.com/fast-mirrors/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+
+git clone https://gitee.com/fast-mirrors/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+</code></pre>
+<h3 id="5刷新">5.刷新</h3>
+<pre><code class="language-shell">source ~/.bash_profile
+source ~/.zshrc
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ 经纬度计算距离]]></title>
+        <id>https://yz0812.github.io/post/jing-wei-du-ji-suan-ju-chi/</id>
+        <link href="https://yz0812.github.io/post/jing-wei-du-ji-suan-ju-chi/">
+        </link>
+        <updated>2023-09-14T16:11:51.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="经纬度计算距离">经纬度计算距离</h2>
+<h3 id="1导入maven依赖">1.导入maven依赖</h3>
+<p><code>org.gavaghan</code> 是一个 Java 软件包，由 Tim Gavaghan 创建和维护。该软件包提供了一系列用于处理和解析各种数据格式的类和工具。</p>
+<pre><code class="language-xml">     &lt;dependency&gt;
+          &lt;groupId&gt;org.gavaghan&lt;/groupId&gt;
+          &lt;artifactId&gt;geodesy&lt;/artifactId&gt;
+          &lt;version&gt;${geodesy.version}&lt;/version&gt;
+     &lt;/dependency&gt;
+</code></pre>
+<h3 id="2代码实现">2.代码实现</h3>
+<pre><code class="language-java">
+  GlobalCoordinates start = globalCoordinatesList.get(i);
+            GlobalCoordinates end = globalCoordinatesList.get(i + 1);
+
+
+    private static BigDecimal getDistanceMeter(GlobalCoordinates gpsFrom, GlobalCoordinates gpsTo) {
+        //创建GeodeticCalculator，调用计算方法，传入坐标系、经纬度用于计算距离
+        GeodeticCurve geoCurve = new GeodeticCalculator().calculateGeodeticCurve(Ellipsoid.Sphere, gpsFrom, gpsTo);
+        return BigDecimal.valueOf(geoCurve.getEllipsoidalDistance());
+    }
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[flowable 流程跟踪]]></title>
+        <id>https://yz0812.github.io/post/flowable-liu-cheng-gen-zong/</id>
+        <link href="https://yz0812.github.io/post/flowable-liu-cheng-gen-zong/">
+        </link>
+        <updated>2023-09-14T15:58:40.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="flowable-流程跟踪">flowable 流程跟踪</h2>
+<pre><code class="language-java">import cn.business.framework.common.constant.StringConstant;
+import cn.business.framework.common.exception.ServiceException;
+import cn.business.framework.flowable.core.util.FlowableUtils;
+import cn.business.module.bpm.controller.admin.definition.vo.model.BpmModelRespVO;
+import cn.business.module.bpm.service.definition.BpmModelService;
+import cn.business.module.bpm.util.ELUtil;
+import cn.hutool.core.util.StrUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.flowable.bpmn.converter.BpmnXMLConverter;
+import org.flowable.bpmn.model.*;
+import org.flowable.engine.HistoryService;
+import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.history.HistoricProcessInstance;
+import org.flowable.engine.runtime.ProcessInstance;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static cn.business.module.bpm.enums.ErrorCodeConstants.PROCESS_NODE_CONFIGURATION_ERROR;
+
+/**
+ * @author yuanzhang
+ * @description 流程服务
+ * @date 2023/08/22
+ **/
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class FlowAbleService {
+    private final RuntimeService runtimeService;
+    private final RepositoryService repositoryService;
+    private final BpmModelService bpmModelService;
+    private final HistoryService historyService;
+
+    /**
+     * @param processInstanceId 流程实例id
+     * @param modelId           模型id
+     * @param variableMap       变量映射
+     * @return {@link List }&lt;{@link FlowElement }&gt;
+     * @description 通过变量推算流程走向
+     * @author yuanzhang
+     * @date 2023/08/02
+     **/
+    public List&lt;FlowElement&gt; calApprovePath(String processInstanceId, String modelId, Map&lt;String, Object&gt; variableMap) {
+        BpmnModel bpmnModel;
+        if (StringUtils.isNotBlank(processInstanceId)) {
+            ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+            if (null == processInstance) {
+                HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+                bpmnModel = repositoryService.getBpmnModel(historicProcessInstance.getProcessDefinitionId());
+            } else {
+                bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
+            }
+            BpmnXMLConverter xmlConverter = new BpmnXMLConverter();
+            byte[] xmlBytes = xmlConverter.convertToXML(bpmnModel);
+            String xmlData = new String(xmlBytes);
+            bpmnModel = FlowableUtils.parseBpmnXml(xmlData);
+        } else {
+            BpmModelRespVO model = bpmModelService.getModel(modelId);
+            bpmnModel = bpmModelService.getBpmnModel(model.getId());
+        }
+        Collection&lt;FlowElement&gt; flowElements = bpmnModel.getMainProcess().getFlowElements();
+        List&lt;FlowElement&gt; passElements = new ArrayList&lt;&gt;();
+        this.dueStartElement(passElements, flowElements, variableMap);
+        return passElements;
+    }
+
+    /**
+     * 2. 找到开始节点，通过它的目标节点，然后再不断往下找。
+     */
+    private void dueStartElement(List&lt;FlowElement&gt; passElements, Collection&lt;FlowElement&gt; flowElements, Map&lt;String, Object&gt; variableMap) {
+        flowElements.stream().filter(StartEvent.class::isInstance).findFirst().ifPresent(startElement -&gt; {
+            flowElements.remove(startElement);
+            List&lt;SequenceFlow&gt; outgoingFlows = ((StartEvent) startElement).getOutgoingFlows();
+            String targetRef = outgoingFlows.get(0).getTargetRef();
+            // 根据ID找到FlowElement
+            FlowElement targetElementOfStartElement = getFlowElement(flowElements, targetRef);
+            if (targetElementOfStartElement instanceof UserTask || targetElementOfStartElement instanceof ExclusiveGateway) {
+                this.getPassElementList(passElements, flowElements, targetElementOfStartElement, variableMap);
+            }
+        });
+    }
+
+    /**
+     * 3. 我只用到了UserTask、ExclusiveGateway、ParallelGateway，所以代码里只列举了这三种，如果用到了其他的，可以再自己补充
+     */
+    private void getPassElementList(List&lt;FlowElement&gt; passElements, Collection&lt;FlowElement&gt; flowElements, FlowElement curFlowElement, Map&lt;String, Object&gt; variableMap) {
+        // 任务节点
+        if (curFlowElement instanceof UserTask) {
+            this.dueUserTaskElement(passElements, flowElements, curFlowElement, variableMap);
+            return;
+        }
+        // 排他网关
+        if (curFlowElement instanceof ExclusiveGateway) {
+            this.dueExclusiveGateway(passElements, flowElements, curFlowElement, variableMap);
+            return;
+        }
+        // 并行网关
+        if (curFlowElement instanceof ParallelGateway) {
+            this.dueParallelGateway(passElements, flowElements, curFlowElement, variableMap);
+        }
+    }
+
+
+    private void dueUserTaskElement(List&lt;FlowElement&gt; passElements, Collection&lt;FlowElement&gt; flowElements, FlowElement curFlowElement, Map&lt;String, Object&gt; variableMap) {
+        passElements.add(curFlowElement);
+        List&lt;SequenceFlow&gt; outgoingFlows = ((UserTask) curFlowElement).getOutgoingFlows();
+        String targetRef = outgoingFlows.get(0).getTargetRef();
+        if (outgoingFlows.size() &gt; 1) {
+            // 找到表达式成立的sequenceFlow
+            SequenceFlow sequenceFlow = getSequenceFlow(passElements, variableMap, outgoingFlows);
+            targetRef = sequenceFlow.getTargetRef();
+        }
+        // 根据ID找到FlowElement
+        FlowElement targetElement = getFlowElement(flowElements, targetRef);
+        this.getPassElementList(passElements, flowElements, targetElement, variableMap);
+    }
+
+    private void dueExclusiveGateway(List&lt;FlowElement&gt; passElements, Collection&lt;FlowElement&gt; flowElements, FlowElement curFlowElement, Map&lt;String, Object&gt; variableMap) {
+        // 获取符合条件的sequenceFlow的目标FlowElement
+        List&lt;SequenceFlow&gt; exclusiveGatewayOutgoingFlows = ((ExclusiveGateway) curFlowElement).getOutgoingFlows();
+        flowElements.remove(curFlowElement);
+        // 找到表达式成立的sequenceFlow
+        SequenceFlow sequenceFlow = getSequenceFlow(passElements, variableMap, exclusiveGatewayOutgoingFlows);
+        // 根据ID找到FlowElement
+        FlowElement targetElement = getFlowElement(flowElements, sequenceFlow.getTargetRef());
+        this.getPassElementList(passElements, flowElements, targetElement, variableMap);
+    }
+
+    private void dueParallelGateway(List&lt;FlowElement&gt; passElements, Collection&lt;FlowElement&gt; flowElements, FlowElement curFlowElement, Map&lt;String, Object&gt; variableMap) {
+        FlowElement targetElement;
+        List&lt;SequenceFlow&gt; parallelGatewayOutgoingFlows = ((ParallelGateway) curFlowElement).getOutgoingFlows();
+        for (SequenceFlow sequenceFlow : parallelGatewayOutgoingFlows) {
+            targetElement = getFlowElement(flowElements, sequenceFlow.getTargetRef());
+            this.getPassElementList(passElements, flowElements, targetElement, variableMap);
+        }
+    }
+
+    private FlowElement getFlowElement(Collection&lt;FlowElement&gt; flowElements, String targetRef) {
+        return flowElements.stream().filter(flowElement -&gt; targetRef.equals(flowElement.getId())).findFirst().orElse(null);
+    }
+
+    /**
+     * @param passElements  流程全部节点
+     * @param variableMap   参数
+     * @param outgoingFlows 流转线路
+     * @return {@link SequenceFlow }
+     * @description 4. 根据传入的变量，计算出表达式成立的那一条SequenceFlow
+     * @author yuanzhang
+     * @date 2023/08/14
+     **/
+    private SequenceFlow getSequenceFlow(List&lt;FlowElement&gt; passElements, Map&lt;String, Object&gt; variableMap, List&lt;SequenceFlow&gt; outgoingFlows) {
+        if (outgoingFlows.size() &gt; 1 &amp;&amp; (outgoingFlows.stream().noneMatch(item -&gt; StrUtil.isNotBlank(item.getConditionExpression())))) {
+            String string = passElements.stream().filter(element -&gt; StrUtil.equals(element.getId(), outgoingFlows.get(0).getSourceRef())).findFirst().map(FlowElement::getName).orElse(StringConstant.EMPTY);
+            throw new ServiceException(PROCESS_NODE_CONFIGURATION_ERROR, string);
+        }
+        // 优先计算存在表达式的
+        List&lt;SequenceFlow&gt; sortedList = outgoingFlows.stream().sorted(
+                Comparator.comparing(SequenceFlow::getConditionExpression, Comparator.nullsLast(String::compareTo))
+        ).collect(Collectors.toList());
+        return sortedList.stream().filter(item -&gt; ELUtil.getValue(variableMap, item.getConditionExpression())).findFirst().orElse(outgoingFlows.get(0));
+    }
+
+
+}
+</code></pre>
+<pre><code class="language-java">package cn.business.module.bpm.util;
+
+import cn.business.framework.common.exception.ServiceException;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.MapUtils;
+import org.flowable.common.engine.impl.de.odysseus.el.ExpressionFactoryImpl;
+import org.flowable.common.engine.impl.de.odysseus.el.util.SimpleContext;
+import org.flowable.common.engine.impl.javax.el.ExpressionFactory;
+import org.flowable.common.engine.impl.javax.el.PropertyNotFoundException;
+import org.flowable.common.engine.impl.javax.el.ValueExpression;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static cn.business.module.bpm.enums.ErrorCodeConstants.PROPERTY_FOR_PROCESS_VARIABLE_NOT_FOUND;
+import static cn.business.module.bpm.enums.ErrorCodeConstants.WRONG_SHIFT_TRANSFER_CONDITIONS;
+
+/**
+ * @author yuanzhang
+ * @description elutil 解析El表达式
+ * @date 2023/08/02
+ **/
+@Slf4j
+public class ELUtil {
+
+    /**
+     * 原生的解析表达式
+     *
+     * @param params 变量的值
+     * @param exp    表达式
+     * @param clazz  映射出来的值
+     * @return
+     */
+    public static &lt;T&gt; T getValue(Map&lt;String, Object&gt; params, String exp, Class&lt;T&gt; clazz) {
+        ExpressionFactory factory = new ExpressionFactoryImpl();
+        SimpleContext context = new SimpleContext();
+        if (MapUtils.isNotEmpty(params)) {
+            params.forEach((k, v) -&gt; {
+                if (v instanceof ObjectNode) {
+                    JSONObject jsonObject = JSONObject.parseObject(v.toString());
+                    Map&lt;String, Object&gt; vs = new HashMap&lt;&gt;();
+                    for (String objkey : jsonObject.keySet()) {
+                        vs.put(objkey, jsonObject.get(objkey));
+                    }
+                    context.setVariable(k, factory.createValueExpression(vs, Map.class));
+                } else {
+                    context.setVariable(k, factory.createValueExpression(v, Object.class));
+                }
+            });
+        }
+        Object returnObj;
+        try {
+            ValueExpression e = factory.createValueExpression(context, exp, clazz);
+            returnObj = e.getValue(context);
+        } catch (PropertyNotFoundException e) {
+            log.error(&quot;流程变量的属性找不到，请确认!&quot;, e);
+            throw new ServiceException(PROPERTY_FOR_PROCESS_VARIABLE_NOT_FOUND);
+        }
+        return clazz.cast(returnObj);
+    }
+
+    /**
+     * @param params 参数个数
+     * @param exp    经验值
+     * @return {@link Boolean }
+     * @description 获得价值
+     * @author yuanzhang
+     * @date 2023/08/02
+     **/
+    public static Boolean getValue(Map&lt;String, Object&gt; params, String exp) {
+        // 没有表达式默认true
+        if (StrUtil.isBlank(exp)) {
+            return true;
+        }
+        return getValue(params, exp, Boolean.class);
+    }
+
+    /**
+     * @param expression 表达式
+     * @return {@link Integer }
+     * @description 获取班组派车EL表达式的值 ${deptId == 1}
+     * @author yuanzhang
+     * @date 2023/08/18
+     **/
+    public static Long getTeamDispatchCarValue(String expression) {
+        Pattern pattern = Pattern.compile(&quot;\\$\\{([^ ]+) ([!=&lt;&gt;]+) ([^ ]+)\\}&quot;);
+        Matcher matcher = pattern.matcher(expression);
+
+        if (matcher.matches()) {
+            String variable = matcher.group(1);
+            String operator = matcher.group(2);
+            String value = matcher.group(3);
+            if (variable.equals(&quot;deptId&quot;)) {
+                return Convert.toLong(value);
+            } else {
+                throw new ServiceException(WRONG_SHIFT_TRANSFER_CONDITIONS);
+            }
+        } else {
+            throw new ServiceException(WRONG_SHIFT_TRANSFER_CONDITIONS);
+        }
+    }
+
+
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BaseRedis 工具类]]></title>
+        <id>https://yz0812.github.io/post/baseredis-gong-ju-lei/</id>
+        <link href="https://yz0812.github.io/post/baseredis-gong-ju-lei/">
+        </link>
+        <updated>2023-06-11T14:52:08.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="redisautoconfiguration配置类">RedisAutoConfiguration配置类</h2>
+<pre><code class="language-java">
+@AutoConfiguration
+public class RedisAutoConfiguration {
+
+    /**
+     * 创建 RedisTemplate Bean，使用 JSON 序列化方式
+     */
+    @Bean
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory factory) {
+        // 创建 RedisTemplate 对象
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+        // 设置 RedisConnection 工厂。😈 它就是实现多种 Java Redis 客户端接入的秘密工厂。感兴趣的胖友，可以自己去撸下。
+        template.setConnectionFactory(factory);
+        // 使用 String 序列化方式，序列化 KEY 。
+        template.setKeySerializer(RedisSerializer.string());
+        template.setHashKeySerializer(RedisSerializer.string());
+        // 使用 JSON 序列化方式（库是 Jackson ），序列化 VALUE 。
+        template.setValueSerializer(RedisSerializer.json());
+        template.setHashValueSerializer(RedisSerializer.json());
+        return template;
+    }
+
+    @Bean
+    public BaseRedis baseRedis(RedisTemplate&lt;String, Object&gt; redisTemplate) {
+        return new BaseRedis(redisTemplate);
+    }
+}
+</code></pre>
+<h2 id="注入配置类">注入配置类</h2>
+<p>在<span style='color:red'>resources</span>中创建<span style='color:red'>META-INF.spring</span>目录,创建<span style='color:red'>org.springframework.boot.autoconfigure.AutoConfiguration.imports</span>文件</p>
+<h2 id="baseredisjava">BaseRedis.java</h2>
+<pre><code class="language-java">
+import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+public class BaseRedis {
+    private final RedisTemplate&lt;String, Object&gt; redisTemplate;
+    private final ValueOperations&lt;String, Object&gt; valueOps;
+    private final HashOperations&lt;String, Object, Object&gt; hashOps;
+    private final ListOperations&lt;String, Object&gt; listOps;
+    private final SetOperations&lt;String, Object&gt; setOps;
+    private final ZSetOperations&lt;String, Object&gt; zSetOps;
+
+    public BaseRedis(RedisTemplate&lt;String, Object&gt; redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        Assert.notNull(redisTemplate, &quot;redisTemplate is null&quot;);
+        this.valueOps = redisTemplate.opsForValue();
+        this.hashOps = redisTemplate.opsForHash();
+        this.listOps = redisTemplate.opsForList();
+        this.setOps = redisTemplate.opsForSet();
+        this.zSetOps = redisTemplate.opsForZSet();
+    }
+
+    public void set(CacheKey cacheKey, Object value) {
+        String key = cacheKey.getKey();
+        Duration expire = cacheKey.getExpire();
+        if (expire == null) {
+            this.set(key, value);
+        } else {
+            this.setEx(key, value, expire);
+        }
+
+    }
+
+    public void set(String key, Object value) {
+        this.valueOps.set(key, value);
+    }
+
+    public void setEx(String key, Object value, Duration timeout) {
+        this.valueOps.set(key, value, timeout);
+    }
+
+    public void setEx(String key, Object value, Long seconds) {
+        this.valueOps.set(key, value, seconds, TimeUnit.SECONDS);
+    }
+
+    @Nullable
+    public &lt;T&gt; T get(String key) {
+        return (T) this.valueOps.get(key);
+    }
+
+    @Nullable
+    public &lt;T&gt; T get(String key, Supplier&lt;T&gt; loader) {
+        T value = this.get(key);
+        if (value != null) {
+            return value;
+        } else {
+            value = loader.get();
+            if (value == null) {
+                return null;
+            } else {
+                this.set(key, value);
+                return value;
+            }
+        }
+    }
+
+    @Nullable
+    public &lt;T&gt; T get(CacheKey cacheKey) {
+        return (T) this.valueOps.get(cacheKey.getKey());
+    }
+
+    @Nullable
+    public &lt;T&gt; T get(CacheKey cacheKey, Supplier&lt;T&gt; loader) {
+        String key = cacheKey.getKey();
+        T value = this.get(key);
+        if (value != null) {
+            return value;
+        } else {
+            value = loader.get();
+            if (value == null) {
+                return null;
+            } else {
+                this.set(cacheKey, value);
+                return value;
+            }
+        }
+    }
+
+    public Boolean del(String key) {
+        return this.redisTemplate.delete(key);
+    }
+
+    public Boolean del(CacheKey key) {
+        return this.redisTemplate.delete(key.getKey());
+    }
+
+    public Long del(String... keys) {
+        return this.del(Arrays.asList(keys));
+    }
+
+    public Long del(Collection&lt;String&gt; keys) {
+        return this.redisTemplate.delete(keys);
+    }
+
+    public Set&lt;String&gt; keys(String pattern) {
+        return this.redisTemplate.keys(pattern);
+    }
+
+    public void mSet(Object... keysValues) {
+        this.valueOps.multiSet(toMap(keysValues));
+    }
+
+    public List&lt;Object&gt; mGet(String... keys) {
+        return this.mGet(Arrays.asList(keys));
+    }
+
+    public List&lt;Object&gt; mGet(Collection&lt;String&gt; keys) {
+        return this.valueOps.multiGet(keys);
+    }
+
+    public Long decr(String key) {
+        return this.valueOps.decrement(key);
+    }
+
+    public Long decrBy(String key, long longValue) {
+        return this.valueOps.decrement(key, longValue);
+    }
+
+    public Long incr(String key) {
+        return this.valueOps.increment(key);
+    }
+
+    public Long incrBy(String key, long longValue) {
+        return this.valueOps.increment(key, longValue);
+    }
+
+    public Long getCounter(String key) {
+        return Long.valueOf(String.valueOf(this.valueOps.get(key)));
+    }
+
+    public Boolean exists(String key) {
+        return this.redisTemplate.hasKey(key);
+    }
+
+    public String randomKey() {
+        return (String) this.redisTemplate.randomKey();
+    }
+
+    public void rename(String oldkey, String newkey) {
+        this.redisTemplate.rename(oldkey, newkey);
+    }
+
+    public Boolean move(String key, int dbIndex) {
+        return this.redisTemplate.move(key, dbIndex);
+    }
+
+    public Boolean expire(String key, long seconds) {
+        return this.redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+    }
+
+    public Boolean expire(String key, Duration timeout) {
+        return this.expire(key, timeout.getSeconds());
+    }
+
+    public Boolean expireAt(String key, Date date) {
+        return this.redisTemplate.expireAt(key, date);
+    }
+
+    public Boolean expireAt(String key, long unixTime) {
+        return this.expireAt(key, new Date(unixTime));
+    }
+
+    public Boolean pexpire(String key, long milliseconds) {
+        return this.redisTemplate.expire(key, milliseconds, TimeUnit.MILLISECONDS);
+    }
+
+    public &lt;T&gt; T getSet(String key, Object value) {
+        return (T) this.valueOps.getAndSet(key, value);
+    }
+
+    public Boolean persist(String key) {
+        return this.redisTemplate.persist(key);
+    }
+
+    public String type(String key) {
+        return this.redisTemplate.type(key).code();
+    }
+
+    public Long ttl(String key) {
+        return this.redisTemplate.getExpire(key);
+    }
+
+    public Long pttl(String key) {
+        return this.redisTemplate.getExpire(key, TimeUnit.MILLISECONDS);
+    }
+
+    public void hSet(String key, Object field, Object value) {
+        this.hashOps.put(key, field, value);
+    }
+
+//    public void hMset(String key, Map&lt;Object, Object&gt; hash) {
+//        this.hashOps.putAll(key, hash);
+//    }
+
+    public &lt;K, V&gt; void hMset(String key, Map&lt;K, V&gt; hash) {
+        this.hashOps.putAll(key, hash);
+    }
+
+    public &lt;T&gt; T hGet(String key, Object field) {
+        return (T) this.hashOps.get(key, field);
+    }
+
+    public List hmGet(String key, Object... fields) {
+        return this.hmGet(key, (Collection) Arrays.asList(fields));
+    }
+
+    public List hmGet(String key, Collection&lt;Object&gt; hashKeys) {
+        return this.hashOps.multiGet(key, hashKeys);
+    }
+
+    public Long hDel(String key, Object... fields) {
+        return this.hashOps.delete(key, fields);
+    }
+
+    public Boolean hExists(String key, Object field) {
+        return this.hashOps.hasKey(key, field);
+    }
+
+    public Map hGetAll(String key) {
+        return this.hashOps.entries(key);
+    }
+
+    public List hVals(String key) {
+        return this.hashOps.values(key);
+    }
+
+    public Set&lt;Object&gt; hKeys(String key) {
+        return this.hashOps.keys(key);
+    }
+
+    public Long hLen(String key) {
+        return this.hashOps.size(key);
+    }
+
+    public Long hIncrBy(String key, Object field, long value) {
+        return this.hashOps.increment(key, field, value);
+    }
+
+    public Double hIncrByFloat(String key, Object field, double value) {
+        return this.hashOps.increment(key, field, value);
+    }
+
+    public &lt;T&gt; T lIndex(String key, long index) {
+        return (T) this.listOps.index(key, index);
+    }
+
+    public Long lLen(String key) {
+        return this.listOps.size(key);
+    }
+
+    public &lt;T&gt; T lPop(String key) {
+        return (T) this.listOps.leftPop(key);
+    }
+
+    public Long lPush(String key, Object... values) {
+        return this.listOps.leftPush(key, values);
+    }
+
+    public &lt;T&gt; Long lPush(String key, T values) {
+        return this.listOps.leftPush(key, values);
+    }
+
+    public &lt;T&gt; Long lPushAll(String key, T... values) {
+        return this.listOps.leftPushAll(key, values);
+    }
+
+    public void lSet(String key, long index, Object value) {
+        this.listOps.set(key, index, value);
+    }
+
+    public Long lRem(String key, long count, Object value) {
+        return this.listOps.remove(key, count, value);
+    }
+
+    public List lRange(String key, long start, long end) {
+        return this.listOps.range(key, start, end);
+    }
+
+    public void lTrim(String key, long start, long end) {
+        this.listOps.trim(key, start, end);
+    }
+
+    public &lt;T&gt; T rPop(String key) {
+        return (T) this.listOps.rightPop(key);
+    }
+
+    public Long rPush(String key, Object... values) {
+        return this.listOps.rightPush(key, values);
+    }
+
+    public &lt;T&gt; T rPopLPush(String srcKey, String dstKey) {
+        return (T) this.listOps.rightPopAndLeftPush(srcKey, dstKey);
+    }
+
+    public Long sAdd(String key, Object... members) {
+        return this.setOps.add(key, members);
+    }
+
+    public &lt;T&gt; T sPop(String key) {
+        return (T) this.setOps.pop(key);
+    }
+
+    public Set sMembers(String key) {
+        return this.setOps.members(key);
+    }
+
+    public Long sSize(String key) {
+        return this.setOps.size(key);
+    }
+
+    public boolean sIsMember(String key, Object member) {
+        return this.setOps.isMember(key, member);
+    }
+
+    public Set sInter(String key, String otherKey) {
+        return this.setOps.intersect(key, otherKey);
+    }
+
+    public Set sInter(String key, Collection&lt;String&gt; otherKeys) {
+        return this.setOps.intersect(key, otherKeys);
+    }
+
+    public &lt;T&gt; T sRandMember(String key) {
+        return (T) this.setOps.randomMember(key);
+    }
+
+    public List sRandMember(String key, int count) {
+        return this.setOps.randomMembers(key, (long) count);
+    }
+
+    public Long sRem(String key, Object... members) {
+        return this.setOps.remove(key, members);
+    }
+
+    public Set sUnion(String key, String otherKey) {
+        return this.setOps.union(key, otherKey);
+    }
+
+    public Set sUnion(String key, Collection&lt;String&gt; otherKeys) {
+        return this.setOps.union(key, otherKeys);
+    }
+
+    public Set sDiff(String key, String otherKey) {
+        return this.setOps.difference(key, otherKey);
+    }
+
+    public Set sDiff(String key, Collection&lt;String&gt; otherKeys) {
+        return this.setOps.difference(key, otherKeys);
+    }
+
+    public Boolean zAdd(String key, Object member, double score) {
+        return this.zSetOps.add(key, member, score);
+    }
+
+    public Long zAdd(String key, Map&lt;Object, Double&gt; scoreMembers) {
+        Set&lt;TypedTuple&lt;Object&gt;&gt; tuples = new HashSet&lt;&gt;();
+        scoreMembers.forEach((k, v) -&gt; {
+            tuples.add(new DefaultTypedTuple(k, v));
+        });
+        return this.zSetOps.add(key, tuples);
+    }
+
+    public Long zCard(String key) {
+        return this.zSetOps.zCard(key);
+    }
+
+    public Long zCount(String key, double min, double max) {
+        return this.zSetOps.count(key, min, max);
+    }
+
+    public Double zIncrBy(String key, Object member, double score) {
+        return this.zSetOps.incrementScore(key, member, score);
+    }
+
+    public Set zRange(String key, long start, long end) {
+        return this.zSetOps.range(key, start, end);
+    }
+
+    public Set zRevrange(String key, long start, long end) {
+        return this.zSetOps.reverseRange(key, start, end);
+    }
+
+    public Set zRangeByScore(String key, double min, double max) {
+        return this.zSetOps.rangeByScore(key, min, max);
+    }
+
+    public Long zRank(String key, Object member) {
+        return this.zSetOps.rank(key, member);
+    }
+
+    public Long zRevrank(String key, Object member) {
+        return this.zSetOps.reverseRank(key, member);
+    }
+
+    public Long zRem(String key, Object... members) {
+        return this.zSetOps.remove(key, members);
+    }
+
+    public Double zScore(String key, Object member) {
+        return this.zSetOps.score(key, member);
+    }
+
+    public RedisTemplate&lt;String, Object&gt; getRedisTemplate() {
+        return this.redisTemplate;
+    }
+
+    public ValueOperations&lt;String, Object&gt; getValueOps() {
+        return this.valueOps;
+    }
+
+    public HashOperations&lt;String, Object, Object&gt; getHashOps() {
+        return this.hashOps;
+    }
+
+    public ListOperations&lt;String, Object&gt; getListOps() {
+        return this.listOps;
+    }
+
+    public SetOperations&lt;String, Object&gt; getSetOps() {
+        return this.setOps;
+    }
+
+    public ZSetOperations&lt;String, Object&gt; getZSetOps() {
+        return this.zSetOps;
+    }
+
+
+    private static &lt;K, V&gt; Map&lt;K, V&gt; toMap(Object... keysValues) {
+        int kvLength = keysValues.length;
+        if (kvLength % 2 != 0) {
+            throw new IllegalArgumentException(&quot;wrong number of arguments for met, keysValues length can not be odd&quot;);
+        } else {
+            Map&lt;K, V&gt; keyValueMap = new HashMap(kvLength);
+
+            for (int i = kvLength - 2; i &gt;= 0; i -= 2) {
+                Object key = keysValues[i];
+                Object value = keysValues[i + 1];
+                keyValueMap.put((K) key, (V) value);
+            }
+
+            return keyValueMap;
+        }
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[docker-compose安装gitlab-ee]]></title>
+        <id>https://yz0812.github.io/post/docker-compose-an-zhuang-gitlab-ee/</id>
+        <link href="https://yz0812.github.io/post/docker-compose-an-zhuang-gitlab-ee/">
+        </link>
+        <updated>2023-06-11T14:51:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="docker-compose安装gitlab-ee以及优化方案">docker-compose安装gitlab-ee以及优化方案</h1>
+<h2 id="简略版">简略版</h2>
+<pre><code class="language-yaml">version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'   #下载慢可替换加速地址
+    restart: always
+    hostname: 'demo.com'   #此处建议填写访问域名
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://127.0.0.1:8088'   #此处是gitlab访问地址填写域名，IP也可以
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        # Add any other gitlab.rb configuration here, each on its own line
+        
+    ports:
+      - '8088:80'    #容器内80端口转发到主机8088端口
+      - '8443:443'   #容器内443端口转发到主机8443端口
+      - '222:22'   #容器内22端口转发到主机222端口
+    volumes:
+      - '$GITLAB_HOME/gitlab/config:/etc/gitlab'
+      - '$GITLAB_HOME/gitlab/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/gitlab/data:/var/opt/gitlab'
+ 
+ 
+    shm_size: '1g'   #官网默认64m，容器日志会出错建议增加
+</code></pre>
+<h2 id="优化版">优化版</h2>
+<pre><code class="language-yaml">version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'demo.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://127.0.0.1:8088'
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        # Add any other gitlab.rb configuration here, each on its own line
+        
+        # 关闭电子邮件相关功能
+        gitlab_rails['smtp_enable'] = false
+        gitlab_rails['gitlab_email_enabled'] = false
+        gitlab_rails['incoming_email_enabled'] = false
+ 
+        # Terraform
+        gitlab_rails['terraform_state_enabled'] = false
+ 
+        # 使用情况统计
+        gitlab_rails['usage_ping_enabled'] = false
+        gitlab_rails['sentry_enabled'] = false
+        grafana['reporting_enabled'] = false
+ 
+        # 关闭容器仓库功能
+        gitlab_rails['gitlab_default_projects_features_container_registry'] = false
+        gitlab_rails['registry_enabled'] = false
+        registry['enable'] = false
+        registry_nginx['enable'] = false
+ 
+        # 包仓库
+        gitlab_rails['packages_enabled'] = false
+        gitlab_rails['dependency_proxy_enabled'] = false
+ 
+        # GitLab KAS
+        gitlab_kas['enable'] = false
+        gitlab_rails['gitlab_kas_enabled'] = false
+ 
+        # Mattermost
+        mattermost['enable'] = false
+        mattermost_nginx['enable'] = false
+ 
+        # Kerberos
+        gitlab_rails['kerberos_enabled'] = false
+        sentinel['enable'] = false
+ 
+        # GitLab Pages
+        gitlab_pages['enable'] = false
+        pages_nginx['enable'] = false
+ 
+        # 禁用 PUMA 集群模式
+        puma['worker_processes'] = 0
+        puma['min_threads'] = 1
+        puma['max_threads'] = 2
+ 
+        # 降低后台守护进程并发数
+        sidekiq['max_concurrency'] = 5
+ 
+        gitlab_ci['gitlab_ci_all_broken_builds'] = false
+        gitlab_ci['gitlab_ci_add_pusher'] = false
+ 
+        # 关闭监控
+        prometheus_monitoring['enable'] = false
+        alertmanager['enable'] = false
+        node_exporter['enable'] = false
+        redis_exporter['enable'] = false
+        postgres_exporter['enable'] = false
+        pgbouncer_exporter['enable'] = false
+        gitlab_exporter['enable'] = false
+        grafana['enable'] = false
+        sidekiq['metrics_enabled'] = false
+ 
+ 
+        # 配置 GitLab 处理内存的方式
+        gitlab_rails['env'] = {
+          'MALLOC_CONF' =&gt; 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+ 
+        gitaly['env'] = {
+          'MALLOC_CONF' =&gt; 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+    ports:
+      - '8088:80'
+      - '8443:443'
+      - '222:22'
+    volumes:
+      - '$GITLAB_HOME/gitlab/config:/etc/gitlab'
+      - '$GITLAB_HOME/gitlab/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/gitlab/data:/var/opt/gitlab'
+ 
+ 
+    shm_size: '1g'
+</code></pre>
+<h2 id="gitlab-ee高级功能">gitlab-ee高级功能</h2>
+<pre><code class="language-yaml">version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'demo.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://127.0.0.1:8088'
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        # Add any other gitlab.rb configuration here, each on its own line
+        
+        # 关闭电子邮件相关功能
+        gitlab_rails['smtp_enable'] = false
+        gitlab_rails['gitlab_email_enabled'] = false
+        gitlab_rails['incoming_email_enabled'] = false
+ 
+        # Terraform
+        gitlab_rails['terraform_state_enabled'] = false
+ 
+        # Usage Statistics
+        gitlab_rails['usage_ping_enabled'] = false
+        gitlab_rails['sentry_enabled'] = false
+        grafana['reporting_enabled'] = false
+ 
+        # 关闭容器仓库功能
+        gitlab_rails['gitlab_default_projects_features_container_registry'] = false
+        gitlab_rails['registry_enabled'] = false
+        registry['enable'] = false
+        registry_nginx['enable'] = false
+ 
+        # 包仓库
+        gitlab_rails['packages_enabled'] = false
+        gitlab_rails['dependency_proxy_enabled'] = false
+ 
+        # GitLab KAS
+        gitlab_kas['enable'] = false
+        gitlab_rails['gitlab_kas_enabled'] = false
+ 
+        # Mattermost
+        mattermost['enable'] = false
+        mattermost_nginx['enable'] = false
+ 
+        # Kerberos
+        gitlab_rails['kerberos_enabled'] = false
+        sentinel['enable'] = false
+ 
+        # GitLab Pages
+        gitlab_pages['enable'] = false
+        pages_nginx['enable'] = false
+ 
+        # 禁用 PUMA 集群模式
+        puma['worker_processes'] = 0
+        puma['min_threads'] = 1
+        puma['max_threads'] = 2
+ 
+        # 降低后台守护进程并发数
+        sidekiq['max_concurrency'] = 5
+ 
+        gitlab_ci['gitlab_ci_all_broken_builds'] = false
+        gitlab_ci['gitlab_ci_add_pusher'] = false
+ 
+        # 关闭监控
+        prometheus_monitoring['enable'] = false
+        alertmanager['enable'] = false
+        node_exporter['enable'] = false
+        redis_exporter['enable'] = false
+        postgres_exporter['enable'] = false
+        pgbouncer_exporter['enable'] = false
+        gitlab_exporter['enable'] = false
+        grafana['enable'] = false
+        sidekiq['metrics_enabled'] = false
+ 
+ 
+        # 配置 GitLab 处理内存的方式
+        gitlab_rails['env'] = {
+          'MALLOC_CONF' =&gt; 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+ 
+        gitaly['env'] = {
+          'MALLOC_CONF' =&gt; 'dirty_decay_ms:1000,muzzy_decay_ms:1000'
+        }
+    ports:
+      - '8088:80'
+      - '8443:443'
+      - '222:22'
+    volumes:
+      - '$GITLAB_HOME/gitlab/config:/etc/gitlab'
+      - '$GITLAB_HOME/gitlab/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/gitlab/data:/var/opt/gitlab'
+ 
+      - type: bind  
+        source: /gitlab/license_key.pub   #这个是宿主机的地址
+        target: /opt/gitlab/embedded/service/gitlab-rails/.license_encryption_key.pub  #这个是容器里配置文件的地址
+      - type: bind  
+        source: /gitlab/license.rb   #这个是宿主机的地址
+        target: /opt/gitlab/embedded/service/gitlab-rails/ee/app/models/license.rb  #这个是容器里配置文件的地址
+ 
+ 
+    shm_size: '1g'
+</code></pre>
+<h2 id="查看密码">查看密码</h2>
+<pre><code class="language-shell">cat /etc/gitlab/initial_root_password
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Docker命令]]></title>
+        <id>https://yz0812.github.io/post/docker-ming-ling/</id>
+        <link href="https://yz0812.github.io/post/docker-ming-ling/">
+        </link>
+        <updated>2023-05-28T10:28:28.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="docker命令">Docker命令</h1>
+<p><strong>容器命令</strong></p>
+<ul>
+<li><code>docker attach</code>：连接到正在运行的容器。</li>
+<li><code>docker create</code>：创建一个新的容器但不启动它。</li>
+<li><code>docker cp</code>：在容器和主机之间复制文件和文件夹。</li>
+<li><code>docker diff</code>：显示容器文件系统中的更改。</li>
+<li><code>docker exec</code>：在正在运行的容器中执行新命令。</li>
+<li><code>docker export</code>：将容器的文件系统导出为 tar 归档文件。</li>
+<li><code>docker inspect</code>：显示有关 Docker 对象（容器、镜像、网络等）的详细信息。</li>
+<li><code>docker kill</code>：终止正在运行的容器。</li>
+<li><code>docker logs</code>：获取容器的日志。</li>
+<li><code>docker pause</code>：暂停一个正在运行的容器。</li>
+<li><code>docker port</code>：显示容器的公开端口。</li>
+<li><code>docker ps</code>：列出正在运行的容器。</li>
+<li><code>docker restart</code>：重启容器。</li>
+<li><code>docker rm</code>：删除一个或多个容器。</li>
+<li><code>docker start</code>：启动一个或多个已经创建的容器。</li>
+<li><code>dockerstop</code>：停止一个或多个正在运行的容器。</li>
+<li><code>docker top</code>：显示容器中正在运行的进程。</li>
+<li><code>docker unpause</code>：恢复暂停的容器。</li>
+<li><code>docker update</code>：更新容器配置。</li>
+<li><code>docker wait</code>：阻塞直到容器停止。</li>
+</ul>
+<p>** 镜像命令**</p>
+<ul>
+<li><code>docker build</code>：从 Dockerfile 构建镜像。</li>
+<li><code>docker commit</code>：从容器创建一个新的镜像。</li>
+<li><code>docker history</code>：显示镜像的历史记录。</li>
+<li><code>docker images</code>：列出本地镜像。</li>
+<li><code>docker import</code>：从归档文件或 URL 创建镜像。</li>
+<li><code>docker load</code>：从归档文件中加载镜像。</li>
+<li><code>docker pull</code>：从 Docker Hub 或其他 Docker Registry 拉取镜像。</li>
+<li><code>docker push</code>：将本地镜像推送到 Docker Hub 或其他 Docker Registry。</li>
+<li><code>docker rmi</code>：删除一个或多个镜像。</li>
+<li><code>docker save</code>：将镜像保存为归档文件。</li>
+<li><code>docker tag</code>：为镜像添加标签。</li>
+</ul>
+<p>** 网络命令**</p>
+<ul>
+<li><code>docker network</code>：管理 Docker 网络。</li>
+</ul>
+<p>** Swarm 命令**</p>
+<ul>
+<li><code>docker node</code>：管理 Docker 集群节点。</li>
+<li><code>docker service</code>：管理 Docker Swarm 服务。</li>
+<li><code>docker swarm</code>：管理 Docker Swarm。</li>
+</ul>
+<p>** 系统命令**</p>
+<ul>
+<li><code>docker info</code>：显示 Docker 系统信息。</li>
+<li><code>docker login</code>：登录到 Docker Hub 或其他 Docker Registry。</li>
+<li><code>docker logout</code>：从 Docker Hub 或其他 Docker Registry 注销。</li>
+<li><code>docker system</code>：管理 Docker 系统。</li>
+<li><code>docker version</code>：显示 Docker 版本信息。</li>
+</ul>
+<h1 id="docker-compose文件">docker compose文件</h1>
+<ul>
+<li><code>version</code>：指定 Compose 文件的版本。当前支持的版本为 2.x、3.x、3.1、3.2、3.3 等。</li>
+<li><code>services</code>：定义要运行的服务，可以是一个或多个服务。</li>
+<li><code>networks</code>：定义要使用的网络，可以是一个或多个网络。</li>
+<li><code>volumes</code>：定义要使用的卷，可以是一个或多个卷。</li>
+</ul>
+<p>除了上述参数外，Docker Compose 文件还支持其他参数，如 <code>environment</code>、<code>ports</code>、<code>depends_on</code>、<code>restart</code>、<code>image</code>、<code>command</code>、<code>volumes</code>、<code>networks</code> 等。这些参数的作用如下：</p>
+<ul>
+<li><code>environment</code>：设置环境变量，可以是一个列表或一个字典。</li>
+<li><code>ports</code>：将容器端口映射到主机端口。</li>
+<li><code>depends_on</code>：定义服务之间的依赖关系，以便在启动依赖服务之前启动当前服务。</li>
+<li><code>restart</code>：定义容器失败时的重启策略。</li>
+<li><code>image</code>：使用的镜像名称和标签。</li>
+<li><code>command</code>：在容器中运行的命令，可以覆盖 Dockerfile 中的 <code>CMD</code>。</li>
+<li><code>volumes</code>：将主机路径或命名卷挂载到容器中。</li>
+<li><code>networks</code>：将服务添加到指定的网络中。</li>
+</ul>
+<p>除了上述参数外，Docker Compose 文件还支持其他参数，如 <code>network_mode</code>、<code>container_name</code>、<code>links</code>、<code>user</code>、<code>working_dir</code>、<code>entrypoint</code> 等。这些参数的作用如下：</p>
+<ul>
+<li><code>network_mode</code>：指定容器要使用的网络模式。</li>
+<li><code>container_name</code>：指定容器的名称。</li>
+<li><code>links</code>：链接到其他服务。</li>
+<li><code>user</code>：设置容器中运行进程的用户。</li>
+<li><code>working_dir</code>：设置容器工作目录。</li>
+<li><code>entrypoint</code>：覆盖 Dockerfile 中的 <code>ENTRYPOINT</code>。</li>
+</ul>
+<p>Docker Compose 文件还支持通过环境变量文件或命令行参数覆盖 Compose 文件中的参数。例如，可以使用 <code>-f</code> 参数指定 Compose 文件的路径，使用 <code>--project-name</code> 参数指定项目名称，使用 <code>--env-file</code> 参数指定环境变量文件的路径等。</p>
+<h1 id="1-env环境变量">1 .env环境变量</h1>
+<h2 id="11-定义">1.1 定义</h2>
+<blockquote>
+<p>在使用 Docker 构建和运行容器时，可以通过使用 <code>.env</code> 文件来设置环境变量和配置参数。<code>.env</code> 文件是一个文本文件，其中包含变量和其对应的值，每行一个变量，格式为 <code>VAR_NAME=VAR_VALUE</code>。</p>
+<p>在 Dockerfile 中，可以使用 <code>ENV</code> 命令来设置环境变量，但如果使用 <code>.env</code> 文件，则可以在 Dockerfile 中使用 <code>${VAR_NAME}</code> 的语法来引用变量，例如：</p>
+</blockquote>
+<pre><code class="language-properties">VAR_NAME=${VAR_NAME}
+</code></pre>
+<blockquote>
+<p>在 Docker Compose 配置文件中，也可以使用 <code>${VAR_NAME}</code> 的语法来引用 <code>.env</code> 文件中的变量。例如：</p>
+</blockquote>
+<pre><code class="language-yml">version: '3'
+services:
+  web:
+    image: nginx
+    environment:
+      MY_VAR: ${VAR_NAME}
+</code></pre>
+<h2 id="12-使用">1.2 使用</h2>
+<pre><code class="language-shell"># 构建镜像
+docker compose --env-file .env up -d
+# .env 文件中的变量仅在构建和运行Docker 容器时才会生效 
+# 可以在容器启动命令中使用 -e 参数来将其传递给容器
+docker run -e MY_VAR=${VAR_NAME} myimage
+# 查看环境变量的引用
+docker-compose --env-file ../.env config
+</code></pre>
+<h1 id="2-docker-compose-up">2. docker compose up</h1>
+<h2 id="21-参数">2.1 参数</h2>
+<ul>
+<li><code>-d</code>：在后台模式下启动容器。</li>
+<li><code>--no-color</code>：禁用输出的颜色。</li>
+<li><code>--quiet-pull</code>：禁止输出拉取镜像的详细信息。</li>
+<li><code>--no-deps</code>：不启动服务依赖的服务。</li>
+<li><code>--force-recreate</code>：强制重新创建容器，即使容器已经存在。</li>
+<li><code>--always-recreate-deps</code>：重新创建所有服务依赖的容器。</li>
+<li><code>--no-recreate</code>：不重新创建容器，即使容器已经存在。</li>
+<li><code>--no-build</code>：不构建镜像，直接使用已有的镜像。</li>
+<li><code>--build</code>：在启动容器之前构建镜像。</li>
+<li><code>--abort-on-container-exit</code>：当容器退出时，停止所有容器的运行。</li>
+<li><code>--attach-dependencies</code>：在启动容器之前启动所有服务依赖的服务。</li>
+<li><code>--remove-orphans</code>：移除无关的容器，即没有被 Compose 文件中定义的服务所依赖的容器。</li>
+<li><code>--timeout TIMEOUT</code>：设置容器启动的超时时间，默认为 10 秒。</li>
+<li><code>--renew-anon-volumes</code>：在启动容器之前删除匿名卷，并重新创建它们。</li>
+<li><code>--remove-volumes</code>：在移除容器时同时移除关联的匿名和命名卷。</li>
+<li><code>--volumes</code>：在容器之间共享命名卷。</li>
+<li><code>--scale SERVICE=NUM</code>：指定要启动的服务以及要启动的容器数量，例如 <code>--scale web=2</code> 表示启动 <code>web</code> 服务的 2 个容器。</li>
+<li><code>--no-log-prefix</code>：不在日志中输出服务名称的前缀。</li>
+<li><code>--log-level LEVEL</code>：设置日志的级别，默认为 <code>info</code>。</li>
+<li><code>--exit-code-from SERVICE</code>：从指定的服务获取退出代码，并在所有容器停止时退出。</li>
+<li><code>--disable-content-trust</code>：禁用 Docker Content Trust。</li>
+<li><code>--pull</code>：在启动容器之前拉取最新的镜像。</li>
+<li><code>--no-healthcheck</code>：不运行健康检查。</li>
+<li><code>--compose-file FILE</code>：指定要使用的 Compose 文件，可以指定多个文件。</li>
+<li><code>--project-namePROJECT_NAME</code>：指定 Compose 项目的名称。</li>
+<li><code>-f, --file FILE</code>：指定要使用的 Compose 文件，可以指定多个文件。</li>
+<li><code>--env-file PATH</code>：指定要使用的环境变量文件。</li>
+<li><code>--env, -e KEY=VALUE</code>：设置环境变量，可以指定多个。</li>
+<li><code>--no-recreate</code>：不重新创建容器，即使容器已经存在。</li>
+<li><code>--no-start</code>：不启动容器，只构建镜像。</li>
+<li><code>--scale SERVICE=NUM</code>：指定要启动的服务以及要启动的容器数量，例如 <code>--scale web=2</code> 表示启动 <code>web</code> 服务的 2 个容器。</li>
+<li><code>--remove-orphans</code>：移除无关的容器，即没有被 Compose 文件中定义的服务所依赖的容器。</li>
+<li><code>--no-build</code>：不构建镜像，直接使用已有的镜像。</li>
+<li><code>--build</code>：在启动容器之前构建镜像。</li>
+<li><code>--always-recreate-deps</code>：重新创建所有服务依赖的容器。</li>
+<li><code>--force-recreate</code>：强制重新创建容器，即使容器已经存在。</li>
+<li><code>--no-deps</code>：不启动服务依赖的服务。</li>
+<li><code>--abort-on-container-exit</code>：当容器退出时，停止所有容器的运行。</li>
+<li><code>--attach-dependencies</code>：在启动容器之前启动所有服务依赖的服务。</li>
+<li><code>--remove-orphans</code>：移除无关的容器，即没有被 Compose 文件中定义的服务所依赖的容器。</li>
+<li><code>--timeout TIMEOUT</code>：设置容器启动的超时时间，默认为 10 秒。</li>
+<li><code>--renew-anon-volumes</code>：在启动容器之前删除匿名卷，并重新创建它们。</li>
+<li><code>--remove-volumes</code>：在移除容器时同时移除关联的匿名和命名卷。</li>
+<li><code>--volumes</code>：在容器之间共享命名卷。</li>
+<li><code>--no-log-prefix</code>：不在日志中输出服务名称的前缀。</li>
+<li><code>--log-level LEVEL</code>：设置日志的级别，默认为 <code>info</code>。</li>
+<li><code>--exit-code-from SERVICE</code>：从指定的服务获取退出代码，并在所有容器停止时退出。</li>
+<li><code>--disable-content-trust</code>：禁用 Docker Content Trust。</li>
+</ul>
+<h2 id="22-举例">2.2 举例</h2>
+<pre><code class="language-shell"># 指定一个镜像
+docker compose up -d redis
+# 指定环境变量
+docker-compose --env-file ../.env up -d
+# 重新创建容器，即使容器已经存在。
+docker compose up   --force-recreate -d
+# 构建镜像并启动容器。
+docker-compose up --build
+# 指定使用的 Compose 文件，默认文件名为 docker-compose.yml。
+docker-compose -f filename.yml up
+# 指定项目名称。
+docker-compose -p projectname up
+# 如果一个容器退出，则停止所有容器。
+docker-compose up --abort-on-container-exit
+
+</code></pre>
+<h1 id="3docker-logs">3.docker logs</h1>
+<h2 id="31参数">3.1参数</h2>
+<ul>
+<li><code>-f</code>：实时输出日志，类似于 <code>tail -f</code> 命令。</li>
+<li><code>--tail NUM</code>：仅输出最后 NUM 行的日志，默认为全部输出。</li>
+<li><code>--since TIME</code>：仅输出从指定时间点开始的日志，例如 <code>2022-05-01T00:00:00</code>。</li>
+<li><code>--until TIME</code>：仅输出到指定时间点为止的日志，例如 <code>2022-05-01T23:59:59</code>。</li>
+<li><code>--details</code>：输出更多的容器详细信息，例如容器的标签、ID、名称等。</li>
+<li><code>--timestamps</code>：在日志中显示时间戳。</li>
+<li><code>--follow</code> 或 <code>-f</code>：在输出日志后保持连接，实时查看容器日志的变化。</li>
+<li><code>--tail</code> 或 <code>-n</code>：指定输出日志的行数。</li>
+<li><code>--since</code>：指定输出日志的起始时间。</li>
+</ul>
+<h2 id="32-举例">3.2 举例</h2>
+<h3 id="321-查看容器的所有日志">3.2.1 查看容器的所有日志：</h3>
+<pre><code class="language-shell">docker logs &lt;container_id&gt;
+</code></pre>
+<h3 id="322-查看容器的最后-100-行日志">3.2.2 查看容器的最后 100 行日志：</h3>
+<pre><code class="language-shell">docker logs --tail 100 &lt;container_id&gt;
+</code></pre>
+<h3 id="323-查看容器的实时日志">3.2.3 查看容器的实时日志：</h3>
+<pre><code class="language-shell">docker logs &lt;container_id&gt; 2&gt;&amp;1 | grep &quot;error&quot;
+</code></pre>
+<h3 id="324-查看容器的所有日志并在其中搜索关键字-error">3.2.4 查看容器的所有日志，并在其中搜索关键字 <code>error</code>：</h3>
+<pre><code class="language-shell">docker logs -f &lt;container_id&gt;
+</code></pre>
+<h3 id="325-查看容器的最后-100-行日志并在其中搜索关键字-error">3.2.5 查看容器的最后 100 行日志，并在其中搜索关键字 <code>error</code>：</h3>
+<pre><code class="language-shell">docker logs --tail 100 &lt;container_id&gt; 2&gt;&amp;1 | grep &quot;error&quot;
+</code></pre>
+<h3 id="326-查看容器的实时日志并在其中搜索关键字-error">3.2.6 查看容器的实时日志，并在其中搜索关键字 <code>error</code>：：</h3>
+<pre><code class="language-shell">docker logs -f &lt;container_id&gt; 2&gt;&amp;1 | grep &quot;error&quot;
+</code></pre>
+<h1 id="4docker-inspect">4.Docker Inspect</h1>
+<p><code>docker inspect</code> 命令用于获取 Docker 对象（容器、镜像、网络等）</p>
+<h2 id="41-参数">4.1 参数</h2>
+<ul>
+<li><code>--format</code>: 指定输出的格式。</li>
+<li><code>--type</code>: 指定要检查的对象类型。</li>
+<li><code>--size</code>: 显示对象占用的磁盘空间大小。</li>
+<li><code>--all</code>: 显示所有对象的详细信息。</li>
+<li><code>--verbose</code>: 显示更详细的信息。</li>
+<li><code>--pretty</code>: 显示格式化的输出。</li>
+<li><code>--no-trunc</code>: 显示完整的输出，而不是截断后的输出。</li>
+<li><code>--help</code>: 显示帮助信息。</li>
+</ul>
+<h2 id="42-举例">4.2 举例</h2>
+<h3 id="421-检查容器的详细信息">4.2.1 检查容器的详细信息：</h3>
+<pre><code class="language-shell">docker inspect  &lt;container_id&gt; 
+</code></pre>
+<h3 id="422-检查容器-ip-地址">4.2.2 检查容器 IP 地址：</h3>
+<pre><code class="language-shell">docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'  &lt;container_id&gt; 
+</code></pre>
+<h3 id="423-检查镜像信息">4.2.3 检查镜像信息：</h3>
+<pre><code class="language-shell">docker inspect &lt;image_id&gt; 
+</code></pre>
+<h3 id="424-检查网络信息">4.2.4 检查网络信息：</h3>
+<pre><code class="language-shell">docker inspect &lt;network_name&gt;
+</code></pre>
+<h3 id="425-指定输出格式">4.2.5 指定输出格式：</h3>
+<pre><code class="language-shell">docker inspect --format='{{.Name}} - {{.State.Status}}' &lt;container_id&gt; 
+</code></pre>
+<h3 id="426-按条件筛选容器">4.2.6 按条件筛选容器：</h3>
+<pre><code class="language-shell">docker inspect -f '{{.Name}} {{.State.Running}}' $(docker ps -q --filter &quot;status=running&quot;)
+</code></pre>
+<h3 id="427-按条件筛选镜像">4.2.7 按条件筛选镜像：</h3>
+<pre><code class="language-shell">docker inspect -f '{{.RepoTags}} {{.Size}}' $(docker images -q --filter &quot;dangling=true&quot;)
+</code></pre>
+<h3 id="428-使用jq格式化工具">4.2.8 使用jq格式化工具</h3>
+<pre><code class="language-shell">docker inspect  &lt;container_id&gt;   | jq '.[0] | {id: .Id, created: .Created, author: .Author, size: .Size, labels: .Config.Labels}'
+</code></pre>
+<h3 id="429-查看目录挂载信息">4.2.9 查看目录挂载信息</h3>
+<pre><code class="language-shell">docker inspect --format=&quot;{{json .Mounts}}&quot; &lt;container_id&gt; | jq
+</code></pre>
+<h3 id="4210-查看容器网络信息">4.2.10 查看容器网络信息</h3>
+<pre><code class="language-shell">#查看完整网络信息
+docker inspect --format=&quot;{{json .NetworkSettings}}&quot; &lt;container_id&gt; | jq
+#查看网络端口映射
+docker inspect --format=&quot;{{json .NetworkSettings.Ports}}&quot; &lt;container_id&gt; | jq
+# 查看容器的网络ip、网关等信息
+docker inspect --format=&quot;{{json .NetworkSettings.Networks}}&quot; &lt;container_id&gt; | jq
+
+</code></pre>
+<h3 id="4211-查看容器的端口映射">4.2.11 查看容器的端口映射：</h3>
+<pre><code class="language-shell">docker inspect --format='{{json .HostConfig.PortBindings}}' mycontainer
+</code></pre>
+<h3 id="4212-查看容器的环境变量">4.2.12 查看容器的环境变量：</h3>
+<pre><code class="language-shell">docker inspect --format='{{json .Config.Env}}' mycontainer
+</code></pre>
+<h3 id=""></h3>
+<h1 id="5docker-exec">5.docker exec</h1>
+<h2 id="51-参数">5.1 参数</h2>
+<ul>
+<li><code>-it</code>: 以交互模式进入容器中执行命令，通常用于需要交互式操作的命令。</li>
+<li><code>-d</code>: 让容器在后台运行。</li>
+<li><code>--user</code>: 指定要执行命令的用户。</li>
+<li><code>--workdir</code>: 指定命令执行的工作目录。</li>
+<li><code>--env</code>: 设置环境变量。</li>
+<li><code>--privileged</code>: 让容器拥有特权，可以访问主机的设备和文件系统。</li>
+<li><code>--name</code>: 指定容器的名称。</li>
+<li><code>--detach-keys</code>: 指定在后台运行容器时使用的键盘序列。</li>
+</ul>
+<h2 id="52-举例">5.2 举例</h2>
+<h3 id="521-进入正在运行的容器并执行命令">5.2.1 进入正在运行的容器并执行命令：</h3>
+<pre><code class="language-shell">docker exec -it mycontainer sh
+</code></pre>
+<p>上面的命令将以交互模式进入名为 <code>mycontainer</code> 的容器，并在容器中执行 <code>sh</code> 命令。</p>
+<h3 id="522-在后台运行容器并执行命令">5.2.2 在后台运行容器并执行命令：</h3>
+<pre><code class="language-shell">docker exec -d mycontainer ls
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中运行 <code>ls</code> 命令，并让容器在后台运行。</p>
+<h3 id="523-指定执行命令的用户">5.2.3 指定执行命令的用户：</h3>
+<pre><code class="language-shell">docker exec --user=username mycontainer whoami
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中以 <code>username</code> 用户身份执行 <code>whoami</code> 命令。</p>
+<h3 id="524-指定命令执行的工作目录">5.2.4 指定命令执行的工作目录：</h3>
+<pre><code class="language-shell">docker exec --workdir=/app mycontainer ls
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中以 <code>/app</code> 目录作为工作目录执行 <code>ls</code> 命令。</p>
+<h3 id="525-设置环境变量并执行命令">5.2.5 设置环境变量并执行命令：</h3>
+<pre><code class="language-shell">docker exec --env MY_VAR=value mycontainer env
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中设置名为 <code>MY_VAR</code> 的环境变量为 <code>value</code>，并执行 <code>env</code> 命令。</p>
+<h3 id="526-让容器拥有特权并执行命令">5.2.6 让容器拥有特权并执行命令：</h3>
+<pre><code class="language-shell">docker exec --privileged mycontainer ls /dev
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中以特权模式运行 <code>ls /dev</code> 命令，可以访问主机的设备和文件系统。</p>
+<h3 id="527-指定容器的名称并执行命令">5.2.7 指定容器的名称并执行命令：</h3>
+<pre><code class="language-shell">docker exec --name=myexec mycontainer ls
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中执行 <code>ls</code> 命令，并将执行结果输出到名为 <code>myexec</code> 的容器中。</p>
+<h3 id="528-指定在后台运行容器时使用的键盘序列">5.2.8 指定在后台运行容器时使用的键盘序列：</h3>
+<pre><code class="language-shell">docker exec --detach-keys=&quot;ctrl-d&quot; mycontainer ls
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中运行 <code>ls</code> 命令，并在后台运行容器时使用 <code>ctrl-d</code> 键作为键盘序列。</p>
+<h3 id="529-在容器中查看日志">5.2.9 在容器中查看日志：</h3>
+<pre><code class="language-shell">docker exec -it mycontainer cat /var/log/mylog.log
+</code></pre>
+<h3 id="5210-查看容器内的进程">5.2.10 查看容器内的进程：</h3>
+<pre><code class="language-shell">dockerexec -it mycontainer ps -ef
+</code></pre>
+<h1 id="6-docker-cp">6. docker cp</h1>
+<h2 id="61-参数">6.1 参数</h2>
+<ul>
+<li><code>-a, --archive</code>: 以归档模式进行复制，包括复制文件的所有 uid/gid 信息。</li>
+<li><code>--follow-link</code>: 始终跟随源路径中的符号链接。</li>
+<li><code>--help</code>: 显示帮助信息。</li>
+</ul>
+<h2 id="62-举例">6.2 举例</h2>
+<h3 id="621-从容器复制文件到主机">6.2.1. 从容器复制文件到主机：</h3>
+<pre><code class="language-shell">docker cp mycontainer:/path/to/myfile.txt /host/path/
+</code></pre>
+<p>上面的命令将从名为 <code>mycontainer</code> 的容器中复制 <code>/path/to/myfile.txt</code> 文件到主机的 <code>/host/path/</code> 目录中。</p>
+<h3 id="622-从主机复制文件到容器">6.2.2 从主机复制文件到容器：</h3>
+<pre><code class="language-shell">docker cp /host/path/myfile.txt mycontainer:/path/to/
+</code></pre>
+<p>上面的命令将从主机的 <code>/host/path/myfile.txt</code> 文件复制到名为 <code>mycontainer</code> 的容器中的 <code>/path/to/</code> 目录中。</p>
+<h3 id="623-使用-a-参数复制所有的文件属性">6.2.3 使用 <code>-a</code> 参数复制所有的文件属性：</h3>
+<pre><code class="language-shell">docker cp -a mycontainer:/path/to/myfile.txt /host/path/
+</code></pre>
+<p>上面的命令将从名为 <code>mycontainer</code> 的容器中复制 <code>/path/to/myfile.txt</code> 文件到主机的 <code>/host/path/</code> 目录中，并保留文件的所有属性。</p>
+<h3 id="624-使用-follow-link-参数跟随符号链接">6.2.4 使用 <code>-follow-link</code> 参数跟随符号链接：</h3>
+<pre><code class="language-shell">docker cp --follow-link mycontainer:/path/to/mylink /host/path/
+</code></pre>
+<p>上面的命令将从名为 <code>mycontainer</code> 的容器中复制 <code>/path/to/mylink</code> 符号链接所指向的文件到主机的 <code>/host/path/</code> 目录中。</p>
+<h3 id="625-使用-作为目标路径打印到标准输出">6.2.5 使用 <code>-</code> 作为目标路径打印到标准输出：</h3>
+<pre><code class="language-shell">docker cp mycontainer:/path/to/myfile.txt -
+</code></pre>
+<p>上面的命令将从名为 <code>mycontainer</code> 的容器中读取 <code>/path/to/myfile.txt</code> 文件的内容，并输出到标准输出。</p>
+<h3 id="626-从容器中复制整个目录">6.2.6 从容器中复制整个目录：</h3>
+<pre><code class="language-shell">docker cp mycontainer:/path/to/mydir /host/path/
+</code></pre>
+<p>上面的命令将从名为 <code>mycontainer</code> 的容器中复制 <code>/path/to/mydir</code> 目录及其下的所有文件和子目录到主机的 <code>/host/path/</code> 目录中。</p>
+<h3 id="627-在容器中创建新文件并复制">6.2.7 在容器中创建新文件并复制：</h3>
+<pre><code class="language-shell">docker cp /host/path/myfile.txt mycontainer:/path/to/newfile.txt
+</code></pre>
+<p>上面的命令将在名为 <code>mycontainer</code> 的容器中创建名为 <code>/path/to/newfile.txt</code> 的新文件，并将主机中的 <code>/host/path/myfile.txt</code> 文件复制到新文件中。</p>
+<p>这些是 <code>docker cp</code> 常用的参数和使用示例，可以根据具体的应用场景和需求，使用不同的参数和路径进行复制操作。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JavaCV 视频流抽帧]]></title>
+        <id>https://yz0812.github.io/post/javacv-shi-pin-liu-chou-zheng/</id>
+        <link href="https://yz0812.github.io/post/javacv-shi-pin-liu-chou-zheng/">
+        </link>
+        <updated>2022-12-09T16:07:29.000Z</updated>
+        <content type="html"><![CDATA[<p>pom文件引入依赖：</p>
+<pre><code class="language-java">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.bytedeco&lt;/groupId&gt;
+        &lt;artifactId&gt;javacv-platform&lt;/artifactId&gt;
+        &lt;version&gt;1.5.7&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<pre><code class="language-java">@Slf4j
+public class OpencvUtil {
+
+    public static BufferedImage FrameToBufferedImage(org.bytedeco.javacv.Frame frame) {
+        Java2DFrameConverter converter = new Java2DFrameConverter();
+        BufferedImage bufferedImage = converter.getBufferedImage(frame);
+//      bufferedImage=rotateClockwise90(bufferedImage);
+        return bufferedImage;
+    }
+
+    /**
+     * 处理图片，将图片旋转90度。
+     */
+    public static BufferedImage rotateClockwise90(BufferedImage bi) {
+        int width = bi.getWidth();
+        int height = bi.getHeight();
+        BufferedImage bufferedImage = new BufferedImage(height, width, bi.getType());
+        for (int i = 0; i &lt; width; i++)
+            for (int j = 0; j &lt; height; j++)
+                bufferedImage.setRGB(j, i, bi.getRGB(i, j));
+        return bufferedImage;
+    }
+  
+      /**
+     * @param url             url
+     * @param filePath        文件路径
+     * @param fileName        文件名
+     * @param minioProperties 迷你属性
+     * @return {@link String }
+     * @description 切割框架
+     * @author yz
+     * @date 2022/12/08
+     **/
+    public static String cutFrame(String url, String fileName) {
+        FFmpegFrameGrabber grabber;
+        try {
+            grabber = FFmpegFrameGrabber.createDefault(url);
+            // 使用tcp的方式，不然会丢包很严重
+            grabber.setOption(&quot;rtsp_transport&quot;, &quot;tcp&quot;);
+            // 图片大小
+            grabber.setImageWidth(1280);
+            grabber.setImageHeight(720);
+            grabber.start();
+          
+            //截帧
+            File outPut = new File(fileName);
+            org.bytedeco.javacv.Frame frame = grabber.grabImage();
+            if (frame != null) {
+                ImageIO.write(OpencvUtil.FrameToBufferedImage(frame), &quot;jpeg&quot;, outPut);
+            }
+            grabber.stop();
+            grabber.release();
+           } catch (Exception e) {
+            System.out.println(e);
+        }
+   }
+}
+</code></pre>
+]]></content>
+    </entry>
+</feed>
