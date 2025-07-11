@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title> Windows Terminal 配置 SSH 教程 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1752215206225"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title"> Windows Terminal 配置 SSH 教程</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2025-06-26</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/85.jpg"
+                                class="attachment-full size-full wp-post-image" alt=" Windows Terminal 配置 SSH 教程" /></p>
+                            
+                            <h1 id="️-windows-terminal-配置-ssh-教程">🖥️ Windows Terminal 配置 SSH 教程</h1>
+<blockquote>
+<p>本教程基于 <a href="https://yfi.moe/post/windows-terminal-ssh">Yunfi 博客文章</a> 整理，帮助你在 Windows Terminal 中添加自定义 SSH 连接，一键远程登录服务器。</p>
+</blockquote>
+<hr>
+<h2 id="一-准备工作">📦 一、准备工作</h2>
+<ol>
+<li>确保系统已安装 <strong>OpenSSH 客户端</strong>
+<ul>
+<li>Windows 10/11 默认已安装；如未安装，可通过“可选功能”添加。</li>
+</ul>
+</li>
+<li>获取你的服务器连接信息：<code>用户名</code>、<code>IP</code>、<code>端口</code>。</li>
+<li>若使用密钥登录，请提前准备好 SSH 密钥对。</li>
+</ol>
+<hr>
+<h2 id="️-二-添加-ssh-profile图形界面">⚙️ 二、添加 SSH Profile（图形界面）</h2>
+<ol>
+<li>
+<p>打开 Windows Terminal，按下 <code>Ctrl + ,</code> 进入设置。</p>
+</li>
+<li>
+<p>点击左下角 <strong>“添加新配置文件”</strong>。</p>
+</li>
+<li>
+<p>选择复制任意一个已有配置，进行如下修改：</p>
+<ul>
+<li><strong>名称</strong>：自定义，如 <code>SSH to My Server</code></li>
+<li><strong>命令行</strong>：<pre><code class="language-bash">ssh -p 2222 user@your.server.com
+</code></pre>
+<blockquote>
+<p>端口 22 可省略 <code>-p</code>。</p>
+</blockquote>
+</li>
+<li><strong>图标（可选）</strong>：<pre><code>ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png
+</code></pre>
+</li>
+<li><strong>起始目录</strong>（可选）：<pre><code>~
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>点击“保存”，即可在新标签页菜单中看到新配置。</p>
+</li>
+</ol>
+<hr>
+<h2 id="三-使用密钥登录推荐">🔐 三、使用密钥登录（推荐）</h2>
+<h3 id="1-在-linux-服务器生成密钥对或在-windows">1. 在 Linux 服务器生成密钥对（或在 Windows）</h3>
+<pre><code class="language-bash">ssh-keygen   # 一路回车
+cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+</code></pre>
+<blockquote>
+<p>默认生成的是 RSA 密钥，可改为 ECDSA（更短更安全）：</p>
+<pre><code class="language-bash">ssh-keygen -t ecdsa -b 521
+</code></pre>
+</blockquote>
+<h3 id="2-将私钥复制到-windows">2. 将私钥复制到 Windows</h3>
+<ul>
+<li>将 <code>id_rsa</code> 私钥文件保存到：<pre><code>C:\Users\&lt;你的用户名&gt;\.ssh\
+</code></pre>
+</li>
+<li>在 Terminal 的 SSH 配置中使用以下命令行：<pre><code class="language-bash">ssh -i &quot;C:/Users/&lt;你的用户名&gt;/.ssh/id_rsa&quot; -p 2222 user@your.server.com
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>注意路径需使用 <code>/</code> 或双斜杠转义 <code>\\</code>。</p>
+</blockquote>
+<hr>
+<h2 id="四-示例完整配置json">📁 四、示例完整配置（JSON）</h2>
+<pre><code class="language-json">{
+  &quot;guid&quot;: &quot;{your-guid}&quot;,
+  &quot;name&quot;: &quot;SSH to My Server&quot;,
+  &quot;commandline&quot;: &quot;ssh -i \&quot;C:/Users/YourName/.ssh/id_rsa\&quot; -p 2222 user@your.server.com&quot;,
+  &quot;icon&quot;: &quot;ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png&quot;,
+  &quot;startingDirectory&quot;: &quot;~&quot;
+}
+</code></pre>
+<hr>
+<h2 id="五-进阶用法可选">🧠 五、进阶用法（可选）</h2>
+<ul>
+<li>
+<p>使用 <code>-t</code> 和远程目录：</p>
+<pre><code class="language-bash">ssh -t user@host &quot;cd /home/user/app &amp;&amp; exec bash -l&quot;
+</code></pre>
+</li>
+<li>
+<p>使用 <code>~/.ssh/config</code> 管理多个主机：</p>
+<pre><code class="language-ssh">Host myserver
+  HostName your.server.com
+  User user
+  Port 2222
+  IdentityFile ~/.ssh/id_rsa
+</code></pre>
+<p>然后配置中命令行只需写：</p>
+<pre><code class="language-bash">ssh myserver
+</code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="小结">✅ 小结</h2>
+<ul>
+<li>支持通过 GUI 快速添加 SSH 配置；</li>
+<li>可选图标、目录、自定义命令；</li>
+<li>推荐使用密钥免密登录；</li>
+<li>多服务器可通过 config 文件统一管理。</li>
+</ul>
+<hr>
+<h2 id="参考资料">📚 参考资料</h2>
+<ul>
+<li><a href="https://yfi.moe/post/windows-terminal-ssh">Yunfi 原文地址</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/terminal/">Windows Terminal 官方文档</a></li>
+</ul>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/windows-terminal-pei-zhi-ssh-jiao-cheng/" class="leancloud-visitors view"
+                              data-flag-title=" Windows Terminal 配置 SSH 教程">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/" class="title">
+                                      <h4>节省C盘空间的方式——符号链接</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2025-05-24</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/84.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#%EF%B8%8F-windows-terminal-%E9%85%8D%E7%BD%AE-ssh-%E6%95%99%E7%A8%8B">🖥️ Windows Terminal 配置 SSH 教程</a>
+<ul>
+<li><a href="#%E4%B8%80-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">📦 一、准备工作</a></li>
+<li><a href="#%EF%B8%8F-%E4%BA%8C-%E6%B7%BB%E5%8A%A0-ssh-profile%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2">⚙️ 二、添加 SSH Profile（图形界面）</a></li>
+<li><a href="#%E4%B8%89-%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95%E6%8E%A8%E8%8D%90">🔐 三、使用密钥登录（推荐）</a>
+<ul>
+<li><a href="#1-%E5%9C%A8-linux-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9%E6%88%96%E5%9C%A8-windows">1. 在 Linux 服务器生成密钥对（或在 Windows）</a></li>
+<li><a href="#2-%E5%B0%86%E7%A7%81%E9%92%A5%E5%A4%8D%E5%88%B6%E5%88%B0-windows">2. 将私钥复制到 Windows</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B-%E7%A4%BA%E4%BE%8B%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AEjson">📁 四、示例完整配置（JSON）</a></li>
+<li><a href="#%E4%BA%94-%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95%E5%8F%AF%E9%80%89">🧠 五、进阶用法（可选）</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">✅ 小结</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">📚 参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>
