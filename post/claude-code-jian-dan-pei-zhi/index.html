@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>claude code 简单配置 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1769891003224"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">claude code 简单配置</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2025-12-26</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/84.jpg"
+                                class="attachment-full size-full wp-post-image" alt="claude code 简单配置" /></p>
+                            
+                            <h1 id="前置环境要求">前置环境要求</h1>
+<p>在安装 Claude Code 之前，请确保已安装以下环境：</p>
+<h2 id="nodejs-环境">Node.js 环境</h2>
+<pre><code class="language-bash">
+# 验证 Node.js 安装
+
+node --version  # 建议 v20.0.0 或更高版本
+
+npm --version
+
+</code></pre>
+<p>如未安装，请访问：https://nodejs.org/</p>
+<h2 id="python-环境用于部分-mcp-服务器">Python 环境（用于部分 MCP 服务器）</h2>
+<pre><code class="language-bash">
+# 验证 Python 安装
+
+python --version  # 需要 Python 3.11 或更高版本
+
+</code></pre>
+<h2 id="uv-工具python-包管理器">uv 工具（Python 包管理器）</h2>
+<pre><code class="language-bash">
+# Windows 安装 uv
+
+powershell -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
+
+# 验证安装
+
+uvx --version
+
+</code></pre>
+<hr>
+<h1 id="1-安装claude-code">1. 安装Claude Code</h1>
+<h2 id="全局安装">全局安装</h2>
+<pre><code class="language-bash">
+npm install -g @anthropic-ai/claude-code
+
+</code></pre>
+<p>验证是否安装成功：</p>
+<pre><code>
+claude --version
+
+</code></pre>
+<h1 id="2-claude-code-基础配置">2. Claude Code 基础配置</h1>
+<p>配置文件位置：<code>C:Usersyz.claudesettings.json</code>（使用 <code>ccw</code> 命令或直接编辑文件）</p>
+<h2 id="21-环境变量配置必须">2.1 环境变量配置（必须）</h2>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: {
+
+     &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;sk-***&quot;,
+
+     &quot;ANTHROPIC_BASE_URL&quot;: &quot;https://***.com&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;claude-opus-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;
+
+  }
+
+}
+
+</code></pre>
+<h3 id="关键配置说明">关键配置说明</h3>
+<p><strong><code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=&quot;1&quot;</code>（强烈推荐）</strong></p>
+<p>禁用非必要网络请求，包括：</p>
+<ul>
+<li>
+<p>遥测数据上报</p>
+</li>
+<li>
+<p>使用分析统计</p>
+</li>
+<li>
+<p>其他后台网络活动</p>
+</li>
+</ul>
+<p><strong>为什么必须配置？</strong></p>
+<p>如果不配置此环境变量，使用第三方 API 时可能出现：</p>
+<ol>
+<li><strong>连接不稳定</strong> - Claude Code 尝试连接 Anthropic 官方服务器导致超时</li>
+<li><strong>响应中断</strong> - 非必要请求干扰正常 API 调用</li>
+<li><strong>额度异常消耗</strong> - 部分请求可能被错误计费</li>
+<li><strong>频繁报错</strong> - 各种网络相关错误提示</li>
+</ol>
+<hr>
+<h2 id="22-初次引导配置">2.2 初次引导配置</h2>
+<p>配置文件位置：<code>C:Usersyz.claude.json</code>（注意：与 <code>settings.json</code> 同级目录）</p>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true
+
+}
+
+</code></pre>
+<h3 id="作用">作用</h3>
+<ul>
+<li>
+<p><strong>跳过新手引导</strong> - 首次运行 <code>claude</code> 命令时不会进入交互式引导流程</p>
+</li>
+<li>
+<p><strong>直接开始使用</strong> - 系统判定你已完成初始化，直接进入工作状态</p>
+</li>
+</ul>
+<h3 id="工作原理">工作原理</h3>
+<p>当用户首次运行 <code>claude</code> 命令时：</p>
+<ul>
+<li>
+<p><code>hasCompletedOnboarding: false</code>（或不存在）→ 触发新手引导</p>
+</li>
+<li>
+<p><code>hasCompletedOnboarding: true</code> → 跳过引导</p>
+</li>
+</ul>
+<hr>
+<h2 id="23-git-提交署名配置可选">2.3 Git 提交署名配置（可选）</h2>
+<p>同样在 <code>C:Usersyz.claude.json</code> 中添加：</p>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true,
+
+  &quot;attribution&quot;: {
+
+     &quot;commit&quot;: &quot;&quot;,
+
+     &quot;pr&quot;: &quot;&quot;
+
+  }
+
+}
+
+</code></pre>
+<h3 id="配置项说明">配置项说明</h3>
+<p><strong><code>attribution.commit</code></strong></p>
+<ul>
+<li>
+<p><strong>默认行为</strong>：在 Git Commit 末尾添加 <code>Co-authored-by: Claude &lt;noreply@anthropic.com&gt;</code></p>
+</li>
+<li>
+<p><strong>关闭方法</strong>：设置为空字符串 <code>&quot;&quot;</code></p>
+</li>
+</ul>
+<p><strong><code>attribution.pr</code></strong></p>
+<ul>
+<li>
+<p><strong>默认行为</strong>：在 Pull Request 描述中添加&quot;🤖 Generated with Claude Code&quot;</p>
+</li>
+<li>
+<p><strong>关闭方法</strong>：设置为空字符串 <code>&quot;&quot;</code></p>
+</li>
+</ul>
+<h3 id="完整-claudejson-示例">完整 <code>.claude.json</code> 示例</h3>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true,
+
+  &quot;attribution&quot;: {
+
+     &quot;commit&quot;: &quot;&quot;,
+
+     &quot;pr&quot;: &quot;&quot;
+
+  }
+
+}
+
+</code></pre>
+<h1 id="3-可以安装使用-ccometixline">3. 可以安装使用 <a href="https://github.com/Haleclipse/CCometixLine">CCometixLine</a></h1>
+<p>开源地址 <a href="https://github.com/Haleclipse/CCometixLine">Haleclipse/CCometixLine: Claude Code statusline tool written in Rust</a></p>
+<p>下载对应安装包到claude code安装目录。创建目录 <code>ccline</code>将下载文件复制到目录中</p>
+<p>执行</p>
+<pre><code class="language-bash">
+# 初始化配置文件
+
+ccline --init
+
+# 检查配置有效性  
+
+ccline --check
+
+# 打印当前配置
+
+ccline --print
+
+# 进入 TUI 配置模式
+
+ccline --config
+
+</code></pre>
+<p>在<code>C:Usersyz.claudesettings.json</code>  中添加</p>
+<pre><code class="language-json">
+{
+
+  &quot;statusLine&quot;: {
+
+     &quot;type&quot;: &quot;command&quot;, 
+
+     &quot;command&quot;: &quot;%USERPROFILE%.claudecclineccline.exe&quot;,
+
+     &quot;padding&quot;: 0
+
+  }
+
+}
+
+</code></pre>
+<h1 id="4-shift-enter-换行">4. shift-enter 换行</h1>
+<p>$.actions 内加上</p>
+<pre><code class="language-json">
+         {
+
+             &quot;command&quot;: {
+
+                 &quot;action&quot;: &quot;sendInput&quot;,
+
+                 &quot;input&quot;: &quot;u001bn&quot;
+
+             },
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;
+
+         },
+
+</code></pre>
+<p>$.keybindings 里加上</p>
+<pre><code class="language-json">
+         {
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;,
+
+             &quot;keys&quot;: &quot;shift+enter&quot;
+
+         },
+
+</code></pre>
+<p>完整：</p>
+<pre><code class="language-json">
+{
+
+     &quot;actions&quot;: [
+
+         {
+
+             &quot;command&quot;: {
+
+                 &quot;action&quot;: &quot;sendInput&quot;,
+
+                 &quot;input&quot;: &quot;u001bn&quot;
+
+             },
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;
+
+         }
+
+     ],
+
+     &quot;keybindings&quot;: [
+
+         {
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;,
+
+             &quot;keys&quot;: &quot;shift+enter&quot;
+
+         }
+
+     ]
+
+}
+
+</code></pre>
+<h1 id="5-生成提示词cluademd">5. 生成提示词cluade.md</h1>
+<pre><code class="language-bash">
+我是一名使用java语言的后端工程师, 现在需要一份全局提示词,请你使用AskUserQuestion工具完成这一任务.
+
+</code></pre>
+<hr>
+<h1 id="6-mcp-服务器配置">6. MCP 服务器配置</h1>
+<p>MCP（Model Context Protocol）服务器为 Claude Code 提供扩展能力。配置文件位置：<code>C:Usersyz.claudesettings.json</code></p>
+<h2 id="配置总览">配置总览</h2>
+<p>在 <code>settings.json</code> 中添加 <code>mcpServers</code> 字段：</p>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: { ... },
+
+  &quot;mcpServers&quot;: {
+
+     // MCP 服务器配置
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2 id="各-mcp-服务器详解">各 MCP 服务器详解</h2>
+<h3 id="1-ace-tool优先级最高必装">1. ace-tool（优先级最高，必装）</h3>
+<p><strong>作用</strong>：Augment Context Engine - 最强大的代码上下文理解引擎</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>语义级代码搜索（理解业务逻辑，不仅是字符串匹配）</p>
+</li>
+<li>
+<p>跨语言链路追踪（Rust Command ↔ Frontend Invoke）</p>
+</li>
+<li>
+<p>代码风格/实现模式查找</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;ace-tool&quot;: {
+
+  &quot;command&quot;: &quot;ace-tool&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;--base-url&quot;, &quot;https://acemcp.heroman.wtf/relay/&quot;,
+
+     &quot;--token&quot;, &quot;ace_********&quot;,
+
+     &quot;--batch-size&quot;, &quot;100&quot;,
+
+     &quot;--max-lines-per-blob&quot;, &quot;4000&quot;,
+
+     &quot;--upload-concurrency&quot;, &quot;5&quot;,
+
+     &quot;--upload-timeout-ms&quot;, &quot;60000&quot;,
+
+     &quot;--retrieval-timeout-ms&quot;, &quot;120000&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要先全局安装 <code>npm install -g ace-tool</code></p>
+<hr>
+<h3 id="2-serena符号级精度工具">2. serena（符号级精度工具）</h3>
+<p><strong>作用</strong>：专业代码符号操作工具（定义查找、引用分析、重构）</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>精确查找 TypeScript Interface / Rust Struct / Function 定义</p>
+</li>
+<li>
+<p>查找所有引用位置</p>
+</li>
+<li>
+<p>符号重命名（自动更新所有引用）</p>
+</li>
+<li>
+<p>Import/Mod 关系分析</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;serena&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;--python&quot;, &quot;3.11&quot;,
+
+     &quot;--from&quot;, &quot;git+https://github.com/oraios/serena&quot;,
+
+     &quot;serena-mcp-server&quot;,
+
+     &quot;--context&quot;, &quot;desktop-app&quot;,
+
+     &quot;--mode&quot;, &quot;editing&quot;,
+
+     &quot;--mode&quot;, &quot;interactive&quot;,
+
+     &quot;--project-from-cwd&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>使用场景</strong>：当 <code>ace-tool</code> 已定位上下文后，需要符号级精确操作时使用</p>
+<p><strong>环境依赖</strong>：需要 Python 3.11+ 和 uv</p>
+<hr>
+<h3 id="3-code-index代码索引补充">3. code-index（代码索引补充）</h3>
+<p><strong>作用</strong>：快速代码搜索（正则/模糊匹配）</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>文件查找（支持 glob 模式：<code>*.py</code>, <code>src/**/*.ts</code>）</p>
+</li>
+<li>
+<p>快速全文搜索</p>
+</li>
+<li>
+<p>符号概览</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;code-index&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [&quot;code-index-mcp&quot;]
+
+}
+
+</code></pre>
+<p><strong>使用场景</strong>：<code>ace-tool</code> 兜底方案，或需要简单字符串搜索时</p>
+<p><strong>环境依赖</strong>：需要 Python 和 uv</p>
+<hr>
+<h3 id="4-context7外部知识库">4. context7（外部知识库）</h3>
+<p><strong>作用</strong>：实时获取最新官方文档和代码示例</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>Tauri 官方文档（v1/v2，必须明确版本）</p>
+</li>
+<li>
+<p>Rust std 文档</p>
+</li>
+<li>
+<p>npm 包文档</p>
+</li>
+<li>
+<p>MDN Web API 文档</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;context7&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@upstash/context7-mcp&quot;,
+
+     &quot;--api-key&quot;, &quot;**********&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>重要</strong>：不参与项目内代码理解，仅用于外部知识查询</p>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="5-filesystem文件系统访问">5. filesystem（文件系统访问）</h3>
+<p><strong>作用</strong>：提供安全的文件读写能力</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>读取/写入文件</p>
+</li>
+<li>
+<p>列出目录</p>
+</li>
+<li>
+<p>创建/移动文件</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;filesystem&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-filesystem&quot;,
+
+     &quot;D:pythonacgo&quot;  // 允许访问的根目录（可配置多个）
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>安全</strong>：只能访问指定目录，无法越界</p>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="6-server-git版本控制">6. server-git（版本控制）</h3>
+<p><strong>作用</strong>：Git 操作能力</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>查看 Diff / Blame</p>
+</li>
+<li>
+<p>提交历史分析</p>
+</li>
+<li>
+<p>分支管理</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;server-git&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;mcp-server-git&quot;,
+
+     &quot;--repository&quot;, &quot;D:pythonacgo&quot;  // Git 仓库路径
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>用途</strong>：理解修改背景，不参与方案设计</p>
+<p><strong>环境依赖</strong>：需要 Python、uv 和 Git</p>
+<hr>
+<h3 id="7-memory长期记忆">7. memory（长期记忆）</h3>
+<p><strong>作用</strong>：跨会话持久化知识</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>存储项目规范（如 Rust Clippy 规则）</p>
+</li>
+<li>
+<p>记录环境坑点（跨平台编译问题）</p>
+</li>
+<li>
+<p>缓存常用命令</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;memory&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-memory&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="8-sequential-thinking深度思考">8. sequential-thinking（深度思考）</h3>
+<p><strong>作用</strong>：复杂问题分析工具</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>多步推理链（Chain of Thought）</p>
+</li>
+<li>
+<p>方案对比评估</p>
+</li>
+<li>
+<p>假设验证</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;sequential-thinking&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-sequential-thinking&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="9-chrome-devtools浏览器控制">9. chrome-devtools（浏览器控制）</h3>
+<p><strong>作用</strong>：自动化测试和调试</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>页面交互（点击、填表）</p>
+</li>
+<li>
+<p>网络请求分析</p>
+</li>
+<li>
+<p>性能追踪</p>
+</li>
+<li>
+<p>截图</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;chrome-devtools&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;chrome-devtools-mcp@latest&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm 和 Chrome 浏览器</p>
+<hr>
+<h3 id="10-mindmap思维导图生成">10. mindmap（思维导图生成）</h3>
+<p><strong>作用</strong>：将 Markdown 内容转换为可视化思维导图</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>自然语言/结构化内容转思维导图</p>
+</li>
+<li>
+<p>自动生成 HTML 文件并在浏览器打开</p>
+</li>
+<li>
+<p>支持项目架构、知识体系、需求文档等可视化</p>
+</li>
+</ul>
+<p><strong>前置安装</strong>：</p>
+<pre><code class="language-bash">
+npm install -g markmap-cli
+
+</code></pre>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;mindmap&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [
+
+   &quot;mindmap-mcp-server&quot;,
+
+    &quot;--return-type&quot;,
+
+    &quot;html&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Python、uv 和 markmap-cli</p>
+<hr>
+<h2 id="完整配置示例">完整配置示例</h2>
+<p>将以下内容添加到 <code>C:Usersyz.claudesettings.json</code>：</p>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: {
+
+     &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;sk-***&quot;,
+
+     &quot;ANTHROPIC_BASE_URL&quot;: &quot;https://***.com&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;claude-opus-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;
+
+  },
+
+  &quot;mcpServers&quot;: {
+
+     &quot;ace-tool&quot;: {
+
+       &quot;command&quot;: &quot;ace-tool&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;--base-url&quot;, &quot;https://acemcp.heroman.wtf/relay/&quot;,
+
+         &quot;--token&quot;, &quot;ace_014fa01fa4ca3c7eaad02cb22e483bbaeba03218&quot;,
+
+         &quot;--batch-size&quot;, &quot;100&quot;,
+
+         &quot;--max-lines-per-blob&quot;, &quot;4000&quot;,
+
+         &quot;--upload-concurrency&quot;, &quot;5&quot;,
+
+         &quot;--upload-timeout-ms&quot;, &quot;60000&quot;,
+
+         &quot;--retrieval-timeout-ms&quot;, &quot;120000&quot;
+
+       ]
+
+     },
+
+     &quot;serena&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;--python&quot;, &quot;3.11&quot;,
+
+         &quot;--from&quot;, &quot;git+https://github.com/oraios/serena&quot;,
+
+         &quot;serena-mcp-server&quot;,
+
+         &quot;--context&quot;, &quot;desktop-app&quot;,
+
+         &quot;--mode&quot;, &quot;editing&quot;,
+
+         &quot;--mode&quot;, &quot;interactive&quot;,
+
+         &quot;--project-from-cwd&quot;
+
+       ]
+
+     },
+
+     &quot;code-index&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;args&quot;: [&quot;code-index-mcp&quot;]
+
+     },
+
+     &quot;context7&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@upstash/context7-mcp&quot;,
+
+         &quot;--api-key&quot;, &quot;ctx7sk-1ed2dfa5-6155-449f-8544-944c37c3efec&quot;
+
+       ]
+
+     },
+
+     &quot;filesystem&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-filesystem&quot;,
+
+         &quot;D:pythonacgo&quot;
+
+       ]
+
+     },
+
+     &quot;server-git&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;mcp-server-git&quot;,
+
+         &quot;--repository&quot;, &quot;D:pythonacgo&quot;
+
+       ]
+
+     },
+
+     &quot;memory&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-memory&quot;
+
+       ]
+
+     },
+
+     &quot;sequential-thinking&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-sequential-thinking&quot;
+
+       ]
+
+     },
+
+     &quot;chrome-devtools&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;chrome-devtools-mcp@latest&quot;
+
+       ]
+
+     }
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2 id="mcp-工具使用优先级关键">MCP 工具使用优先级（关键）</h2>
+<p>按以下顺序选择工具：</p>
+<ol>
+<li><strong>ace-tool（最高优先级）</strong> - 任何需要理解代码、业务、上下文的场景</li>
+<li><strong>serena</strong> - 需要符号级精确能力（定义/引用/重构）</li>
+<li><strong>context7</strong> - 查询外部文档（必须明确版本号）</li>
+<li><strong>filesystem</strong> - 已知文件路径的读写操作</li>
+<li><strong>code-index</strong> - 简单字符串搜索兜底</li>
+<li><strong>其他工具</strong> - 特定场景补充</li>
+</ol>
+<p><strong>铁律</strong>：禁止绕过 <code>ace-tool</code> 直接使用低层工具猜文件路径</p>
+<hr>
+<h2 id="验证配置">验证配置</h2>
+<p>重启 Claude Code 后执行：</p>
+<pre><code class="language-bash">
+# 进入 Claude Code 后查看已加载的 MCP 服务器
+
+# 应该能看到上述 9 个服务器状态为 Active
+
+</code></pre>
+<p>如某个服务器加载失败，检查：</p>
+<ol>
+<li>对应环境是否安装（Node.js/Python/uv/ace-tool）</li>
+<li>配置文件 JSON 格式是否正确（注意逗号）</li>
+<li>路径是否使用双反斜杠（Windows：<code>D:pathtodir</code>）</li>
+</ol>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/claude-code-jian-dan-pei-zhi/" class="leancloud-visitors view"
+                              data-flag-title="claude code 简单配置">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/windows-terminal-she-zhi/" class="title">
+                                      <h4>Windows Terminal 设置</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2026-02-01</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/windows-terminal-she-zhi/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/85.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/nexus-an-zhuang-shi-yong/" class="title">
+                                      <h4>Nexus 安装使用</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2025-12-26</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/nexus-an-zhuang-shi-yong/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/85.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#%E5%89%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82">前置环境要求</a>
+<ul>
+<li><a href="#nodejs-%E7%8E%AF%E5%A2%83">Node.js 环境</a></li>
+<li><a href="#python-%E7%8E%AF%E5%A2%83%E7%94%A8%E4%BA%8E%E9%83%A8%E5%88%86-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8">Python 环境（用于部分 MCP 服务器）</a></li>
+<li><a href="#uv-%E5%B7%A5%E5%85%B7python-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">uv 工具（Python 包管理器）</a></li>
+</ul>
+</li>
+<li><a href="#1-%E5%AE%89%E8%A3%85claude-code">1. 安装Claude Code</a>
+<ul>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85">全局安装</a></li>
+</ul>
+</li>
+<li><a href="#2-claude-code-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE">2. Claude Code 基础配置</a>
+<ul>
+<li><a href="#21-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E5%BF%85%E9%A1%BB">2.1 环境变量配置（必须）</a>
+<ul>
+<li><a href="#%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">关键配置说明</a></li>
+</ul>
+</li>
+<li><a href="#22-%E5%88%9D%E6%AC%A1%E5%BC%95%E5%AF%BC%E9%85%8D%E7%BD%AE">2.2 初次引导配置</a>
+<ul>
+<li><a href="#%E4%BD%9C%E7%94%A8">作用</a></li>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">工作原理</a></li>
+</ul>
+</li>
+<li><a href="#23-git-%E6%8F%90%E4%BA%A4%E7%BD%B2%E5%90%8D%E9%85%8D%E7%BD%AE%E5%8F%AF%E9%80%89">2.3 Git 提交署名配置（可选）</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E">配置项说明</a></li>
+<li><a href="#%E5%AE%8C%E6%95%B4-claudejson-%E7%A4%BA%E4%BE%8B">完整 <code>.claude.json</code> 示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3-%E5%8F%AF%E4%BB%A5%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-ccometixline">3. 可以安装使用 CCometixLine</a></li>
+<li><a href="#4-shift-enter-%E6%8D%A2%E8%A1%8C">4. shift-enter 换行</a></li>
+<li><a href="#5-%E7%94%9F%E6%88%90%E6%8F%90%E7%A4%BA%E8%AF%8Dcluademd">5. 生成提示词cluade.md</a></li>
+<li><a href="#6-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE">6. MCP 服务器配置</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%80%BB%E8%A7%88">配置总览</a></li>
+<li><a href="#%E5%90%84-mcp-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%A6%E8%A7%A3">各 MCP 服务器详解</a>
+<ul>
+<li><a href="#1-ace-tool%E4%BC%98%E5%85%88%E7%BA%A7%E6%9C%80%E9%AB%98%E5%BF%85%E8%A3%85">1. ace-tool（优先级最高，必装）</a></li>
+<li><a href="#2-serena%E7%AC%A6%E5%8F%B7%E7%BA%A7%E7%B2%BE%E5%BA%A6%E5%B7%A5%E5%85%B7">2. serena（符号级精度工具）</a></li>
+<li><a href="#3-code-index%E4%BB%A3%E7%A0%81%E7%B4%A2%E5%BC%95%E8%A1%A5%E5%85%85">3. code-index（代码索引补充）</a></li>
+<li><a href="#4-context7%E5%A4%96%E9%83%A8%E7%9F%A5%E8%AF%86%E5%BA%93">4. context7（外部知识库）</a></li>
+<li><a href="#5-filesystem%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BF%E9%97%AE">5. filesystem（文件系统访问）</a></li>
+<li><a href="#6-server-git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">6. server-git（版本控制）</a></li>
+<li><a href="#7-memory%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86">7. memory（长期记忆）</a></li>
+<li><a href="#8-sequential-thinking%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83">8. sequential-thinking（深度思考）</a></li>
+<li><a href="#9-chrome-devtools%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%A7%E5%88%B6">9. chrome-devtools（浏览器控制）</a></li>
+<li><a href="#10-mindmap%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E7%94%9F%E6%88%90">10. mindmap（思维导图生成）</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B">完整配置示例</a></li>
+<li><a href="#mcp-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%BC%98%E5%85%88%E7%BA%A7%E5%85%B3%E9%94%AE">MCP 工具使用优先级（关键）</a></li>
+<li><a href="#%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE">验证配置</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>
