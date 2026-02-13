@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Lombok - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Lombok</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/IusPLq9nv3/" class="post--keyword"
+                                data-title="java" data-type="post_tag" data-term-id="39">java</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-10-28</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/50.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Lombok" /></p>
+                            
+                            <p><a href="https://projectlombok.org/features/all">Lomlook</a> 官方文档</p>
+<h2 id="lombok注解说明">Lombok注解说明</h2>
+<ul>
+<li><span style="color:red"><code>val</code></span>：用在局部变量前面，相当于将变量声明为final</li>
+<li><span style="color:red"><code>@NonNull</code></span>：给方法参数增加这个注解会自动在方法内对该参数进行是否为空的校验，如果为空，则抛出NPE（NullPointerException）</li>
+<li><span style="color:red"><code>@Cleanup</code></span>：自动管理资源，用在局部变量之前，在当前变量范围内即将执行完毕退出之前会自动清理资源，自动生成try-finally这样的代码来关闭流</li>
+<li><span style="color:red"><code>@Getter/@Setter</code></span>：用在属性上，再也不用自己手写setter和getter方法了，还可以指定访问范围</li>
+<li><span style="color:red"><code>@ToString</code></span>：用在类上，可以自动覆写toString方法，当然还可以加其他参数，例如@ToString(exclude=”id”)排除id属性，或者@ToString(callSuper=true, includeFieldNames=true)调用父类的toString方法，包含所有属性</li>
+<li><span style="color:red"><code>@EqualsAndHashCode</code></span>：用在类上，自动生成equals方法和hashCode方法</li>
+<li><span style="color:red"><code>@NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor</code></span>：用在类上，自动生成无参构造和使用所有参数的构造函数以及把所有@NonNull属性作为参数的构造函数，如果指定staticName = “of”参数，同时还会生成一个返回类对象的静态工厂方法，比使用构造函数方便很多</li>
+<li><span style="color:red"><code>@Data</code></span>：注解在类上，相当于同时使用了<span style="color:red"><code>@ToString</code>、<code>@EqualsAndHashCode</code>、<code>@Getter</code>、<code>@Setter</code></span>和<span style="color:red"><code>@RequiredArgsConstrutor</code></span>这些注解，对于<span style="color:red"><code>POJO类</code></span>十分有用</li>
+<li><span style="color:red"><code>@Value</code></span>：用在类上，是@Data的不可变形式，相当于为属性添加final声明，只提供getter方法，而不提供setter方法</li>
+<li><span style="color:red"><code>@Builder</code></span>：用在类、构造器、方法上，为你提供复杂的builder APIs，让你可以像如下方式一样调用<span style="color:red"><code>Person.builder().name(&quot;Adam Savage&quot;).city(&quot;San Francisco&quot;).job(&quot;Mythbusters&quot;).job(&quot;Unchained Reaction&quot;).build();</code></span>更多说明参考<a href="https://link.juejin.cn?target=https%3A%2F%2Fprojectlombok.org%2Ffeatures%2FBuilder.html">Builder</a></li>
+<li><span style="color:red"><code>@SneakyThrows</code></span>：自动抛受检异常，而无需显式在方法上使用throws语句</li>
+<li><span style="color:red"><code>@Synchronized</code></span>：用在方法上，将方法声明为同步的，并自动加锁，而锁对象是一个私有的属性<span style="color:red"><code>$lock</code></span>或<span style="color:red"><code>$LOCK</code></span>，而java中的synchronized关键字锁对象是this，锁在this或者自己的类对象上存在副作用，就是你不能阻止非受控代码去锁this或者类对象，这可能会导致竞争条件或者其它线程错误</li>
+<li><span style="color:red"><code>@Getter(lazy=true)</code></span>：可以替代经典的Double Check Lock样板代码</li>
+<li><span style="color:red"><code>@Log</code></span>：根据不同的注解生成不同类型的log对象，但是实例名称都是log，有六种可选实现类
+<ul>
+<li><span style="color:red"> <code>@CommonsLog</code></span> Creates log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);</li>
+<li><span style="color:red"><code>@Log</code></span> Creates log = java.util.logging.Logger.getLogger(LogExample.class.getName());</li>
+<li><span style="color:red"><code>@Log4j</code></span> Creates log = org.apache.log4j.Logger.getLogger(LogExample.class);</li>
+<li><span style="color:red"><code>@Log4j2</code></span> Creates log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);</li>
+<li><span style="color:red"><code>@Slf4j</code></span> Creates log = org.slf4j.LoggerFactory.getLogger(LogExample.class);</li>
+<li><span style="color:red"><code>@XSlf4j</code></span> Creates log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);</li>
+</ul>
+</li>
+<li><span style="color:red"><code>experimental </code></span> 试验性
+<ul>
+<li><span style="color:red"><code>@Accessors</code></span> 一个更流畅的 API，适用于 getter 和 setter。</li>
+<li><span style="color:red"><code>@ExtensionMethod</code></span>  烦人的 API？自己修复：向现有类型添加新方法！</li>
+<li><span style="color:red"><code>@ExtensionMethod</code></span>  烦人的 API？自己修复：向现有类型添加新方法！</li>
+<li><span style="color:red"><code>@FieldDefaults</code></span>  21 世纪的新默认字段修饰符。</li>
+<li><span style="color:red"><code>@Delegate</code></span>  不要失去你的构图。</li>
+<li><span style="color:red"><code>onMethod= / onConstructor= / onParam=</code></span> 我们听说你喜欢注释，所以我们在你的注释中放了注释，这样你就可以在注释时进行注释。</li>
+<li><span style="color:red"><code>@UtilityClass</code></span>  实用性，实用性，湿度！大众实用类。</li>
+<li><span style="color:red"><code>@Helper</code></span>  烦人的 API？自己修复：向现有类型添加新方法！</li>
+<li><span style="color:red"><code>@FieldNameConstants</code></span>  字段名称的字符串常量。</li>
+<li><span style="color:red"><code>@SuperBuilder</code></span>  父类建造者</li>
+<li><span style="color:red"><code>@Tolerate</code></span>  使lombok忽略现有方法或构造函数。</li>
+<li><span style="color:red"><code>@Jacksonized</code></span>  Jack序列化方法</li>
+<li><span style="color:red"><code>@StandardException</code></span>  标准的异常类处理.</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<h3 id="val">@val</h3>
+<pre><code class="language-java">public String example() {
+  val example = new ArrayList&lt;String&gt;();
+  example.add(&quot;Hello, World!&quot;);
+  val foo = example.get(0);
+  return foo.toLowerCase();
+ }
+  //=&gt;相当于如下
+ public String example() {
+    final ArrayList&lt;String&gt; example = new ArrayList&lt;String&gt;();
+    example.add(&quot;Hello, World!&quot;);
+    final String foo = example.get(0);
+    return foo.toLowerCase();
+  }
+  
+</code></pre>
+<h3 id="nonnull">@NonNull</h3>
+<p>您可以<code>@NonNull</code>在记录组件、方法或构造函数的参数上使用。这将导致 lombok 为您生成一个空检查语句。</p>
+<pre><code class="language-java">public class NonNullExample extends Something {
+  private String name;
+  
+  public NonNullExample(@NonNull Person person) {
+    super(&quot;Hello&quot;);
+    this.name = person.getName();
+  }
+}
+
+//=&gt;等同于
+public class NonNullExample extends Something {
+  private String name;
+  
+  public NonNullExample(@NonNull Person person) {
+    super(&quot;Hello&quot;);
+    if (person == null) {
+      throw new NullPointerException(&quot;person is marked @NonNull but is null&quot;);
+    }
+    this.name = person.getName();
+  }
+}
+</code></pre>
+<h3 id="cleanup">@Cleanup</h3>
+<p>可以使用<code>@Cleanup</code>确保在代码执行路径退出当前范围之前自动清理给定资源。您可以通过使用这样的注释来注释任何局部变量声明来做到这<code>@Cleanup</code>一点：<br>
+<code>@Cleanup InputStream in = new FileInputStream(&quot;some/file&quot;);</code><br>
+结果，在您所在的范围的末尾，<code>in.close()</code>被调用。此调用保证通过 try/finally 构造运行。看看下面的例子，看看它是如何工作的。</p>
+<p>如果您要清理的对象类型没有<code>close()</code>方法，但有其他一些无参数方法，则可以像这样指定此方法的名称：<br>
+<code>@Cleanup(&quot;dispose&quot;) org.eclipse.swt.widgets.CoolBar bar = new CoolBar(parent, 0);</code><br>
+默认情况下，清理方法假定为<code>close()</code>. 不能通过 调用带有 1 个或多个参数的清理方法<code>@Cleanup</code>。</p>
+<pre><code class="language-java">public class CleanupExample {
+  public static void main(String[] args) throws IOException {
+    @Cleanup InputStream in = new FileInputStream(args[0]);
+    @Cleanup OutputStream out = new FileOutputStream(args[1]);
+    byte[] b = new byte[10000];
+    while (true) {
+      int r = in.read(b);
+      if (r == -1) break;
+      out.write(b, 0, r);
+    }
+  }
+}
+
+//=&gt;等同于
+
+public class CleanupExample {
+  public static void main(String[] args) throws IOException {
+    InputStream in = new FileInputStream(args[0]);
+    try {
+      OutputStream out = new FileOutputStream(args[1]);
+      try {
+        byte[] b = new byte[10000];
+        while (true) {
+          int r = in.read(b);
+          if (r == -1) break;
+          out.write(b, 0, r);
+        }
+      } finally {
+        if (out != null) {
+          out.close();
+        }
+      }
+    } finally {
+      if (in != null) {
+        in.close();
+      }
+    }
+  }
+}
+</code></pre>
+<h3 id="getter-和-setter">@Getter 和 @Setter</h3>
+<p>可以使用<code>@Getter</code>和/或注释任何字段<code>@Setter</code>，让 lombok 自动生成默认的 getter/setter。</p>
+<p>默认 getter 仅返回该字段，并<code>getFoo</code>在该字段被调用<code>foo</code>（或<code>isFoo</code>该字段的类型为<code>boolean</code>）时命名。<code>setFoo</code>如果该字段被调用<code>foo</code>、返回<code>void</code>并采用与该字段相同类型的 1 个参数，则会命名默认设置器。它只是将字段设置为此值。</p>
+<p><code>public</code>除非您明确指定<code>AccessLevel</code>，否则 生成的 getter/setter 方法将是，如下面的示例所示。法律访问级别<code>PUBLIC</code>，<code>PROTECTED</code>，<code>PACKAGE</code>，和<code>PRIVATE</code>。</p>
+<p>您还可以在类上添加<code>@Getter</code>和/或<code>@Setter</code>注释。在这种情况下，就好像您使用注释对该类中的所有非静态字段进行了注释。</p>
+<p>您始终可以使用特殊<code>AccessLevel.NONE</code>访问级别为任何字段手动禁用 getter/setter 生成。这使您可以覆盖类上的<code>@Getter</code>,<code>@Setter</code>或<code>@Data</code>注解的行为。</p>
+<p>要在生成的方法上添加注释，您可以使用<code>onMethod=@__({@AnnotationsHere})</code>; 要将注释放在生成的 setter 方法的唯一参数上，您可以使用<code>onParam=@__({@AnnotationsHere})</code>. 不过要小心！这是一个实验性功能。有关更多详细信息，请参阅<a href="https://projectlombok.org/features/experimental/onX">onX</a>功能的文档。</p>
+<p><em>lombok v1.12.0 中的新功能：<em>字段上的 javadoc 现在将被复制到生成的 getter 和 setter。通常情况下，所有的文字被复制，且<code>@return</code>被</em>移动</em>到吸气剂，而<code>@param</code>线<em>移动</em>的制定者。移动的意思是：从字段的 javadoc 中删除。也可以为每个 getter/setter 定义唯一的文本。为此，您创建一个名为<code>GETTER</code>和/或<code>SETTER</code>. 节是 javadoc 中包含 2 个或更多破折号的一行，然后是文本 'GETTER' 或 'SETTER'，后跟 2 个或更多破折号，该行没有其他任何内容。如果您使用部分，<code>@return</code>并且<code>@param</code>不再进行该部分的剥离（将<code>@return</code>或<code>@param</code>行移到该部分中）。</p>
+<pre><code class="language-java">public class GetterSetterExample {
+  /**
+   * Age of the person. Water is wet.
+   * 
+   * @param age New value for this person's age. Sky is blue.
+   * @return The current value of this person's age. Circles are round.
+   */
+  @Getter @Setter private int age = 10;
+  
+  /**
+   * Name of the person.
+   * -- SETTER --
+   * Changes the name of this person.
+   * 
+   * @param name The new value.
+   */
+  @Setter(AccessLevel.PROTECTED) private String name;
+  
+  @Override public String toString() {
+    return String.format(&quot;%s (age: %d)&quot;, name, age);
+  }
+}
+
+// 等同于
+
+
+public class GetterSetterExample {
+  /**
+   * Age of the person. Water is wet.
+   */
+  private int age = 10;
+
+  /**
+   * Name of the person.
+   */
+  private String name;
+  
+  @Override public String toString() {
+    return String.format(&quot;%s (age: %d)&quot;, name, age);
+  }
+  
+  /**
+   * Age of the person. Water is wet.
+   *
+   * @return The current value of this person's age. Circles are round.
+   */
+  public int getAge() {
+    return age;
+  }
+  
+  /**
+   * Age of the person. Water is wet.
+   *
+   * @param age New value for this person's age. Sky is blue.
+   */
+  public void setAge(int age) {
+    this.age = age;
+  }
+  
+  /**
+   * Changes the name of this person.
+   *
+   * @param name The new value.
+   */
+  protected void setName(String name) {
+    this.name = name;
+  }
+}
+</code></pre>
+<h3 id="tostring">@ToString</h3>
+<pre><code class="language-java">@ToString
+public class ToStringExample {
+  private static final int STATIC_VAR = 10;
+  private String name;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  @ToString.Exclude private int id;
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  @ToString(callSuper=true, includeFieldNames=true)
+  public static class Square extends Shape {
+    private final int width, height;
+    
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+  }
+}
+
+// 等同于
+
+public class ToStringExample {
+  private static final int STATIC_VAR = 10;
+  private String name;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  private int id;
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  public static class Square extends Shape {
+    private final int width, height;
+    
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    
+    @Override public String toString() {
+      return &quot;Square(super=&quot; + super.toString() + &quot;, width=&quot; + this.width + &quot;, height=&quot; + this.height + &quot;)&quot;;
+    }
+  }
+  
+  @Override public String toString() {
+    return &quot;ToStringExample(&quot; + this.getName() + &quot;, &quot; + this.shape + &quot;, &quot; + Arrays.deepToString(this.tags) + &quot;)&quot;;
+  }
+}
+</code></pre>
+<h3 id="equalsandhashcode">@EqualsAndHashCode</h3>
+<p>任何类定义都可以使用注释<code>@EqualsAndHashCode</code>来让 lombok 生成<code>equals(Object other)</code>和<code>hashCode()</code>方法的实现。</p>
+<pre><code class="language-java">@EqualsAndHashCode
+public class EqualsAndHashCodeExample {
+  private transient int transientVar = 10;
+  private String name;
+  private double score;
+  @EqualsAndHashCode.Exclude private Shape shape = new Square(5, 10);
+  private String[] tags;
+  @EqualsAndHashCode.Exclude private int id;
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  @EqualsAndHashCode(callSuper=true)
+  public static class Square extends Shape {
+    private final int width, height;
+    
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class EqualsAndHashCodeExample {
+  private transient int transientVar = 10;
+  private String name;
+  private double score;
+  private Shape shape = new Square(5, 10);
+  private String[] tags;
+  private int id;
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  @Override public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof EqualsAndHashCodeExample)) return false;
+    EqualsAndHashCodeExample other = (EqualsAndHashCodeExample) o;
+    if (!other.canEqual((Object)this)) return false;
+    if (this.getName() == null ? other.getName() != null : !this.getName().equals(other.getName())) return false;
+    if (Double.compare(this.score, other.score) != 0) return false;
+    if (!Arrays.deepEquals(this.tags, other.tags)) return false;
+    return true;
+  }
+  
+  @Override public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long temp1 = Double.doubleToLongBits(this.score);
+    result = (result*PRIME) + (this.name == null ? 43 : this.name.hashCode());
+    result = (result*PRIME) + (int)(temp1 ^ (temp1 &gt;&gt;&gt; 32));
+    result = (result*PRIME) + Arrays.deepHashCode(this.tags);
+    return result;
+  }
+  
+  protected boolean canEqual(Object other) {
+    return other instanceof EqualsAndHashCodeExample;
+  }
+  
+  public static class Square extends Shape {
+    private final int width, height;
+    
+    public Square(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    
+    @Override public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof Square)) return false;
+      Square other = (Square) o;
+      if (!other.canEqual((Object)this)) return false;
+      if (!super.equals(o)) return false;
+      if (this.width != other.width) return false;
+      if (this.height != other.height) return false;
+      return true;
+    }
+    
+    @Override public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      result = (result*PRIME) + super.hashCode();
+      result = (result*PRIME) + this.width;
+      result = (result*PRIME) + this.height;
+      return result;
+    }
+    
+    protected boolean canEqual(Object other) {
+      return other instanceof Square;
+    }
+  }
+}
+</code></pre>
+<h3 id="noargsconstructor-requiredargsconstructor-allargsconstructor">@NoArgsConstructor、@RequiredArgsConstructor、@AllArgsConstructor</h3>
+<pre><code class="language-java">@RequiredArgsConstructor(staticName = &quot;of&quot;)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+public class ConstructorExample&lt;T&gt; {
+  private int x, y;
+  @NonNull private T description;
+  
+  @NoArgsConstructor
+  public static class NoArgsExample {
+    @NonNull private String field;
+  }
+}
+</code></pre>
+<p>Vanilla Java</p>
+<pre><code class="language-java">public class ConstructorExample&lt;T&gt; {
+  private int x, y;
+  @NonNull private T description;
+  
+  private ConstructorExample(T description) {
+    if (description == null) throw new NullPointerException(&quot;description&quot;);
+    this.description = description;
+  }
+  
+  public static &lt;T&gt; ConstructorExample&lt;T&gt; of(T description) {
+    return new ConstructorExample&lt;T&gt;(description);
+  }
+  
+  @java.beans.ConstructorProperties({&quot;x&quot;, &quot;y&quot;, &quot;description&quot;})
+  protected ConstructorExample(int x, int y, T description) {
+    if (description == null) throw new NullPointerException(&quot;description&quot;);
+    this.x = x;
+    this.y = y;
+    this.description = description;
+  }
+  
+  public static class NoArgsExample {
+    @NonNull private String field;
+    
+    public NoArgsExample() {
+    }
+  }
+}
+</code></pre>
+<h3 id="data">@Data</h3>
+<p><code>@Data</code>是捆绑的特征的方便快捷方式注释<a href="https://projectlombok.org/features/ToString"><code>@ToString</code></a>，<a href="https://projectlombok.org/features/EqualsAndHashCode"><code>@EqualsAndHashCode</code></a>，<a href="https://projectlombok.org/features/GetterSetter"><code>@Getter</code>/<code>@Setter</code></a>和<a href="https://projectlombok.org/features/constructor"><code>@RequiredArgsConstructor</code></a>在一起：</p>
+<pre><code class="language-java">
+@Data public class DataExample {
+  private final String name;
+  @Setter(AccessLevel.PACKAGE) private int age;
+  private double score;
+  private String[] tags;
+  
+  @ToString(includeFieldNames=true)
+  @Data(staticConstructor=&quot;of&quot;)
+  public static class Exercise&lt;T&gt; {
+    private final String name;
+    private final T value;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class DataExample {
+  private final String name;
+  private int age;
+  private double score;
+  private String[] tags;
+  
+  public DataExample(String name) {
+    this.name = name;
+  }
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  void setAge(int age) {
+    this.age = age;
+  }
+  
+  public int getAge() {
+    return this.age;
+  }
+  
+  public void setScore(double score) {
+    this.score = score;
+  }
+  
+  public double getScore() {
+    return this.score;
+  }
+  
+  public String[] getTags() {
+    return this.tags;
+  }
+  
+  public void setTags(String[] tags) {
+    this.tags = tags;
+  }
+  
+  @Override public String toString() {
+    return &quot;DataExample(&quot; + this.getName() + &quot;, &quot; + this.getAge() + &quot;, &quot; + this.getScore() + &quot;, &quot; + Arrays.deepToString(this.getTags()) + &quot;)&quot;;
+  }
+  
+  protected boolean canEqual(Object other) {
+    return other instanceof DataExample;
+  }
+  
+  @Override public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof DataExample)) return false;
+    DataExample other = (DataExample) o;
+    if (!other.canEqual((Object)this)) return false;
+    if (this.getName() == null ? other.getName() != null : !this.getName().equals(other.getName())) return false;
+    if (this.getAge() != other.getAge()) return false;
+    if (Double.compare(this.getScore(), other.getScore()) != 0) return false;
+    if (!Arrays.deepEquals(this.getTags(), other.getTags())) return false;
+    return true;
+  }
+  
+  @Override public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final long temp1 = Double.doubleToLongBits(this.getScore());
+    result = (result*PRIME) + (this.getName() == null ? 43 : this.getName().hashCode());
+    result = (result*PRIME) + this.getAge();
+    result = (result*PRIME) + (int)(temp1 ^ (temp1 &gt;&gt;&gt; 32));
+    result = (result*PRIME) + Arrays.deepHashCode(this.getTags());
+    return result;
+  }
+  
+  public static class Exercise&lt;T&gt; {
+    private final String name;
+    private final T value;
+    
+    private Exercise(String name, T value) {
+      this.name = name;
+      this.value = value;
+    }
+    
+    public static &lt;T&gt; Exercise&lt;T&gt; of(String name, T value) {
+      return new Exercise&lt;T&gt;(name, value);
+    }
+    
+    public String getName() {
+      return this.name;
+    }
+    
+    public T getValue() {
+      return this.value;
+    }
+    
+    @Override public String toString() {
+      return &quot;Exercise(name=&quot; + this.getName() + &quot;, value=&quot; + this.getValue() + &quot;)&quot;;
+    }
+    
+    protected boolean canEqual(Object other) {
+      return other instanceof Exercise;
+    }
+    
+    @Override public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof Exercise)) return false;
+      Exercise&lt;?&gt; other = (Exercise&lt;?&gt;) o;
+      if (!other.canEqual((Object)this)) return false;
+      if (this.getName() == null ? other.getValue() != null : !this.getName().equals(other.getName())) return false;
+      if (this.getValue() == null ? other.getValue() != null : !this.getValue().equals(other.getValue())) return false;
+      return true;
+    }
+    
+    @Override public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      result = (result*PRIME) + (this.getName() == null ? 43 : this.getName().hashCode());
+      result = (result*PRIME) + (this.getValue() == null ? 43 : this.getValue().hashCode());
+      return result;
+    }
+  }
+}
+</code></pre>
+<h3 id="value">@Value</h3>
+<p><code>@Value</code>是 的不可变变体<a href="https://projectlombok.org/features/Data"><code>@Data</code></a>；所有字段由<code>private</code>和<code>final</code>默认情况下，也不会产生setter方法。类本身也是<code>final</code>默认创建的，因为不可变性不是可以强加给子类的东西。像<code>@Data</code>，有用的<code>toString()</code>，<code>equals()</code>并且<code>hashCode()</code>也被生成的方法，每个字段得到的吸气剂的方法，以及覆盖每个参数（除了一个构造<code>final</code>了在字段声明初始化字段）也被产生。</p>
+<p>在实践中，<code>@Value</code>是: 的简写<code>final @ToString @EqualsAndHashCode @AllArgsConstructor @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE) @Getter</code>，除了明确包含任何相关方法的实现仅意味着不会生成该部分并且不会发出警告。比如自己写的<code>toString</code>，不会出错，lombok也不会生成<code>toString</code>. 此外，<em>任何</em>显式构造函数，无论参数列表如何，都意味着 lombok 不会生成构造函数。如果您确实希望 lombok 生成全参数构造函数，请添加<code>@AllArgsConstructor</code>到类中。请注意，如果 <code>@Builder</code> 和 <code>@Value</code> 都在一个类上，<code>@Builder</code> 想要创建的包私有 allargs 构造函数“胜过”<code>@Value</code> 想要创建的公共构造函数。您可以标记任何构造函数或方法以<code>@lombok.experimental.Tolerate</code>在 lombok 中隐藏它们。</p>
+<p>可以使用字段上的显式访问级别或使用<code>@NonFinal</code>or<code>@PackagePrivate</code>注释来覆盖 final-by-default 和 private-by-default 行为。<code>@NonFinal</code>也可以用于类以删除 final 关键字。<br>
+可以<code>@Value</code>通过显式使用该注释来覆盖组成的任何“部分”的任何默认行为。</p>
+<pre><code class="language-java">@Value public class ValueExample {
+  String name;
+  @With(AccessLevel.PACKAGE) @NonFinal int age;
+  double score;
+  protected String[] tags;
+  
+  @ToString(includeFieldNames=true)
+  @Value(staticConstructor=&quot;of&quot;)
+  public static class Exercise&lt;T&gt; {
+    String name;
+    T value;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public final class ValueExample {
+  private final String name;
+  private int age;
+  private final double score;
+  protected final String[] tags;
+  
+  @java.beans.ConstructorProperties({&quot;name&quot;, &quot;age&quot;, &quot;score&quot;, &quot;tags&quot;})
+  public ValueExample(String name, int age, double score, String[] tags) {
+    this.name = name;
+    this.age = age;
+    this.score = score;
+    this.tags = tags;
+  }
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  public int getAge() {
+    return this.age;
+  }
+  
+  public double getScore() {
+    return this.score;
+  }
+  
+  public String[] getTags() {
+    return this.tags;
+  }
+  
+  @java.lang.Override
+  public boolean equals(Object o) {
+    if (o == this) return true;
+    if (!(o instanceof ValueExample)) return false;
+    final ValueExample other = (ValueExample)o;
+    final Object this$name = this.getName();
+    final Object other$name = other.getName();
+    if (this$name == null ? other$name != null : !this$name.equals(other$name)) return false;
+    if (this.getAge() != other.getAge()) return false;
+    if (Double.compare(this.getScore(), other.getScore()) != 0) return false;
+    if (!Arrays.deepEquals(this.getTags(), other.getTags())) return false;
+    return true;
+  }
+  
+  @java.lang.Override
+  public int hashCode() {
+    final int PRIME = 59;
+    int result = 1;
+    final Object $name = this.getName();
+    result = result * PRIME + ($name == null ? 43 : $name.hashCode());
+    result = result * PRIME + this.getAge();
+    final long $score = Double.doubleToLongBits(this.getScore());
+    result = result * PRIME + (int)($score &gt;&gt;&gt; 32 ^ $score);
+    result = result * PRIME + Arrays.deepHashCode(this.getTags());
+    return result;
+  }
+  
+  @java.lang.Override
+  public String toString() {
+    return &quot;ValueExample(name=&quot; + getName() + &quot;, age=&quot; + getAge() + &quot;, score=&quot; + getScore() + &quot;, tags=&quot; + Arrays.deepToString(getTags()) + &quot;)&quot;;
+  }
+  
+  ValueExample withAge(int age) {
+    return this.age == age ? this : new ValueExample(name, age, score, tags);
+  }
+  
+  public static final class Exercise&lt;T&gt; {
+    private final String name;
+    private final T value;
+    
+    private Exercise(String name, T value) {
+      this.name = name;
+      this.value = value;
+    }
+    
+    public static &lt;T&gt; Exercise&lt;T&gt; of(String name, T value) {
+      return new Exercise&lt;T&gt;(name, value);
+    }
+    
+    public String getName() {
+      return this.name;
+    }
+    
+    public T getValue() {
+      return this.value;
+    }
+    
+    @java.lang.Override
+    public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof ValueExample.Exercise)) return false;
+      final Exercise&lt;?&gt; other = (Exercise&lt;?&gt;)o;
+      final Object this$name = this.getName();
+      final Object other$name = other.getName();
+      if (this$name == null ? other$name != null : !this$name.equals(other$name)) return false;
+      final Object this$value = this.getValue();
+      final Object other$value = other.getValue();
+      if (this$value == null ? other$value != null : !this$value.equals(other$value)) return false;
+      return true;
+    }
+    
+    @java.lang.Override
+    public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      final Object $name = this.getName();
+      result = result * PRIME + ($name == null ? 43 : $name.hashCode());
+      final Object $value = this.getValue();
+      result = result * PRIME + ($value == null ? 43 : $value.hashCode());
+      return result;
+    }
+    
+    @java.lang.Override
+    public String toString() {
+      return &quot;ValueExample.Exercise(name=&quot; + getName() + &quot;, value=&quot; + getValue() + &quot;)&quot;;
+    }
+  }
+}
+</code></pre>
+<h3 id="builder">@Builder</h3>
+<pre><code class="language-java">@Builder
+public class BuilderExample {
+  @Builder.Default private long created = System.currentTimeMillis();
+  private String name;
+  private int age;
+  @Singular private Set&lt;String&gt; occupations;
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class BuilderExample {
+  private long created;
+  private String name;
+  private int age;
+  private Set&lt;String&gt; occupations;
+  
+  BuilderExample(String name, int age, Set&lt;String&gt; occupations) {
+    this.name = name;
+    this.age = age;
+    this.occupations = occupations;
+  }
+  
+  private static long $default$created() {
+    return System.currentTimeMillis();
+  }
+  
+  public static BuilderExampleBuilder builder() {
+    return new BuilderExampleBuilder();
+  }
+  
+  public static class BuilderExampleBuilder {
+    private long created;
+    private boolean created$set;
+    private String name;
+    private int age;
+    private java.util.ArrayList&lt;String&gt; occupations;
+    
+    BuilderExampleBuilder() {
+    }
+    
+    public BuilderExampleBuilder created(long created) {
+      this.created = created;
+      this.created$set = true;
+      return this;
+    }
+    
+    public BuilderExampleBuilder name(String name) {
+      this.name = name;
+      return this;
+    }
+    
+    public BuilderExampleBuilder age(int age) {
+      this.age = age;
+      return this;
+    }
+    
+    public BuilderExampleBuilder occupation(String occupation) {
+      if (this.occupations == null) {
+        this.occupations = new java.util.ArrayList&lt;String&gt;();
+      }
+      
+      this.occupations.add(occupation);
+      return this;
+    }
+    
+    public BuilderExampleBuilder occupations(Collection&lt;? extends String&gt; occupations) {
+      if (this.occupations == null) {
+        this.occupations = new java.util.ArrayList&lt;String&gt;();
+      }
+
+      this.occupations.addAll(occupations);
+      return this;
+    }
+    
+    public BuilderExampleBuilder clearOccupations() {
+      if (this.occupations != null) {
+        this.occupations.clear();
+      }
+      
+      return this;
+    }
+
+    public BuilderExample build() {
+      // complicated switch statement to produce a compact properly sized immutable set omitted.
+      Set&lt;String&gt; occupations = ...;
+      return new BuilderExample(created$set ? created : BuilderExample.$default$created(), name, age, occupations);
+    }
+    
+    @java.lang.Override
+    public String toString() {
+      return &quot;BuilderExample.BuilderExampleBuilder(created = &quot; + this.created + &quot;, name = &quot; + this.name + &quot;, age = &quot; + this.age + &quot;, occupations = &quot; + this.occupations + &quot;)&quot;;
+    }
+  }
+}
+</code></pre>
+<h3 id="sneakythrows">@SneakyThrows</h3>
+<p><code>@SneakyThrows</code>可用于偷偷地抛出已检查的异常，而无需在方法的<code>throws</code>子句中实际声明。</p>
+<pre><code class="language-java">public class SneakyThrowsExample implements Runnable {
+  @SneakyThrows(UnsupportedEncodingException.class)
+  public String utf8ToString(byte[] bytes) {
+    return new String(bytes, &quot;UTF-8&quot;);
+  }
+  
+  @SneakyThrows
+  public void run() {
+    throw new Throwable();
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public class SneakyThrowsExample implements Runnable {
+  public String utf8ToString(byte[] bytes) {
+    try {
+      return new String(bytes, &quot;UTF-8&quot;);
+    } catch (UnsupportedEncodingException e) {
+      throw Lombok.sneakyThrow(e);
+    }
+  }
+  
+  public void run() {
+    try {
+      throw new Throwable();
+    } catch (Throwable t) {
+      throw Lombok.sneakyThrow(t);
+    }
+  }
+}
+</code></pre>
+<h3 id="synchronized">@Synchronized</h3>
+<p><code>@Synchronized</code>是<code>synchronized</code>方法修饰符的一个更安全的变体。</p>
+<pre><code class="language-java">public class SynchronizedExample {
+  private final Object readLock = new Object();
+  
+  @Synchronized
+  public static void hello() {
+    System.out.println(&quot;world&quot;);
+  }
+  
+  @Synchronized
+  public int answerToLife() {
+    return 42;
+  }
+  
+  @Synchronized(&quot;readLock&quot;)
+  public void foo() {
+    System.out.println(&quot;bar&quot;);
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class SynchronizedExample {
+  private static final Object $LOCK = new Object[0];
+  private final Object $lock = new Object[0];
+  private final Object readLock = new Object();
+  
+  public static void hello() {
+    synchronized($LOCK) {
+      System.out.println(&quot;world&quot;);
+    }
+  }
+  
+  public int answerToLife() {
+    synchronized($lock) {
+      return 42;
+    }
+  }
+  
+  public void foo() {
+    synchronized(readLock) {
+      System.out.println(&quot;bar&quot;);
+    }
+  }
+}
+</code></pre>
+<h3 id="wither">@Wither</h3>
+<p>不可变属性的 setter 的下一个最佳替代方法是构造对象的克隆，但为该字段使用新值。生成此克隆的方法正是<code>@With</code>生成的<code>withFieldName(newValue)</code>方法：除了关联字段的新值之外，生成克隆的方法。</p>
+<p>例如，如果您 create <code>public class Point { private final int x, y; }</code>，setter 没有意义，因为这些字段是最终的。<code>@With</code>可以<code>withX(int newXValue)</code>为您生成一个方法，该方法将返回一个新点，该点具有为 提供的值<code>x</code>和相同的值<code>y</code>。</p>
+<pre><code class="language-java">public class WithExample {
+  @With(AccessLevel.PROTECTED) @NonNull private final String name;
+  @With private final int age;
+  
+  public WithExample(String name, int age) {
+    if (name == null) throw new NullPointerException();
+    this.name = name;
+    this.age = age;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class WithExample {
+  private @NonNull final String name;
+  private final int age;
+
+  public WithExample(String name, int age) {
+    if (name == null) throw new NullPointerException();
+    this.name = name;
+    this.age = age;
+  }
+
+  protected WithExample withName(@NonNull String name) {
+    if (name == null) throw new java.lang.NullPointerException(&quot;name&quot;);
+    return this.name == name ? this : new WithExample(name, age);
+  }
+
+  public WithExample withAge(int age) {
+    return this.age == age ? this : new WithExample(name, age);
+  }
+}
+</code></pre>
+<h3 id="getterlazytrue">@Getter(lazy=true)</h3>
+<p>你可以让 lombok 生成一个 getter，它会在第一次调用这个 getter 时计算一次值，然后缓存它。如果计算该值需要大量 CPU 或该值需要大量内存，这会很有用。</p>
+<pre><code class="language-java">public class GetterLazyExample {
+  @Getter(lazy=true) private final double[] cached = expensive();
+  
+  private double[] expensive() {
+    double[] result = new double[1000000];
+    for (int i = 0; i &lt; result.length; i++) {
+      result[i] = Math.asin(i);
+    }
+    return result;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public class GetterLazyExample {
+  private final java.util.concurrent.AtomicReference&lt;java.lang.Object&gt; cached = new java.util.concurrent.AtomicReference&lt;java.lang.Object&gt;();
+  
+  public double[] getCached() {
+    java.lang.Object value = this.cached.get();
+    if (value == null) {
+      synchronized(this.cached) {
+        value = this.cached.get();
+        if (value == null) {
+          final double[] actualValue = expensive();
+          value = actualValue == null ? this.cached : actualValue;
+          this.cached.set(value);
+        }
+      }
+    }
+    return (double[])(value == this.cached ? null : value);
+  }
+  
+  private double[] expensive() {
+    double[] result = new double[1000000];
+    for (int i = 0; i &lt; result.length; i++) {
+      result[i] = Math.asin(i);
+    }
+    return result;
+  }
+}
+</code></pre>
+<h3 id="log">@Log</h3>
+<p>记录器已命名<code>log</code>，字段的类型取决于您选择的记录器。</p>
+<p><span style='color:red'><code>@CommonsLog</code></span></p>
+<pre><code class="language-java">private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@Flogger</code></span></p>
+<pre><code class="language-java">private static final com.google.common.flogger.FluentLogger log = com.google.common.flogger.FluentLogger.forEnclosingClass();
+</code></pre>
+<p><span style='color:red'><code>@JBossLog</code></span></p>
+<pre><code class="language-java">private static final org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@Log</code></span></p>
+<pre><code class="language-java">private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(LogExample.class.getName());
+</code></pre>
+<p><span style='color:red'><code>@Log4j</code></span></p>
+<pre><code class="language-java">private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@Log4j2</code></span></p>
+<pre><code class="language-java">private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@Slf4j</code></span></p>
+<pre><code class="language-java">private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@XSlf4j</code></span></p>
+<pre><code class="language-java">private static final org.slf4j.ext.XLogger log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);
+</code></pre>
+<p><span style='color:red'><code>@CustomLog</code></span></p>
+<pre><code class="language-java">private static final *com.foo.your.Logger* log = *com.foo.your.LoggerFactory.createYourLogger*(LogExample.class);
+</code></pre>
+<pre><code class="language-java">import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Log
+public class LogExample {
+  
+  public static void main(String... args) {
+    log.severe(&quot;Something's wrong here&quot;);
+  }
+}
+
+@Slf4j
+public class LogExampleOther {
+  
+  public static void main(String... args) {
+    log.error(&quot;Something else is wrong here&quot;);
+  }
+}
+
+@CommonsLog(topic=&quot;CounterLog&quot;)
+public class LogExampleCategory {
+
+  public static void main(String... args) {
+    log.error(&quot;Calling the 'CounterLog' with a message&quot;);
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class LogExample {
+  private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(LogExample.class.getName());
+  
+  public static void main(String... args) {
+    log.severe(&quot;Something's wrong here&quot;);
+  }
+}
+
+public class LogExampleOther {
+  private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExampleOther.class);
+  
+  public static void main(String... args) {
+    log.error(&quot;Something else is wrong here&quot;);
+  }
+}
+
+public class LogExampleCategory {
+  private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(&quot;CounterLog&quot;);
+
+  public static void main(String... args) {
+    log.error(&quot;Calling the 'CounterLog' with a message&quot;);
+  }
+}
+</code></pre>
+<h2 id="实验功能">实验功能</h2>
+<p>实验性功能在您的常规 lombok 安装中可用，但不如 lombok 的主要功能得到强大的支持。特别是，实验功能：</p>
+<ul>
+<li>没有测试以及核心功能。</li>
+<li>不要像核心功能一样快速修复错误。</li>
+<li>如果我们找到一种不同的、更好的方法来解决相同的问题，可能会有一些 API 会发生变化。</li>
+<li>如果该功能太难以支持或没有破坏足够的样板，则可能会完全消失。</li>
+</ul>
+<h3 id="var">var</h3>
+<p><code>var</code>工作方式与 完全相同<a href="https://projectlombok.org/features/val"><code>val</code></a>，只是局部变量<em>未</em>标记为<code>final</code>。</p>
+<p><span style="color:red"><code>var x = &quot;Hello&quot;; x = Color.RED;</code></span></p>
+<h3 id="accessors">@Accessors</h3>
+<p>用于 getter 和 setter 的更流畅的 API。</p>
+<pre><code class="language-java">
+@Accessors(fluent = true)
+public class AccessorsExample {
+  @Getter @Setter
+  private int age = 10;
+}
+
+class PrefixExample {
+  @Accessors(prefix = &quot;f&quot;) @Getter
+  private String fName = &quot;Hello, World!&quot;;
+}
+
+
+//等同于
+
+public class AccessorsExample {
+  private int age = 10;
+  
+  public int age() {
+    return this.age;
+  }
+  
+  public AccessorsExample age(final int age) {
+    this.age = age;
+    return this;
+  }
+}
+
+class PrefixExample {
+  private String fName = &quot;Hello, World!&quot;;
+  
+  public String getName() {
+    return this.fName;
+  }
+}
+</code></pre>
+<h3 id="extensionmethod">@ExtensionMethod</h3>
+<p>实验性的，因为：</p>
+<ul>
+<li>对代码风格的影响很大。</li>
+<li>真的很想提供实用方法来扩展公共类，但到目前为止 lombok 没有一个很好的分发方法来处理这种运行时依赖项。</li>
+<li>影响相当多的 eclipse，并且自动完成 ed 在 netbeans 中还不起作用。</li>
+<li>@ExtensionMethod 应该在方法上合法吗？它应该在包裹上合法吗？</li>
+<li>此功能的相关错误比我们希望的要多，并且是一个很大的维护负担。</li>
+</ul>
+<pre><code class="language-java">@ExtensionMethod({java.util.Arrays.class, Extensions.class})
+public class ExtensionMethodExample {
+  public String test() {
+    int[] intArray = {5, 3, 8, 2};
+    intArray.sort();
+    
+    String iAmNull = null;
+    return iAmNull.or(&quot;hELlO, WORlD!&quot;.toTitleCase());
+  }
+}
+
+class Extensions {
+  public static &lt;T&gt; T or(T obj, T ifNull) {
+    return obj != null ? obj : ifNull;
+  }
+  
+  public static String toTitleCase(String in) {
+    if (in.isEmpty()) return in;
+    return &quot;&quot; + Character.toTitleCase(in.charAt(0)) +
+        in.substring(1).toLowerCase();
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public class ExtensionMethodExample {
+  public String test() {
+    int[] intArray = {5, 3, 8, 2};
+    java.util.Arrays.sort(intArray);
+    
+    String iAmNull = null;
+    return Extensions.or(iAmNull, Extensions.toTitleCase(&quot;hELlO, WORlD!&quot;));
+  }
+}
+
+class Extensions {
+  public static &lt;T&gt; T or(T obj, T ifNull) {
+    return obj != null ? obj : ifNull;
+  }
+  
+  public static String toTitleCase(String in) {
+    if (in.isEmpty()) return in;
+    return &quot;&quot; + Character.toTitleCase(in.charAt(0)) +
+        in.substring(1).toLowerCase();
+  }
+}
+</code></pre>
+<h3 id="fielddefaults">@FieldDefaults</h3>
+<p>所述<code>@FieldDefaults</code>注释可以添加一个访问修饰符（<code>public</code>，<code>private</code>，或<code>protected</code>在带注释的类或枚举）到每个字段。它还可以添加<code>final</code>到带注释的类或枚举中的每个字段。</p>
+<p>要添加<code>final</code>到每个（实例）字段，请使用<code>@FieldDefaults(makeFinal=true)</code>. 任何必须保持非最终的非最终字段都可以用<code>@NonFinal</code>（也在<code>lombok.experimental</code>包中）进行注释。</p>
+<p>要将访问修饰符添加到每个（实例）字段，请使用<code>@FieldDefaults(level=AccessLevel.PRIVATE)</code>. 任何还没有访问修饰符的字段（即任何看起来像包私有访问的字段）都将更改为具有适当的访问修饰符。任何必须保持包私有的包私有字段都可以注释<code>@PackagePrivate</code>（也在<code>lombok.experimental</code>包中）。</p>
+<pre><code class="language-java">
+@FieldDefaults(makeFinal=true, level=AccessLevel.PRIVATE)
+public class FieldDefaultsExample {
+  public final int a;
+  int b;
+  @NonFinal int c;
+  @PackagePrivate int d;
+  
+  FieldDefaultsExample() {
+    a = 0;
+    b = 0;
+    d = 0;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class FieldDefaultsExample {
+  public final int a;
+  private final int b;
+  private int c;
+  final int d;
+  
+  FieldDefaultsExample() {
+    a = 0;
+    b = 0;
+    d = 0;
+  }
+}
+</code></pre>
+<h3 id="delegate">@Delegate</h3>
+<p>可以使用任何字段或无参数方法进行注释，<code>@Delegate</code>以让 lombok 生成将调用转发到此字段（或调用此方法的结果）的委托方法。</p>
+<p>Lombok 委托<code>public</code>字段类型（或方法的返回类型）的所有方法及其超类型的方法，但在<code>java.lang.Object</code>.</p>
+<p>您可以将任意数量的类传递到<code>@Delegate</code>注释的<code>types</code>参数中。如果这样做，lombok 将委托<code>public</code>这些类型（及其超类型，除了<code>java.lang.Object</code>）中的所有方法，而不是查看字段/方法的类型。</p>
+<p>所有<code>Object</code>属于计算类型的公共非方法都会被复制，无论您是否还为这些方法编写了实现。这将因此导致重复的方法错误。您可以通过使用<code>@Delegate(excludes=SomeType.class)</code>参数排除被排除类型及其超类型中的所有公共方法来避免这些。</p>
+<p>要非常精确地控制委托和不委托的内容，请编写带有方法签名的私有内部接口，然后将这些私有内部接口指定为<code>@Delegate(types=PrivateInnerInterfaceWithIncludesList.class, excludes=SameForExcludes.class)</code>.</p>
+<pre><code class="language-java">
+public class DelegationExample {
+  private interface SimpleCollection {
+    boolean add(String item);
+    boolean remove(Object item);
+  }
+  
+  @Delegate(types=SimpleCollection.class)
+  private final Collection&lt;String&gt; collection = new ArrayList&lt;String&gt;();
+}
+
+
+class ExcludesDelegateExample {
+  long counter = 0L;
+  
+  private interface Add {
+    boolean add(String x);
+    boolean addAll(Collection&lt;? extends String&gt; x);
+  }
+  
+  @Delegate(excludes=Add.class)
+  private final Collection&lt;String&gt; collection = new ArrayList&lt;String&gt;();
+  
+  public boolean add(String item) {
+    counter++;
+    return collection.add(item);
+  }
+  
+  public boolean addAll(Collection&lt;? extends String&gt; col) {
+    counter += col.size();
+    return collection.addAll(col);
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class DelegationExample {
+  private interface SimpleCollection {
+    boolean add(String item);
+    boolean remove(Object item);
+  }
+  
+  private final Collection&lt;String&gt; collection = new ArrayList&lt;String&gt;();
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean add(final java.lang.String item) {
+    return this.collection.add(item);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean remove(final java.lang.Object item) {
+    return this.collection.remove(item);
+  }
+}
+
+class ExcludesDelegateExample {
+  long counter = 0L;
+  
+  private interface Add {
+    boolean add(String x);
+    boolean addAll(Collection&lt;? extends String&gt; x);
+  }
+  
+  private final Collection&lt;String&gt; collection = new ArrayList&lt;String&gt;();
+  
+  public boolean add(String item) {
+    counter++;
+    return collection.add(item);
+  }
+  
+  public boolean addAll(Collection&lt;? extends String&gt; col) {
+    counter += col.size();
+    return collection.addAll(col);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public int size() {
+    return this.collection.size();
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean isEmpty() {
+    return this.collection.isEmpty();
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean contains(final java.lang.Object arg0) {
+    return this.collection.contains(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public java.util.Iterator&lt;java.lang.String&gt; iterator() {
+    return this.collection.iterator();
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public java.lang.Object[] toArray() {
+    return this.collection.toArray();
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public &lt;T extends .java.lang.Object&gt;T[] toArray(final T[] arg0) {
+    return this.collection.&lt;T&gt;toArray(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean remove(final java.lang.Object arg0) {
+    return this.collection.remove(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean containsAll(final java.util.Collection&lt;?&gt; arg0) {
+    return this.collection.containsAll(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean removeAll(final java.util.Collection&lt;?&gt; arg0) {
+    return this.collection.removeAll(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public boolean retainAll(final java.util.Collection&lt;?&gt; arg0) {
+    return this.collection.retainAll(arg0);
+  }
+  
+  @java.lang.SuppressWarnings(&quot;all&quot;)
+  public void clear() {
+    this.collection.clear();
+  }
+}
+</code></pre>
+<h3 id="onmethod-onconstructor-onparam">onMethod= / onConstructor= / onParam=</h3>
+<p><strong>此功能被认为是“解决方法状态”——它的存在是为了让 lombok 的用户可以在没有此功能的情况下无论如何都可以访问它。如果我们找到更好的方法来实现这个特性，或者未来某个 java 版本引入了替代策略，这个特性可以在没有合理的弃用期的情况下消失。此外，此功能可能不适用于 javac 的未来版本。自行决定使用。</strong></p>
+<p>大多数使 lombok 生成方法或构造函数的注释也可以配置为使 lombok 在生成的代码中的元素上放置自定义注释。</p>
+<p><code>@Getter</code>, <code>@Setter</code>, 并<code>@Wither</code>支持该<code>onMethod</code>选项，该选项会将列出的注释放在生成的方法上。</p>
+<p><code>@AllArgsConstructor</code>, <code>@NoArgsConstructor</code>, 并<code>@RequiredArgsConstructor</code>支持<code>onConstructor</code>将列出的注释放在生成的构造函数上的选项。</p>
+<p><code>@Setter</code>和<code>@Wither</code>支持<code>onParam</code>此外<code>onMethod</code>；列出的注释将放在生成的方法具有的唯一参数上。<code>@EqualsAndHashCode</code>还支持<code>onParam</code>；列出的注释将放置在生成的<code>equals</code>方法以及任何生成的<code>canEqual</code>方法的单个参数上。</p>
+<pre><code class="language-java">import javax.inject.Inject;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.validation.constraints.Max;
+
+@AllArgsConstructor(onConstructor=@__(@Inject))
+public class OnXExample {
+//  @Getter(onMethod=@__({@Id, @Column(name=&quot;unique-id&quot;)})) //JDK7
+//  @Setter(onParam=@__(@Max(10000))) //JDK7
+  @Getter(onMethod_={@Id, @Column(name=&quot;unique-id&quot;)}) //JDK8
+  @Setter(onParam_=@Max(10000)) //JDK8
+  private long unid;
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">import javax.inject.Inject;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.validation.constraints.Max;
+
+public class OnXExample {
+  private long unid;
+
+  @Inject
+  public OnXExample(long unid) {
+    this.unid = unid;
+  }
+
+  @Id @Column(name=&quot;unique-id&quot;)
+  public long getUnid() {
+    return unid;
+  }
+
+  public void setUnid(@Max(10000) long unid) {
+    this.unid = unid;
+  }
+}
+</code></pre>
+<h3 id="utilityclass">@UtilityClass</h3>
+<p>实用程序类是一个只是函数命名空间的类。它的实例不能存在，它的所有成员都是静态的。例如，<code>java.lang.Math</code>和<code>java.util.Collections</code>是众所周知的实用程序类。这个注解会自动将注解的类变成一个类。</p>
+<pre><code class="language-java">@UtilityClass
+public class UtilityClassExample {
+  private final int CONSTANT = 5;
+
+  public int addSomething(int in) {
+    return in + CONSTANT;
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public final class UtilityClassExample {
+  private static final int CONSTANT = 5;
+
+  private UtilityClassExample() {
+    throw new java.lang.UnsupportedOperationException(&quot;This is a utility class and cannot be instantiated&quot;);
+  }
+
+  public static int addSomething(int in) {
+    return in + CONSTANT;
+  }
+}
+</code></pre>
+<h3 id="helper"><a href="https://projectlombok.org/features/experimental/Helper"><code>@Helper</code></a></h3>
+<pre><code class="language-java">import lombok.experimental.Helper;
+
+public class HelperExample {
+  int someMethod(int arg1) {
+    int localVar = 5;
+
+    @Helper class Helpers {
+      int helperMethod(int arg) {
+        return arg + localVar;
+      }
+    }
+
+    return helperMethod(10);
+  }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class HelperExample {
+  int someMethod(int arg1) {
+    int localVar = 5;
+
+    class Helpers {
+      int helperMethod(int arg) {
+        return arg + localVar;
+      }
+    }
+    Helpers $Helpers = new Helpers();
+
+    return $Helpers.helperMethod(10);
+  }
+}
+</code></pre>
+<h3 id="fieldnameconstants"><a href="https://projectlombok.org/features/experimental/FieldNameConstants"><code>@FieldNameConstants</code></a></h3>
+<pre><code class="language-java">
+import lombok.experimental.FieldNameConstants;
+import lombok.AccessLevel;
+
+@FieldNameConstants
+public class FieldNameConstantsExample {
+  private final String iAmAField;
+  private final int andSoAmI;
+  @FieldNameConstants.Exclude private final int asAmI;
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public class FieldNameConstantsExample {
+  private final String iAmAField;
+  private final int andSoAmI;
+  private final int asAmI;
+  
+  public static final class Fields {
+    public static final String iAmAField = &quot;iAmAField&quot;;
+    public static final String andSoAmI = &quot;andSoAmI&quot;;
+  }
+}
+</code></pre>
+<h3 id="superbuilder"><a href="https://projectlombok.org/features/experimental/SuperBuilder"><code>@SuperBuilder</code></a></h3>
+<p>普通的Builder无法建造父类,这个可以实现</p>
+<h3 id="tolerate"><a href="https://projectlombok.org/features/experimental/Tolerate"><code>@Tolerate</code></a></h3>
+<pre><code class="language-java">
+import lombok.experimental.Tolerate;
+
+public class TolerateExample {
+    @Setter
+    private Date date;
+
+    @Tolerate
+    public void setDate(String date) {
+        this.date = Date.valueOf(date);
+    }
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">public class TolerateExample {
+    @Setter
+    private Date date;
+
+    public void setDateFromString(String date) {
+        this.date = Date.valueOf(date);
+    }
+}
+
+</code></pre>
+<h3 id="jacksonized"><a href="https://projectlombok.org/features/experimental/Jacksonized"><code>@Jacksonized</code></a></h3>
+<p>该<code>@Jacksonized</code>注释的英文一个附加注释的状语从句：。它会自动配置生成的构建器类以供<a href="https://github.com/FasterXML/jackson">jackson</a>的反序列化使用。它仅在存在于也有一个或一个的上下文中时才有效;否则会发出警告。 <a href="https://projectlombok.org/features/Builder"><code>@Builder</code></a><a href="https://projectlombok.org/features/experimental/SuperBuilder"><code>@SuperBuilder</code></a><code>@Builder``@SuperBuilder</code></p>
+<pre><code class="language-java">@Jacksonized 
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class JacksonExample {
+	private List&lt;Foo&gt; foos;
+}
+</code></pre>
+<h3 id="standardexception"><a href="https://projectlombok.org/features/experimental/StandardException"><code>@StandardException</code></a></h3>
+<p>将此注释放在您自己的异常类型上（类新<code>extends Exception</code>或从继承的任何其他类<code>Throwable</code>。此注释将生成最多4个构造函数：</p>
+<ul>
+<li>一个无参数构造函数 ( <code>MyException()</code>)，表示没有消息，也没有原因。</li>
+<li>仅消息构造函数 ( <code>MyException(String message)</code>)，表示提供的消息，没有原因。</li>
+<li>仅原因构造函数 ( <code>MyException(Throwable cause)</code>)，提供有从原因复制消息（如果），并使用的原因。</li>
+<li>完整的构造函数 ( <code>MyException(String message, Throwable cause)</code>)。</li>
+</ul>
+<p>每个构造函数都转发给完整的构造函数；您可以手动编写任何或所有这些构造函数，在这种情况下 lombok 不会生成它。完整的构造函数（如果需要生成）将调用<code>super(message);</code>，然后<code>super.initCause(cause);</code>在原因不为空时调用。</p>
+<p>几乎没有理由<em>不</em>将此注释放在所有自定义异常上。</p>
+<pre><code class="language-java">import lombok.experimental.StandardException;
+
+@StandardException
+public class ExampleException extends Exception {
+}
+</code></pre>
+<p><strong>Vanilla Java</strong></p>
+<pre><code class="language-java">
+public class ExampleException extends Exception {
+    public ExampleException() {
+        this(null, null);
+    }
+
+    public ExampleException(String message) {
+        this(message, null);
+    }
+
+    public ExampleException(Throwable cause) {
+        this(cause != null ? cause.getMessage() : null, cause);
+    }
+
+    public ExampleException(String message, Throwable cause) {
+        super(message);
+        if (cause != null) super.initCause(cause);
+    }
+}
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/lombok/" class="leancloud-visitors view"
+                              data-flag-title="Lombok">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/idea-shi-yong-dockerfile-bu-shu/" class="title">
+                                      <h4>Idea使用dockerfile部署</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-11-14</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/idea-shi-yong-dockerfile-bu-shu/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/51.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/optional-shi-yong/" class="title">
+                                      <h4>Optional 使用</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-10-11</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/optional-shi-yong/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/49.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#lombok%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E">Lombok注解说明</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a>
+<ul>
+<li><a href="#val">@val</a></li>
+<li><a href="#nonnull">@NonNull</a></li>
+<li><a href="#cleanup">@Cleanup</a></li>
+<li><a href="#getter-%E5%92%8C-setter">@Getter 和 @Setter</a></li>
+<li><a href="#tostring">@ToString</a></li>
+<li><a href="#equalsandhashcode">@EqualsAndHashCode</a></li>
+<li><a href="#noargsconstructor-requiredargsconstructor-allargsconstructor">@NoArgsConstructor、@RequiredArgsConstructor、@AllArgsConstructor</a></li>
+<li><a href="#data">@Data</a></li>
+<li><a href="#value">@Value</a></li>
+<li><a href="#builder">@Builder</a></li>
+<li><a href="#sneakythrows">@SneakyThrows</a></li>
+<li><a href="#synchronized">@Synchronized</a></li>
+<li><a href="#wither">@Wither</a></li>
+<li><a href="#getterlazytrue">@Getter(lazy=true)</a></li>
+<li><a href="#log">@Log</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E9%AA%8C%E5%8A%9F%E8%83%BD">实验功能</a>
+<ul>
+<li><a href="#var">var</a></li>
+<li><a href="#accessors">@Accessors</a></li>
+<li><a href="#extensionmethod">@ExtensionMethod</a></li>
+<li><a href="#fielddefaults">@FieldDefaults</a></li>
+<li><a href="#delegate">@Delegate</a></li>
+<li><a href="#onmethod-onconstructor-onparam">onMethod= / onConstructor= / onParam=</a></li>
+<li><a href="#utilityclass">@UtilityClass</a></li>
+<li><a href="#helper">@Helper</a></li>
+<li><a href="#fieldnameconstants">@FieldNameConstants</a></li>
+<li><a href="#superbuilder">@SuperBuilder</a></li>
+<li><a href="#tolerate">@Tolerate</a></li>
+<li><a href="#jacksonized">@Jacksonized</a></li>
+<li><a href="#standardexception">@StandardException</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

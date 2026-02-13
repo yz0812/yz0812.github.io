@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>RockerMQ分布式事务 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">RockerMQ分布式事务</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/0ZwbDlQRt/" class="post--keyword"
+                                data-title="RockerMq" data-type="post_tag" data-term-id="39">RockerMq</a>
+                               <a href="https://yz0812.github.io/tag/hWFgAWK2c/" class="post--keyword"
+                                data-title="springcloud" data-type="post_tag" data-term-id="39">springcloud</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2020-04-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/36.jpg"
+                                class="attachment-full size-full wp-post-image" alt="RockerMQ分布式事务" /></p>
+                            
+                            <h4 id="rockectmq分布式事务">rockectMQ分布式事务</h4>
+<p>流程图</p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20190510231845733.png" alt="" loading="lazy"></figure>
+<p><strong>文件结构</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210524235111.png" alt="" loading="lazy"></figure>
+<p><strong>执行一个订单扣费发货流程</strong></p>
+<p>执行sql</p>
+<pre><code class="language-sql">CREATE TABLE `t_trade_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `goods_id` int(11) NOT NULL COMMENT '商品ID',
+  `goods_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
+  `status` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE `t_transaction_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `transaction_Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事务id',
+  `remark` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`, `transaction_Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+</code></pre>
+<p><strong>创建实体</strong></p>
+<pre><code class="language-java">@Data
+@TableName(&quot;t_transaction_log&quot;)
+public class TransactionLog implements Serializable {
+
+    private static final long serialVersionUID = 1268216478456291093L;
+
+    @TableId(value = &quot;ID&quot;, type = IdType.AUTO)
+    private Long id;
+    @TableField(&quot;TRANSACTION_ID&quot;)
+    private String transactionId;
+    @TableField(&quot;REMARK&quot;)
+    private String remark;
+}
+</code></pre>
+<pre><code class="language-java">@Data
+@TableName(&quot;t_trade_log&quot;)
+public class TradeLog implements Serializable {
+
+    private static final long serialVersionUID = 3902838426348137002L;
+
+    @TableId(value = &quot;ID&quot;, type = IdType.AUTO)
+    private Long id;
+
+    @TableField(&quot;GOODS_ID&quot;)
+    private String goodsId;
+    @TableField(&quot;GOODS_NAME&quot;)
+    private String goodsName;
+    @TableField(&quot;STATUS&quot;)
+    private String status;
+
+    @DateTimeFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)
+    @JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)
+    @TableField(&quot;CREATE_TIME&quot;)
+    private Date createTime;
+}
+</code></pre>
+<h4 id="1生产端">1.生产端</h4>
+<p><strong>service</strong></p>
+<pre><code class="language-java">public interface ITradeLogService extends IService&lt;TradeLog&gt; {
+    void orderAndPay(TradeLog tradeLog);
+    void pay(TradeLog tradeLog, String transactionId);
+}
+</code></pre>
+<pre><code class="language-java">@Slf4j
+@Service(&quot;tradeLogService&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class TradeLogServiceImpl extends ServiceImpl&lt;TradeLogMapper, TradeLog&gt; implements ITradeLogService {
+
+
+    private final RocketMQTemplate rocketMQTemplate;
+
+    private  final TransactionLogMapper transactionLogMapper;
+
+    @Override
+    public void orderAndPay(TradeLog tradeLog) {
+        // 检测库存
+        log.info(&quot;检测商品Id为{}，名称为{}的商品库存，库存充足&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+
+        String transactionId = UUID.randomUUID().toString();
+        // 往RocketMQ发送事务消息
+        this.rocketMQTemplate.sendMessageInTransaction(
+                &quot;pay-success&quot;, // 事务消息topic
+                MessageBuilder.withPayload(tradeLog)
+                        .setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
+                        .build(), // 消息
+                tradeLog // 额外参数，供后续回调使用
+        );
+    }
+
+    @Override
+    @Transactional
+    public void pay(TradeLog tradeLog, String transactionId) {
+        tradeLog.setCreateTime(new Date());
+        tradeLog.setStatus(&quot;下单并支付成功&quot;);
+        // 保存支付日志
+        this.save(tradeLog);
+        log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        // 记录事务日志
+        TransactionLog transactionLog = new TransactionLog();
+        transactionLog.setTransactionId(transactionId);
+        String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);
+        transactionLog.setRemark(remark);
+        transactionLogMapper.insert(transactionLog);
+        log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);
+    }
+
+}
+</code></pre>
+<p><strong>RocketMQ消息监听器</strong></p>
+<pre><code class="language-java">@Slf4j
+@Component
+@RocketMQTransactionListener
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class MyRocketMQListener implements RocketMQLocalTransactionListener {
+
+
+    private final ITradeLogService tradeLogService;
+
+    private final TransactionLogMapper transactionLogMapper;
+
+    /**
+     * 执行本地事务
+     *
+     * @param message 消息
+     * @param o       额外参数
+     * @return RocketMQ事务状态
+     */
+    @Override
+    public RocketMQLocalTransactionState executeLocalTransaction(Message message, Object o) {
+        MessageHeaders headers = message.getHeaders();
+        String transicationId = (String) headers.get(RocketMQHeaders.TRANSACTION_ID);
+
+        try {
+            TradeLog tradeLog = (TradeLog) o;
+            this.tradeLogService.pay(tradeLog, transicationId); // 对应图中第3步，执行本地事务
+            log.info(&quot;本地事务执行成功，往RocketMQ发送COMMIT&quot;);
+            return RocketMQLocalTransactionState.COMMIT; // 对应图中第4步，COMMIT，半消息经过COMMIT后，消息消费端就可以消费这条消息了
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info(&quot;本地事务回滚，往RocketMQ发送ROLLBACK&quot;, e);
+            return RocketMQLocalTransactionState.ROLLBACK; // 对应途中第4步，ROLLBACK
+        }
+    }
+
+    /**
+     * RocketMQ回查本地事务状态，这个过程对应图中第5步
+     *
+     * @param message 消息
+     * @return RocketMQ事务状态
+     */
+    @Override
+    public RocketMQLocalTransactionState checkLocalTransaction(Message message) {
+        MessageHeaders headers = message.getHeaders();
+        String transicationId = (String) headers.get(RocketMQHeaders.TRANSACTION_ID);
+        log.info(&quot;RocketMQ事务状态回查&quot;);
+        // 从数据库中根据事务Id查询对应的事务日志，对应图中第6步
+        TransactionLog transactionLog = transactionLogMapper.selectOne(
+                new LambdaQueryWrapper&lt;TransactionLog&gt;().eq(TransactionLog::getTransactionId, transicationId)
+        );
+        // 对应图中的第7步骤
+        return transactionLog != null ? RocketMQLocalTransactionState.COMMIT : RocketMQLocalTransactionState.ROLLBACK;
+    }
+}
+</code></pre>
+<p><strong>controller</strong></p>
+<pre><code class="language-java">@RestController
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class RocketMqTestController {
+
+    private final ITradeLogService tradeLogService;
+
+    @GetMapping(&quot;pay&quot;)
+    public void orderAndPay(TradeLog tradeLog) {
+        this.tradeLogService.orderAndPay(tradeLog);
+    }
+}
+</code></pre>
+<h4 id="2消费端">2.消费端</h4>
+<pre><code class="language-java">public interface ITradeLogService extends IService&lt;TradeLog&gt; {
+    void packageAndSend(TradeLog tradeLog);
+}
+</code></pre>
+<pre><code class="language-java">@Slf4j
+@Service(&quot;tradeLogService&quot;)
+public class TradeLogServiceImpl extends ServiceImpl&lt;TradeLogMapper, TradeLog&gt; implements ITradeLogService {
+
+    @Override
+    @Transactional
+    public void packageAndSend(TradeLog tradeLog) {
+        TradeLog tl = new TradeLog();
+        tl.setGoodsId(tradeLog.getGoodsId());
+        tl.setGoodsName(tradeLog.getGoodsName());
+        tl.setStatus(&quot;打包完毕，开始物流配送！&quot;);
+        tl.setCreateTime(new Date());
+
+        this.save(tl);
+        log.info(&quot;商品ID为{}，名称为{}的商品打包完毕，开始物流配送&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+    }
+}
+</code></pre>
+<p><strong>监听器</strong></p>
+<pre><code class="language-java">@Slf4j
+@Component
+@RocketMQMessageListener(consumerGroup = &quot;test-group&quot;, topic = &quot;pay-success&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class MyRocketMQListener implements RocketMQListener&lt;TradeLog&gt; {
+
+    private  final ITradeLogService tradeLogService;
+
+    @Override
+    public void onMessage(TradeLog tradeLog) {
+        log.info(&quot;监听到用户已经下单并支付成功ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        this.tradeLogService.packageAndSend(tradeLog);
+    }
+}
+</code></pre>
+<h4 id="3开始测试">3.开始测试</h4>
+<h5 id="31正常测试">3.1正常测试</h5>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210524235959.png" alt="" loading="lazy"></figure>
+<p>数据库正常显示</p>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210524235913.png" alt="" loading="lazy"></figure>
+<h5 id="32-异常测试">3.2 异常测试</h5>
+<p>在生产者的TradeLogServiceImpl的pay方法加入抛出异常代码</p>
+<pre><code class="language-java"> @Override
+    @Transactional
+    public void pay(TradeLog tradeLog, String transactionId) {
+        tradeLog.setCreateTime(new Date());
+        tradeLog.setStatus(&quot;下单并支付成功&quot;);
+        // 保存支付日志
+        this.save(tradeLog);
+        log.info(&quot;用户已经下单并支付成功商品ID为{}，名称为{}的商品&quot;, tradeLog.getGoodsId(), tradeLog.getGoodsName());
+        // 记录事务日志
+        TransactionLog transactionLog = new TransactionLog();
+        transactionLog.setTransactionId(transactionId);
+        String remark = String.format(&quot;事务ID为%s的本地事务执行成功&quot;, transactionId);
+        transactionLog.setRemark(remark);
+        transactionLogMapper.insert(transactionLog);
+        log.info(&quot;事务ID为{}的本地事务执行成功&quot;, transactionId);
+       throw  new RuntimeException(&quot;抛出一个异常&quot;);
+}
+</code></pre>
+<p>然后执行,查看</p>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210525000532.png" alt="" loading="lazy"></figure>
+<p>日志打印</p>
+<pre><code class="language-java">2021-05-25 00:04:58.637  INFO 68453 --- [nio-6031-exec-2] c.yz.alibaba.listner.MyRocketMQListener  : 本地事务回滚，往RocketMQ发送ROLLBACK
+</code></pre>
+<h5 id="33-异常回查">3.3 异常回查</h5>
+<p><strong>抛出异常的代码删除,并且打上断点</strong></p>
+<figure data-type="image" tabindex="6"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210525000921.png" alt="" loading="lazy"></figure>
+<p><strong>执行到断点,打印</strong></p>
+<pre><code class="language-java">2021-05-25 00:10:38.464  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 检测商品Id为123，名称为测试的商品库存，库存充足2021-05-25 00:10:38.782  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 用户已经下单并支付成功商品ID为123，名称为测试的商品2021-05-25 00:10:38.790  INFO 71122 --- [nio-6031-exec-1] c.y.a.service.impl.TradeLogServiceImpl   : 事务ID为f14ff797-26ee-4c3a-a46e-6209c347f3d6的本地事务执行成功
+</code></pre>
+<p><strong>终端杀死生产者进程</strong></p>
+<pre><code class="language-shell">➜  ~ lsof -i tcp:6031COMMAND   PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAMEPostman  2216   yz   81u  IPv6 0x3948355ab07483a9      0t0  TCP localhost:62594-&gt;localhost:6031 (ESTABLISHED)java    71122   yz  184u  IPv6 0x3948355aae8dc3a9      0t0  TCP *:6031 (LISTEN)java    71122   yz  209u  IPv6 0x3948355ab0748a09      0t0  TCP localhost:6031-&gt;localhost:62594 (ESTABLISHED)➜  ~ kill -9 71122
+</code></pre>
+<p><strong>启动生产者服务,日志打印</strong></p>
+<pre><code class="language-java">2021-05-25 00:12:35.495  INFO 71943 --- [pool-1-thread-1] c.yz.alibaba.listner.MyRocketMQListener  : RocketMQ事务状态回查
+</code></pre>
+<p><strong>数据库</strong></p>
+<figure data-type="image" tabindex="7"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210525001340.png" alt="" loading="lazy"></figure>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/rockermq-fen-bu-shi-shi-wu/" class="leancloud-visitors view"
+                              data-flag-title="RockerMQ分布式事务">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/vagrant-an-zhuang-suo-yu-dao-de-wen-ti/" class="title">
+                                      <h4>Vagrant安装所遇到的问题</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2020-05-11</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/vagrant-an-zhuang-suo-yu-dao-de-wen-ti/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/01.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/about/" class="title">
+                                      <h4>关于</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2019-01-25</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/about/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/2.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#rockectmq%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1">rockectMQ分布式事务</a></li>
+<li><a href="#1%E7%94%9F%E4%BA%A7%E7%AB%AF">1.生产端</a></li>
+<li><a href="#2%E6%B6%88%E8%B4%B9%E7%AB%AF">2.消费端</a></li>
+<li><a href="#3%E5%BC%80%E5%A7%8B%E6%B5%8B%E8%AF%95">3.开始测试</a>
+<ul>
+<li><a href="#31%E6%AD%A3%E5%B8%B8%E6%B5%8B%E8%AF%95">3.1正常测试</a></li>
+<li><a href="#32-%E5%BC%82%E5%B8%B8%E6%B5%8B%E8%AF%95">3.2 异常测试</a></li>
+<li><a href="#33-%E5%BC%82%E5%B8%B8%E5%9B%9E%E6%9F%A5">3.3 异常回查</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

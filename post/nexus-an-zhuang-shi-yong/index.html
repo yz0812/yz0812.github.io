@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Nexus 安装使用 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Nexus 安装使用</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2025-12-26</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/85.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Nexus 安装使用" /></p>
+                            
+                            <h1 id="1使用-docker-compose-安装-nexus">1.使用 Docker Compose 安装 Nexus</h1>
+<pre><code class="language-yml">version: &quot;3.8&quot;
+
+services:
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    restart: always
+    ports:
+      - &quot;8081:8081&quot;
+    volumes:
+      - nexus-data:/nexus-data
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m
+
+volumes:
+  nexus-data:
+</code></pre>
+<h1 id="2-从容器中获取-nexus-初始密码">2. 从容器中获取 Nexus 初始密码</h1>
+<p>Nexus 首次启动会生成一个随机的管理员密码，存放在容器内部。</p>
+<pre><code class="language-sh">docker exec nexus cat /nexus-data/admin.password
+</code></pre>
+<p>初始账号 admin</p>
+<h1 id="3-配置阿里云仓库">3. 配置阿里云仓库</h1>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/1.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/2.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/3.png" alt="" loading="lazy"></figure>
+<pre><code class="language-sh">maven-aliyun-center
+
+https://maven.aliyun.com/repository/central
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/4.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/5.png" alt="" loading="lazy"></figure>
+<h1 id="4-项目中使用">4. 项目中使用</h1>
+<h2 id="41-pomxml-中使用">4.1 pom.xml 中使用</h2>
+<pre><code class="language-xml">&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;nexus&lt;/id&gt;
+        &lt;name&gt;Nexus Proxy&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+        &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/releases&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;pluginRepositories&gt;
+    &lt;pluginRepository&gt;
+        &lt;id&gt;nexus&lt;/id&gt;
+        &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+    &lt;/pluginRepository&gt;
+&lt;/pluginRepositories&gt;
+
+</code></pre>
+<h2 id="42-settingxml-中使用">4.2 setting.xml 中使用</h2>
+<pre><code class="language-xml">&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+          xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+
+    &lt;!-- 1. 镜像配置：强制所有仓库走 Nexus --&gt;
+    &lt;mirrors&gt;
+        &lt;mirror&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+            &lt;name&gt;Nexus Mirror&lt;/name&gt;
+            &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+        &lt;/mirror&gt;
+    &lt;/mirrors&gt;
+
+    &lt;!-- 2. 认证信息（如 Nexus 开启了登录） --&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;username&gt;admin&lt;/username&gt;
+            &lt;password&gt;你的密码&lt;/password&gt;
+        &lt;/server&gt;
+    &lt;/servers&gt;
+
+    &lt;!-- 3. Profile（可选，但推荐） --&gt;
+    &lt;profiles&gt;
+        &lt;profile&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;repositories&gt;
+                &lt;repository&gt;
+                    &lt;id&gt;central&lt;/id&gt;
+                    &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+                    &lt;releases&gt;
+                        &lt;enabled&gt;true&lt;/enabled&gt;
+                    &lt;/releases&gt;
+                    &lt;snapshots&gt;
+                        &lt;enabled&gt;true&lt;/enabled&gt;
+                    &lt;/snapshots&gt;
+                &lt;/repository&gt;
+            &lt;/repositories&gt;
+
+            &lt;pluginRepositories&gt;
+                &lt;pluginRepository&gt;
+                    &lt;id&gt;central&lt;/id&gt;
+                    &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+                &lt;/pluginRepository&gt;
+            &lt;/pluginRepositories&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;
+
+    &lt;!-- 4. 默认启用 --&gt;
+    &lt;activeProfiles&gt;
+        &lt;activeProfile&gt;nexus&lt;/activeProfile&gt;
+    &lt;/activeProfiles&gt;
+
+&lt;/settings&gt;
+
+</code></pre>
+<h1 id="5-python导入本地仓库包到nexus">5 python导入本地仓库包到Nexus</h1>
+<h2 id="1清除下载失败失效的jar包">1.清除下载失败失效的jar包</h2>
+<p><strong>SOURCE_DIR</strong>改成自己目录</p>
+<pre><code class="language-python">import os
+import concurrent.futures
+try:
+    from tqdm import tqdm
+except ImportError:
+    print(&quot;❌ 请先安装进度条库: pip install tqdm&quot;)
+    exit(1)
+
+# ================= 配置区域 =================
+SOURCE_DIR = r&quot;D:\work\MavenRepository\mavenRepository-old&quot;
+MAX_JAR_SIZE = 1024  # 1KB
+BAD_POM_KEYWORDS = [&quot;&lt;!DOCTYPE html&gt;&quot;, &quot;&lt;title&gt;Harbor&lt;/title&gt;&quot;, &quot;Login to Harbor&quot;]
+
+# 根据你的 12600KF (16线程)，IO密集型任务我们可以设置得稍微激进一点
+# 设为 CPU核心数 * 4，保证磁盘 IO 跑满
+WORKER_COUNT = os.cpu_count() * 4 
+# ===========================================
+
+def check_files_in_directory(root, files):
+    &quot;&quot;&quot;
+    工作线程任务：检查单个目录下的所有文件
+    返回：该目录下所有坏包的 (root, base_name) 列表
+    &quot;&quot;&quot;
+    bad_items = []
+    
+    for file in files:
+        file_path = os.path.join(root, file)
+        is_bad = False
+        
+        # 1. 判定 Jar 是否损坏 (利用短路逻辑，先判断后缀)
+        if file.endswith(&quot;.jar&quot;):
+            try:
+                if os.path.getsize(file_path) &lt; MAX_JAR_SIZE:
+                    is_bad = True
+            except: pass
+        
+        # 2. 判定 POM 是否损坏
+        elif file.endswith(&quot;.pom&quot;):
+            try:
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    # 只读头 1KB
+                    content = f.read(1024)
+                    for keyword in BAD_POM_KEYWORDS:
+                        if keyword in content:
+                            is_bad = True
+                            break
+            except: pass
+            
+        if is_bad:
+            base_name = file
+            if base_name.endswith(&quot;.jar&quot;): base_name = base_name[:-4]
+            if base_name.endswith(&quot;.pom&quot;): base_name = base_name[:-4]
+            bad_items.append((root, base_name))
+            
+    return bad_items
+
+def delete_task(args):
+    &quot;&quot;&quot;
+    删除任务的线程函数
+    &quot;&quot;&quot;
+    folder, base_name, metadata_files = args
+    deleted = 0
+    if not os.path.exists(folder):
+        return 0
+
+    try:
+        files = os.listdir(folder)
+    except:
+        return 0
+
+    for file in files:
+        file_path = os.path.join(folder, file)
+        should_delete = False
+        
+        if file.startswith(base_name):
+            should_delete = True
+        elif file in metadata_files:
+            should_delete = True
+            
+        if should_delete:
+            try:
+                os.remove(file_path)
+                deleted += 1
+            except: pass
+    return deleted
+
+def main():
+    if not os.path.exists(SOURCE_DIR):
+        print(f&quot;❌ 目录不存在: {SOURCE_DIR}&quot;)
+        return
+
+    print(f&quot;🚀 [i5-12600KF] 全力模式启动&quot;)
+    print(f&quot;🔥 启用线程数: {WORKER_COUNT}&quot;)
+    print(f&quot;📂 扫描目标: {SOURCE_DIR}&quot;)
+
+    directories_to_clean = set()
+    total_files_scanned = 0
+    
+    # ------------------ 扫描阶段 ------------------
+    # 使用 ThreadPoolExecutor
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKER_COUNT) as executor:
+        futures = []
+        
+        print(&quot;⏳ 正在遍历目录结构并分发任务...&quot;)
+        
+        # 生产者：主线程快速遍历目录
+        for root, dirs, files in os.walk(SOURCE_DIR):
+            # 剪枝优化
+            dirs[:] = [d for d in dirs if not d.startswith('.')]
+            
+            if not files:
+                continue
+                
+            # 消费者：将“处理一个文件夹内的所有文件”作为一个任务提交
+            # 这样比“每个文件一个任务”效率高得多
+            future = executor.submit(check_files_in_directory, root, files)
+            futures.append(future)
+
+        # 等待结果并显示进度条
+        print(f&quot;✅ 目录遍历完成，共生成 {len(futures)} 个批处理任务，开始并行扫描...&quot;)
+        
+        with tqdm(total=len(futures), unit=&quot;dir&quot;, desc=&quot;并行扫描中&quot;) as pbar:
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    bad_results = future.result()
+                    if bad_results:
+                        for item in bad_results:
+                            directories_to_clean.add(item)
+                except Exception as e:
+                    pass
+                pbar.update(1)
+
+    # ------------------ 结果展示 ------------------
+    if not directories_to_clean:
+        print(&quot;\n✅ 恭喜！没有发现损坏文件。&quot;)
+        return
+
+    print(f&quot;\n⚠️ 发现 {len(directories_to_clean)} 组损坏的构件版本。&quot;)
+    print(&quot;示例前3项:&quot;)
+    for i, (folder, name) in enumerate(list(directories_to_clean)[:3]):
+        print(f&quot; - {os.path.join(folder, name)}&quot;)
+
+    confirm = input(&quot;\n🔴 确认删除？(y/n): &quot;)
+    if confirm.lower() != 'y': return
+
+    # ------------------ 删除阶段 (同样多线程) ------------------
+    print(&quot;\n🧹 启动多线程清理...&quot;)
+    metadata_files = [&quot;_remote.repositories&quot;, &quot;_maven.repositories&quot;, &quot;resolver-status.properties&quot;]
+    
+    total_deleted = 0
+    
+    # 删除通常很快，但也可能因为磁盘IO卡顿，所以也并行化
+    delete_tasks = [(folder, base_name, metadata_files) for folder, base_name in directories_to_clean]
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKER_COUNT) as executor:
+        # map 会按顺序返回结果，适合进度条
+        results = list(tqdm(executor.map(delete_task, delete_tasks), total=len(delete_tasks), desc=&quot;并行删除中&quot;))
+        total_deleted = sum(results)
+
+    print(f&quot;\n✨ 大功告成！利用多线程共删除了 {total_deleted} 个文件。&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<h2 id="2-通过http方式上传到nexus">2. 通过http方式上传到nexus</h2>
+<p><strong>REPO_URL</strong> ：nexus部署路径+仓库名称</p>
+<p><strong>USERNAME</strong> ：nexus用户名</p>
+<p><strong>PASSWORD</strong> ：nexus密码</p>
+<p><strong>SOURCE_DIR</strong>：本地maven仓库路径</p>
+<p><strong>nexus默认是不允许覆盖上传需要更改配置才运行覆盖上传</strong></p>
+<pre><code>import os
+import threading
+from pathlib import Path
+from xml.etree import ElementTree as ET
+import requests
+from requests.auth import HTTPBasicAuth
+from tqdm import tqdm
+from queue import Queue
+
+# ================= CONFIGURATION =================
+REPO_URL = &quot;http://127.0.0.1:8071/repository/maven-releases/&quot;
+USERNAME = &quot;admin&quot;
+PASSWORD = &quot;admin&quot;
+SOURCE_DIR = r&quot;D:\work\MavenRepository\mavenRepository&quot;
+THREAD_COUNT = 10
+# =================================================
+
+class MavenUploader:
+    def __init__(self, repo_url, username, password):
+        self.repo_url = repo_url
+        self.auth = HTTPBasicAuth(username, password)
+        self.session = requests.Session()
+        self.session.auth = self.auth
+        
+    def parse_pom(self, pom_path):
+        &quot;&quot;&quot;解析POM文件获取GAV信息&quot;&quot;&quot;
+        try:
+            tree = ET.parse(pom_path)
+            root = tree.getroot()
+            ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
+            
+            def get_text(xpath_with_ns, xpath_without_ns):
+                elem = root.find(xpath_with_ns, ns)
+                if elem is not None and elem.text:
+                    return elem.text.strip()
+                elem = root.find(xpath_without_ns)
+                if elem is not None and elem.text:
+                    return elem.text.strip()
+                return None
+            
+            group_id = get_text('m:groupId', 'groupId')
+            artifact_id = get_text('m:artifactId', 'artifactId')
+            version = get_text('m:version', 'version')
+            packaging = get_text('m:packaging', 'packaging') or 'jar'
+            
+            if not group_id:
+                group_id = get_text('m:parent/m:groupId', 'parent/groupId')
+            if not version:
+                version = get_text('m:parent/m:version', 'parent/version')
+            
+            return group_id, artifact_id, version, packaging
+        except Exception as e:
+            return None, None, None, None
+    
+    def upload_file(self, file_path, group_id, artifact_id, version, filename):
+        &quot;&quot;&quot;上传文件到Nexus&quot;&quot;&quot;
+        try:
+            group_path = group_id.replace(&quot;.&quot;, &quot;/&quot;)
+            remote_path = f&quot;{group_path}/{artifact_id}/{version}/{filename}&quot;
+            upload_url = f&quot;{self.repo_url}{remote_path}&quot;
+            
+            with open(file_path, 'rb') as f:
+                response = self.session.put(upload_url, data=f, timeout=300)
+            
+            return response.status_code in [200, 201, 204]
+        except Exception as e:
+            return False
+    
+    def process_artifact(self, pom_path, pbar):
+        &quot;&quot;&quot;处理单个Maven构件&quot;&quot;&quot;
+        group_id, artifact_id, version, packaging = self.parse_pom(pom_path)
+        
+        if not all([group_id, artifact_id, version]):
+            pbar.write(f&quot;⚠ Skip (Bad POM): {pom_path}&quot;)
+            return False
+        
+        uploaded = []
+        failed = []
+        
+        # 1. 始终上传 POM
+        pom_filename = os.path.basename(pom_path)
+        if self.upload_file(pom_path, group_id, artifact_id, version, pom_filename):
+            uploaded.append('pom')
+        else:
+            failed.append('pom')
+        
+        # 2. 上传主构件（JAR/WAR/etc）
+        base_path = pom_path.rsplit('.', 1)[0]
+        main_artifact = f&quot;{base_path}.{packaging}&quot;
+        
+        if os.path.exists(main_artifact):
+            main_filename = os.path.basename(main_artifact)
+            if self.upload_file(main_artifact, group_id, artifact_id, version, main_filename):
+                uploaded.append(packaging)
+            else:
+                failed.append(packaging)
+        
+        # 3. 上传附加文件
+        for suffix in ['-sources.jar', '-javadoc.jar', '-tests.jar']:
+            extra_file = base_path + suffix
+            if os.path.exists(extra_file):
+                extra_filename = os.path.basename(extra_file)
+                if self.upload_file(extra_file, group_id, artifact_id, version, extra_filename):
+                    uploaded.append(suffix.strip('-'))
+                else:
+                    failed.append(suffix.strip('-'))
+        
+        # 输出结果
+        if uploaded:
+            files_str = ', '.join(uploaded)
+            pbar.write(f&quot;✓ {group_id}:{artifact_id}:{version} [{files_str}]&quot;)
+        
+        if failed:
+            files_str = ', '.join(failed)
+            pbar.write(f&quot;✗ {group_id}:{artifact_id}:{version} FAILED: [{files_str}]&quot;)
+        
+        return len(failed) == 0
+
+def worker(uploader, task_queue, pbar, stats):
+    &quot;&quot;&quot;工作线程&quot;&quot;&quot;
+    while True:
+        pom_path = task_queue.get()
+        if pom_path is None:
+            break
+        
+        try:
+            success = uploader.process_artifact(pom_path, pbar)
+            stats['success' if success else 'failed'] += 1
+        except Exception as e:
+            pbar.write(f&quot;✗ Error: {pom_path} - {str(e)}&quot;)
+            stats['failed'] += 1
+        finally:
+            pbar.update(1)
+            task_queue.task_done()
+
+class ThreadSafeStats(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._lock = threading.Lock()
+    
+    def __setitem__(self, key, value):
+        with self._lock:
+            super().__setitem__(key, value)
+    
+    def __getitem__(self, key):
+        with self._lock:
+            return super().__getitem__(key)
+
+def main():
+    print(f&quot;Scanning directory: {SOURCE_DIR} ...&quot;)
+    
+    # 查找所有 POM 文件
+    all_poms = list(Path(SOURCE_DIR).rglob(&quot;*.pom&quot;))
+    
+    # 过滤掉临时文件
+    pom_files = [
+        p for p in all_poms 
+        if not any(x in str(p) for x in ['maven-metadata', 'resolver-status', '.lastUpdated'])
+    ]
+    
+    total = len(pom_files)
+    print(f&quot;Found {total} POM files (filtered from {len(all_poms)} total)&quot;)
+    
+    if total == 0:
+        print(&quot;No valid POM files found!&quot;)
+        return
+    
+    uploader = MavenUploader(REPO_URL, USERNAME, PASSWORD)
+    task_queue = Queue()
+    stats = ThreadSafeStats({'success': 0, 'failed': 0})
+    
+    pbar = tqdm(total=total, desc=&quot;Uploading&quot;, unit=&quot;artifact&quot;)
+    
+    # 启动线程
+    threads = []
+    for _ in range(THREAD_COUNT):
+        t = threading.Thread(target=worker, args=(uploader, task_queue, pbar, stats))
+        t.daemon = True
+        t.start()
+        threads.append(t)
+    
+    # 添加任务
+    for pom in pom_files:
+        task_queue.put(str(pom))
+    
+    # 等待完成
+    task_queue.join()
+    
+    # 结束线程
+    for _ in range(THREAD_COUNT):
+        task_queue.put(None)
+    for t in threads:
+        t.join()
+    
+    pbar.close()
+    
+    print(&quot;\n&quot; + &quot;=&quot;*50)
+    print(f&quot;Upload Summary:&quot;)
+    print(f&quot;  Total Artifacts: {total}&quot;)
+    print(f&quot;  Success: {stats['success']}&quot;)
+    print(f&quot;  Failed: {stats['failed']}&quot;)
+    print(&quot;=&quot;*50)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/nexus-an-zhuang-shi-yong/" class="leancloud-visitors view"
+                              data-flag-title="Nexus 安装使用">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/claude-code-jian-dan-pei-zhi/" class="title">
+                                      <h4>claude code 简单配置</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2025-12-26</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/claude-code-jian-dan-pei-zhi/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/87.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/" class="title">
+                                      <h4>节省C盘空间的方式——符号链接</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2025-05-24</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/84.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#1%E4%BD%BF%E7%94%A8-docker-compose-%E5%AE%89%E8%A3%85-nexus">1.使用 Docker Compose 安装 Nexus</a></li>
+<li><a href="#2-%E4%BB%8E%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%8E%B7%E5%8F%96-nexus-%E5%88%9D%E5%A7%8B%E5%AF%86%E7%A0%81">2. 从容器中获取 Nexus 初始密码</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91%E4%BB%93%E5%BA%93">3. 配置阿里云仓库</a></li>
+<li><a href="#4-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8">4. 项目中使用</a>
+<ul>
+<li><a href="#41-pomxml-%E4%B8%AD%E4%BD%BF%E7%94%A8">4.1 pom.xml 中使用</a></li>
+<li><a href="#42-settingxml-%E4%B8%AD%E4%BD%BF%E7%94%A8">4.2 setting.xml 中使用</a></li>
+</ul>
+</li>
+<li><a href="#5-python%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%8C%85%E5%88%B0nexus">5 python导入本地仓库包到Nexus</a>
+<ul>
+<li><a href="#1%E6%B8%85%E9%99%A4%E4%B8%8B%E8%BD%BD%E5%A4%B1%E8%B4%A5%E5%A4%B1%E6%95%88%E7%9A%84jar%E5%8C%85">1.清除下载失败失效的jar包</a></li>
+<li><a href="#2-%E9%80%9A%E8%BF%87http%E6%96%B9%E5%BC%8F%E4%B8%8A%E4%BC%A0%E5%88%B0nexus">2. 通过http方式上传到nexus</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

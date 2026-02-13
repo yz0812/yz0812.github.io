@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>MapStruct 快速指南 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">MapStruct 快速指南</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2022-09-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/66.jpg"
+                                class="attachment-full size-full wp-post-image" alt="MapStruct 快速指南" /></p>
+                            
+                            <h2 id="mapstruct"><a href="https://mapstruct.org/">MapStruct</a></h2>
+<p><code>MapStruct</code> 是一个代码生成器，它基于<strong>约定优于配置</strong>方法极大地简化了 <code>Java bean</code> 类型之间映射的实现。自动生成的映射转换代码只使用简单的方法调用，因此速度快、类型安全而且易于理解阅读，源码仓库 <code>Github</code> 地址 <a href="https://link.segmentfault.com/?enc=MQEg3NUXQpZjLfFrH8BDJA%3D%3D.ur42gyo8uokfYajxAWdNHcOtL1f3d91I9vINujFJIl8A7q4kqb9Rb%2FycaDjFtD9e">MapStruct</a>。总的来说，有如下三个特点：</p>
+<ol>
+<li>基于注解</li>
+<li>在编译期自动生成映射转换代码</li>
+<li>类型安全、高性能、无依赖性</li>
+</ol>
+<h3 id="1maven-配置">1.maven 配置</h3>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mapstruct&lt;/groupId&gt;
+    &lt;artifactId&gt;mapstruct&lt;/artifactId&gt;
+    &lt;version&gt;1.4.2.Final&lt;/version&gt; 
+&lt;/dependency&gt;
+&lt;dependency&gt;
+      &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+      &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+      &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>将 annotationProcessorPaths 部分添加到 maven-compiler-plugin 插件的配置部分。mapstruct-processor 用于在构建期间生成映射器实现</p>
+<p>要启用 Lombok 支持，我们需要在注解处理器路径中添加依赖项。从 Lombok 版本 1.18.16 开始，我们还必须添加对 lombok-mapstruct-binding 的依赖。现在我们在 Maven 编译器插件中有 mapstruct-processor 和 Lombok</p>
+<pre><code class="language-xml">            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.8.1&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.8&lt;/source&gt;
+                    &lt;target&gt;1.8&lt;/target&gt;
+                    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+                    &lt;annotationProcessorPaths&gt;
+                        &lt;!-- Lombok 在编译时会通过这个插件生成代码 --&gt;
+                        &lt;path&gt;
+                            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                            &lt;version&gt;1.18.22&lt;/version&gt;
+                        &lt;/path&gt;
+                        &lt;!-- MapStruct 在编译时会通过这个插件生成代码 --&gt;
+                        &lt;path&gt;
+                            &lt;groupId&gt;org.mapstruct&lt;/groupId&gt;
+                            &lt;artifactId&gt;mapstruct-processor&lt;/artifactId&gt;
+                            &lt;version&gt;1.4.2.Final&lt;/version&gt;
+                        &lt;/path&gt;
+                        &lt;path&gt;
+                            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                            &lt;artifactId&gt;lombok-mapstruct-binding&lt;/artifactId&gt;
+                            &lt;version&gt;0.2.0&lt;/version&gt;
+                        &lt;/path&gt;
+                    &lt;/annotationProcessorPaths&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+</code></pre>
+<h3 id="2基本映射">2.基本映射</h3>
+<p>2.1 bean</p>
+<pre><code class="language-java">@Data
+public class SimpleDestination {
+    private String name;
+    private String description;
+}
+@Data
+public class SimpleSource {
+    private String name;
+    private String description;
+}
+</code></pre>
+<p>2.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface SimpleSourceDestinationMapper {
+    SimpleDestination sourceToDestination(SimpleSource source);
+    SimpleSource destinationToSource(SimpleDestination destination);
+}
+</code></pre>
+<p><strong>我们没有为SimpleSourceDestinationMapper创建实现类——因为MapStruct为我们创建了它</strong></p>
+<p>可以通过<code>mvn clean package -Dmaven.test.skip=true</code> 命令来触发MapStruct处理。</p>
+<p>这将在/target/generated-sources/annotations/下生成实现类。</p>
+<p>下面是MapStruct为我们自动创建的类:</p>
+<pre><code class="language-java">@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2022-09-27T00:18:32+0800&quot;,
+    comments = &quot;version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_281 (Oracle Corporation)&quot;
+)
+@Component
+public class SimpleSourceDestinationMapperImpl implements SimpleSourceDestinationMapper {
+
+    @Override
+    public SimpleDestination sourceToDestination(SimpleSource source) {
+        if ( source == null ) {
+            return null;
+        }
+
+        SimpleDestination simpleDestination = new SimpleDestination();
+
+        simpleDestination.setName( source.getName() );
+        simpleDestination.setDescription( source.getDescription() );
+
+        return simpleDestination;
+    }
+
+    @Override
+    public SimpleSource destinationToSource(SimpleDestination destination) {
+        if ( destination == null ) {
+            return null;
+        }
+
+        SimpleSource simpleSource = new SimpleSource();
+
+        simpleSource.setName( destination.getName() );
+        simpleSource.setDescription( destination.getDescription() );
+
+        return simpleSource;
+    }
+}
+</code></pre>
+<p>2.3  Test Case</p>
+<pre><code class="language-java">   private SimpleSourceDestinationMapper mapper = Mappers.getMapper(SimpleSourceDestinationMapper.class);
+
+ @Test
+    public void givenSourceToDestination_whenMaps_thenCorrect() {
+        SimpleSource simpleSource = new SimpleSource();
+        simpleSource.setName(&quot;SourceName&quot;);
+        simpleSource.setDescription(&quot;SourceDescription&quot;);
+        SimpleDestination destination = mapper.sourceToDestination(simpleSource);
+
+        assertEquals(simpleSource.getName(), destination.getName());
+        assertEquals(simpleSource.getDescription(),
+                destination.getDescription());
+    }
+
+    @Test
+    public void givenDestinationToSource_whenMaps_thenCorrect() {
+        SimpleDestination destination = new SimpleDestination();
+        destination.setName(&quot;DestinationName&quot;);
+        destination.setDescription(&quot;DestinationDescription&quot;);
+        SimpleSource source = mapper.destinationToSource(destination);
+        assertEquals(destination.getName(), source.getName());
+        assertEquals(destination.getDescription(),
+                source.getDescription());
+    }
+</code></pre>
+<h3 id="3映射具有不同字段名称的字段">3.映射具有不同字段名称的字段</h3>
+<p>3.1 bean</p>
+<pre><code class="language-java">@Data
+public class Employee {
+    private int id;
+    private String name;
+}
+@Data
+public class EmployeeDTO {
+    private int employeeId;
+    private String employeeName;
+}
+</code></pre>
+<p>3.2 Interface</p>
+<p>当映射不同的字段名称时，我们需要将其源字段配置为其目标字段，为此，我们需要为每个字段添加@Mapping 注解。</p>
+<p>在 MapStruct 中，我们还可以使用点表示法来定义 bean 的成员：</p>
+<pre><code class="language-java">@Mapper
+public interface EmployeeMapper {
+
+    @Mapping(target=&quot;employeeId&quot;, source=&quot;entity.id&quot;)
+    @Mapping(target=&quot;employeeName&quot;, source=&quot;entity.name&quot;)
+    EmployeeDTO employeeToEmployeeDTO(Employee entity);
+
+    @Mapping(target=&quot;id&quot;, source=&quot;dto.employeeId&quot;)
+    @Mapping(target=&quot;name&quot;, source=&quot;dto.employeeName&quot;)
+    Employee employeeDTOtoEmployee(EmployeeDTO dto);
+}
+</code></pre>
+<p>3.3  Test Case</p>
+<pre><code class="language-java">@Test
+public void givenEmployeeDTOwithDiffNametoEmployee_whenMaps_thenCorrect() {
+    EmployeeDTO dto = new EmployeeDTO();
+    dto.setEmployeeId(1);
+    dto.setEmployeeName(&quot;John&quot;);
+
+    Employee entity = mapper.employeeDTOtoEmployee(dto);
+
+    assertEquals(dto.getEmployeeId(), entity.getId());
+    assertEquals(dto.getEmployeeName(), entity.getName());
+}
+</code></pre>
+<h3 id="4子bean映射bean">4.子bean映射bean</h3>
+<p>4.1 bean</p>
+<pre><code class="language-java">@Data
+public class EmployeeDTO {
+    private int employeeId;
+    private String employeeName;
+    private DivisionDTO division;
+}
+@Data
+public class Employee {
+    private int id;
+    private String name;
+    private Division division;
+}
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Division {
+    private Integer id;
+    private String name;
+}
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class DivisionDTO {
+    private Integer id;
+    private String name;
+}
+</code></pre>
+<p>4.2 Interface</p>
+<p>这里我们需要添加一个方法，将 Division 转换为 DivisionDTO，反之亦然；如果 MapStruct 检测到需要转换的对象类型且转换的方法存在于同一个类中，它会自动使用</p>
+<pre><code class="language-java">@Mapper
+public interface EmployeeMapper {
+
+    @Mapping(target = &quot;employeeId&quot;, source = &quot;entity.id&quot;)
+    @Mapping(target = &quot;employeeName&quot;, source = &quot;entity.name&quot;)
+    EmployeeDTO employeeToEmployeeDTO(Employee entity);
+
+    @Mapping(target = &quot;id&quot;, source = &quot;dto.employeeId&quot;)
+    @Mapping(target = &quot;name&quot;, source = &quot;dto.employeeName&quot;)
+    Employee employeeDTOtoEmployee(EmployeeDTO dto);
+
+    DivisionDTO divisionToDivisionDTO(Division entity);
+
+    Division divisionDTOtoDivision(DivisionDTO dto);
+}
+</code></pre>
+<p>4.3 Test Case</p>
+<pre><code class="language-java">@Test
+public void givenEmpDTONestedMappingToEmp_whenMaps_thenCorrect() {
+    EmployeeDTO dto = new EmployeeDTO();
+    dto.setDivision(new DivisionDTO(1, &quot;Division1&quot;));
+    Employee entity = mapper.employeeDTOtoEmployee(dto);
+    assertEquals(dto.getDivision().getId(), 
+      entity.getDivision().getId());
+    assertEquals(dto.getDivision().getName(), 
+      entity.getDivision().getName());
+}
+</code></pre>
+<h3 id="5日期映射器">5.日期映射器</h3>
+<p>5.1 bean</p>
+<pre><code class="language-java">@Data
+public class Employee {
+    private int id;
+    private String name;
+    private Division division;
+    private Date startDt;
+}
+@Data
+public class EmployeeDTO {
+    private int employeeId;
+    private String employeeName;
+    private DivisionDTO division;
+    private String employeeStartDt;
+}
+</code></pre>
+<p>5.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface EmployeeMapper {
+
+    @Mapping(target = &quot;employeeId&quot;, source = &quot;entity.id&quot;)
+    @Mapping(target = &quot;employeeName&quot;, source = &quot;entity.name&quot;)
+    @Mapping(target=&quot;employeeStartDt&quot;, source = &quot;entity.startDt&quot;,
+            dateFormat = &quot;dd-MM-yyyy HH:mm:ss&quot;)
+    EmployeeDTO employeeToEmployeeDTO(Employee entity);
+
+    @Mapping(target = &quot;id&quot;, source = &quot;dto.employeeId&quot;)
+    @Mapping(target = &quot;name&quot;, source = &quot;dto.employeeName&quot;)
+    @Mapping(target=&quot;startDt&quot;, source=&quot;dto.employeeStartDt&quot;,
+            dateFormat=&quot;dd-MM-yyyy HH:mm:ss&quot;)
+    Employee employeeDTOtoEmployee(EmployeeDTO dto);
+
+    DivisionDTO divisionToDivisionDTO(Division entity);
+
+    Division divisionDTOtoDivision(DivisionDTO dto);
+}
+</code></pre>
+<p>5.3 Test Case</p>
+<pre><code class="language-java">    private static final String DATE_FORMAT = &quot;dd-MM-yyyy HH:mm:ss&quot;;
+
+    @Test
+    public void givenEmpStartDtMappingToEmpDTO_whenMaps_thenCorrect() throws ParseException {
+        Employee entity = new Employee();
+        entity.setStartDt(new Date());
+        EmployeeDTO dto = employeeMapper.employeeToEmployeeDTO(entity);
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+
+        assertEquals(format.parse(dto.getEmployeeStartDt()).toString(),
+                entity.getStartDt().toString());
+    }
+
+    @Test
+    public void givenEmpDTOStartDtMappingToEmp_whenMaps_thenCorrect() throws ParseException {
+        EmployeeDTO dto = new EmployeeDTO();
+        dto.setEmployeeStartDt(&quot;01-04-2016 01:00:00&quot;);
+        Employee entity = employeeMapper.employeeDTOtoEmployee(dto);
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+
+        assertEquals(format.parse(dto.getEmployeeStartDt()).toString(),
+                entity.getStartDt().toString());
+    }
+</code></pre>
+<h3 id="6自定义方法映射-抽象类">6.自定义方法映射-抽象类</h3>
+<p>有时，我们可能希望以超出@Mapping 功能的方式自定义我们的映射器。</p>
+<p>例如，除了类型转换之外，我们可能还想以某种方式转换值，如下面的示例所示。</p>
+<p>在这种情况下，我们可以创建一个抽象类并实现我们想要自定义的方法，而将那些应该由 MapStruct 生成的抽象类保留下来。</p>
+<p>6.1 bean</p>
+<pre><code class="language-java">@Data
+public class Transaction {
+    private Long id;
+    private String uuid = UUID.randomUUID().toString();
+    private BigDecimal total;
+}
+@Data
+public class TransactionDTO {
+    private String uuid;
+    private Long totalInCents;
+}
+</code></pre>
+<p>6.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public abstract class TransactionMapper {
+
+    public TransactionDTO toTransactionDTO(Transaction transaction) {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setUuid(transaction.getUuid());
+        transactionDTO.setTotalInCents(transaction.getTotal()
+          .multiply(new BigDecimal(&quot;100&quot;)).longValue());
+        return transactionDTO;
+    }
+
+    public abstract List&lt;TransactionDTO&gt; toTransactionDTO(
+      Collection&lt;Transaction&gt; transactions);
+}
+</code></pre>
+<p>使用接口的默认方法</p>
+<pre><code class="language-java">@Mapper
+public interface TransactionMapper {
+    default TransactionDTO toTransactionDTO(Transaction transaction) {
+        TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setUuid(transaction.getUuid());
+        transactionDTO.setTotalInCents(transaction.getTotal()
+          .multiply(new BigDecimal(&quot;100&quot;)).longValue());
+        return transactionDTO;
+    }
+    public  List&lt;TransactionDTO&gt; toTransactionDTO(
+      Collection&lt;Transaction&gt; transactions);
+}
+</code></pre>
+<p>将生成以下内容：</p>
+<pre><code class="language-java">public class TransactionMapperImpl extends TransactionMapper {
+
+    @Override
+    public List&lt;TransactionDTO&gt; toTransactionDTO(Collection&lt;Transaction&gt; transactions) {
+        if ( transactions == null ) {
+            return null;
+        }
+
+        List&lt;TransactionDTO&gt; list = new ArrayList&lt;TransactionDTO&gt;( transactions.size() );
+        for ( Transaction transaction : transactions ) {
+            list.add( toTransactionDTO( transaction ) );
+        }
+
+        return list;
+    }
+}
+</code></pre>
+<p>6.3 Test Case</p>
+<pre><code class="language-java">    private TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
+
+    @Test
+    public void givenTransactionEntitytoTransactionWithExpression_whenMaps_thenCorrect() {
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
+        transaction.setTotal(new BigDecimal(10));
+        TransactionDTO transactionDTO = transactionMapper.toTransactionDTO(transaction);
+        assertEquals(transaction.getUuid(), transactionDTO.getUuid());
+    }
+</code></pre>
+<h3 id="7beforemapping-aftermapping-使用">7.@BeforeMapping @AfterMapping 使用</h3>
+<p>7.1 bean</p>
+<pre><code class="language-java">@Data
+public class Car {
+    private int id;
+    private String name;
+}
+@Data
+public class CarDTO {
+    private int id;
+    private String name;
+    private FuelType fuelType;
+}
+public class BioDieselCar extends Car {
+}
+public class ElectricCar extends Car {
+}
+public enum FuelType {
+    ELECTRIC, BIO_DIESEL
+}
+</code></pre>
+<p>7.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public abstract class CarsMapper {
+    @BeforeMapping
+    protected void enrichDTOWithFuelType(Car car, @MappingTarget CarDTO carDto) {
+        if (car instanceof ElectricCar) {
+            carDto.setFuelType(FuelType.ELECTRIC);
+        }
+        if (car instanceof BioDieselCar) {
+            carDto.setFuelType(FuelType.BIO_DIESEL);
+        }
+    }
+
+    @AfterMapping
+    protected void convertNameToUpperCase(@MappingTarget CarDTO carDto) {
+        carDto.setName(carDto.getName().toUpperCase());
+    }
+
+    public abstract CarDTO toCarDto(Car car);
+}
+</code></pre>
+<p>实现结果</p>
+<pre><code class="language-java">public class CarsMapperImpl extends CarsMapper {
+
+    @Override
+    public CarDTO toCarDto(Car car) {
+        if ( car == null ) {
+            return null;
+        }
+
+        CarDTO carDTO = new CarDTO();
+         //根据类型判断
+        enrichDTOWithFuelType( car, carDTO );
+
+        carDTO.setId( car.getId() );
+        carDTO.setName( car.getName() );
+        //转大写
+        convertNameToUpperCase( carDTO );
+
+        return carDTO;
+    }
+}
+</code></pre>
+<p>7.3 Test Case</p>
+<pre><code class="language-java">CarsMapper carsMapper = Mappers.getMapper(CarsMapper.class);
+@Test
+public void givenCarsEntitytoCarsWithExpression_whenMaps_thenCorrect() {
+    Car cars = new BioDieselCar();
+    cars.setId(1);
+    cars.setName(&quot;1&quot;);
+    CarDTO carDTO = carsMapper.toCarDto(cars);
+    assertEquals(carDTO.getFuelType(), FuelType.BIO_DIESEL);
+}
+</code></pre>
+<h3 id="8默认表达式-defaultexpression">8.默认表达式 defaultExpression</h3>
+<p>8.1 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface EmployeeMapper {
+
+    @Mapping(target = &quot;employeeId&quot;, source = &quot;entity.id&quot;,   defaultExpression = &quot;java(java.util.UUID.randomUUID().toString())&quot;)
+    @Mapping(target = &quot;employeeName&quot;, source = &quot;entity.name&quot;)
+    @Mapping(target=&quot;employeeStartDt&quot;, source = &quot;entity.startDt&quot;,
+            dateFormat = &quot;dd-MM-yyyy HH:mm:ss&quot;)
+    EmployeeDTO employeeToEmployeeDTO(Employee entity);
+
+    @Mapping(target = &quot;id&quot;, source = &quot;dto.employeeId&quot;)
+    @Mapping(target = &quot;name&quot;, source = &quot;dto.employeeName&quot;)
+    @Mapping(target=&quot;startDt&quot;, source=&quot;dto.employeeStartDt&quot;,
+            dateFormat=&quot;dd-MM-yyyy HH:mm:ss&quot;)
+    Employee employeeDTOtoEmployee(EmployeeDTO dto);
+}
+</code></pre>
+<h3 id="9-数据类型映射">9. 数据类型映射</h3>
+<pre><code class="language-java">   @Mapping(source = &quot;price&quot;, target = &quot;price&quot;, numberFormat = &quot;$#.00&quot;)
+</code></pre>
+<h3 id="10枚举映射">10.枚举映射</h3>
+<p>10.1 bean</p>
+<pre><code class="language-java">public enum PaymentType {
+    CASH,
+    CHEQUE,
+    CARD_VISA,
+    CARD_MASTER,
+    CARD_CREDIT
+}
+public enum PaymentTypeView {
+    CASH,
+    CHEQUE,
+    CARD
+}
+</code></pre>
+<p>10.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface PaymentTypeMapper {
+
+    PaymentTypeMapper INSTANCE = Mappers.getMapper(PaymentTypeMapper.class);
+
+    @ValueMappings({
+            @ValueMapping(source = &quot;CARD_VISA&quot;, target = &quot;CARD&quot;),
+            @ValueMapping(source = &quot;CARD_MASTER&quot;, target = &quot;CARD&quot;),
+            @ValueMapping(source = &quot;CARD_CREDIT&quot;, target = &quot;CARD&quot;)
+    })
+    PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType);
+}
+</code></pre>
+<p>不匹配的值做一个映射，匹配的会默认映射</p>
+<p>实现</p>
+<pre><code class="language-java">public class PaymentTypeMapperImpl implements PaymentTypeMapper {
+
+    @Override
+    public PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType) {
+        if ( paymentType == null ) {
+            return null;
+        }
+
+        PaymentTypeView paymentTypeView;
+
+        switch ( paymentType ) {
+            case CARD_VISA: paymentTypeView = PaymentTypeView.CARD;
+            break;
+            case CARD_MASTER: paymentTypeView = PaymentTypeView.CARD;
+            break;
+            case CARD_CREDIT: paymentTypeView = PaymentTypeView.CARD;
+            break;
+            case CASH: paymentTypeView = PaymentTypeView.CASH;
+            break;
+            case CHEQUE: paymentTypeView = PaymentTypeView.CHEQUE;
+            break;
+            default: throw new Ill
+</code></pre>
+<p><code>MappingConstants</code>实现默认映射之后，所有剩余（未匹配）的枚举项都会映射为<code>CARD</code></p>
+<pre><code class="language-java">@Mapper
+public interface PaymentTypeMapper {
+
+    PaymentTypeMapper INSTANCE = Mappers.getMapper(PaymentTypeMapper.class);
+
+    @ValueMapping(source = MappingConstants.ANY_REMAINING, target = &quot;CARD&quot;)
+    PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType);
+}
+</code></pre>
+<p>实现</p>
+<pre><code class="language-java">public class PaymentTypeMapperImpl implements PaymentTypeMapper {
+
+    @Override
+    public PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType) {
+        if ( paymentType == null ) {
+            return null;
+        }
+
+        PaymentTypeView paymentTypeView;
+
+        switch ( paymentType ) {
+            case CASH: paymentTypeView = PaymentTypeView.CASH;
+            break;
+            case CHEQUE: paymentTypeView = PaymentTypeView.CHEQUE;
+            break;
+            default: paymentTypeView = PaymentTypeView.CARD;
+        }
+
+        return paymentTypeView;
+    }
+}
+</code></pre>
+<p>使用<code>MappingConstants.ANY_UNMAPPED</code>采用这种方式时，MapStruct不会像前面那样先处理默认映射，再将剩余的枚举项映射到<code>target</code>值。而是，直接将<em>所有</em>未通过<code>@ValueMapping</code>注解做显式映射的值都转换为<code>target</code>值。</p>
+<pre><code class="language-java">@Mapper
+public interface PaymentTypeMapper {
+    PaymentTypeMapper INSTANCE = Mappers.getMapper(PaymentTypeMapper.class);
+    @ValueMapping(source = MappingConstants.ANY_UNMAPPED, target = &quot;CARD&quot;)
+    PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType);
+
+}
+</code></pre>
+<pre><code class="language-java">public class PaymentTypeMapperImpl implements PaymentTypeMapper {
+
+    @Override
+    public PaymentTypeView paymentTypeToPaymentTypeView(PaymentType paymentType) {
+        if ( paymentType == null ) {
+            return null;
+        }
+
+        PaymentTypeView paymentTypeView;
+
+        switch ( paymentType ) {
+            default: paymentTypeView = PaymentTypeView.CARD;
+        }
+
+        return paymentTypeView;
+    }
+}
+</code></pre>
+<p>10.3 Test Case</p>
+<pre><code class="language-java">    @Test
+    void enumeration_mapping() {
+        PaymentTypeView paymentTypeView = PaymentTypeMapper.INSTANCE.paymentTypeToPaymentTypeView(PaymentType.CARD_MASTER);
+        assertEquals(paymentTypeView,PaymentTypeView.CARD);
+    }
+</code></pre>
+<h3 id="11集合映射">11.集合映射</h3>
+<p>11.1 bean</p>
+<pre><code class="language-java">@Data
+public class Doctor {
+    private int id;
+    private String name;
+}
+@Data
+public class DoctorDto {
+    private int id;
+    private String name;
+}
+</code></pre>
+<p>11.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    List&lt;DoctorDto&gt; map(List&lt;Doctor&gt; doctor);
+}
+</code></pre>
+<p>实现 可以看到生成了2个方法</p>
+<pre><code class="language-java">public class DoctorMapperImpl implements DoctorMapper {
+
+    @Override
+    public List&lt;DoctorDto&gt; map(List&lt;Doctor&gt; doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        List&lt;DoctorDto&gt; list = new ArrayList&lt;DoctorDto&gt;( doctor.size() );
+        for ( Doctor doctor1 : doctor ) {
+            list.add( doctorToDoctorDto( doctor1 ) );
+        }
+
+        return list;
+    }
+
+    protected DoctorDto doctorToDoctorDto(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        DoctorDto doctorDto = new DoctorDto();
+
+        doctorDto.setId( doctor.getId() );
+        doctorDto.setName( doctor.getName() );
+
+        return doctorDto;
+    }
+}
+</code></pre>
+<p>11.3 Test Case</p>
+<pre><code class="language-java">    @Test
+    void coll_mapping() {
+        List&lt;Doctor&gt; doctor = new ArrayList&lt;&gt;();
+        doctor.add(new Doctor(1,&quot;李四&quot;));
+        doctor.add(new Doctor(2,&quot;张三&quot;));
+        doctor.add(new Doctor(3,&quot;王五&quot;));
+
+        List&lt;DoctorDto&gt; map = DoctorMapper.INSTANCE.map(doctor);
+        System.out.println(map.toString());
+    }
+</code></pre>
+<h3 id="12set和map映射">12.Set和Map映射</h3>
+<p>12.1 bean</p>
+<pre><code class="language-java">@Data
+public class Doctor {
+    private int id;
+    private String name;
+}
+@Data
+public class DoctorDto {
+    private int id;
+    private String name;
+}
+</code></pre>
+<p>12.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+
+    Set&lt;DoctorDto&gt; setConvert(Set&lt;Doctor&gt; doctor);
+
+    Map&lt;String, DoctorDto&gt; mapConvert(Map&lt;String, Doctor&gt; doctor);
+}
+</code></pre>
+<p>生成的代码</p>
+<pre><code class="language-java">public class DoctorMapperImpl implements DoctorMapper {
+
+    @Override
+    public Set&lt;DoctorDto&gt; setConvert(Set&lt;Doctor&gt; doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        Set&lt;DoctorDto&gt; set = new HashSet&lt;DoctorDto&gt;( Math.max( (int) ( doctor.size() / .75f ) + 1, 16 ) );
+        for ( Doctor doctor1 : doctor ) {
+            set.add( doctorToDoctorDto( doctor1 ) );
+        }
+
+        return set;
+    }
+
+    @Override
+    public Map&lt;String, DoctorDto&gt; mapConvert(Map&lt;String, Doctor&gt; doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        Map&lt;String, DoctorDto&gt; map = new HashMap&lt;String, DoctorDto&gt;( Math.max( (int) ( doctor.size() / .75f ) + 1, 16 ) );
+
+        for ( java.util.Map.Entry&lt;String, Doctor&gt; entry :
+</code></pre>
+<p>12.3 Test Case</p>
+<pre><code class="language-java">    @Test
+    void set_mapping() {
+        Set&lt;Doctor&gt; doctor = new HashSet&lt;&gt;();
+        doctor.add(new Doctor(1, &quot;李四&quot;));
+        doctor.add(new Doctor(2, &quot;张三&quot;));
+        doctor.add(new Doctor(3, &quot;王五&quot;));
+
+        Set&lt;DoctorDto&gt; map = DoctorMapper.INSTANCE.setConvert(doctor);
+        System.out.println(map.toString());
+    }
+
+    @Test
+    void map_mapping() {
+        Map&lt;String, Doctor&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;1&quot;, new Doctor(1, &quot;李四&quot;));
+        map.put(&quot;2&quot;, new Doctor(2, &quot;张三&quot;));
+        map.put(&quot;3&quot;, new Doctor(3, &quot;王五&quot;));
+
+        Map&lt;String, DoctorDto&gt; dtoMap = DoctorMapper.INSTANCE.mapConvert(map);
+        System.out.println(dtoMap.toString());
+    }
+</code></pre>
+<h3 id="13依赖注入">13.依赖注入</h3>
+<p>到目前为止，我们一直在通过<code>getMapper()</code>方法访问生成的映射器：</p>
+<pre><code class="language-java">DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+</code></pre>
+<p>但是，如果你使用的是Spring，只需要简单修改映射器配置，就可以像常规依赖项一样注入映射器。</p>
+<p>修改 <code>DoctorMapper</code> 以支持Spring框架：</p>
+<pre><code class="language-java">@Mapper(componentModel = &quot;spring&quot;)
+public interface DoctorMapper {}
+</code></pre>
+<p>这次生成的 <code>DoctorMapperImpl</code> 会带有 <code>@Component</code> 注解：</p>
+<pre><code class="language-java">@Component
+public class DoctorMapperImpl implements DoctorMapper {}
+</code></pre>
+<p>只要被标记为<code>@Component</code>，Spring就可以把它作为一个bean来处理，你就可以在其它类（如控制器）中通过<code>@Autowire</code>注解来使用它：</p>
+<pre><code class="language-java">@Controller
+public class DoctorController() {
+    @Autowired
+    private DoctorMapper doctorMapper;
+}
+</code></pre>
+<h3 id="14映射异常处理">14.映射异常处理</h3>
+<p>异常处理是不可避免的，应用程序随时会产生异常状态。MapStruct提供了对异常处理的支持，可以简化开发者的工作。</p>
+<p>14.1 Bean</p>
+<pre><code class="language-java">@Data
+public class Doctor {
+    private int id;
+    private String name;
+}
+
+@Data
+public class DoctorDto {
+    private int id;
+    private String name;
+}
+</code></pre>
+<p>14.2 Validator</p>
+<p>添加<code>Validator</code>校验</p>
+<pre><code class="language-java">@Component
+public class Validator {
+    public int validateId(int id) throws ValidationException {
+        if(id == -1){
+            throw new ValidationException(&quot;Invalid value in ID&quot;);
+        }
+        return id;
+    }
+
+    public String validateName(String name) throws NullPointerException {
+        if(name == null){
+            throw new NullPointerException(&quot;name is null&quot;);e in ID&quot;);
+        }
+        return name;
+    }
+}
+</code></pre>
+<p>14.3 Interface</p>
+<pre><code class="language-java">@Mapper(uses = {Validator.class},componentModel = &quot;spring&quot;)
+public interface DoctorMapper {
+    DoctorDto toDto(Doctor doctor);
+
+}
+</code></pre>
+<p>映射器代码如下：</p>
+<pre><code class="language-java">@Component
+public class DoctorMapperImpl implements DoctorMapper {
+
+    @Autowired
+    private Validator validator;
+
+    @Override
+    public DoctorDto toDto(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        DoctorDto doctorDto = new DoctorDto();
+
+        try {
+            doctorDto.setId( validator.validateId( doctor.getId() ) );
+        }
+        catch ( ValidationException e ) {
+            throw new RuntimeException( e );
+        }
+        try {
+            doctorDto.setName( validator.validateName( doctor.getName() ) );
+        }
+        catch ( NullPointerException e ) {
+            throw new RuntimeException( e );
+        }
+
+        return doctorDto;
+    }
+}
+</code></pre>
+<p>14.4 Test Case</p>
+<pre><code class="language-java">    @Test
+    void toDto(){
+        Doctor doctor = new Doctor(1, &quot;李四&quot;);
+        DoctorDto doctorDto = doctorMapper.toDto(doctor);
+        System.out.println(doctorDto.toString());
+        //会报错
+        Doctor doctorError = new Doctor(1, null);
+        DoctorDto doctorDtoError = doctorMapper.toDto(doctorError);
+        System.out.println(doctorDtoError.toString());
+    }
+</code></pre>
+<h3 id="15自定义方法映射-named">15.自定义方法映射-@Named</h3>
+<p>15.1 bean</p>
+<pre><code class="language-java">@Data
+public class Doctor {
+    private int id;
+    private String name;
+}
+@Data
+public class DoctorDto {
+    private int id;
+    private String name;
+}
+</code></pre>
+<p>15.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    @Mapping(source = &quot;id&quot;, target = &quot;id&quot;, qualifiedByName = &quot;multiply10&quot;)
+    DoctorDto toDto(Doctor doctor);
+
+    @Named(&quot;multiply10&quot;)
+    public static int multiply10(int id) {
+        return id * 10;
+    }
+}
+</code></pre>
+<p>映射的方法</p>
+<pre><code class="language-java">public class DoctorMapperImpl implements DoctorMapper {
+
+    @Override
+    public DoctorDto toDto(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+
+        DoctorDto doctorDto = new DoctorDto();
+
+        doctorDto.setId( DoctorMapper.multiply10( doctor.getId() ) );
+        doctorDto.setName( doctor.getName() );
+
+        return doctorDto;
+    }
+}
+</code></pre>
+<p>15.3 Test Case</p>
+<pre><code class="language-java">    @Test
+    void toDto(){
+        Doctor doctor = new Doctor(1, &quot;李四&quot;);
+        DoctorDto doctorDto = DoctorMapper.INSTANCE.toDto(doctor);
+        System.out.println(doctorDto.toString());
+    }
+</code></pre>
+<h3 id="16自定义方法映射-自定义注解">16.自定义方法映射-自定义注解</h3>
+<p>16.1 bean</p>
+<pre><code class="language-java">@Data
+public class Doctor {
+    private int id;
+    private String name;
+}
+@Data
+public class DoctorDto {
+    private int id;
+    private String name;
+}
+</code></pre>
+<p>16.2 annotation</p>
+<pre><code class="language-java">@Qualifier
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.CLASS)
+public @interface PoundToKilogramMapper {
+}
+</code></pre>
+<p>16.3 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    @Mapping(source = &quot;id&quot;, target = &quot;id&quot;, qualifiedBy  = PoundToKilogramMapper.class)
+    DoctorDto toDto(Doctor doctor);
+
+    @PoundToKilogramMapper
+    public static int multiply10(int id) {
+        return id * 10;
+    }
+}
+</code></pre>
+<p>映射的方法</p>
+<pre><code class="language-java">public class DoctorMapperImpl implements DoctorMapper {
+
+    @Override
+    public DoctorDto toDto(Doctor doctor) {
+        if ( doctor == null ) {
+            return null;
+        }
+        DoctorDto doctorDto = new DoctorDto();
+        doctorDto.setId( DoctorMapper.multiply10( doctor.getId() ) );
+        doctorDto.setName( doctor.getName() );
+        return doctorDto;
+    }
+}
+</code></pre>
+<p>16.4 Test Case</p>
+<pre><code class="language-java">    @Test
+    void toDto(){
+        Doctor doctor = new Doctor(1, &quot;李四&quot;);
+        DoctorDto doctorDto = DoctorMapper.INSTANCE.toDto(doctor);
+        System.out.println(doctorDto.toString());
+    }
+</code></pre>
+<h3 id="17忽略映射字段">17.忽略映射字段</h3>
+<p>17.1 忽略特定字段</p>
+<p><strong>如果映射不完整</strong>，它也可以生成错误报告</p>
+<pre><code class="language-shell">Warning:(X,X) java: Unmapped target property: &quot;propertyName&quot;.
+</code></pre>
+<p>可以用<code>ignore = true</code>来忽略</p>
+<pre><code class="language-java">@Mapping(target = &quot;comments&quot;, ignore = true)
+</code></pre>
+<p>17.2 映射器设置策略</p>
+<p>我们可以将<strong>unmappedTargetPolicy设置为@Mapper</strong>注解。结果，它的所有方法都将忽略未映射的属性</p>
+<pre><code class="language-java">@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    DoctorDto toDto(Doctor doctor);
+}
+</code></pre>
+<p>17.3  共享MapperConfig</p>
+<pre><code class="language-java">@MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface IgnoreUnmappedMapperConfig {
+}
+</code></pre>
+<pre><code class="language-java">@Mapper(config = IgnoreUnmappedMapperConfig.class)
+public interface DoctorMapper {
+    DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
+    DoctorDto toDto(Doctor doctor);
+}
+</code></pre>
+<p>17.4  配置选项</p>
+<p>我们可以配置 MapStruct 代码生成器的注释处理器选项。使用<a href="https://www.baeldung.com/maven-compiler-plugin">Maven</a>时，我们可以使用处理器插件的<em>compilerArgs</em>参数传递处理器选项</p>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${maven-compiler-plugin.version}&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+                &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+                &lt;annotationProcessorPaths&gt;
+                    &lt;path&gt;
+                        &lt;groupId&gt;org.mapstruct&lt;/groupId&gt;
+                        &lt;artifactId&gt;mapstruct-processor&lt;/artifactId&gt;
+                        &lt;version&gt;${org.mapstruct.version}&lt;/version&gt;
+                    &lt;/path&gt;
+                &lt;/annotationProcessorPaths&gt;
+                &lt;compilerArgs&gt;
+                    &lt;compilerArg&gt;
+                        -Amapstruct.unmappedTargetPolicy=IGNORE
+                    &lt;/compilerArg&gt;
+                &lt;/compilerArgs&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<h3 id="18多个源对象">18.多个源对象</h3>
+<p>目前有一个场景，我们需要一个设备的完整信息包含设备信息，设备位置信息。 当我们得到设备信息，与设备位置信息后合并成为一个完整的设备信息</p>
+<p>18.1 bean</p>
+<pre><code class="language-java">@Data
+public class Device {
+    private String name;
+    private String no;
+}
+@Data
+public class DeviceSpace {
+    private String area;
+    private String room;
+}
+@Data
+public class DeviceDTO {
+    private String deviceName;
+    private String deviceNo;
+    private String spaceArea;
+    private String spaceRoom;
+}
+</code></pre>
+<p>18.2 Interface</p>
+<pre><code class="language-java">@Mapper
+public interface DeviceMapper {
+    DeviceMapper INSTANCE = Mappers.getMapper(DeviceMapper.class);
+    @Mapping(source = &quot;space.area&quot;, target = &quot;spaceArea&quot;)
+    @Mapping(source = &quot;space.room&quot;, target = &quot;spaceRoom&quot;)
+    @Mapping(source = &quot;device.name&quot;, target = &quot;deviceName&quot;)
+    @Mapping(source = &quot;device.no&quot;, target = &quot;deviceNo&quot;)
+    DeviceDTO from(Device device, DeviceSpace space);
+
+}
+</code></pre>
+<p>映射器生成代码</p>
+<pre><code class="language-java">public class DeviceMapperImpl implements DeviceMapper {
+
+    @Override
+    public DeviceDTO from(Device device, DeviceSpace space) {
+        if ( device == null &amp;&amp; space == null ) {
+            return null;
+        }
+
+        DeviceDTO deviceDTO = new DeviceDTO();
+
+        if ( device != null ) {
+            deviceDTO.setDeviceName( device.getName() );
+            deviceDTO.setDeviceNo( device.getNo() );
+        }
+        if ( space != null ) {
+            deviceDTO.setSpaceArea( space.getArea() );
+            deviceDTO.setSpaceRoom( space.getRoom() );
+        }
+
+        return deviceDTO;
+    }
+}
+</code></pre>
+<p>18.3 Test Case</p>
+<pre><code class="language-java">    @Test
+    void from() {
+        Device device = new Device();
+        device.setName(&quot;device&quot;);
+        device.setNo(&quot;no&quot;);
+        DeviceSpace space = new DeviceSpace();
+        space.setArea(&quot;area&quot;);
+        space.setRoom(&quot;room&quot;);
+        DeviceDTO from = DeviceMapper.INSTANCE.from(device, space);
+        System.out.println(from.toString());
+    }
+
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/mapstruct/" class="leancloud-visitors view"
+                              data-flag-title="MapStruct 快速指南">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/han-shu-shi-jie-kou/" class="title">
+                                      <h4> 函数式接口</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2022-10-22</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/han-shu-shi-jie-kou/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/67.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/drools-xue-xi/" class="title">
+                                      <h4>Drools 快速指南</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2022-08-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/drools-xue-xi/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/65.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#mapstruct">MapStruct</a>
+<ul>
+<li><a href="#1maven-%E9%85%8D%E7%BD%AE">1.maven 配置</a></li>
+<li><a href="#2%E5%9F%BA%E6%9C%AC%E6%98%A0%E5%B0%84">2.基本映射</a></li>
+<li><a href="#3%E6%98%A0%E5%B0%84%E5%85%B7%E6%9C%89%E4%B8%8D%E5%90%8C%E5%AD%97%E6%AE%B5%E5%90%8D%E7%A7%B0%E7%9A%84%E5%AD%97%E6%AE%B5">3.映射具有不同字段名称的字段</a></li>
+<li><a href="#4%E5%AD%90bean%E6%98%A0%E5%B0%84bean">4.子bean映射bean</a></li>
+<li><a href="#5%E6%97%A5%E6%9C%9F%E6%98%A0%E5%B0%84%E5%99%A8">5.日期映射器</a></li>
+<li><a href="#6%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95%E6%98%A0%E5%B0%84-%E6%8A%BD%E8%B1%A1%E7%B1%BB">6.自定义方法映射-抽象类</a></li>
+<li><a href="#7beforemapping-aftermapping-%E4%BD%BF%E7%94%A8">7.@BeforeMapping @AfterMapping 使用</a></li>
+<li><a href="#8%E9%BB%98%E8%AE%A4%E8%A1%A8%E8%BE%BE%E5%BC%8F-defaultexpression">8.默认表达式 defaultExpression</a></li>
+<li><a href="#9-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84">9. 数据类型映射</a></li>
+<li><a href="#10%E6%9E%9A%E4%B8%BE%E6%98%A0%E5%B0%84">10.枚举映射</a></li>
+<li><a href="#11%E9%9B%86%E5%90%88%E6%98%A0%E5%B0%84">11.集合映射</a></li>
+<li><a href="#12set%E5%92%8Cmap%E6%98%A0%E5%B0%84">12.Set和Map映射</a></li>
+<li><a href="#13%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5">13.依赖注入</a></li>
+<li><a href="#14%E6%98%A0%E5%B0%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">14.映射异常处理</a></li>
+<li><a href="#15%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95%E6%98%A0%E5%B0%84-named">15.自定义方法映射-@Named</a></li>
+<li><a href="#16%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95%E6%98%A0%E5%B0%84-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3">16.自定义方法映射-自定义注解</a></li>
+<li><a href="#17%E5%BF%BD%E7%95%A5%E6%98%A0%E5%B0%84%E5%AD%97%E6%AE%B5">17.忽略映射字段</a></li>
+<li><a href="#18%E5%A4%9A%E4%B8%AA%E6%BA%90%E5%AF%B9%E8%B1%A1">18.多个源对象</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

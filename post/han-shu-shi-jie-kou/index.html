@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title> 函数式接口 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title"> 函数式接口</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2022-10-22</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/67.jpg"
+                                class="attachment-full size-full wp-post-image" alt=" 函数式接口" /></p>
+                            
+                            <h2 id="函数式接口">函数式接口</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">name</th>
+<th style="text-align:center">type</th>
+<th style="text-align:center">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">消费型接口</td>
+<td style="text-align:center">Consumer</td>
+<td style="text-align:center">Consumer&lt; T &gt;</td>
+<td style="text-align:center">接收T对象，不返回值</td>
+</tr>
+<tr>
+<td style="text-align:center">断定型接口</td>
+<td style="text-align:center">Predicate</td>
+<td style="text-align:center">Predicate&lt; T &gt;</td>
+<td style="text-align:center">接收T对象并返回boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">函数型接口</td>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">Function&lt; T, R &gt;</td>
+<td style="text-align:center">接收T对象，返回R对象</td>
+</tr>
+<tr>
+<td style="text-align:center">供给型接口</td>
+<td style="text-align:center">Supplier</td>
+<td style="text-align:center">Supplier&lt; T &gt;</td>
+<td style="text-align:center">提供T对象（例如工厂），不接收值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="consumer">Consumer</h3>
+<p><strong>接收T对象，不返回值, 只有入参，没有返回值。</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202210220332371.png" alt="" loading="lazy"></figure>
+<p><strong>实现一个循环打印</strong></p>
+<pre><code class="language-java">
+public class Java8ConsumerForEach {
+
+
+    public static void main(String[] args) {
+        // 消费函数定义
+        Consumer&lt;String&gt; printConsumer = System.out::println;
+        // 使用
+        List&lt;String&gt; list = Arrays.asList(&quot;java&quot;, &quot;node&quot;, &quot;http://wuc0714.top/&quot;);
+        forEach(list, printConsumer);
+    }
+
+
+    public static &lt;T&gt; void forEach(List&lt;T&gt; list, Consumer&lt;T&gt; consumer) {
+        for (T t : list) {
+            consumer.accept(t);
+        }
+    }
+}
+</code></pre>
+<p><strong>有一个健身房，大家都去健身房锻炼，但是每个人锻炼的内容不一样</strong></p>
+<pre><code class="language-java">package com.example.demo;
+
+import java.math.BigDecimal;
+import java.util.function.Consumer;
+
+// 有一个健身房，大家都去健身房锻炼，但是每个人锻炼的内容不一样
+public class TheGymConsumer {
+    public static void main(String[] args) {
+        TheGym bill = new TheGym(&quot;小李&quot;, &quot;练腿&quot;);
+        theGym(bill, s -&gt; System.out.println(s.getName() + s.getContent()));
+
+        TheGym xiaoWang = new TheGym(&quot;小王&quot;, &quot;慢跑&quot;);
+        theGym(xiaoWang, s -&gt; System.out.println(s.getName() + s.getContent() + &quot;看美女&quot;));
+
+        TheGym xiaoSun = new TheGym(&quot;小孙&quot;, &quot;慢跑&quot;);
+        theGym(xiaoSun, s -&gt; {
+            //如果小王也在练慢跑，那么小孙就去举重
+            if (xiaoWang.getContent().equals(s.getContent())) {
+                s.setContent(&quot;举重&quot;);
+            }
+            System.out.println(s.getName() + s.getContent());
+        });
+
+        // 小孙今天体力好，两组训练一起上
+        theGym(xiaoSun
+                , s -&gt; {
+                    System.out.println(&quot;第一组训练：&quot; + s.getName() + s.getContent());
+                }
+                , s -&gt; {
+                    System.out.println(&quot;第二组训练：&quot; + s.getName() + s.getContent());
+                });
+    }
+
+    /**
+     * @param t        t
+     * @param consumer 消费者
+     * @description 健身房
+     * @author yz
+     * @date 2022/10/22
+     **/
+    public static &lt;T&gt; void theGym(T t, Consumer&lt;T&gt; consumer) {
+        consumer.accept(t);
+    }
+
+    /**
+     * @param t         t
+     * @param consumer1 消费者
+     * @param consumer2 消费者
+     * @description 健身房
+     * @author yz
+     * @date 2022/10/23
+     **/
+    public static &lt;T&gt; void theGym(T t, Consumer&lt;T&gt; consumer1, Consumer&lt;T&gt; consumer2) {
+        consumer1.andThen(consumer2).accept(t);
+    }
+}
+
+</code></pre>
+<p>输出:</p>
+<pre><code class="language-java">小李练腿
+小王慢跑看美女
+小孙举重
+第一组训练：小孙举重
+第二组训练：小孙举重
+</code></pre>
+<h3 id="predicate">Predicate</h3>
+<p><strong>接收T对象并返回boolean</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202210230140559.png" alt="" loading="lazy"></figure>
+<ol>
+<li>test</li>
+</ol>
+<p><strong><code>Predicate</code> 函数接口可以用于判断一个参数是否符合某个条件。</strong></p>
+<pre><code class="language-java">@Test
+void test() {
+    Predicate&lt;String&gt; isEmpty = String::isEmpty;
+    System.out.println(isEmpty.test(&quot;&quot;));
+    System.out.println(isEmpty.test(&quot;http://wuc0714.top/&quot;));
+}
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">true
+false
+</code></pre>
+<ol start="2">
+<li>and</li>
+</ol>
+<p><strong>使用 <code>and()</code> 方法，可以让前后两个 <code>Predicate</code> 判断条件一起生效。</strong></p>
+<pre><code class="language-java">    @Test
+    void and(){
+        List&lt;Integer&gt; numberList = Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10);
+
+        Predicate&lt;Integer&gt; greaterThan5 = number -&gt; number &gt; 5;
+        Predicate&lt;Integer&gt; lessThan9 = number -&gt; number &lt; 9;
+        Predicate&lt;Integer&gt; filter = greaterThan5.and(lessThan9);
+
+        numberList = numberList.stream().filter(filter).collect(Collectors.toList());
+        //相当于
+        numberList = numberList.stream().filter(x -&gt; x &gt; 5 &amp;&amp; x &lt; 9).collect(Collectors.toList());
+        System.out.println(numberList);
+    }
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">[6, 7, 8]
+</code></pre>
+<ol start="3">
+<li>negate</li>
+</ol>
+<p><strong><code>predicate.negate()</code> 方法会返回一个与指定判断相反的 <code>Predicate</code>。</strong></p>
+<pre><code class="language-java">    @Test
+    void negate() {
+        List&lt;Integer&gt; numberList = Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10);
+        Predicate&lt;Integer&gt; greaterThan5 = number -&gt; number &gt; 5;
+        numberList = numberList.stream().filter(greaterThan5.negate()).collect(Collectors.toList());
+        System.out.println(numberList);
+    }
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">[3, 4, 5]
+</code></pre>
+<ol start="4">
+<li>or</li>
+</ol>
+<p><strong>使用 <code>or()</code> 方法，可以让前后两个 <code>Predicate</code> 只需要任意一个条件成立。</strong></p>
+<pre><code class="language-java">    @Test
+    void or() {
+        List&lt;Integer&gt; numberList = Arrays.asList(3, 4, 5, 6, 7, 8, 9, 10);
+
+        Predicate&lt;Integer&gt; greaterThan5 = number -&gt; number &gt; 5;
+        Predicate&lt;Integer&gt; lessThan9 = number -&gt; number &lt; 9;
+        Predicate&lt;Integer&gt; filter = greaterThan5.or(lessThan9);
+
+        numberList = numberList.stream().filter(filter).collect(Collectors.toList());
+        //相当于
+        numberList = numberList.stream().filter(x -&gt; x &gt; 5 || x &lt; 9).collect(Collectors.toList());
+        System.out.println(numberList);
+    }
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">[3, 4, 5, 6, 7, 8, 9, 10]
+</code></pre>
+<ol start="5">
+<li>具体使用</li>
+</ol>
+<p><strong>现在我们用一个案例来表示这个怎么使用</strong></p>
+<pre><code class="language-java">
+    @Test
+    void theGym() {
+        TheGym bill = new TheGym(&quot;小李&quot;, &quot;练腿&quot;);
+        // 今日规则 练腿才能入会
+        Predicate&lt;TheGym&gt; practiceLeg = t -&gt; t.getContent().equals(&quot;练腿&quot;);
+        Boolean rule = rule(bill, practiceLeg);
+        rule = rule(bill, t -&gt; t.getContent().equals(&quot;练腿&quot;));
+        System.out.println(&quot;今日规则 练腿才能入会&quot; + rule);
+
+        // 今日规则 不练腿才能入会
+        rule = rule(bill, practiceLeg.negate());
+        System.out.println(&quot;今日规则 不练腿才能入会&quot; + rule);
+
+        // 今日规则 练腿和姓名叫小王才能入会
+        Predicate&lt;TheGym&gt; xiaoWang = t -&gt; t.getName().equals(&quot;小王&quot;);
+        rule = rule(bill, practiceLeg.and(xiaoWang));
+        System.out.println(&quot;今日规则 练腿和姓名叫小王才能入会&quot; + rule);
+
+
+    }
+    /**
+     * @param t         t
+     * @param predicate 谓词
+     * @return {@link Boolean }
+     * @description 规则
+     * @author yz
+     * @date 2022/10/23
+     **/
+    public static &lt;T&gt; Boolean rule(T t, Predicate&lt;T&gt; predicate) {
+        return predicate.test(t);
+    }
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">今日规则 练腿才能入会true
+今日规则 不练腿才能入会false
+今日规则 练腿和姓名叫小王才能入会false
+</code></pre>
+<h3 id="supplier">Supplier</h3>
+<p><strong><code>Supplier</code>没有入参,有返回值.所以多用于对象创建，类似于一个对象创建工厂。可以使用 <code>Lambda</code> 方式创建任意对象，也可以使用对象构造方法的方法引用创对象。</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202210230303834.png" alt="" loading="lazy"></figure>
+<p><strong>示例</strong> 1：使用 <code>Supplier</code> 获取一个 1 到 10 的随机数，使用 <code>Supplier</code> 获取当前时间</p>
+<pre><code class="language-java">@Test
+void sample() {
+    Supplier&lt;Integer&gt; supplier = () -&gt; new Random().nextInt(10);
+    System.out.println(supplier.get());
+    System.out.println(supplier.get());
+
+    Supplier&lt;LocalDateTime&gt; supplier2 = LocalDateTime::now;
+    System.out.println(supplier2.get());
+    System.out.println(supplier2.get());
+}
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">9
+0
+2022-10-23T02:56:01.238
+2022-10-23T02:56:01.238
+</code></pre>
+<p><strong>示例</strong>：利用 <code>Supplier</code> 构造一个工厂模式，创建不同类别的健身房。</p>
+<pre><code class="language-java">    @Test
+    void factory() {
+        TheGym theGym1 = theGymFactory(() -&gt; new TheGym(&quot;小李&quot;));
+        TheGym theGym2 = theGymFactory(() -&gt; new TheGym(&quot;小王&quot;));
+        System.out.println(theGym1);
+        System.out.println(theGym2);
+    }
+
+    public static TheGym theGymFactory(Supplier&lt;? extends TheGym&gt; supplier) {
+        TheGym theGym = supplier.get();
+        theGym.setContent(&quot;练腿&quot;);
+        return theGym;
+    }
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">TheGym(name=小李, content=练腿)
+TheGym(name=小王, content=练腿)
+</code></pre>
+<p>在 Java 8 中，为了方便 <code>Supplier</code> 的使用，提供了指定类型的 <code>Supplier</code>，有 <code>BooleanSupplier</code>, <code>DoubleSupplier</code>, <code>IntSupplier</code>, <code>LongSupplier</code>。</p>
+<p>具体使用</p>
+<p><strong>健身房每天搞活动，随机抽取一名学员指导健身</strong></p>
+<pre><code class="language-java">@Test
+void theGym() {
+    // 今天抽取一个学员
+    Supplier&lt;TheGym&gt; xiaoli = () -&gt; new TheGym(&quot;小李&quot;, &quot;练腰&quot;);
+    exercise(xiaoli);
+    // 明天抽取一个学员
+    exercise(() -&gt; new TheGym(&quot;小王&quot;, &quot;长跑&quot;));
+}
+
+
+/**
+ * @param supplier 供应商
+ * @description 锻炼
+ * @author yz
+ * @date 2022/10/23
+ **/
+public static void exercise(Supplier&lt;? extends TheGym&gt; supplier) {
+    TheGym theGym = supplier.get();
+    System.out.println(&quot;今天指导&quot; + theGym.getName() + theGym.getContent());
+}
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">今天指导小李练腰
+今天指导小王长跑
+</code></pre>
+<h3 id="function">Function</h3>
+<p><strong>接受一个指定对象,返回另外一个指定对象</strong></p>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202210230315734.png" alt="" loading="lazy"></figure>
+<ol>
+<li>apply</li>
+</ol>
+<p><strong>执行给定的操作</strong></p>
+<pre><code class="language-java">@Test
+void apply() {
+    Function&lt;String, String&gt; toUpperCase = str -&gt; str.toUpperCase();
+    String result = toUpperCase.apply(&quot;http://wuc0714.top/&quot;);
+    System.out.println(result);
+}
+</code></pre>
+<ol start="2">
+<li>compose</li>
+</ol>
+<p><strong>源码</strong></p>
+<pre><code class="language-java">    default &lt;V&gt; Function&lt;V, R&gt; compose(Function&lt;? super V, ? extends T&gt; before) {
+        Objects.requireNonNull(before);
+        return (V v) -&gt; apply(before.apply(v));
+    }
+</code></pre>
+<p><code>compose()</code> 方法可以让多个 Function 函数连接使用。通过源码可以分析是参数的apply的先执行</p>
+<pre><code class="language-java">@Test
+void compose() {
+    // 操作1
+    Function&lt;String, String&gt; toUpperCase = str -&gt; str.toUpperCase();
+    // 操作2
+    Function&lt;String, String&gt; increase = str -&gt; str + &quot;post/about/&quot;;
+    // 先执行操作2，再执行操作1
+    String result = toUpperCase.compose(increase).apply(&quot;http://wuc0714.top/&quot;);
+    System.out.println(result);
+}
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">HTTP://WUC0714.TOP/POST/ABOUT/
+</code></pre>
+<ol start="3">
+<li>andThen</li>
+</ol>
+<p><strong>源码</strong></p>
+<pre><code class="language-java">    default &lt;V&gt; Function&lt;T, V&gt; andThen(Function&lt;? super R, ? extends V&gt; after) {
+        Objects.requireNonNull(after);
+        return (T t) -&gt; after.apply(apply(t));
+    }
+</code></pre>
+<p><code>andThen()</code> 方法可以让多个 Function 函数连接使用。通过源码可以分析是本体的apply的先执行</p>
+<pre><code class="language-java">@Test
+void andThen() {
+    // 操作1
+    Function&lt;String, String&gt; toUpperCase = str -&gt; str.toUpperCase();
+    // 操作2
+    Function&lt;String, String&gt; increase = str -&gt; str + &quot;post/about/&quot;;
+    // 先执行操作1，再执行操作2
+    String result = toUpperCase.andThen(increase).apply(&quot;http://wuc0714.top/&quot;);
+    System.out.println(result);
+}
+</code></pre>
+<p>输出结果:</p>
+<pre><code class="language-java">HTTP://WUC0714.TOP/post/about/
+</code></pre>
+<p>在 vavr中，为了方便 <code>Function</code> 的使用，提供了指定类型的 <code>Function</code>，还有更多参数的 <code>Function1</code>,<code>Function2</code>,<code>Function3</code>,<code>Function4</code>,<code>Function5</code>,<code>Function6</code>,<code>Function7</code>,<code>Function8</code>。</p>
+<p>具体使用</p>
+<p>可以参考 <a href="https://wuc0714.top/post/ru-he-zai-java-zhong-ti-huan-duo-ge-if-yu-ju/#4-map%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3">如何在 Java 中替换多个 if 语句 - wuc0714</a></p>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/han-shu-shi-jie-kou/" class="leancloud-visitors view"
+                              data-flag-title=" 函数式接口">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/flyway-zhi-nan/" class="title">
+                                      <h4> Flyway指南</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2022-11-06</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/flyway-zhi-nan/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/68.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/mapstruct/" class="title">
+                                      <h4>MapStruct 快速指南</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2022-09-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/mapstruct/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/66.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3">函数式接口</a>
+<ul>
+<li><a href="#consumer">Consumer</a></li>
+<li><a href="#predicate">Predicate</a></li>
+<li><a href="#supplier">Supplier</a></li>
+<li><a href="#function">Function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

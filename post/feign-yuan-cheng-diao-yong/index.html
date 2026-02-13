@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Feign远程调用 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Feign远程调用</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/hWFgAWK2c/" class="post--keyword"
+                                data-title="springcloud" data-type="post_tag" data-term-id="39">springcloud</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-05-10</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/27.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Feign远程调用" /></p>
+                            
+                            <h2 id="一feign远程调用">一.feign远程调用</h2>
+<h3 id="1导入包">1.导入包</h3>
+<pre><code class="language-xml">   &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+   &lt;/dependency&gt;
+</code></pre>
+<h3 id="2加上注解enablefeignclients">2.加上注解@EnableFeignClients</h3>
+<h3 id="3编写client">3.编写client</h3>
+<pre><code class="language-java">//name 服务名
+@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;)
+public interface UserCenterFeignClient {
+    @GetMapping(&quot;/user/{id}&quot;)
+     String user(@PathVariable String id) ;
+}
+
+</code></pre>
+<h1 id="二feign细粒度配置自定义-代码方式">二.feign细粒度配置自定义-代码方式</h1>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>打印内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NONE(默认值)</td>
+<td>不记录任何日志</td>
+</tr>
+<tr>
+<td>BASIC(适合生产环境使用)</td>
+<td>仅记录请求方法,URL,响应代码以及执行时间</td>
+</tr>
+<tr>
+<td>HEADERS</td>
+<td>记录BASIC级别的基础上,记录请求和响应的header</td>
+</tr>
+<tr>
+<td>FULL</td>
+<td>记录请求和响应的header,body元数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1编写配置类">1.编写配置类</h3>
+<pre><code class="language-java">/**
+ * feign的配置类
+ * 这个类别加@configuration,否则必须挪到@ComponentScan扫描不到的包，及application意外险
+ * 否则父子上下文重叠
+ */
+public class UserCenterFeignConfiguration {
+    @Bean
+    public Logger.Level level(){
+        //让feign打印所有请求
+       return  Logger.Level.FULL;
+    }
+}
+</code></pre>
+<h3 id="2feignclient注解增加配置">2.@FeignClient注解增加配置</h3>
+<pre><code class="language-java">@FeignClient(name = &quot;spring-cloud-alibaba-nacos&quot;,configuration = UserCenterFeignConfiguration.class)
+public interface UserCenterFeignClient {
+    @GetMapping(&quot;/user/{id}&quot;)
+     String user(@PathVariable String id) ;
+}
+</code></pre>
+<h3 id="3修改日志级别">3.修改日志级别</h3>
+<pre><code class="language-yaml">logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+</code></pre>
+<h1 id="二feign细粒度配置自定义-属性配置">二.feign细粒度配置自定义-属性配置</h1>
+<p>修改配置</p>
+<pre><code class="language-yaml">logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+feign:
+  client:
+    config:
+      spring-cloud-alibaba-nacos:
+        loggerLevel: full
+</code></pre>
+<h1 id="三feign细粒度配置自定义-全局配置">三.feign细粒度配置自定义-全局配置</h1>
+<ol>
+<li>
+<p>修改启动类注解<span style="color:red">@EnableFeignClients(defaultConfiguration = UserCenterFeignConfiguration.class)</span> UserCenterFeignConfiguration为自定义配置类</p>
+</li>
+<li>
+<p>修改配置文件</p>
+</li>
+</ol>
+<pre><code>logging:
+  level:
+    com.yz.alibaba.feignclient.UserCenterFeignClient:  debug
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+</code></pre>
+<h1 id="四支持的配置项">四.支持的配置项</h1>
+<pre><code class="language-java">private Level loggerLevel;       //日志级别
+private Integer connectTimeout;  //链接超时时间
+private Integer readTimeout;     //读取超时时间
+private Class&lt;Retryer&gt; retryer;  //重试策略
+private Class&lt;ErrorDecoder&gt; errorDecoder; //错误解码器
+private List&lt;Class&lt;RequestInterceptor&gt;&gt; requestInterceptors; //拦截器
+private Boolean decode404; //是否对404错误码解码
+private Class&lt;Decoder&gt; decoder; //解码器
+private Class&lt;Encoder&gt; encoder; //编码器
+private Class&lt;Contract&gt; contract; //契约
+private ExceptionPropagationPolicy exceptionPropagationPolicy; //异常传播策略
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210507011811.png" alt="" loading="lazy"></figure>
+<h1 id="五代码配置属性配置对比">五.代码配置,属性配置对比</h1>
+<table>
+<thead>
+<tr>
+<th>配置方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码方式</td>
+<td>基于代码,更加灵活</td>
+<td>如果Feign的配置类加了@Configuration注解,需要注意父子上下文,<br/>线上修改得重新打包</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>易上手<br>配置更加直观<br/>线上修改无需重新打包发布,优先级更高</td>
+<td>极端场景下,没有代码配置方式更加灵活</td>
+</tr>
+</tbody>
+</table>
+<h1 id="六feignclient注解异常">六.@FeignClient注解异常</h1>
+<pre><code class="language-java">Description:The bean 'spring-cloud-alibaba-nacos.FeignClientSpecification' could not be registered. A bean with that name has already been defined and overriding is disabled.Action:Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+</code></pre>
+<p>@FeignClient name重复,在配置文件增加配置<span style="color:red">spring.main.allow-bean-definition-overriding=true</span></p>
+<h1 id="七feign继承">七.feign继承</h1>
+<p>spring官方不推荐使用,不符合微服务特性,但是挺多公司使用,一致性,方便</p>
+<p>使用方式</p>
+<p>公共访问接口-&gt; 服务提供者实现公共访问接口-&gt; feign继承公共访问接口-&gt;接口调用feign</p>
+<h4 id="1-公共访问接口-公共服务类">1. 公共访问接口-公共服务类</h4>
+<pre><code class="language-java">@RequestMapping(&quot;/hs2&quot;)public interface InheritanceService {    @RequestMapping(value = &quot;/hello1&quot;, method = RequestMethod.GET)    String hello(@RequestParam(&quot;name&quot;) String name);    @RequestMapping(value = &quot;/hello2&quot;, method = RequestMethod.GET)    Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException;    @RequestMapping(value = &quot;/hello3&quot;, method = RequestMethod.POST)    String hello(@RequestBody Book book);}
+</code></pre>
+<h4 id="2服务提供者实现公共访问接口-服务a">2.服务提供者实现公共访问接口-服务A</h4>
+<pre><code class="language-java">@RestControllerpublic class InheritanceFeignController implements InheritanceService {    @Override    public String hello(@RequestParam(&quot;name&quot;) String name) {        return &quot;hello &quot; + name + &quot;!&quot;;    }    @Override    public Book hello(@RequestHeader(&quot;name&quot;) String name, @RequestHeader(&quot;author&quot;) String author, @RequestHeader(&quot;price&quot;) Integer price) throws UnsupportedEncodingException {      Book book = new Book();        book.setName(URLDecoder.decode(name,&quot;UTF-8&quot;));        book.setAuthor(URLDecoder.decode(author,&quot;UTF-8&quot;));        book.setPrice(price);        System.out.println(book);        return book;    }    @Override    public String hello(@RequestBody Book book) {        return &quot;书名为：&quot; + book.getName() + &quot;;作者为：&quot; + book.getAuthor();    }}
+</code></pre>
+<h4 id="3feign继承公共访问接口-服务b">3.feign继承公共访问接口-服务B</h4>
+<pre><code class="language-java">@FeignClient(&quot;spring-cloud-alibaba-nacos&quot;)public interface InheritanceFeignClient extends InheritanceService {}
+</code></pre>
+<h4 id="4接口调用feign-服务b">4.接口调用feign-服务B</h4>
+<pre><code class="language-java">@RestController@RequiredArgsConstructor(onConstructor = @_(@Autowired))public class InheritanceFeignController {    private final InheritanceService inheritanceService;    @RequestMapping(&quot;/hello1&quot;)    public String hello1() {        return inheritanceService.hello(&quot;张三&quot;);    }    @RequestMapping(value = &quot;/hello2&quot;)    public Book hello2() throws UnsupportedEncodingException {        Book book = inheritanceService.hello(URLEncoder.encode(&quot;三国演义&quot;,&quot;UTF-8&quot;), URLEncoder.encode(&quot;罗贯中&quot;,&quot;UTF-8&quot;), 33);        System.out.println(book);        return book;    }    @RequestMapping(&quot;/hello3&quot;)    public String hello3() {        Book book = new Book();        book.setName(&quot;红楼梦&quot;);        book.setPrice(44);        book.setAuthor(&quot;曹雪芹&quot;);        return inheritanceService.hello(book);    }}
+</code></pre>
+<h1 id="八如何使用feign构造多参数的请求">八.如何使用Feign构造多参数的请求</h1>
+<h2 id="get请求多参数的url">GET请求多参数的URL</h2>
+<p>假设需请求的URL包含多个参数，例如<code>http://microservice-provider-user/get?id=1&amp;username=张三</code> ，该如何使用Feign构造呢？</p>
+<p>我们知道，Spring Cloud为Feign添加了Spring MVC的注解支持，那么我们不妨按照Spring MVC的写法尝试一下：</p>
+<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get0(User user);}
+</code></pre>
+<p>然而，这种写法并不正确，控制台会输出类似如下的异常。</p>
+<pre><code class="language-shell">feign.FeignException: status 405 reading UserFeignClient#get0(User); content:{&quot;timestamp&quot;:1482676142940,&quot;status&quot;:405,&quot;error&quot;:&quot;Method Not Allowed&quot;,&quot;exception&quot;:&quot;org.springframework.web.HttpRequestMethodNotSupportedException&quot;,&quot;message&quot;:&quot;Request method 'POST' not supported&quot;,&quot;path&quot;:&quot;/get&quot;}
+</code></pre>
+<p>由异常可知，尽管我们指定了GET方法，Feign依然会使用POST方法发送请求。于是导致了异常。正确写法如下</p>
+<h3 id="方法一推荐">方法一[推荐]</h3>
+<pre><code class="language-java">@FeignClient(&quot;microservice-provider-user&quot;)public interface UserFeignClient {  @GetMapping(&quot;/get&quot;)  public User get0(@SpringQueryMap User user);}
+</code></pre>
+<h3 id="方法二推荐">方法二[推荐]</h3>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get1(@RequestParam(&quot;id&quot;) Long id, @RequestParam(&quot;username&quot;) String username);}
+</code></pre>
+<p>这是最为直观的方式，URL有几个参数，Feign接口中的方法就有几个参数。使用@RequestParam注解指定请求的参数是什么。</p>
+<h3 id="方法三不推荐">方法三[不推荐]</h3>
+<p>多参数的URL也可使用Map来构建。当目标URL参数非常多的时候，可使用这种方式简化Feign接口的编写。</p>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/get&quot;, method = RequestMethod.GET)  public User get2(@RequestParam Map&lt;String, Object&gt; map);}
+</code></pre>
+<p>在调用时，可使用类似以下的代码。</p>
+<pre><code class="language-java">public User get(String username, String password) {  HashMap&lt;String, Object&gt; map = Maps.newHashMap();  map.put(&quot;id&quot;, &quot;1&quot;);  map.put(&quot;username&quot;, &quot;张三&quot;);  return this.userFeignClient.get2(map);}
+</code></pre>
+<p><strong>注意</strong>：这种方式不建议使用。主要是因为可读性不好，而且如果参数为空的时候会有一些问题，例如<code>map.put(&quot;username&quot;, null);</code> 会导致<code>microservice-provider-user</code> 服务接收到的username是<code>&quot;&quot;</code> ，而不是null。</p>
+<h2 id="post请求包含多个参数">POST请求包含多个参数</h2>
+<p>下面来讨论如何使用Feign构造包含多个参数的POST请求。假设服务提供者的Controller是这样编写的：</p>
+<pre><code class="language-java">@RestControllerpublic class UserController {  @PostMapping(&quot;/post&quot;)  public User post(@RequestBody User user) {    ...  }}
+</code></pre>
+<p>我们要如何使用Feign去请求呢？答案非常简单，示例：</p>
+<pre><code class="language-java">@FeignClient(name = &quot;microservice-provider-user&quot;)public interface UserFeignClient {  @RequestMapping(value = &quot;/post&quot;, method = RequestMethod.POST)  public User post(@RequestBody User user);}
+</code></pre>
+<h1 id="九resttemplate-vs-feign">九.RestTemplate VS Feign</h1>
+<table>
+<thead>
+<tr>
+<th>角度</th>
+<th>RestTemplate</th>
+<th>Feign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可读性,可维护性</td>
+<td>一般</td>
+<td>极佳</td>
+</tr>
+<tr>
+<td>开发体验</td>
+<td>欠佳</td>
+<td>极佳</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>很好</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>极佳</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<h1 id="十feign线程池">十.feign线程池</h1>
+<p>导入包</p>
+<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-httpclient&lt;/artifactId&gt;&lt;/dependency&gt;
+</code></pre>
+<p>还可以使用</p>
+<pre><code class="language-xml">&lt;dependency&gt;    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;    &lt;artifactId&gt;feign-okhttp&lt;/artifactId&gt;&lt;/dependency&gt;
+</code></pre>
+<pre><code class="language-yaml">feign:  #okhttp   httpclient:    #是否开启    enabled: true    #最大连接数    max-connections: 200    #最大路由    max-connections-per-route: 50    #存活时间    time-to-live: 900    #存活时间单位    time-to-live-unit: minutes    #跟随重定向    follow-redirects: true    #连接超时时间    connection-timeout: 2000    #超时重试时间    connection-timer-repeat: 3000
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/feign-yuan-cheng-diao-yong/" class="leancloud-visitors view"
+                              data-flag-title="Feign远程调用">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/sentienl-xian-liu/" class="title">
+                                      <h4>Sentienl限流</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-05-17</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/sentienl-xian-liu/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/28.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/" class="title">
+                                      <h4>扩展Ribbon,支持Naocs权重</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-05-10</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/kuo-zhan-ribbonzhi-chi-naocs-quan-chong/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/26.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80feign%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8">一.feign远程调用</a>
+<ul>
+<li><a href="#1%E5%AF%BC%E5%85%A5%E5%8C%85">1.导入包</a></li>
+<li><a href="#2%E5%8A%A0%E4%B8%8A%E6%B3%A8%E8%A7%A3enablefeignclients">2.加上注解@EnableFeignClients</a></li>
+<li><a href="#3%E7%BC%96%E5%86%99client">3.编写client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Cfeign%E7%BB%86%E7%B2%92%E5%BA%A6%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89-%E4%BB%A3%E7%A0%81%E6%96%B9%E5%BC%8F">二.feign细粒度配置自定义-代码方式</a><br>
+*
+<ul>
+<li><a href="#1%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE%E7%B1%BB">1.编写配置类</a></li>
+<li><a href="#2feignclient%E6%B3%A8%E8%A7%A3%E5%A2%9E%E5%8A%A0%E9%85%8D%E7%BD%AE">2.@FeignClient注解增加配置</a></li>
+<li><a href="#3%E4%BF%AE%E6%94%B9%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB">3.修改日志级别</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Cfeign%E7%BB%86%E7%B2%92%E5%BA%A6%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89-%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE">二.feign细粒度配置自定义-属性配置</a></li>
+<li><a href="#%E4%B8%89feign%E7%BB%86%E7%B2%92%E5%BA%A6%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE">三.feign细粒度配置自定义-全局配置</a></li>
+<li><a href="#%E5%9B%9B%E6%94%AF%E6%8C%81%E7%9A%84%E9%85%8D%E7%BD%AE%E9%A1%B9">四.支持的配置项</a></li>
+<li><a href="#%E4%BA%94%E4%BB%A3%E7%A0%81%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE%E5%AF%B9%E6%AF%94">五.代码配置,属性配置对比</a></li>
+<li><a href="#%E5%85%ADfeignclient%E6%B3%A8%E8%A7%A3%E5%BC%82%E5%B8%B8">六.@FeignClient注解异常</a></li>
+<li><a href="#%E4%B8%83feign%E7%BB%A7%E6%89%BF">七.feign继承</a><br>
+*<br>
+*<br>
+* <a href="#1-%E5%85%AC%E5%85%B1%E8%AE%BF%E9%97%AE%E6%8E%A5%E5%8F%A3-%E5%85%AC%E5%85%B1%E6%9C%8D%E5%8A%A1%E7%B1%BB">1. 公共访问接口-公共服务类</a><br>
+* <a href="#2%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85%E5%AE%9E%E7%8E%B0%E5%85%AC%E5%85%B1%E8%AE%BF%E9%97%AE%E6%8E%A5%E5%8F%A3-%E6%9C%8D%E5%8A%A1a">2.服务提供者实现公共访问接口-服务A</a><br>
+* <a href="#3feign%E7%BB%A7%E6%89%BF%E5%85%AC%E5%85%B1%E8%AE%BF%E9%97%AE%E6%8E%A5%E5%8F%A3-%E6%9C%8D%E5%8A%A1b">3.feign继承公共访问接口-服务B</a><br>
+* <a href="#4%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8feign-%E6%9C%8D%E5%8A%A1b">4.接口调用feign-服务B</a></li>
+<li><a href="#%E5%85%AB%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8feign%E6%9E%84%E9%80%A0%E5%A4%9A%E5%8F%82%E6%95%B0%E7%9A%84%E8%AF%B7%E6%B1%82">八.如何使用Feign构造多参数的请求</a>
+<ul>
+<li><a href="#get%E8%AF%B7%E6%B1%82%E5%A4%9A%E5%8F%82%E6%95%B0%E7%9A%84url">GET请求多参数的URL</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E6%8E%A8%E8%8D%90">方法一[推荐]</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E6%8E%A8%E8%8D%90">方法二[推荐]</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89%E4%B8%8D%E6%8E%A8%E8%8D%90">方法三[不推荐]</a></li>
+</ul>
+</li>
+<li><a href="#post%E8%AF%B7%E6%B1%82%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E5%8F%82%E6%95%B0">POST请求包含多个参数</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B9%9Dresttemplate-vs-feign">九.RestTemplate VS Feign</a></li>
+<li><a href="#%E5%8D%81feign%E7%BA%BF%E7%A8%8B%E6%B1%A0">十.feign线程池</a></li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

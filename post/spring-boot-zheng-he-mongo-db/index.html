@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Spring Boot整合Mongo DB - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Spring Boot整合Mongo DB</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/Ksbd-vR2dH/" class="post--keyword"
+                                data-title="spring" data-type="post_tag" data-term-id="39">spring</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-08-22</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/43.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Spring Boot整合Mongo DB" /></p>
+                            
+                            <h3 id="跟着鸟哥学-spring-boot整合mongo-db"><a href="https://mrbird.cc/Spring-Boot-Mongo-DB-CRUD.html">跟着鸟哥学 Spring Boot整合Mongo DB</a></h3>
+<h4 id="1-简单增删查改">1. 简单增删查改</h4>
+<h5 id="新建一个spring-boot项目版本为213release并引入如下依赖">新建一个Spring Boot项目，版本为2.1.3.RELEASE，并引入如下依赖：</h5>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-mongodb&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+
+</code></pre>
+<h5 id="然后mongodb创建数据库propertiesyml配置">然后mongodb创建数据库,properties.yml配置</h5>
+<pre><code class="language-properties">spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: user
+</code></pre>
+<h5 id="创建实体user">创建实体User</h5>
+<pre><code class="language-java">@Document(collection = &quot;user&quot;)
+@Data
+public class User {
+
+    @Id
+    private String id;
+
+    private String name;
+
+    private Integer age;
+
+    private String description;
+
+    // get set 略
+}
+</code></pre>
+<p><code>@Document(collection = &quot;user&quot;)</code>表明这是一个文档对象，名称为<code>user</code>，对应Mongo DB里的user表。<code>@Id</code>标注主键字段，String类型的主键值在插入的时候Mongo DB会帮我们自动生成。如果对象中的某个属性为非表字段，可以使用注解<code>@Transient</code>进行排除。</p>
+<p>准备好这些后，我们开始编写一些简单的增删改查样例</p>
+<h5 id="创建一个userdao接口">创建一个UserDao接口：</h5>
+<pre><code class="language-java">@Repository
+public interface UserDao extends MongoRepository&lt;User, String&gt; {
+}
+</code></pre>
+<p>接口继承自<code>MongoRepository</code>，泛型分别为实体对象和主键类型。通过继承<code>MongoRepository</code>，<code>UserDao</code>包含了一些增删改查的方法，如下图所示：</p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/373AA354-B7BD-47C1-9AF9-2B72F1B3CD73.png" alt="" loading="lazy"></figure>
+<h5 id="接着编写userservice">接着编写UserService</h5>
+<pre><code class="language-java">@Service
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class UserService {
+
+    private final UserDao userDao;
+    private final MongoTemplate template;
+    public List&lt;User&gt; getUsers() {
+        return userDao.findAll();
+    }
+
+    public Optional&lt;User&gt; getUser(String id) {
+        return this.userDao.findById(id);
+    }
+
+    /**
+     * 新增和修改都是 save方法，
+     * id 存在为修改，id 不存在为新增
+     */
+    public User createUser(User user) {
+        user.setId(null);
+        return userDao.save(user);
+    }
+
+    public void deleteUser(String id) {
+        this.userDao.findById(id)
+                .ifPresent(user -&gt; this.userDao.delete(user));
+    }
+
+    public void updateUser(String id, User user) {
+        this.userDao.findById(id)
+            .ifPresent(
+                u -&gt; {
+                    u.setName(user.getName());
+                    u.setAge(user.getAge());
+                    u.setDescription(user.getDescription());
+                    this.userDao.save(u);
+                }
+            );
+    }
+}
+</code></pre>
+<p>上面我们编写了基本的增删改查样例，新增和修改都是通过<code>save</code>方法完成的，当主键存在时则为修改，主键不存在则为新增。</p>
+<p>最后编写一个RESTful的UserController（为了方便，没有对参数进行校验）：</p>
+<pre><code class="language-java">@RestController
+@RequestMapping(&quot;user&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class UserController {
+
+    private final UserService userService;
+
+    @GetMapping
+    public List&lt;User&gt; getUsers() {
+        return userService.getUsers();
+    }
+
+    @PostMapping
+    public User createUser(User user) {
+        return userService.createUser(user);
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public void updateUser(@PathVariable String id, User user) {
+        userService.updateUser(id, user);
+    }
+
+    /**
+     * 根据用户 id查找
+     * 存在返回，不存在返回 null
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public User getUser(@PathVariable String id) {
+        return userService.getUser(id).orElse(null);
+    }
+}
+</code></pre>
+<p>启动项目，使用postman来测试接口的可用性。</p>
+<h4 id="2多条件查询">2.多条件查询</h4>
+<h5 id="修改userdao">修改userDao</h5>
+<p>其实<code>UserDao</code>通过继承<code>MongoRepository</code>已经具有了JPA的特性，我们可以通过方法名来构建多查询条件的SQL。比如通过用户的年龄段来查询和用户名和描述（模糊查询）查询用户的方法：</p>
+<pre><code class="language-java">@Repository
+public interface UserDao extends MongoRepository&lt;User, String&gt; {
+
+    /**
+     * 根据年龄段来查找
+     *
+     * @param from from
+     * @param to   to
+     * @return List&lt;User&gt;
+     */
+    List&lt;User&gt; findByAgeBetween(Integer from, Integer to);
+
+
+    /**
+     * 通过年龄段，用户名，描述（模糊查询）
+     *
+     * @param from        from
+     * @param to          to
+     * @param name        name
+     * @param description description
+     * @return List&lt;User&gt;
+     */
+    List&lt;User&gt; findByAgeBetweenAndNameEqualsAndDescriptionIsLike(Integer from, Integer to, String name, String description);
+}
+</code></pre>
+<p>在输入<code>findBy</code>后，IDEA会根据实体对象的属性和SQL的各种关键字自动组合提示：</p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210822005043.png" alt="" loading="lazy"></figure>
+<h5 id="修改userserivce">修改userSerivce</h5>
+<p>userSerivce加入以下两个方法</p>
+<pre><code class="language-java">public List&lt;User&gt; findByAgeBetween(Integer from, Integer to){
+    return this.userDao.findByAgeBetween(from,to);
+}
+
+public   List&lt;User&gt; findByAgeBetweenAndNameEqualsAndDescriptionIsLike(Integer from, Integer to, String name, String description){
+    return this.userDao.findByAgeBetweenAndNameEqualsAndDescriptionIsLike(from,to,name,description);
+}
+</code></pre>
+<h5 id="修改usercontroller">修改userController</h5>
+<pre><code class="language-java">@GetMapping(&quot;/findByAgeBetween&quot;)
+public List&lt;User&gt; findByAgeBetween(Integer from, Integer to){
+    return this.userService.findByAgeBetween(from,to);
+}
+
+
+@GetMapping(&quot;/findByAgeBetweenAndNameEqualsAndDescriptionIsLike&quot;)
+public   List&lt;User&gt; findByAgeBetweenAndNameEqualsAndDescriptionIsLike(Integer from, Integer to, String name, String description){
+    return this.userService.findByAgeBetweenAndNameEqualsAndDescriptionIsLike(from,to,name,description);
+}
+</code></pre>
+<p>然后使用postMan测试</p>
+<h4 id="3-排序与分页">3. 排序与分页</h4>
+<p>排序和分页需要使用<code>MongoTemplate</code>对象来完成，在<code>UserService</code>里新增一个<code>getUserByCondition</code>方法：</p>
+<pre><code class="language-java">private final MongoTemplate template;
+
+
+    public Page&lt;User&gt; getUserByCondition(int size, int page, User user) {
+        Query query = new Query();
+        Criteria criteria = new Criteria();
+        //根据名字查找
+        if (!StringUtils.isEmpty(user.getName())) {
+            criteria.and(&quot;name&quot;).is(user.getName());
+        }
+        //根据描述查找
+        if (!StringUtils.isEmpty(user.getDescription())) {
+            criteria.and(&quot;description&quot;).regex(user.getDescription());
+        }
+
+        query.addCriteria(criteria);
+        //根据年龄降序
+        Sort sort =Sort.by(Sort.Direction.DESC,&quot;age&quot;);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        List&lt;User&gt; users = template.find(query.with(pageable), User.class);
+        return PageableExecutionUtils.getPage(users, pageable, () -&gt; template.count(query, User.class));
+
+    }
+</code></pre>
+<p><code>size</code>表示每页显示的条数，<code>page</code>表示当前页码数，0表示第一页。上面的方法通过<code>name</code>和<code>description</code>（模糊查询）来查询用户分页信息，并且查询结果使用<code>age</code>字段降序排序。方法返回<code>Page</code>对象。</p>
+<p>在<code>UserController</code>里添加：</p>
+<pre><code class="language-java">@GetMapping(&quot;/condition&quot;)
+public Page&lt;User&gt; getUserByCondition(int size, int page, User user) {
+    return userService.getUserByCondition(size, page, user);
+}
+</code></pre>
+<h4 id="4-postman测试模版">4 .postman测试模版</h4>
+<pre><code class="language-json">{
+   &quot;info&quot;: {
+      &quot;_postman_id&quot;: &quot;7516008d-d257-4f45-a8d1-0c56f6e45880&quot;,
+      &quot;name&quot;: &quot;MongoDB&quot;,
+      &quot;schema&quot;: &quot;https://schema.getpostman.com/json/collection/v2.1.0/collection.json&quot;
+   },
+   &quot;item&quot;: [
+      {
+         &quot;name&quot;: &quot;createUser&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;POST&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user?name=yz&amp;description=mongodb&amp;age=20&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;
+               ],
+               &quot;query&quot;: [
+                  {
+                     &quot;key&quot;: &quot;name&quot;,
+                     &quot;value&quot;: &quot;yz&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;description&quot;,
+                     &quot;value&quot;: &quot;mongodb&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;age&quot;,
+                     &quot;value&quot;: &quot;20&quot;
+                  }
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;getUser&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;getUserById&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user/612122fb75da162aac4dee19&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;,
+                  &quot;612122fb75da162aac4dee19&quot;
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;updateUser&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;POST&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user?name=ajiang&amp;description=mongodb&amp;age=19&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;
+               ],
+               &quot;query&quot;: [
+                  {
+                     &quot;key&quot;: &quot;name&quot;,
+                     &quot;value&quot;: &quot;ajiang&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;description&quot;,
+                     &quot;value&quot;: &quot;mongodb&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;age&quot;,
+                     &quot;value&quot;: &quot;19&quot;
+                  }
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;deleteUserById&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;DELETE&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user/612122fb75da162aac4dee19&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;,
+                  &quot;612122fb75da162aac4dee19&quot;
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;findByAgeBetween&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user/findByAgeBetween?from=12&amp;to=20&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;,
+                  &quot;findByAgeBetween&quot;
+               ],
+               &quot;query&quot;: [
+                  {
+                     &quot;key&quot;: &quot;from&quot;,
+                     &quot;value&quot;: &quot;12&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;to&quot;,
+                     &quot;value&quot;: &quot;20&quot;
+                  }
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;findByAgeBetweenAndNameEqualsAndDescriptionIsLike&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user/findByAgeBetweenAndNameEqualsAndDescriptionIsLike?from=12&amp;to=20&amp;name=ajiang&amp;description=mongodb&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;,
+                  &quot;findByAgeBetweenAndNameEqualsAndDescriptionIsLike&quot;
+               ],
+               &quot;query&quot;: [
+                  {
+                     &quot;key&quot;: &quot;from&quot;,
+                     &quot;value&quot;: &quot;12&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;to&quot;,
+                     &quot;value&quot;: &quot;20&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;name&quot;,
+                     &quot;value&quot;: &quot;ajiang&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;description&quot;,
+                     &quot;value&quot;: &quot;mongodb&quot;
+                  }
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      },
+      {
+         &quot;name&quot;: &quot;condition&quot;,
+         &quot;request&quot;: {
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;header&quot;: [],
+            &quot;url&quot;: {
+               &quot;raw&quot;: &quot;127.0.0.1:8080/user/condition?size=10&amp;page=0&amp;name=yz&quot;,
+               &quot;host&quot;: [
+                  &quot;127&quot;,
+                  &quot;0&quot;,
+                  &quot;0&quot;,
+                  &quot;1&quot;
+               ],
+               &quot;port&quot;: &quot;8080&quot;,
+               &quot;path&quot;: [
+                  &quot;user&quot;,
+                  &quot;condition&quot;
+               ],
+               &quot;query&quot;: [
+                  {
+                     &quot;key&quot;: &quot;size&quot;,
+                     &quot;value&quot;: &quot;10&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;page&quot;,
+                     &quot;value&quot;: &quot;0&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;name&quot;,
+                     &quot;value&quot;: &quot;yz&quot;
+                  },
+                  {
+                     &quot;key&quot;: &quot;&quot;,
+                     &quot;value&quot;: &quot;&quot;,
+                     &quot;disabled&quot;: true
+                  }
+               ]
+            }
+         },
+         &quot;response&quot;: []
+      }
+   ]
+}
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/spring-boot-zheng-he-mongo-db/" class="leancloud-visitors view"
+                              data-flag-title="Spring Boot整合Mongo DB">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/gen-zhao-niao-ge-xue-spring-boot-20-webflux-zeng-shan-gai-cha-yang-li/" class="title">
+                                      <h4>WebFlux增删改查样例</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-08-23</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/gen-zhao-niao-ge-xue-spring-boot-20-webflux-zeng-shan-gai-cha-yang-li/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/46.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/spring-boot-zhi-spring-zu-jian-zhuang-pei/" class="title">
+                                      <h4>Spring Boot之 Spring组件装配</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-08-21</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/spring-boot-zhi-spring-zu-jian-zhuang-pei/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/41.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%B7%9F%E7%9D%80%E9%B8%9F%E5%93%A5%E5%AD%A6-spring-boot%E6%95%B4%E5%90%88mongo-db">跟着鸟哥学 Spring Boot整合Mongo DB</a>
+<ul>
+<li><a href="#1-%E7%AE%80%E5%8D%95%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9">1. 简单增删查改</a>
+<ul>
+<li><a href="#%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AAspring-boot%E9%A1%B9%E7%9B%AE%E7%89%88%E6%9C%AC%E4%B8%BA213release%E5%B9%B6%E5%BC%95%E5%85%A5%E5%A6%82%E4%B8%8B%E4%BE%9D%E8%B5%96">新建一个Spring Boot项目，版本为2.1.3.RELEASE，并引入如下依赖：</a></li>
+<li><a href="#%E7%84%B6%E5%90%8Emongodb%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93propertiesyml%E9%85%8D%E7%BD%AE">然后mongodb创建数据库,properties.yml配置</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93user">创建实体User</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAuserdao%E6%8E%A5%E5%8F%A3">创建一个UserDao接口：</a></li>
+<li><a href="#%E6%8E%A5%E7%9D%80%E7%BC%96%E5%86%99userservice">接着编写UserService</a></li>
+</ul>
+</li>
+<li><a href="#2%E5%A4%9A%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2">2.多条件查询</a>
+<ul>
+<li><a href="#%E4%BF%AE%E6%94%B9userdao">修改userDao</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9userserivce">修改userSerivce</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9usercontroller">修改userController</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%88%86%E9%A1%B5">3. 排序与分页</a></li>
+<li><a href="#4-postman%E6%B5%8B%E8%AF%95%E6%A8%A1%E7%89%88">4 .postman测试模版</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

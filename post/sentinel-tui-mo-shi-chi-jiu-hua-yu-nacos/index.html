@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Sentinel推模式持久化-与Nacos - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Sentinel推模式持久化-与Nacos</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/CRcloJmMj/" class="post--keyword"
+                                data-title="sentinel" data-type="post_tag" data-term-id="39">sentinel</a>
+                               <a href="https://yz0812.github.io/tag/hWFgAWK2c/" class="post--keyword"
+                                data-title="springcloud" data-type="post_tag" data-term-id="39">springcloud</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-05-17</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/29.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Sentinel推模式持久化-与Nacos" /></p>
+                            
+                            <p><strong>推模式持久化,是将数据推送到Naocs或者其他配置中心,所以需要改造Sentinel源码</strong></p>
+<p>这是改造的全部文件,详细可以查看我的<a href="https://github.com/yz0812/Sentinel">git</a></p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210517004130.png" alt="" loading="lazy"></figure>
+<p>首先将源码下载到本地,然后切换到1.8的分支上面改造开始</p>
+<h4 id="1修改sentinel-dashboard的pomxml">1.修改sentinel-dashboard的pom.xml</h4>
+<p>修改sentinel-dashboard 控制台模块的pom.xml，将test注释掉</p>
+<p>添加spring-boot-configuration-processor</p>
+<pre><code class="language-xml">   &lt;!-- for Nacos rule publisher sample --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
+            &lt;artifactId&gt;sentinel-datasource-nacos&lt;/artifactId&gt;
+            &lt;!--&lt;scope&gt;test&lt;/scope&gt;--&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-configuration-processor&lt;/artifactId&gt;
+            &lt;version&gt;2.1.1.RELEASE&lt;/version&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+</code></pre>
+<h4 id="2创建文件">2.创建文件</h4>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210517010344.png" alt="" loading="lazy"></figure>
+<h5 id="1nacosconfig">1.NacosConfig</h5>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos;
+
+import com.alibaba.csp.sentinel.dashboard.config.DashboardConfig;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
+import com.alibaba.csp.sentinel.datasource.Converter;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.PropertyKeyConst;
+import com.alibaba.nacos.api.config.ConfigFactory;
+import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
+import java.util.Properties;
+
+/**
+ * @author Eric Zhao
+ * @since 1.4.0
+ */
+@Configuration
+@EnableConfigurationProperties(NacosPropertiesConfiguration.class)
+public class NacosConfig {
+
+    @Bean
+    public Converter&lt;List&lt;FlowRuleEntity&gt;, String&gt; flowRuleEntityEncoder() {
+        return JSON::toJSONString;
+    }
+
+    @Bean
+    public Converter&lt;String, List&lt;FlowRuleEntity&gt;&gt; flowRuleEntityDecoder() {
+        return s -&gt; JSON.parseArray(s, FlowRuleEntity.class);
+    }
+
+    /**
+     * 这种方式用来读取JVM附带的参数  java -jar -Dsentinel.dashboard.username=
+     * @description
+     * @author yz
+     * @date 2021/5/16 10:39 下午
+     * @method
+     * @return
+     */
+//    @Bean
+//    public ConfigService nacosConfigService() throws Exception {
+//        Properties properties = new Properties();
+//        properties.put(PropertyKeyConst.SERVER_ADDR, DashboardConfig.getConfigNacosServerUrl());
+//        properties.put(PropertyKeyConst.NAMESPACE, DashboardConfig.getConfigNacosNamespace());
+//        properties.put(PropertyKeyConst.USERNAME, DashboardConfig.getConfigNacosUsername());
+//        properties.put(PropertyKeyConst.PASSWORD, DashboardConfig.getConfigNacosPassword());
+//        return ConfigFactory.createConfigService(properties);
+//    }
+    @Bean
+    public ConfigService nacosConfigService(NacosPropertiesConfiguration nacosPropertiesConfiguration) throws Exception {
+        Properties properties = new Properties();
+        properties.put(PropertyKeyConst.SERVER_ADDR, nacosPropertiesConfiguration.getServerAddr());
+        properties.put(PropertyKeyConst.NAMESPACE, nacosPropertiesConfiguration.getNamespace());
+        properties.put(PropertyKeyConst.USERNAME, nacosPropertiesConfiguration.getUsername());
+        properties.put(PropertyKeyConst.PASSWORD, nacosPropertiesConfiguration.getPassword());
+        return ConfigFactory.createConfigService(properties);
+    }
+
+}
+
+</code></pre>
+<h5 id="2nacosconfigutil">2.NacosConfigUtil</h5>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos;
+
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
+import com.alibaba.csp.sentinel.dashboard.util.JSONUtils;
+import com.alibaba.csp.sentinel.slots.block.Rule;
+import com.alibaba.csp.sentinel.util.AssertUtil;
+import com.alibaba.csp.sentinel.util.StringUtil;
+import com.alibaba.nacos.api.config.ConfigService;
+import com.alibaba.nacos.api.exception.NacosException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @author Eric Zhao
+ * @since 1.4.0
+ */
+public final class NacosConfigUtil {
+
+    public static final String GROUP_ID = &quot;SENTINEL_GROUP&quot;;
+
+    public static final String FLOW_DATA_ID_POSTFIX = &quot;-flow-rules&quot;;
+    public static final String PARAM_FLOW_DATA_ID_POSTFIX = &quot;-param-rules&quot;;
+    public static final String CLUSTER_MAP_DATA_ID_POSTFIX = &quot;-cluster-map&quot;;
+    public static final String DEGRADE_DATA_ID_POSTFIX = &quot;-degrade-rules&quot;;
+    public static final String SYSTEM_DATA_ID_POSTFIX = &quot;-system-rules&quot;;
+    public static final String AUTHORITY_DATA_ID_POSTFIX = &quot;-authority-rules&quot;;
+    public static final String DASHBOARD_POSTFIX = &quot;-dashboard&quot;;
+    /**
+     * cc for `cluster-client`
+     */
+    public static final String CLIENT_CONFIG_DATA_ID_POSTFIX = &quot;-cc-config&quot;;
+    /**
+     * cs for `cluster-server`
+     */
+    public static final String SERVER_TRANSPORT_CONFIG_DATA_ID_POSTFIX = &quot;-cs-transport-config&quot;;
+    public static final String SERVER_FLOW_CONFIG_DATA_ID_POSTFIX = &quot;-cs-flow-config&quot;;
+    public static final String SERVER_NAMESPACE_SET_DATA_ID_POSTFIX = &quot;-cs-namespace-set&quot;;
+
+
+    private NacosConfigUtil() {}
+
+
+    /**
+     * 将规则序列化成JSON文本，存储到Nacos server中
+     *
+     * @param configService nacos config service
+     * @param app           应用名称
+     * @param postfix       规则后缀 eg.NacosConfigUtil.FLOW_DATA_ID_POSTFIX
+     * @param rules         规则对象
+     * @throws NacosException 异常
+     */
+    public static &lt;T&gt; void setRuleStringToNacos(ConfigService configService, String app, String postfix, List&lt;T&gt; rules) throws NacosException {
+        AssertUtil.notEmpty(app, &quot;app name cannot be empty&quot;);
+        if (rules == null) {
+            return;
+        }
+
+        List&lt;Rule&gt; ruleForApp = rules.stream()
+                .map(rule -&gt; {
+                    RuleEntity rule1 = (RuleEntity) rule;
+                    System.out.println(rule1.getClass());
+                    Rule rule2 = rule1.toRule();
+                    System.out.println(rule2.getClass());
+                    return rule2;
+                })
+                .collect(Collectors.toList());
+
+        // 存储，给微服务使用
+        String dataId = genDataId(app, postfix);
+        configService.publishConfig(
+                dataId,
+                NacosConfigUtil.GROUP_ID,
+                JSONUtils.toJSONString(ruleForApp)
+        );
+
+        // 存储，给控制台使用
+        configService.publishConfig(
+                dataId + DASHBOARD_POSTFIX,
+                NacosConfigUtil.GROUP_ID,
+                JSONUtils.toJSONString(rules)
+        );
+    }
+
+    /**
+     * 从Nacos server中查询响应规则，并将其反序列化成对应Rule实体
+     *
+     * @param configService nacos config service
+     * @param appName       应用名称
+     * @param postfix       规则后缀 eg.NacosConfigUtil.FLOW_DATA_ID_POSTFIX
+     * @param clazz         类
+     * @param &lt;T&gt;           泛型
+     * @return 规则对象列表
+     * @throws NacosException 异常
+     */
+    public static &lt;T&gt; List&lt;T&gt; getRuleEntitiesFromNacos(ConfigService configService, String appName, String postfix, Class&lt;T&gt; clazz) throws NacosException {
+        String rules = configService.getConfig(
+                genDataId(appName, postfix) + DASHBOARD_POSTFIX,
+                NacosConfigUtil.GROUP_ID,
+                3000
+        );
+        if (StringUtil.isEmpty(rules)) {
+            return new ArrayList&lt;&gt;();
+        }
+        return JSONUtils.parseObject(clazz, rules);
+    }
+
+    private static String genDataId(String appName, String postfix) {
+        return appName + postfix;
+    }
+}
+</code></pre>
+<h5 id="3nacospropertiesconfiguration">3.NacosPropertiesConfiguration</h5>
+<pre><code class="language-java">package com.alibaba.csp.sentinel.dashboard.rule.nacos;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = &quot;sentinel.nacos&quot;)
+public class NacosPropertiesConfiguration {
+    private String serverAddr;
+    private String dataId;
+    private String groupId = &quot;SENTINEL_GROUP&quot;; // 默认分组
+    private String namespace;
+    private String username;
+    private String password;
+
+
+    public String getServerAddr() {
+        return serverAddr;
+    }
+
+    public void setServerAddr(String serverAddr) {
+        this.serverAddr = serverAddr;
+    }
+
+    public String getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(String dataId) {
+        this.dataId = dataId;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+</code></pre>
+<h4 id="4authorityrulenacosprovider">4.AuthorityRuleNacosProvider</h4>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos.authority;
+
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.AuthorityRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
+import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;
+import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author itmuch.com
+ */
+@Component(&quot;authorityRuleNacosProvider&quot;)
+public class AuthorityRuleNacosProvider implements DynamicRuleProvider&lt;List&lt;AuthorityRuleEntity&gt;&gt; {
+    @Autowired
+    private ConfigService configService;
+
+    @Override
+    public List&lt;AuthorityRuleEntity&gt; getRules(String appName) throws Exception {
+        return NacosConfigUtil.getRuleEntitiesFromNacos(
+            this.configService,
+            appName,
+            NacosConfigUtil.AUTHORITY_DATA_ID_POSTFIX,
+            AuthorityRuleEntity.class
+        );
+    }
+}
+</code></pre>
+<h5 id="5authorityrulenacospublisher">5.AuthorityRuleNacosPublisher</h5>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos.authority;
+
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.AuthorityRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
+import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;
+import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author itmuch.com
+ */
+@Component(&quot;authorityRuleNacosPublisher&quot;)
+public class AuthorityRuleNacosPublisher implements DynamicRulePublisher&lt;List&lt;AuthorityRuleEntity&gt;&gt; {
+    @Autowired
+    private ConfigService configService;
+
+    @Override
+    public void publish(String app, List&lt;AuthorityRuleEntity&gt; rules) throws Exception {
+        NacosConfigUtil.setRuleStringToNacos(
+            this.configService,
+            app,
+            NacosConfigUtil.AUTHORITY_DATA_ID_POSTFIX,
+            rules
+        );
+    }
+}
+</code></pre>
+<h5 id="6degraderulenacosprovider">6.DegradeRuleNacosProvider</h5>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos.degrade;
+
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.DegradeRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
+import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;
+import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author itmuch.com
+ */
+@Component(&quot;degradeRuleNacosProvider&quot;)
+public class DegradeRuleNacosProvider implements DynamicRuleProvider&lt;List&lt;DegradeRuleEntity&gt;&gt; {
+    @Autowired
+    private ConfigService configService;
+
+    @Override
+    public List&lt;DegradeRuleEntity&gt; getRules(String appName) throws Exception {
+        return NacosConfigUtil.getRuleEntitiesFromNacos(
+            this.configService,
+            appName,
+            NacosConfigUtil.DEGRADE_DATA_ID_POSTFIX,
+            DegradeRuleEntity.class
+        );
+    }
+}
+</code></pre>
+<h5 id="7degraderulenacospublisher">7.DegradeRuleNacosPublisher</h5>
+<pre><code class="language-java">/*
+ * Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.alibaba.csp.sentinel.dashboard.rule.nacos.degrade;
+
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.DegradeRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
+import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;
+import com.alibaba.nacos.api.config.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author itmuch.com
+ */
+@Component(&quot;degradeRuleNacosPublisher&quot;)
+public class DegradeRuleNacosPublisher implements DynamicRulePublisher&lt;List&lt;DegradeRuleEntity&gt;&gt; {
+    @Autowired
+    private ConfigService configService;
+
+    @Override
+    public void publish(String app, List&lt;DegradeRuleEntity&gt; rules) throws Exception {
+        NacosConfigUtil.setRuleStringToNacos(
+            this.configService,
+            app,
+            NacosConfigUtil.DEGRADE_DATA_ID_POSTFIX,
+            rules
+        );
+    }
+}
+</code></pre>
+<h5 id="8flowrulenacosprovider">8.FlowRuleNacosProvider</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.flow;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;flowRuleNacosProvider&quot;)public class FlowRuleNacosProvider implements DynamicRuleProvider&lt;List&lt;FlowRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public List&lt;FlowRuleEntity&gt; getRules(String appName) throws Exception {        return NacosConfigUtil.getRuleEntitiesFromNacos(            this.configService,            appName,            NacosConfigUtil.FLOW_DATA_ID_POSTFIX,            FlowRuleEntity.class        );    }}
+</code></pre>
+<h5 id="9flowrulenacospublisher">9.FlowRuleNacosPublisher</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.flow;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;flowRuleNacosPublisher&quot;)public class FlowRuleNacosPublisher implements DynamicRulePublisher&lt;List&lt;FlowRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public void publish(String app, List&lt;FlowRuleEntity&gt; rules) throws Exception {        NacosConfigUtil.setRuleStringToNacos(            this.configService,            app,            NacosConfigUtil.FLOW_DATA_ID_POSTFIX,            rules        );    }}
+</code></pre>
+<h5 id="10paramflowrulenacosprovider">10.ParamFlowRuleNacosProvider</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.param;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.ParamFlowRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;paramFlowRuleNacosProvider&quot;)public class ParamFlowRuleNacosProvider implements DynamicRuleProvider&lt;List&lt;ParamFlowRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public List&lt;ParamFlowRuleEntity&gt; getRules(String appName) throws Exception {        return NacosConfigUtil.getRuleEntitiesFromNacos(            this.configService,            appName,            NacosConfigUtil.PARAM_FLOW_DATA_ID_POSTFIX,            ParamFlowRuleEntity.class        );    }}
+</code></pre>
+<h5 id="11paramflowrulenacospublisher">11.ParamFlowRuleNacosPublisher</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.param;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.ParamFlowRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;paramFlowRuleNacosPublisher&quot;)public class ParamFlowRuleNacosPublisher implements DynamicRulePublisher&lt;List&lt;ParamFlowRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public void publish(String app, List&lt;ParamFlowRuleEntity&gt; rules) throws Exception {        NacosConfigUtil.setRuleStringToNacos(            this.configService,            app,            NacosConfigUtil.PARAM_FLOW_DATA_ID_POSTFIX,            rules        );    }}
+</code></pre>
+<h5 id="12systemrulenacosprovider">12.SystemRuleNacosProvider</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.system;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.SystemRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;systemRuleNacosProvider&quot;)public class SystemRuleNacosProvider implements DynamicRuleProvider&lt;List&lt;SystemRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public List&lt;SystemRuleEntity&gt; getRules(String appName) throws Exception {        return NacosConfigUtil.getRuleEntitiesFromNacos(            this.configService,            appName,            NacosConfigUtil.SYSTEM_DATA_ID_POSTFIX,            SystemRuleEntity.class        );    }}
+</code></pre>
+<h5 id="13systemrulenacospublisher">13.SystemRuleNacosPublisher</h5>
+<pre><code class="language-java">/* * Copyright 1999-2018 Alibaba Group Holding Ltd. * * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); * you may not use this file except in compliance with the License. * You may obtain a copy of the License at * *      http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable law or agreed to in writing, software * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. * See the License for the specific language governing permissions and * limitations under the License. */package com.alibaba.csp.sentinel.dashboard.rule.nacos.system;import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.SystemRuleEntity;import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;import com.alibaba.csp.sentinel.dashboard.rule.nacos.NacosConfigUtil;import com.alibaba.nacos.api.config.ConfigService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.stereotype.Component;import java.util.List;/** * @author itmuch.com */@Component(&quot;systemRuleNacosPublisher&quot;)public class SystemRuleNacosPublisher implements DynamicRulePublisher&lt;List&lt;SystemRuleEntity&gt;&gt; {    @Autowired    private ConfigService configService;    @Override    public void publish(String app, List&lt;SystemRuleEntity&gt; rules) throws Exception {        NacosConfigUtil.setRuleStringToNacos(            this.configService,            app,            NacosConfigUtil.SYSTEM_DATA_ID_POSTFIX,            rules        );    }}
+</code></pre>
+<h4 id="3修改配置文件">3.修改配置文件</h4>
+<p>添加以下配置</p>
+<pre><code class="language-properties">sentinel.nacos.username=nacossentinel.nacos.password=nacos#命名空间sentinel.nacos.namespace=sentinel.nacos.serverAddr=192.168.3.33:8848#分组sentinel.nacos.group-id=SENTINEL-GROUP
+</code></pre>
+<h4 id="4修改前端页面">4.修改前端页面</h4>
+<h5 id="1修改sidebarhtml">1.修改sidebar.html</h5>
+<p>地址:src/main/webapp/resources/app/scripts/directives/sidebar/sidebar.html</p>
+<pre><code class="language-html">将原有的流控规则注释掉&lt;!--&lt;li ui-sref-active=&quot;active&quot; ng-if=&quot;entry.isGateway&quot;&gt;   &lt;a ui-sref=&quot;dashboard.gatewayFlow({app: entry.app})&quot;&gt;   &lt;i class=&quot;glyphicon glyphicon-filter&quot;&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;流控规则&lt;/a&gt;&lt;/li&gt;--&gt;&lt;li ui-sref-active=&quot;active&quot;&gt;  &lt;a ui-sref=&quot;dashboard.flowV1({app: entry.app})&quot;&gt;    &lt;i class=&quot;glyphicon glyphicon-filter&quot;&gt;&lt;/i&gt;&amp;nbsp;流控规则-内存&lt;/a&gt;&lt;/li&gt;&lt;li ui-sref-active=&quot;active&quot;&gt;  &lt;a ui-sref=&quot;dashboard.flow({app: entry.app})&quot;&gt;    &lt;i class=&quot;glyphicon glyphicon-filter&quot;&gt;&lt;/i&gt;&amp;nbsp;流控规则-Nacos&lt;/a&gt;&lt;/li&gt;
+</code></pre>
+<h5 id="2修改identityhtml">2.修改identity.html</h5>
+<p>地址:src/main/webapp/resources/app/views/identity.html</p>
+<pre><code class="language-html">&lt;i class=&quot;fa fa-plus&quot;&gt;&lt;/i&gt;&amp;nbsp;流控&lt;/button&gt; 修改为&lt;i class=&quot;fa fa-plus&quot;&gt;&lt;/i&gt;&amp;nbsp;流控-内存&lt;/button&gt;
+</code></pre>
+<h4 id="5然后本地启动测试">5.然后本地启动测试</h4>
+<p>新增规则然后查看naocs是否有对应配置文件</p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210517014602.png" alt="" loading="lazy"></figure>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/" class="leancloud-visitors view"
+                              data-flag-title="Sentinel推模式持久化-与Nacos">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/docker-geng-xin-sentinel-ban-ben/" class="title">
+                                      <h4>Docker更新Sentinel版本</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-05-17</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/docker-geng-xin-sentinel-ban-ben/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/30.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/sentienl-xian-liu/" class="title">
+                                      <h4>Sentienl限流</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-05-17</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/sentienl-xian-liu/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/28.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1%E4%BF%AE%E6%94%B9sentinel-dashboard%E7%9A%84pomxml">1.修改sentinel-dashboard的pom.xml</a></li>
+<li><a href="#2%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6">2.创建文件</a>
+<ul>
+<li><a href="#1nacosconfig">1.NacosConfig</a></li>
+<li><a href="#2nacosconfigutil">2.NacosConfigUtil</a></li>
+<li><a href="#3nacospropertiesconfiguration">3.NacosPropertiesConfiguration</a></li>
+</ul>
+</li>
+<li><a href="#4authorityrulenacosprovider">4.AuthorityRuleNacosProvider</a>
+<ul>
+<li><a href="#5authorityrulenacospublisher">5.AuthorityRuleNacosPublisher</a></li>
+<li><a href="#6degraderulenacosprovider">6.DegradeRuleNacosProvider</a></li>
+<li><a href="#7degraderulenacospublisher">7.DegradeRuleNacosPublisher</a></li>
+<li><a href="#8flowrulenacosprovider">8.FlowRuleNacosProvider</a></li>
+<li><a href="#9flowrulenacospublisher">9.FlowRuleNacosPublisher</a></li>
+<li><a href="#10paramflowrulenacosprovider">10.ParamFlowRuleNacosProvider</a></li>
+<li><a href="#11paramflowrulenacospublisher">11.ParamFlowRuleNacosPublisher</a></li>
+<li><a href="#12systemrulenacosprovider">12.SystemRuleNacosProvider</a></li>
+<li><a href="#13systemrulenacospublisher">13.SystemRuleNacosPublisher</a></li>
+</ul>
+</li>
+<li><a href="#3%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">3.修改配置文件</a></li>
+<li><a href="#4%E4%BF%AE%E6%94%B9%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2">4.修改前端页面</a>
+<ul>
+<li><a href="#1%E4%BF%AE%E6%94%B9sidebarhtml">1.修改sidebar.html</a></li>
+<li><a href="#2%E4%BF%AE%E6%94%B9identityhtml">2.修改identity.html</a></li>
+</ul>
+</li>
+<li><a href="#5%E7%84%B6%E5%90%8E%E6%9C%AC%E5%9C%B0%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95">5.然后本地启动测试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

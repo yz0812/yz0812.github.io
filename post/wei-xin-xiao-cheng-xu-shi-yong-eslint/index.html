@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>微信小程序使用 Eslint - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">微信小程序使用 Eslint</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/880hupr9Q/" class="post--keyword"
+                                data-title="小程序" data-type="post_tag" data-term-id="39">小程序</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-04-20</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/23.jpg"
+                                class="attachment-full size-full wp-post-image" alt="微信小程序使用 Eslint" /></p>
+                            
+                            <p>原生微信小程序安装Eslint</p>
+<h4 id="1-vscode安装eslint插件">1. VsCode安装Eslint插件</h4>
+<h4 id="2-cd到我们的项目安装eslint">2. cd到我们的项目，安装ESlint</h4>
+<pre><code class="language-shell">eslintrc.jscnpm install eslint --save-dev
+</code></pre>
+<h4 id="3-创建eslint配置文件eslintrcjs">3. 创建ESlint配置文件.eslintrc.js</h4>
+<pre><code class="language-shell">npx eslint --init
+#或者
+eslint --init
+</code></pre>
+<h4 id="4-eslintrcjs文件生成之后我们就可以使用基本的命令规范我们的代码了">4. eslintrc.js文件生成之后，我们就可以使用基本的命令规范我们的代码了</h4>
+<pre><code class="language-shell">eslint --fix pages/index/index.js
+</code></pre>
+<h4 id="当然如果你使用了es6的语法上述命令执行后会报如下错误">当然，如果你使用了ES6的语法，上述命令执行后会报如下错误</h4>
+<pre><code class="language-js">Parsing error: Unexpected token = ***
+</code></pre>
+<h4 id="原因是开发环境与eslint当前的解析功能不兼容因此我们需要执行下一个步骤">原因是开发环境与ESLint当前的解析功能不兼容，因此我们需要执行下一个步骤；</h4>
+<pre><code class="language-js">cnpm install babel-eslint --save-dev
+</code></pre>
+<h4 id="安装完成后在eslintrc中添加配置parser-babel-eslint-即可">安装完成后，在.eslintrc中添加配置：&quot;parser&quot;: &quot;babel-eslint&quot; 即可；</h4>
+<h4 id="5-eslintrcjs参考">5. eslintrc.js参考</h4>
+<pre><code class="language-javascript">module.exports = {
+  &quot;env&quot;: {
+    &quot;browser&quot;: true,
+    &quot;node&quot;: true,
+    &quot;es6&quot;: true, //使用require就不会报错了
+    &quot;commonjs&quot;: true
+  },
+  //配置解析器
+  &quot;parser&quot;: &quot;babel-eslint&quot;,
+  &quot;parserOptions&quot;: {
+    &quot;ecmaVersion&quot;: 6,
+    &quot;sourceType&quot;: &quot;module&quot;,
+  },
+
+  &quot;extends&quot;: &quot;eslint:recommended&quot;,
+  //全局变量
+  &quot;globals&quot;: {
+    &quot;__DEV__&quot;: true,
+    &quot;__WECHAT__&quot;: true,
+    &quot;__ALIPAY__&quot;: true,
+    &quot;App&quot;: true,
+    &quot;Page&quot;: true,
+    &quot;Component&quot;: true,
+    &quot;Behavior&quot;: true,
+    &quot;wx&quot;: true,
+    &quot;getApp&quot;: true,
+    &quot;getCurrentPages&quot;: true,
+  },
+  /**
+   * &quot;off&quot; 或 0 - 关闭规则
+   * &quot;warn&quot; 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出),
+   * &quot;error&quot; 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+   */
+  &quot;rules&quot;: {
+    // 强制使用一致的缩进
+    &quot;indent&quot;: [
+      &quot;error&quot;, 2
+    ],
+    // 强制使用一致的换行风格
+    &quot;linebreak-style&quot;: [
+      &quot;error&quot;,
+      &quot;unix&quot;
+    ],
+    // 强制使用一致的反勾号、双引号或单引号
+    &quot;quotes&quot;: [
+      &quot;error&quot;,
+      &quot;single&quot; // backtick、double、single
+    ],
+    // 要求或禁止使用分号代替 ASI
+    &quot;semi&quot;: [
+      &quot;error&quot;,
+      &quot;always&quot;
+    ],
+    &quot;no-console&quot;: [
+      &quot;off&quot;, {
+        &quot;allow&quot;: [&quot;log&quot;, &quot;warn&quot;, &quot;error&quot;, &quot;info&quot;] // &quot;allow&quot; 是个字符串数组，包含允许使用的console 对象的方法
+      }
+    ],
+    //禁止空格和 tab 的混合缩进
+    &quot;no-mixed-spaces-and-tabs&quot;: [
+      &quot;error&quot;, &quot;smart-tabs&quot;
+    ],
+    // 强制在 function的左括号之前使用一致的空格
+    &quot;space-before-function-paren&quot;: [2, &quot;always&quot;],
+    // 禁止或强制在单行代码块中使用空格(禁用)
+    &quot;block-spacing&quot;: [1, &quot;never&quot;],
+
+    &quot;no-cond-assign&quot;: 2,
+    // 禁止 function 定义中出现重名参数
+    &quot;no-dupe-args&quot;: 2,
+    // 禁止对象字面量中出现重复的 key
+    &quot;no-dupe-keys&quot;: 2,
+    // 禁止重复的 case 标签
+    &quot;no-duplicate-case&quot;: 2,
+    // 禁止空语句块
+    &quot;no-empty&quot;: 2,
+    // 禁止对 catch 子句的参数重新赋值
+    &quot;no-ex-assign&quot;: 2,
+    // 禁止不必要的布尔转换
+    &quot;no-extra-boolean-cast&quot;: 2,
+    // 禁止不必要的括号 //(a * b) + c;//报错
+    &quot;no-extra-parens&quot;: 0,
+
+    //强制所有控制语句使用一致的括号风格
+    &quot;curly&quot;: [2, &quot;all&quot;],
+    // 禁止 catch 子句的参数与外层作用域中的变量同名
+    &quot;no-catch-shadow&quot;: 0,
+    // 不允许标签与变量同名
+    &quot;no-label-var&quot;: 2,
+    // 禁用特定的全局变量
+    &quot;no-restricted-globals&quot;: 2,
+    // 禁止 var 声明 与外层作用域的变量同名
+    &quot;no-shadow&quot;: 0,
+    // 禁止覆盖受限制的标识符
+    &quot;no-shadow-restricted-names&quot;: 2,
+    // 禁止将变量初始化为 undefined
+    &quot;no-undef-init&quot;: 2,
+    // 禁止将 undefined 作为标识符
+    &quot;no-undefined&quot;: 0,
+    // 不允许在变量定义之前使用它们
+    &quot;no-use-before-define&quot;: 0,
+    //////////////
+    // 风格指南 //
+    //////////////
+    // 指定数组的元素之间要以空格隔开(, 后面)， never参数：[ 之前和 ] 之后不能带空格，always参数：[ 之前和 ] 之后必须带空格
+    &quot;array-bracket-spacing&quot;: [2, &quot;never&quot;],
+    //强制使用一致的缩进 第二个参数为 &quot;tab&quot; 时，会使用tab，
+    // if while function 后面的{必须与if在同一行，java风格。
+    &quot;brace-style&quot;: [2, &quot;1tbs&quot;, {
+      &quot;allowSingleLine&quot;: true
+    }],
+    // 控制逗号前后的空格
+    &quot;comma-spacing&quot;: [2, {
+      &quot;before&quot;: false,
+      &quot;after&quot;: true
+    }],
+    // 控制逗号在行尾出现还是在行首出现 (默认行尾)
+    // http://eslint.org/docs/rules/comma-style
+    &quot;comma-style&quot;: [2, &quot;last&quot;],
+    //&quot;SwitchCase&quot; (默认：0) 强制 switch 语句中的 case 子句的缩进水平
+    // 以方括号取对象属性时，[ 后面和 ] 前面是否需要空格, 可选参数 never, always
+    &quot;computed-property-spacing&quot;: [2, &quot;never&quot;],
+    // 用于指统一在回调函数中指向this的变量名，箭头函数中的this已经可以指向外层调用者，应该没卵用了
+    // e.g [0,&quot;self&quot;] 指定只能 var that = this. self不能指向其他任何值，this也不能赋值给self以外的其他值
+    &quot;consistent-this&quot;: [2, &quot;self&quot;, &quot;that&quot;, &quot;_self&quot;, &quot;_that&quot;, &quot;me&quot;, &quot;_this&quot;],
+    // 强制使用命名的 function 表达式
+    &quot;func-names&quot;: 0,
+    // 文件末尾强制换行
+    &quot;eol-last&quot;: 0,
+    //要求或禁止在函数标识符和其调用之间有空格
+    &quot;func-call-spacing&quot;: 2,
+    // 强制在对象字面量的属性中键和值之间使用一致的间距
+    &quot;key-spacing&quot;: [2, {
+      &quot;beforeColon&quot;: false,
+      &quot;afterColon&quot;: true
+    }],
+    // 要求在注释周围有空行 ( 要求在块级注释之前有一空行)
+    &quot;lines-around-comment&quot;: [2, {
+      &quot;beforeBlockComment&quot;: true
+    }],
+    &quot;func-style&quot;: 0,
+    // 强制回调函数最大嵌套深度 5层
+    &quot;max-nested-callbacks&quot;: [2, 5],
+    // 禁止使用指定的标识符
+    &quot;id-blacklist&quot;: 0,
+    // 强制标识符的最新和最大长度
+    &quot;id-length&quot;: 0,
+    // 要求标识符匹配一个指定的正则表达式
+    &quot;id-match&quot;: 0,
+    // 强制在 JSX 属性中一致地使用双引号或单引号
+    &quot;jsx-quotes&quot;: 0,
+    // 强制在关键字前后使用一致的空格 (前后腰需要)
+    &quot;keyword-spacing&quot;: 2,
+    // 强制最大行数
+    &quot;max-lines&quot;: 0,
+    // 强制 function 定义中最多允许的参数数量
+    &quot;max-params&quot;: [1, 5],
+    // 强制 function 块最多允许的的语句数量
+    &quot;max-statements&quot;: [1, 200],
+    // 强制每一行中所允许的最大语句数量
+    &quot;max-statements-per-line&quot;: 0,
+    // 要求构造函数首字母大写 （要求调用 new 操作符时有首字母大小的函数，允许调用首字母大写的函数时没有 new 操作符。）
+    &quot;new-cap&quot;: [2, {
+      &quot;newIsCap&quot;: true,
+      &quot;capIsNew&quot;: false
+    }],
+    // 要求调用无参构造函数时有圆括号
+    &quot;new-parens&quot;: 2,
+    // 要求或禁止 var 声明语句后有一行空行
+    &quot;newline-after-var&quot;: 0,
+    // 禁止使用 Array 构造函数
+    &quot;no-array-constructor&quot;: 2,
+    // 禁用按位运算符
+    &quot;no-bitwise&quot;: 0,
+    // 要求 return 语句之前有一空行
+    &quot;newline-before-return&quot;: 0,
+    // 要求方法链中每个调用都有一个换行符
+    &quot;newline-per-chained-call&quot;: 1,
+    // 禁用 continue 语句
+    &quot;no-continue&quot;: 0,
+    // 禁止在代码行后使用内联注释
+    &quot;no-inline-comments&quot;: 0,
+    // 禁止 if 作为唯一的语句出现在 else 语句中
+    &quot;no-lonely-if&quot;: 0,
+    // 禁止混合使用不同的操作符
+    &quot;no-mixed-operators&quot;: 0,
+    // 不允许多个空行
+    &quot;no-multiple-empty-lines&quot;: [2, {
+      &quot;max&quot;: 2
+    }],
+    // 不允许否定的表达式
+    &quot;no-negated-condition&quot;: 0,
+    // 不允许使用嵌套的三元表达式
+    &quot;no-nested-ternary&quot;: 0,
+    // 禁止使用 Object 的构造函数
+    &quot;no-new-object&quot;: 2,
+    // 禁止使用一元操作符 ++ 和 --
+    &quot;no-plusplus&quot;: 0,
+    // 禁止使用特定的语法
+    &quot;no-restricted-syntax&quot;: 0,
+    // 禁止 function 标识符和括号之间出现空格
+    &quot;no-spaced-func&quot;: 2,
+    // 不允许使用三元操作符
+    &quot;no-ternary&quot;: 0,
+    // 禁用行尾空格
+    &quot;no-trailing-spaces&quot;: 2,
+    // 禁止标识符中有悬空下划线_bar
+    &quot;no-underscore-dangle&quot;: 0,
+    // 禁止可以在有更简单的可替代的表达式时使用三元操作符
+    &quot;no-unneeded-ternary&quot;: 2,
+    // 禁止属性前有空白
+    &quot;no-whitespace-before-property&quot;: 2,
+    // 要求或禁止在 var 声明周围换行
+    &quot;one-var-declaration-per-line&quot;: 0,
+    // 要求或禁止在可能的情况下要求使用简化的赋值操作符
+    &quot;operator-assignment&quot;: 0,
+    // 强制操作符使用一致的换行符
+    &quot;operator-linebreak&quot;: [2, &quot;after&quot;, {
+      &quot;overrides&quot;: {
+        &quot;?&quot;: &quot;before&quot;,
+        &quot;:&quot;: &quot;before&quot;
+      }
+    }],
+    // 要求或禁止块内填充
+    &quot;padded-blocks&quot;: 0,
+    // 要求对象字面量属性名称用引号括起来
+    &quot;quote-props&quot;: 0,
+    // 要求使用 JSDoc 注释
+    &quot;require-jsdoc&quot;: 0,
+    // 要求或禁止使用分号而不是 ASI（这个才是控制行尾部分号的，）
+    // &quot;semi&quot;: [2, &quot;always&quot;],
+    // 强制分号之前和之后使用一致的空格
+    &quot;semi-spacing&quot;: 2,
+    // 要求同一个声明块中的变量按顺序排列
+    &quot;sort-vars&quot;: 0,
+    // 强制在块之前使用一致的空格
+    &quot;space-before-blocks&quot;: [2, &quot;always&quot;],
+    // 强制在圆括号内使用一致的空格
+    &quot;space-in-parens&quot;: [2, &quot;never&quot;],
+    // 要求操作符周围有空格
+    &quot;space-infix-ops&quot;: 2,
+    // 强制在一元操作符前后使用一致的空格
+    &quot;space-unary-ops&quot;: [2, {
+      &quot;words&quot;: true,
+      &quot;nonwords&quot;: false
+    }],
+    // 强制在注释中 // 或 /* 使用一致的空格
+    &quot;spaced-comment&quot;: [2, &quot;always&quot;, {
+      &quot;markers&quot;: [&quot;global&quot;, &quot;globals&quot;, &quot;eslint&quot;, &quot;eslint-disable&quot;, &quot;*package&quot;, &quot;!&quot;]
+    }],
+    // 要求或禁止 Unicode BOM
+    &quot;unicode-bom&quot;: 2,
+    // 要求正则表达式被括号括起来
+    &quot;wrap-regex&quot;: 0,
+    //禁止词法声明 (let、const、function 和 class) 出现在 case或default 子句中
+    &quot;no-case-declarations&quot;: [&quot;warn&quot;],
+
+    //////////////
+    // ES6.相关 //
+    //////////////
+    // 每个模块只能使用一个import
+    &quot;no-duplicate-imports&quot;: 2,
+    // 要求箭头函数体使用大括号
+    &quot;arrow-body-style&quot;: 2,
+    // 要求箭头函数的参数使用圆括号
+    &quot;arrow-parens&quot;: 2,
+    &quot;arrow-spacing&quot;: [2, {
+      &quot;before&quot;: true,
+      &quot;after&quot;: true
+    }],
+    // 强制 generator 函数中 * 号周围使用一致的空格
+    &quot;generator-star-spacing&quot;: [2, {
+      &quot;before&quot;: true,
+      &quot;after&quot;: true
+    }],
+    // 禁止修改类声明的变量
+    &quot;no-class-assign&quot;: 2,
+    // 不允许箭头功能，在那里他们可以混淆的比较
+    &quot;no-confusing-arrow&quot;: 0,
+    // 禁止修改 const 声明的变量
+    &quot;no-const-assign&quot;: 2,
+    // 禁止类成员中出现重复的名称
+    &quot;no-dupe-class-members&quot;: 2,
+    // 禁止 Symbolnew 操作符和 new 一起使用
+    &quot;no-new-symbol&quot;: 2,
+    // 允许指定模块加载时的进口
+    &quot;no-restricted-imports&quot;: 0,
+    // 禁止在构造函数中，在调用 super() 之前使用 this 或 super
+    &quot;no-this-before-super&quot;: 2,
+    // 禁止不必要的计算性能键对象的文字
+    &quot;no-useless-computed-key&quot;: 0,
+    // 要求使用 let 或 const 而不是 var
+    &quot;no-var&quot;: 1,
+    // 要求或禁止对象字面量中方法和属性使用简写语法
+    &quot;object-shorthand&quot;: 0,
+    // 要求使用箭头函数作为回调
+    &quot;prefer-arrow-callback&quot;: 0,
+    // 要求使用 const 声明那些声明后不再被修改的变量
+    &quot;prefer-const&quot;: 0,
+    // 要求在合适的地方使用 Reflect 方法
+    &quot;prefer-reflect&quot;: 0,
+    // 要求使用扩展运算符而非 .apply()
+    &quot;prefer-spread&quot;: 0,
+    // 要求使用模板字面量而非字符串连接
+    &quot;prefer-template&quot;: 0,
+    // Suggest using the rest parameters instead of arguments
+    &quot;prefer-rest-params&quot;: 0,
+    // 要求generator 函数内有 yield
+    &quot;require-yield&quot;: 2,
+    // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
+    &quot;template-curly-spacing&quot;: 1,
+    // 强制在 yield* 表达式中 * 周围使用空格
+    &quot;yield-star-spacing&quot;: 2,
+    // 要求或禁止使用拖尾逗号
+    &quot;comma-dangle&quot;: 2,
+    // 禁止在条件中使用常量表达式
+    &quot;no-constant-condition&quot;: 0,
+    // 强制一行的最大长度
+    &quot;max-len&quot;: [0, 200, {&quot;ignoreUrls&quot;: true}],
+    // 禁止出现未使用过的变量
+    &quot;no-unused-vars&quot;: [0, {
+      &quot;vars&quot;: &quot;all&quot;,// all 检测所有变量，包括全局环境中的变量。这是默认值。
+      &quot;args&quot;: &quot;none&quot; // none - 不检查参数。
+    }],
+  }
+};
+
+</code></pre>
+<h4 id="6-修改-packagejson">6. 修改 package.json</h4>
+<pre><code class="language-javascript"> &quot;scripts&quot;: {
+    &quot;lint&quot;: &quot;npx eslint --fix **/*.js&quot;
+  },
+</code></pre>
+<h4 id="7-创建完packagejson文件就可以执行如下命令对指定的文件进行eslint管理">7. 创建完package.json文件，就可以执行如下命令对指定的文件进行eslint管理：</h4>
+<pre><code class="language-shell">npm run lint
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/" class="leancloud-visitors view"
+                              data-flag-title="微信小程序使用 Eslint">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/jenkins-sheng-ji/" class="title">
+                                      <h4>Docker安装的Jenkins升级</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-04-24</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/jenkins-sheng-ji/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/46.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/wei-xin-xiao-cheng-xu-shi-yong-vant/" class="title">
+                                      <h4>微信小程序使用Vant</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-04-20</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/wei-xin-xiao-cheng-xu-shi-yong-vant/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/22.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-vscode%E5%AE%89%E8%A3%85eslint%E6%8F%92%E4%BB%B6">1. VsCode安装Eslint插件</a></li>
+<li><a href="#2-cd%E5%88%B0%E6%88%91%E4%BB%AC%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%AE%89%E8%A3%85eslint">2. cd到我们的项目，安装ESlint</a></li>
+<li><a href="#3-%E5%88%9B%E5%BB%BAeslint%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6eslintrcjs">3. 创建ESlint配置文件.eslintrc.js</a></li>
+<li><a href="#4-eslintrcjs%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E4%B9%8B%E5%90%8E%E6%88%91%E4%BB%AC%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A7%84%E8%8C%83%E6%88%91%E4%BB%AC%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BA%86">4. eslintrc.js文件生成之后，我们就可以使用基本的命令规范我们的代码了</a></li>
+<li><a href="#%E5%BD%93%E7%84%B6%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%BD%BF%E7%94%A8%E4%BA%86es6%E7%9A%84%E8%AF%AD%E6%B3%95%E4%B8%8A%E8%BF%B0%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%90%8E%E4%BC%9A%E6%8A%A5%E5%A6%82%E4%B8%8B%E9%94%99%E8%AF%AF">当然，如果你使用了ES6的语法，上述命令执行后会报如下错误</a></li>
+<li><a href="#%E5%8E%9F%E5%9B%A0%E6%98%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8Eeslint%E5%BD%93%E5%89%8D%E7%9A%84%E8%A7%A3%E6%9E%90%E5%8A%9F%E8%83%BD%E4%B8%8D%E5%85%BC%E5%AE%B9%E5%9B%A0%E6%AD%A4%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%AD%A5%E9%AA%A4">原因是开发环境与ESLint当前的解析功能不兼容，因此我们需要执行下一个步骤；</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E5%9C%A8eslintrc%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AEparser-babel-eslint-%E5%8D%B3%E5%8F%AF">安装完成后，在.eslintrc中添加配置：&quot;parser&quot;: &quot;babel-eslint&quot; 即可；</a></li>
+<li><a href="#5-eslintrcjs%E5%8F%82%E8%80%83">5. eslintrc.js参考</a></li>
+<li><a href="#6-%E4%BF%AE%E6%94%B9-packagejson">6. 修改 package.json</a></li>
+<li><a href="#7-%E5%88%9B%E5%BB%BA%E5%AE%8Cpackagejson%E6%96%87%E4%BB%B6%E5%B0%B1%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%8C%87%E5%AE%9A%E7%9A%84%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8Ceslint%E7%AE%A1%E7%90%86">7. 创建完package.json文件，就可以执行如下命令对指定的文件进行eslint管理：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

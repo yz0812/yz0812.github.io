@@ -1,0 +1,2542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yz0812.github.io</id>
+    <title>yz</title>
+    <updated>2026-02-13T15:19:45.759Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://yz0812.github.io"/>
+    <link rel="self" href="https://yz0812.github.io/atom.xml"/>
+    <subtitle>少年拥有了时间,时间带走了年少</subtitle>
+    <logo>https://yz0812.github.io/images/avatar.png</logo>
+    <icon>https://yz0812.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2026, yz</rights>
+    <entry>
+        <title type="html"><![CDATA[Windows Terminal 设置]]></title>
+        <id>https://yz0812.github.io/post/windows-terminal-she-zhi/</id>
+        <link href="https://yz0812.github.io/post/windows-terminal-she-zhi/">
+        </link>
+        <updated>2026-01-31T20:22:43.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="windows-terminal-设置">Windows Terminal 设置</h1>
+<h2 id="1-安装starship">1. 安装<strong>starship</strong></h2>
+<ul>
+<li>
+<p>安装方式（windows）：</p>
+<ul>
+<li>
+<p>Winget：<code>winget install --id Starship.Starship</code></p>
+</li>
+<li>
+<p>配置方式：</p>
+<ul>
+<li>首先在 powershell 中输入 <code>$PROFILE</code>，会自动打开 powershell 的配置文件。</li>
+<li>在配置文件中输入 <code>Invoke-Expression (&amp;starship init powershell)</code> 并保存即可。</li>
+</ul>
+</li>
+<li>
+<p>配置文件绝对路径：<code>C:\Users\{username}\.config\starship.toml</code> （如果没有自己建一个即可）</p>
+</li>
+<li>
+<p>预设网站： <a href="https://starship.rs/presets/">Presets | Starship</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-windows-powershell-tab以当前目录作为名称和starship会冲突">2. Windows PowerShell tab以当前目录作为名称（和starship会冲突）</h2>
+<p>配置方式：</p>
+<ul>
+<li>首先在 powershell 中输入 <code>$PROFILE</code>，会自动打开 powershell 的配置文件。</li>
+<li>然后添加下面内容</li>
+</ul>
+<pre><code class="language-pseudocode"># tab显示当前目录 
+# Windows Terminal 设置 添加 &quot;suppressApplicationTitle&quot; 选项，并将其设置为 false
+function Test-Administrator
+{
+    $user = [Security.Principal.WindowsIdentity]::GetCurrent();
+    (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
+# Set prompt and title
+Function Prompt {
+    $administrator = Test-Administrator
+    $location = $executionContext.SessionState.Path.CurrentLocation
+    $filename = Split-Path $location -leaf
+    if ($administrator) {
+		# 管理员启动会添加一个 # 
+        $host.UI.RawUI.WindowTitle = &quot;# $filename&quot;
+        &quot;PS $location $('&gt;' * ($nestedPromptLevel + 1)) &quot;
+    } else {
+        $host.UI.RawUI.WindowTitle = &quot;$filename&quot;
+        &quot;PS $pwd&gt;&quot;
+    }
+}
+
+</code></pre>
+<h2 id="3-设置cluade-code-中shiftenter-换行">3. 设置Cluade Code 中Shift+Enter 换行</h2>
+<pre><code class="language-json">{
+
+     &quot;actions&quot;: [
+
+         {
+
+             &quot;command&quot;: {
+
+                 &quot;action&quot;: &quot;sendInput&quot;,
+
+                 &quot;input&quot;: &quot;u001bn&quot;
+
+             },
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;
+
+         }
+
+     ],
+
+     &quot;keybindings&quot;: [
+
+         {
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;,
+
+             &quot;keys&quot;: &quot;shift+enter&quot;
+
+         }
+
+     ]
+
+}
+</code></pre>
+<h2 id="4-设置字体">4. 设置字体</h2>
+<p>需要先下载 <a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a>字体</p>
+<p>安装方式（windows）：</p>
+<ul>
+<li>
+<p>进入解压后的 <code>fonts/ttf</code> 文件夹。</p>
+<p>全选所有字体文件（<code>Ctrl + A</code>）。</p>
+<p><strong>核心操作：</strong> 右键点击选中的文件，选择 <strong>“为所有用户安装” (Install for all users)</strong>。</p>
+<blockquote>
+<p><em>注意：如果直接双击安装，有时只会安装在当前用户路径下，部分应用可能读取不到。</em></p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="language-json">{
+    	&quot;profiles&quot;: {
+		&quot;defaults&quot;: {
+			&quot;font&quot;: {
+				&quot;face&quot;: &quot;JetBrains Mono&quot;,
+				&quot;size&quot;: 12,
+				&quot;weight&quot;: &quot;normal&quot;
+			}
+		}
+}
+</code></pre>
+<h2 id="5-设置tab-颜色">5. 设置Tab 颜色</h2>
+<p>设置：</p>
+<ul>
+<li>
+<p>$profiles.list.找到对应终端。添加 <code> &quot;tabColor&quot;: &quot;#4e1bb4&quot;</code></p>
+<pre><code class="language-json">{
+    &quot;profiles&quot;: {
+        &quot;list&quot;: [
+            {
+                &quot;commandline&quot;: &quot;%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe&quot;,
+                &quot;guid&quot;: &quot;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&quot;,
+                &quot;hidden&quot;: false,
+                &quot;name&quot;: &quot;Windows PowerShell&quot;,
+                &quot;tabColor&quot;: &quot;#4e1bb4&quot;
+            },
+            {
+                &quot;commandline&quot;: &quot;%SystemRoot%\\System32\\cmd.exe&quot;,
+                &quot;guid&quot;: &quot;{0caa0dad-35be-5f56-a8ff-afceeeaa6101}&quot;,
+                &quot;hidden&quot;: false,
+                &quot;name&quot;: &quot;命令提示符&quot;,
+                &quot;tabColor&quot;: &quot;#4fd065&quot;
+            }
+        ]
+    }
+}
+</code></pre>
+</li>
+</ul>
+<h2 id="6-power-shell-设置代理">6. Power Shell 设置代理</h2>
+<p><strong>前提：不想使用全局代理，但是Codex官方访问必须要代理，Codex无法像Claude Code一样在配置文件中配置代理，所以给Power Shell 设置代理</strong></p>
+<p>设置：</p>
+<ul>
+<li>Windows Terminal 添加配置命名<code>code</code></li>
+<li>命令行， 配置 <code>%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit -File &quot;C:\Users\Administrator\Documents\WindowsPowerShell\Microsoft.PowerShell_profile-code.ps1&quot;</code> 选择配置路径，不与其他的冲突。</li>
+<li><code>Microsoft.PowerShell_profile-code.ps1</code>配置</li>
+</ul>
+<pre><code class="language-pseudocode"># 设置 HTTP 和 HTTPS 代理
+$env:HTTP_PROXY = &quot;http://127.0.0.1:7897&quot;
+$env:HTTPS_PROXY = &quot;http://127.0.0.1:7897&quot;
+
+# 可选：如果你希望在启动时看到代理已开启的提示
+Write-Host &quot;Proxy configuration loaded: 127.0.0.1:7897&quot; -ForegroundColor Green
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[claude code 简单配置]]></title>
+        <id>https://yz0812.github.io/post/claude-code-jian-dan-pei-zhi/</id>
+        <link href="https://yz0812.github.io/post/claude-code-jian-dan-pei-zhi/">
+        </link>
+        <updated>2025-12-26T15:24:31.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="前置环境要求">前置环境要求</h1>
+<p>在安装 Claude Code 之前，请确保已安装以下环境：</p>
+<h2 id="nodejs-环境">Node.js 环境</h2>
+<pre><code class="language-bash">
+# 验证 Node.js 安装
+
+node --version  # 建议 v20.0.0 或更高版本
+
+npm --version
+
+</code></pre>
+<p>如未安装，请访问：https://nodejs.org/</p>
+<h2 id="python-环境用于部分-mcp-服务器">Python 环境（用于部分 MCP 服务器）</h2>
+<pre><code class="language-bash">
+# 验证 Python 安装
+
+python --version  # 需要 Python 3.11 或更高版本
+
+</code></pre>
+<h2 id="uv-工具python-包管理器">uv 工具（Python 包管理器）</h2>
+<pre><code class="language-bash">
+# Windows 安装 uv
+
+powershell -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
+
+# 验证安装
+
+uvx --version
+
+</code></pre>
+<hr>
+<h1 id="1-安装claude-code">1. 安装Claude Code</h1>
+<h2 id="全局安装">全局安装</h2>
+<pre><code class="language-bash">
+npm install -g @anthropic-ai/claude-code
+
+</code></pre>
+<p>验证是否安装成功：</p>
+<pre><code>
+claude --version
+
+</code></pre>
+<h1 id="2-claude-code-基础配置">2. Claude Code 基础配置</h1>
+<p>配置文件位置：<code>C:Usersyz.claudesettings.json</code>（使用 <code>ccw</code> 命令或直接编辑文件）</p>
+<h2 id="21-环境变量配置必须">2.1 环境变量配置（必须）</h2>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: {
+
+     &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;sk-***&quot;,
+
+     &quot;ANTHROPIC_BASE_URL&quot;: &quot;https://***.com&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;claude-opus-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;
+
+  }
+
+}
+
+</code></pre>
+<h3 id="关键配置说明">关键配置说明</h3>
+<p><strong><code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=&quot;1&quot;</code>（强烈推荐）</strong></p>
+<p>禁用非必要网络请求，包括：</p>
+<ul>
+<li>
+<p>遥测数据上报</p>
+</li>
+<li>
+<p>使用分析统计</p>
+</li>
+<li>
+<p>其他后台网络活动</p>
+</li>
+</ul>
+<p><strong>为什么必须配置？</strong></p>
+<p>如果不配置此环境变量，使用第三方 API 时可能出现：</p>
+<ol>
+<li><strong>连接不稳定</strong> - Claude Code 尝试连接 Anthropic 官方服务器导致超时</li>
+<li><strong>响应中断</strong> - 非必要请求干扰正常 API 调用</li>
+<li><strong>额度异常消耗</strong> - 部分请求可能被错误计费</li>
+<li><strong>频繁报错</strong> - 各种网络相关错误提示</li>
+</ol>
+<hr>
+<h2 id="22-初次引导配置">2.2 初次引导配置</h2>
+<p>配置文件位置：<code>C:Usersyz.claude.json</code>（注意：与 <code>settings.json</code> 同级目录）</p>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true
+
+}
+
+</code></pre>
+<h3 id="作用">作用</h3>
+<ul>
+<li>
+<p><strong>跳过新手引导</strong> - 首次运行 <code>claude</code> 命令时不会进入交互式引导流程</p>
+</li>
+<li>
+<p><strong>直接开始使用</strong> - 系统判定你已完成初始化，直接进入工作状态</p>
+</li>
+</ul>
+<h3 id="工作原理">工作原理</h3>
+<p>当用户首次运行 <code>claude</code> 命令时：</p>
+<ul>
+<li>
+<p><code>hasCompletedOnboarding: false</code>（或不存在）→ 触发新手引导</p>
+</li>
+<li>
+<p><code>hasCompletedOnboarding: true</code> → 跳过引导</p>
+</li>
+</ul>
+<hr>
+<h2 id="23-git-提交署名配置可选">2.3 Git 提交署名配置（可选）</h2>
+<p>同样在 <code>C:Usersyz.claude.json</code> 中添加：</p>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true,
+
+  &quot;attribution&quot;: {
+
+     &quot;commit&quot;: &quot;&quot;,
+
+     &quot;pr&quot;: &quot;&quot;
+
+  }
+}
+
+</code></pre>
+<h3 id="配置项说明">配置项说明</h3>
+<p><strong><code>attribution.commit</code></strong></p>
+<ul>
+<li>
+<p><strong>默认行为</strong>：在 Git Commit 末尾添加 <code>Co-authored-by: Claude &lt;noreply@anthropic.com&gt;</code></p>
+</li>
+<li>
+<p><strong>关闭方法</strong>：设置为空字符串 <code>&quot;&quot;</code></p>
+</li>
+</ul>
+<p><strong><code>attribution.pr</code></strong></p>
+<ul>
+<li>
+<p><strong>默认行为</strong>：在 Pull Request 描述中添加&quot;🤖 Generated with Claude Code&quot;</p>
+</li>
+<li>
+<p><strong>关闭方法</strong>：设置为空字符串 <code>&quot;&quot;</code></p>
+</li>
+</ul>
+<h3 id="完整-claudejson-示例">完整 <code>.claude.json</code> 示例</h3>
+<pre><code class="language-json">
+{
+
+  &quot;hasCompletedOnboarding&quot;: true,
+
+  &quot;attribution&quot;: {
+
+     &quot;commit&quot;: &quot;&quot;,
+
+     &quot;pr&quot;: &quot;&quot;
+
+  }
+
+}
+
+</code></pre>
+<h2 id="24-claude-code-自动请求确认">2.4 claude code 自动请求确认</h2>
+<p><strong>写 <strong>permission</strong> 放行对应的</strong>bash**命令在 <strong>.claude/setting.json</strong> 里面添加:</p>
+<pre><code class="language-json">{
+    &quot;permissions&quot;: {
+        &quot;allow&quot;: [
+            &quot;Bash&quot;,
+            &quot;Read&quot;,
+            &quot;Edit&quot;
+        ],
+        &quot;defaultMode&quot;: &quot;acceptEdits&quot;
+    }
+}
+</code></pre>
+<h1 id="3-可以安装使用-ccometixline">3. 可以安装使用 <a href="https://github.com/Haleclipse/CCometixLine">CCometixLine</a></h1>
+<p>开源地址 <a href="https://github.com/Haleclipse/CCometixLine">Haleclipse/CCometixLine: Claude Code statusline tool written in Rust</a></p>
+<p>下载对应安装包到claude code安装目录。创建目录 <code>ccline</code>将下载文件复制到目录中</p>
+<p>执行</p>
+<pre><code class="language-bash">
+# 初始化配置文件
+
+ccline --init
+
+# 检查配置有效性  
+
+ccline --check
+
+# 打印当前配置
+
+ccline --print
+
+# 进入 TUI 配置模式
+
+ccline --config
+
+</code></pre>
+<p>在<code>C:Usersyz.claudesettings.json</code>  中添加</p>
+<pre><code class="language-json">
+{
+
+  &quot;statusLine&quot;: {
+
+     &quot;type&quot;: &quot;command&quot;, 
+
+     &quot;command&quot;: &quot;%USERPROFILE%.claudecclineccline.exe&quot;,
+
+     &quot;padding&quot;: 0
+
+  }
+
+}
+
+</code></pre>
+<h1 id="4-shift-enter-换行">4. shift-enter 换行</h1>
+<p>$.actions 内加上</p>
+<pre><code class="language-json">
+         {
+
+             &quot;command&quot;: {
+
+                 &quot;action&quot;: &quot;sendInput&quot;,
+
+                 &quot;input&quot;: &quot;u001bn&quot;
+
+             },
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;
+
+         },
+
+</code></pre>
+<p>$.keybindings 里加上</p>
+<pre><code class="language-json">
+         {
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;,
+
+             &quot;keys&quot;: &quot;shift+enter&quot;
+
+         },
+
+</code></pre>
+<p>完整：</p>
+<pre><code class="language-json">
+{
+
+     &quot;actions&quot;: [
+
+         {
+
+             &quot;command&quot;: {
+
+                 &quot;action&quot;: &quot;sendInput&quot;,
+
+                 &quot;input&quot;: &quot;u001bn&quot;
+
+             },
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;
+
+         }
+
+     ],
+
+     &quot;keybindings&quot;: [
+
+         {
+
+             &quot;id&quot;: &quot;User.sendInput.FE9C254&quot;,
+
+             &quot;keys&quot;: &quot;shift+enter&quot;
+
+         }
+
+     ]
+
+}
+
+</code></pre>
+<h1 id="5-生成提示词cluademd">5. 生成提示词cluade.md</h1>
+<pre><code class="language-bash">
+我是一名使用java语言的后端工程师, 现在需要一份全局提示词,请你使用AskUserQuestion工具完成这一任务.
+
+</code></pre>
+<hr>
+<h1 id="6-mcp-服务器配置">6. MCP 服务器配置</h1>
+<p>MCP（Model Context Protocol）服务器为 Claude Code 提供扩展能力。配置文件位置：<code>C:Usersyz.claudesettings.json</code></p>
+<h2 id="配置总览">配置总览</h2>
+<p>在 <code>settings.json</code> 中添加 <code>mcpServers</code> 字段：</p>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: { ... },
+
+  &quot;mcpServers&quot;: {
+
+     // MCP 服务器配置
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2 id="各-mcp-服务器详解">各 MCP 服务器详解</h2>
+<h3 id="1-ace-tool优先级最高必装">1. ace-tool（优先级最高，必装）</h3>
+<p><strong>作用</strong>：Augment Context Engine - 最强大的代码上下文理解引擎</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>语义级代码搜索（理解业务逻辑，不仅是字符串匹配）</p>
+</li>
+<li>
+<p>跨语言链路追踪（Rust Command ↔ Frontend Invoke）</p>
+</li>
+<li>
+<p>代码风格/实现模式查找</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;ace-tool&quot;: {
+
+  &quot;command&quot;: &quot;ace-tool&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;--base-url&quot;, &quot;https://acemcp.heroman.wtf/relay/&quot;,
+
+     &quot;--token&quot;, &quot;ace_********&quot;,
+
+     &quot;--batch-size&quot;, &quot;100&quot;,
+
+     &quot;--max-lines-per-blob&quot;, &quot;4000&quot;,
+
+     &quot;--upload-concurrency&quot;, &quot;5&quot;,
+
+     &quot;--upload-timeout-ms&quot;, &quot;60000&quot;,
+
+     &quot;--retrieval-timeout-ms&quot;, &quot;120000&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要先全局安装 <code>npm install -g ace-tool</code></p>
+<hr>
+<h3 id="2-serena符号级精度工具">2. serena（符号级精度工具）</h3>
+<p><strong>作用</strong>：专业代码符号操作工具（定义查找、引用分析、重构）</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>精确查找 TypeScript Interface / Rust Struct / Function 定义</p>
+</li>
+<li>
+<p>查找所有引用位置</p>
+</li>
+<li>
+<p>符号重命名（自动更新所有引用）</p>
+</li>
+<li>
+<p>Import/Mod 关系分析</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;serena&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;--python&quot;, &quot;3.11&quot;,
+
+     &quot;--from&quot;, &quot;git+https://github.com/oraios/serena&quot;,
+
+     &quot;serena-mcp-server&quot;,
+
+     &quot;--context&quot;, &quot;desktop-app&quot;,
+
+     &quot;--mode&quot;, &quot;editing&quot;,
+
+     &quot;--mode&quot;, &quot;interactive&quot;,
+
+     &quot;--project-from-cwd&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>使用场景</strong>：当 <code>ace-tool</code> 已定位上下文后，需要符号级精确操作时使用</p>
+<p><strong>环境依赖</strong>：需要 Python 3.11+ 和 uv</p>
+<hr>
+<h3 id="3-code-index代码索引补充">3. code-index（代码索引补充）</h3>
+<p><strong>作用</strong>：快速代码搜索（正则/模糊匹配）</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>文件查找（支持 glob 模式：<code>*.py</code>, <code>src/**/*.ts</code>）</p>
+</li>
+<li>
+<p>快速全文搜索</p>
+</li>
+<li>
+<p>符号概览</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;code-index&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [&quot;code-index-mcp&quot;]
+
+}
+
+</code></pre>
+<p><strong>使用场景</strong>：<code>ace-tool</code> 兜底方案，或需要简单字符串搜索时</p>
+<p><strong>环境依赖</strong>：需要 Python 和 uv</p>
+<hr>
+<h3 id="4-context7外部知识库">4. context7（外部知识库）</h3>
+<p><strong>作用</strong>：实时获取最新官方文档和代码示例</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>Tauri 官方文档（v1/v2，必须明确版本）</p>
+</li>
+<li>
+<p>Rust std 文档</p>
+</li>
+<li>
+<p>npm 包文档</p>
+</li>
+<li>
+<p>MDN Web API 文档</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;context7&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@upstash/context7-mcp&quot;,
+
+     &quot;--api-key&quot;, &quot;**********&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>重要</strong>：不参与项目内代码理解，仅用于外部知识查询</p>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="5-filesystem文件系统访问">5. filesystem（文件系统访问）</h3>
+<p><strong>作用</strong>：提供安全的文件读写能力</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>读取/写入文件</p>
+</li>
+<li>
+<p>列出目录</p>
+</li>
+<li>
+<p>创建/移动文件</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;filesystem&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-filesystem&quot;,
+
+     &quot;D:pythonacgo&quot;  // 允许访问的根目录（可配置多个）
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>安全</strong>：只能访问指定目录，无法越界</p>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="6-server-git版本控制">6. server-git（版本控制）</h3>
+<p><strong>作用</strong>：Git 操作能力</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>查看 Diff / Blame</p>
+</li>
+<li>
+<p>提交历史分析</p>
+</li>
+<li>
+<p>分支管理</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;server-git&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;mcp-server-git&quot;,
+
+     &quot;--repository&quot;, &quot;D:pythonacgo&quot;  // Git 仓库路径
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>用途</strong>：理解修改背景，不参与方案设计</p>
+<p><strong>环境依赖</strong>：需要 Python、uv 和 Git</p>
+<hr>
+<h3 id="7-memory长期记忆">7. memory（长期记忆）</h3>
+<p><strong>作用</strong>：跨会话持久化知识</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>存储项目规范（如 Rust Clippy 规则）</p>
+</li>
+<li>
+<p>记录环境坑点（跨平台编译问题）</p>
+</li>
+<li>
+<p>缓存常用命令</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;memory&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-memory&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="8-sequential-thinking深度思考">8. sequential-thinking（深度思考）</h3>
+<p><strong>作用</strong>：复杂问题分析工具</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>多步推理链（Chain of Thought）</p>
+</li>
+<li>
+<p>方案对比评估</p>
+</li>
+<li>
+<p>假设验证</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;sequential-thinking&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;type&quot;: &quot;stdio&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;@modelcontextprotocol/server-sequential-thinking&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm</p>
+<hr>
+<h3 id="9-chrome-devtools浏览器控制">9. chrome-devtools（浏览器控制）</h3>
+<p><strong>作用</strong>：自动化测试和调试</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>页面交互（点击、填表）</p>
+</li>
+<li>
+<p>网络请求分析</p>
+</li>
+<li>
+<p>性能追踪</p>
+</li>
+<li>
+<p>截图</p>
+</li>
+</ul>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;chrome-devtools&quot;: {
+
+  &quot;command&quot;: &quot;npx&quot;,
+
+  &quot;args&quot;: [
+
+     &quot;-y&quot;,
+
+     &quot;chrome-devtools-mcp@latest&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Node.js/npm 和 Chrome 浏览器</p>
+<hr>
+<h3 id="10-mindmap思维导图生成">10. mindmap（思维导图生成）</h3>
+<p><strong>作用</strong>：将 Markdown 内容转换为可视化思维导图</p>
+<p><strong>能力</strong>：</p>
+<ul>
+<li>
+<p>自然语言/结构化内容转思维导图</p>
+</li>
+<li>
+<p>自动生成 HTML 文件并在浏览器打开</p>
+</li>
+<li>
+<p>支持项目架构、知识体系、需求文档等可视化</p>
+</li>
+</ul>
+<p><strong>前置安装</strong>：</p>
+<pre><code class="language-bash">
+npm install -g markmap-cli
+
+</code></pre>
+<p><strong>配置</strong>：</p>
+<pre><code class="language-json">
+&quot;mindmap&quot;: {
+
+  &quot;command&quot;: &quot;uvx&quot;,
+
+  &quot;args&quot;: [
+
+   &quot;mindmap-mcp-server&quot;,
+
+    &quot;--return-type&quot;,
+
+    &quot;html&quot;
+
+  ]
+
+}
+
+</code></pre>
+<p><strong>环境依赖</strong>：需要 Python、uv 和 markmap-cli</p>
+<hr>
+<h2 id="完整配置示例">完整配置示例</h2>
+<p>将以下内容添加到 <code>C:Usersyz.claudesettings.json</code>：</p>
+<pre><code class="language-json">
+{
+
+  &quot;env&quot;: {
+
+     &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;sk-***&quot;,
+
+     &quot;ANTHROPIC_BASE_URL&quot;: &quot;https://***.com&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;: &quot;claude-opus-4-5&quot;,
+
+     &quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;ANTHROPIC_MODEL&quot;: &quot;claude-sonnet-4-5&quot;,
+
+     &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;
+
+  },
+
+  &quot;mcpServers&quot;: {
+
+     &quot;ace-tool&quot;: {
+
+       &quot;command&quot;: &quot;ace-tool&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;--base-url&quot;, &quot;https://acemcp.heroman.wtf/relay/&quot;,
+
+         &quot;--token&quot;, &quot;ace_014fa01fa4ca3c7eaad02cb22e483bbaeba03218&quot;,
+
+         &quot;--batch-size&quot;, &quot;100&quot;,
+
+         &quot;--max-lines-per-blob&quot;, &quot;4000&quot;,
+
+         &quot;--upload-concurrency&quot;, &quot;5&quot;,
+
+         &quot;--upload-timeout-ms&quot;, &quot;60000&quot;,
+
+         &quot;--retrieval-timeout-ms&quot;, &quot;120000&quot;
+
+       ]
+
+     },
+
+     &quot;serena&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;--python&quot;, &quot;3.11&quot;,
+
+         &quot;--from&quot;, &quot;git+https://github.com/oraios/serena&quot;,
+
+         &quot;serena-mcp-server&quot;,
+
+         &quot;--context&quot;, &quot;desktop-app&quot;,
+
+         &quot;--mode&quot;, &quot;editing&quot;,
+
+         &quot;--mode&quot;, &quot;interactive&quot;,
+
+         &quot;--project-from-cwd&quot;
+
+       ]
+
+     },
+
+     &quot;code-index&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;args&quot;: [&quot;code-index-mcp&quot;]
+
+     },
+
+     &quot;context7&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@upstash/context7-mcp&quot;,
+
+         &quot;--api-key&quot;, &quot;ctx7sk-1ed2dfa5-6155-449f-8544-944c37c3efec&quot;
+
+       ]
+
+     },
+
+     &quot;filesystem&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-filesystem&quot;,
+
+         &quot;D:pythonacgo&quot;
+
+       ]
+
+     },
+
+     &quot;server-git&quot;: {
+
+       &quot;command&quot;: &quot;uvx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;mcp-server-git&quot;,
+
+         &quot;--repository&quot;, &quot;D:pythonacgo&quot;
+
+       ]
+
+     },
+
+     &quot;memory&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-memory&quot;
+
+       ]
+
+     },
+
+     &quot;sequential-thinking&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;type&quot;: &quot;stdio&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;@modelcontextprotocol/server-sequential-thinking&quot;
+
+       ]
+
+     },
+
+     &quot;chrome-devtools&quot;: {
+
+       &quot;command&quot;: &quot;npx&quot;,
+
+       &quot;args&quot;: [
+
+         &quot;-y&quot;,
+
+         &quot;chrome-devtools-mcp@latest&quot;
+
+       ]
+
+     }
+
+  }
+
+}
+
+</code></pre>
+<hr>
+<h2 id="mcp-工具使用优先级关键">MCP 工具使用优先级（关键）</h2>
+<p>按以下顺序选择工具：</p>
+<ol>
+<li><strong>ace-tool（最高优先级）</strong> - 任何需要理解代码、业务、上下文的场景</li>
+<li><strong>serena</strong> - 需要符号级精确能力（定义/引用/重构）</li>
+<li><strong>context7</strong> - 查询外部文档（必须明确版本号）</li>
+<li><strong>filesystem</strong> - 已知文件路径的读写操作</li>
+<li><strong>code-index</strong> - 简单字符串搜索兜底</li>
+<li><strong>其他工具</strong> - 特定场景补充</li>
+</ol>
+<p><strong>铁律</strong>：禁止绕过 <code>ace-tool</code> 直接使用低层工具猜文件路径</p>
+<hr>
+<h2 id="验证配置">验证配置</h2>
+<p>重启 Claude Code 后执行：</p>
+<pre><code class="language-bash">
+# 进入 Claude Code 后查看已加载的 MCP 服务器
+
+# 应该能看到上述 9 个服务器状态为 Active
+
+</code></pre>
+<p>如某个服务器加载失败，检查：</p>
+<ol>
+<li>对应环境是否安装（Node.js/Python/uv/ace-tool）</li>
+<li>配置文件 JSON 格式是否正确（注意逗号）</li>
+<li>路径是否使用双反斜杠（Windows：<code>D:pathtodir</code>）</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Nexus 安装使用]]></title>
+        <id>https://yz0812.github.io/post/nexus-an-zhuang-shi-yong/</id>
+        <link href="https://yz0812.github.io/post/nexus-an-zhuang-shi-yong/">
+        </link>
+        <updated>2025-12-26T15:05:17.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="1使用-docker-compose-安装-nexus">1.使用 Docker Compose 安装 Nexus</h1>
+<pre><code class="language-yml">version: &quot;3.8&quot;
+
+services:
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    restart: always
+    ports:
+      - &quot;8081:8081&quot;
+    volumes:
+      - nexus-data:/nexus-data
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m
+
+volumes:
+  nexus-data:
+</code></pre>
+<h1 id="2-从容器中获取-nexus-初始密码">2. 从容器中获取 Nexus 初始密码</h1>
+<p>Nexus 首次启动会生成一个随机的管理员密码，存放在容器内部。</p>
+<pre><code class="language-sh">docker exec nexus cat /nexus-data/admin.password
+</code></pre>
+<p>初始账号 admin</p>
+<h1 id="3-配置阿里云仓库">3. 配置阿里云仓库</h1>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/1.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/2.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/3.png" alt="" loading="lazy"></figure>
+<pre><code class="language-sh">maven-aliyun-center
+
+https://maven.aliyun.com/repository/central
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/4.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/nexus/5.png" alt="" loading="lazy"></figure>
+<h1 id="4-项目中使用">4. 项目中使用</h1>
+<h2 id="41-pomxml-中使用">4.1 pom.xml 中使用</h2>
+<pre><code class="language-xml">&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;nexus&lt;/id&gt;
+        &lt;name&gt;Nexus Proxy&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+        &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/releases&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;pluginRepositories&gt;
+    &lt;pluginRepository&gt;
+        &lt;id&gt;nexus&lt;/id&gt;
+        &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+    &lt;/pluginRepository&gt;
+&lt;/pluginRepositories&gt;
+
+</code></pre>
+<h2 id="42-settingxml-中使用">4.2 setting.xml 中使用</h2>
+<pre><code class="language-xml">&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+          xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+
+    &lt;!-- 1. 镜像配置：强制所有仓库走 Nexus --&gt;
+    &lt;mirrors&gt;
+        &lt;mirror&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+            &lt;name&gt;Nexus Mirror&lt;/name&gt;
+            &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+        &lt;/mirror&gt;
+    &lt;/mirrors&gt;
+
+    &lt;!-- 2. 认证信息（如 Nexus 开启了登录） --&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;username&gt;admin&lt;/username&gt;
+            &lt;password&gt;你的密码&lt;/password&gt;
+        &lt;/server&gt;
+    &lt;/servers&gt;
+
+    &lt;!-- 3. Profile（可选，但推荐） --&gt;
+    &lt;profiles&gt;
+        &lt;profile&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;repositories&gt;
+                &lt;repository&gt;
+                    &lt;id&gt;central&lt;/id&gt;
+                    &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+                    &lt;releases&gt;
+                        &lt;enabled&gt;true&lt;/enabled&gt;
+                    &lt;/releases&gt;
+                    &lt;snapshots&gt;
+                        &lt;enabled&gt;true&lt;/enabled&gt;
+                    &lt;/snapshots&gt;
+                &lt;/repository&gt;
+            &lt;/repositories&gt;
+
+            &lt;pluginRepositories&gt;
+                &lt;pluginRepository&gt;
+                    &lt;id&gt;central&lt;/id&gt;
+                    &lt;url&gt;http://localhost:8081/repository/maven-public/&lt;/url&gt;
+                &lt;/pluginRepository&gt;
+            &lt;/pluginRepositories&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;
+
+    &lt;!-- 4. 默认启用 --&gt;
+    &lt;activeProfiles&gt;
+        &lt;activeProfile&gt;nexus&lt;/activeProfile&gt;
+    &lt;/activeProfiles&gt;
+
+&lt;/settings&gt;
+
+</code></pre>
+<h1 id="5-python导入本地仓库包到nexus">5 python导入本地仓库包到Nexus</h1>
+<h2 id="1清除下载失败失效的jar包">1.清除下载失败失效的jar包</h2>
+<p><strong>SOURCE_DIR</strong>改成自己目录</p>
+<pre><code class="language-python">import os
+import concurrent.futures
+try:
+    from tqdm import tqdm
+except ImportError:
+    print(&quot;❌ 请先安装进度条库: pip install tqdm&quot;)
+    exit(1)
+
+# ================= 配置区域 =================
+SOURCE_DIR = r&quot;D:\work\MavenRepository\mavenRepository-old&quot;
+MAX_JAR_SIZE = 1024  # 1KB
+BAD_POM_KEYWORDS = [&quot;&lt;!DOCTYPE html&gt;&quot;, &quot;&lt;title&gt;Harbor&lt;/title&gt;&quot;, &quot;Login to Harbor&quot;]
+
+# 根据你的 12600KF (16线程)，IO密集型任务我们可以设置得稍微激进一点
+# 设为 CPU核心数 * 4，保证磁盘 IO 跑满
+WORKER_COUNT = os.cpu_count() * 4 
+# ===========================================
+
+def check_files_in_directory(root, files):
+    &quot;&quot;&quot;
+    工作线程任务：检查单个目录下的所有文件
+    返回：该目录下所有坏包的 (root, base_name) 列表
+    &quot;&quot;&quot;
+    bad_items = []
+    
+    for file in files:
+        file_path = os.path.join(root, file)
+        is_bad = False
+        
+        # 1. 判定 Jar 是否损坏 (利用短路逻辑，先判断后缀)
+        if file.endswith(&quot;.jar&quot;):
+            try:
+                if os.path.getsize(file_path) &lt; MAX_JAR_SIZE:
+                    is_bad = True
+            except: pass
+        
+        # 2. 判定 POM 是否损坏
+        elif file.endswith(&quot;.pom&quot;):
+            try:
+                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    # 只读头 1KB
+                    content = f.read(1024)
+                    for keyword in BAD_POM_KEYWORDS:
+                        if keyword in content:
+                            is_bad = True
+                            break
+            except: pass
+            
+        if is_bad:
+            base_name = file
+            if base_name.endswith(&quot;.jar&quot;): base_name = base_name[:-4]
+            if base_name.endswith(&quot;.pom&quot;): base_name = base_name[:-4]
+            bad_items.append((root, base_name))
+            
+    return bad_items
+
+def delete_task(args):
+    &quot;&quot;&quot;
+    删除任务的线程函数
+    &quot;&quot;&quot;
+    folder, base_name, metadata_files = args
+    deleted = 0
+    if not os.path.exists(folder):
+        return 0
+
+    try:
+        files = os.listdir(folder)
+    except:
+        return 0
+
+    for file in files:
+        file_path = os.path.join(folder, file)
+        should_delete = False
+        
+        if file.startswith(base_name):
+            should_delete = True
+        elif file in metadata_files:
+            should_delete = True
+            
+        if should_delete:
+            try:
+                os.remove(file_path)
+                deleted += 1
+            except: pass
+    return deleted
+
+def main():
+    if not os.path.exists(SOURCE_DIR):
+        print(f&quot;❌ 目录不存在: {SOURCE_DIR}&quot;)
+        return
+
+    print(f&quot;🚀 [i5-12600KF] 全力模式启动&quot;)
+    print(f&quot;🔥 启用线程数: {WORKER_COUNT}&quot;)
+    print(f&quot;📂 扫描目标: {SOURCE_DIR}&quot;)
+
+    directories_to_clean = set()
+    total_files_scanned = 0
+    
+    # ------------------ 扫描阶段 ------------------
+    # 使用 ThreadPoolExecutor
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKER_COUNT) as executor:
+        futures = []
+        
+        print(&quot;⏳ 正在遍历目录结构并分发任务...&quot;)
+        
+        # 生产者：主线程快速遍历目录
+        for root, dirs, files in os.walk(SOURCE_DIR):
+            # 剪枝优化
+            dirs[:] = [d for d in dirs if not d.startswith('.')]
+            
+            if not files:
+                continue
+                
+            # 消费者：将“处理一个文件夹内的所有文件”作为一个任务提交
+            # 这样比“每个文件一个任务”效率高得多
+            future = executor.submit(check_files_in_directory, root, files)
+            futures.append(future)
+
+        # 等待结果并显示进度条
+        print(f&quot;✅ 目录遍历完成，共生成 {len(futures)} 个批处理任务，开始并行扫描...&quot;)
+        
+        with tqdm(total=len(futures), unit=&quot;dir&quot;, desc=&quot;并行扫描中&quot;) as pbar:
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    bad_results = future.result()
+                    if bad_results:
+                        for item in bad_results:
+                            directories_to_clean.add(item)
+                except Exception as e:
+                    pass
+                pbar.update(1)
+
+    # ------------------ 结果展示 ------------------
+    if not directories_to_clean:
+        print(&quot;\n✅ 恭喜！没有发现损坏文件。&quot;)
+        return
+
+    print(f&quot;\n⚠️ 发现 {len(directories_to_clean)} 组损坏的构件版本。&quot;)
+    print(&quot;示例前3项:&quot;)
+    for i, (folder, name) in enumerate(list(directories_to_clean)[:3]):
+        print(f&quot; - {os.path.join(folder, name)}&quot;)
+
+    confirm = input(&quot;\n🔴 确认删除？(y/n): &quot;)
+    if confirm.lower() != 'y': return
+
+    # ------------------ 删除阶段 (同样多线程) ------------------
+    print(&quot;\n🧹 启动多线程清理...&quot;)
+    metadata_files = [&quot;_remote.repositories&quot;, &quot;_maven.repositories&quot;, &quot;resolver-status.properties&quot;]
+    
+    total_deleted = 0
+    
+    # 删除通常很快，但也可能因为磁盘IO卡顿，所以也并行化
+    delete_tasks = [(folder, base_name, metadata_files) for folder, base_name in directories_to_clean]
+    
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKER_COUNT) as executor:
+        # map 会按顺序返回结果，适合进度条
+        results = list(tqdm(executor.map(delete_task, delete_tasks), total=len(delete_tasks), desc=&quot;并行删除中&quot;))
+        total_deleted = sum(results)
+
+    print(f&quot;\n✨ 大功告成！利用多线程共删除了 {total_deleted} 个文件。&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<h2 id="2-通过http方式上传到nexus">2. 通过http方式上传到nexus</h2>
+<p><strong>REPO_URL</strong> ：nexus部署路径+仓库名称</p>
+<p><strong>USERNAME</strong> ：nexus用户名</p>
+<p><strong>PASSWORD</strong> ：nexus密码</p>
+<p><strong>SOURCE_DIR</strong>：本地maven仓库路径</p>
+<p><strong>nexus默认是不允许覆盖上传需要更改配置才运行覆盖上传</strong></p>
+<pre><code>import os
+import threading
+from pathlib import Path
+from xml.etree import ElementTree as ET
+import requests
+from requests.auth import HTTPBasicAuth
+from tqdm import tqdm
+from queue import Queue
+
+# ================= CONFIGURATION =================
+REPO_URL = &quot;http://127.0.0.1:8071/repository/maven-releases/&quot;
+USERNAME = &quot;admin&quot;
+PASSWORD = &quot;admin&quot;
+SOURCE_DIR = r&quot;D:\work\MavenRepository\mavenRepository&quot;
+THREAD_COUNT = 10
+# =================================================
+
+class MavenUploader:
+    def __init__(self, repo_url, username, password):
+        self.repo_url = repo_url
+        self.auth = HTTPBasicAuth(username, password)
+        self.session = requests.Session()
+        self.session.auth = self.auth
+        
+    def parse_pom(self, pom_path):
+        &quot;&quot;&quot;解析POM文件获取GAV信息&quot;&quot;&quot;
+        try:
+            tree = ET.parse(pom_path)
+            root = tree.getroot()
+            ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
+            
+            def get_text(xpath_with_ns, xpath_without_ns):
+                elem = root.find(xpath_with_ns, ns)
+                if elem is not None and elem.text:
+                    return elem.text.strip()
+                elem = root.find(xpath_without_ns)
+                if elem is not None and elem.text:
+                    return elem.text.strip()
+                return None
+            
+            group_id = get_text('m:groupId', 'groupId')
+            artifact_id = get_text('m:artifactId', 'artifactId')
+            version = get_text('m:version', 'version')
+            packaging = get_text('m:packaging', 'packaging') or 'jar'
+            
+            if not group_id:
+                group_id = get_text('m:parent/m:groupId', 'parent/groupId')
+            if not version:
+                version = get_text('m:parent/m:version', 'parent/version')
+            
+            return group_id, artifact_id, version, packaging
+        except Exception as e:
+            return None, None, None, None
+    
+    def upload_file(self, file_path, group_id, artifact_id, version, filename):
+        &quot;&quot;&quot;上传文件到Nexus&quot;&quot;&quot;
+        try:
+            group_path = group_id.replace(&quot;.&quot;, &quot;/&quot;)
+            remote_path = f&quot;{group_path}/{artifact_id}/{version}/{filename}&quot;
+            upload_url = f&quot;{self.repo_url}{remote_path}&quot;
+            
+            with open(file_path, 'rb') as f:
+                response = self.session.put(upload_url, data=f, timeout=300)
+            
+            return response.status_code in [200, 201, 204]
+        except Exception as e:
+            return False
+    
+    def process_artifact(self, pom_path, pbar):
+        &quot;&quot;&quot;处理单个Maven构件&quot;&quot;&quot;
+        group_id, artifact_id, version, packaging = self.parse_pom(pom_path)
+        
+        if not all([group_id, artifact_id, version]):
+            pbar.write(f&quot;⚠ Skip (Bad POM): {pom_path}&quot;)
+            return False
+        
+        uploaded = []
+        failed = []
+        
+        # 1. 始终上传 POM
+        pom_filename = os.path.basename(pom_path)
+        if self.upload_file(pom_path, group_id, artifact_id, version, pom_filename):
+            uploaded.append('pom')
+        else:
+            failed.append('pom')
+        
+        # 2. 上传主构件（JAR/WAR/etc）
+        base_path = pom_path.rsplit('.', 1)[0]
+        main_artifact = f&quot;{base_path}.{packaging}&quot;
+        
+        if os.path.exists(main_artifact):
+            main_filename = os.path.basename(main_artifact)
+            if self.upload_file(main_artifact, group_id, artifact_id, version, main_filename):
+                uploaded.append(packaging)
+            else:
+                failed.append(packaging)
+        
+        # 3. 上传附加文件
+        for suffix in ['-sources.jar', '-javadoc.jar', '-tests.jar']:
+            extra_file = base_path + suffix
+            if os.path.exists(extra_file):
+                extra_filename = os.path.basename(extra_file)
+                if self.upload_file(extra_file, group_id, artifact_id, version, extra_filename):
+                    uploaded.append(suffix.strip('-'))
+                else:
+                    failed.append(suffix.strip('-'))
+        
+        # 输出结果
+        if uploaded:
+            files_str = ', '.join(uploaded)
+            pbar.write(f&quot;✓ {group_id}:{artifact_id}:{version} [{files_str}]&quot;)
+        
+        if failed:
+            files_str = ', '.join(failed)
+            pbar.write(f&quot;✗ {group_id}:{artifact_id}:{version} FAILED: [{files_str}]&quot;)
+        
+        return len(failed) == 0
+
+def worker(uploader, task_queue, pbar, stats):
+    &quot;&quot;&quot;工作线程&quot;&quot;&quot;
+    while True:
+        pom_path = task_queue.get()
+        if pom_path is None:
+            break
+        
+        try:
+            success = uploader.process_artifact(pom_path, pbar)
+            stats['success' if success else 'failed'] += 1
+        except Exception as e:
+            pbar.write(f&quot;✗ Error: {pom_path} - {str(e)}&quot;)
+            stats['failed'] += 1
+        finally:
+            pbar.update(1)
+            task_queue.task_done()
+
+class ThreadSafeStats(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._lock = threading.Lock()
+    
+    def __setitem__(self, key, value):
+        with self._lock:
+            super().__setitem__(key, value)
+    
+    def __getitem__(self, key):
+        with self._lock:
+            return super().__getitem__(key)
+
+def main():
+    print(f&quot;Scanning directory: {SOURCE_DIR} ...&quot;)
+    
+    # 查找所有 POM 文件
+    all_poms = list(Path(SOURCE_DIR).rglob(&quot;*.pom&quot;))
+    
+    # 过滤掉临时文件
+    pom_files = [
+        p for p in all_poms 
+        if not any(x in str(p) for x in ['maven-metadata', 'resolver-status', '.lastUpdated'])
+    ]
+    
+    total = len(pom_files)
+    print(f&quot;Found {total} POM files (filtered from {len(all_poms)} total)&quot;)
+    
+    if total == 0:
+        print(&quot;No valid POM files found!&quot;)
+        return
+    
+    uploader = MavenUploader(REPO_URL, USERNAME, PASSWORD)
+    task_queue = Queue()
+    stats = ThreadSafeStats({'success': 0, 'failed': 0})
+    
+    pbar = tqdm(total=total, desc=&quot;Uploading&quot;, unit=&quot;artifact&quot;)
+    
+    # 启动线程
+    threads = []
+    for _ in range(THREAD_COUNT):
+        t = threading.Thread(target=worker, args=(uploader, task_queue, pbar, stats))
+        t.daemon = True
+        t.start()
+        threads.append(t)
+    
+    # 添加任务
+    for pom in pom_files:
+        task_queue.put(str(pom))
+    
+    # 等待完成
+    task_queue.join()
+    
+    # 结束线程
+    for _ in range(THREAD_COUNT):
+        task_queue.put(None)
+    for t in threads:
+        t.join()
+    
+    pbar.close()
+    
+    print(&quot;\n&quot; + &quot;=&quot;*50)
+    print(f&quot;Upload Summary:&quot;)
+    print(f&quot;  Total Artifacts: {total}&quot;)
+    print(f&quot;  Success: {stats['success']}&quot;)
+    print(f&quot;  Failed: {stats['failed']}&quot;)
+    print(&quot;=&quot;*50)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[节省C盘空间的方式——符号链接]]></title>
+        <id>https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/</id>
+        <link href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/">
+        </link>
+        <updated>2025-05-23T16:11:49.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="节省c盘空间的方式符号链接">节省C盘空间的方式——符号链接</h1>
+<blockquote>
+<p>原文链接：<a href="https://linux.do/t/topic/494304">一种优雅的节省C盘空间的方式——符号链接</a></p>
+</blockquote>
+<h2 id="问题背景">🧩 问题背景</h2>
+<p>在 Windows 系统中，Docker Desktop 默认将其数据存储在系统盘（C盘）的用户目录下：</p>
+<pre><code>C:\Users&lt;用户名&gt;\AppData\Local\Docker  
+</code></pre>
+<p>随着使用时间增长，镜像、容器和卷数据会占用大量空间，导致 C 盘空间不足。</p>
+<hr>
+<h2 id="解决方案使用符号链接symbolic-link">✅ 解决方案：使用符号链接（Symbolic Link）</h2>
+<p>通过创建符号链接，可以将 Docker 数据重定向到其他磁盘，同时保持原有路径的访问方式不变。这种方法：</p>
+<ul>
+<li>不影响 Docker Desktop 的正常运行；</li>
+<li>不需要修改软件配置；</li>
+<li>能有效节省 C 盘空间；</li>
+<li>对其他程序完全透明。</li>
+</ul>
+<hr>
+<h2 id="操作步骤">🛠 操作步骤</h2>
+<h3 id="1-关闭-docker-desktop">1. 关闭 Docker Desktop</h3>
+<p>确保 Docker Desktop 完全关闭，可在系统托盘右键 Docker 图标选择“退出 Docker Desktop”。如启用了 WSL，也应关闭。</p>
+<h3 id="2-创建目标目录">2. 创建目标目录</h3>
+<p>在目标磁盘（如 F 盘）中创建目标文件夹：</p>
+<pre><code>F:\AppData\Local\Docker
+</code></pre>
+<h3 id="3-迁移数据如有">3. 迁移数据（如有）</h3>
+<p>将以下目录剪切到新位置：<code>C:\Users&lt;用户名&gt;\AppData\Local\Docker</code>→<code>F:\AppData\Local\Docker</code></p>
+<p>⚠️ 确保相关进程已经完全停止。</p>
+<h3 id="4-创建符号链接">4. 创建符号链接</h3>
+<p>使用管理员权限打开命令提示符（CMD），运行：</p>
+<pre><code>mklink /D &quot;C:\Users&lt;用户名&gt;\AppData\Local\Docker&quot; &quot;F:\AppData\Local\Docker&quot;
+</code></pre>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>原始目录不能存在；</li>
+<li><code>/D</code> 表示创建目录符号链接。</li>
+</ul>
+</blockquote>
+<h3 id="5-启动-docker-并验证">5. 启动 Docker 并验证</h3>
+<ul>
+<li>启动 Docker Desktop；</li>
+<li>执行镜像拉取、容器启动等操作；</li>
+<li>确认数据是否出现在 F 盘路径；</li>
+<li>使用以下命令验证符号链接状态：</li>
+</ul>
+<pre><code>dir &quot;C:\Users\&lt;用户名&gt;\AppData\Local&quot; /AL
+</code></pre>
+<hr>
+<h2 id="方法优势">🎯 方法优势</h2>
+<ul>
+<li>🛠 无需修改 Docker Desktop 配置；</li>
+<li>📦 可透明使用 Docker；</li>
+<li>💾 节省 C 盘空间；</li>
+<li>🔁 可随时更换数据存储位置。</li>
+</ul>
+<hr>
+<h2 id="拓展应用">📦 拓展应用</h2>
+<p>除了 Docker，该方法也适用于以下软件的数据转移：</p>
+<ul>
+<li>Chrome 浏览器缓存目录；</li>
+<li>JetBrains 系列软件配置目录；</li>
+<li>WPS Office 数据；</li>
+<li>微信/QQ 文件存储位置等。</li>
+</ul>
+<hr>
+<h2 id="参考资料">📚 参考资料</h2>
+<ul>
+<li><a href="https://linux.do/t/topic/494304">原文链接</a></li>
+<li><a href="https://ios.sspai.com/post/66834">符号链接、硬链接及其在 Windows 上的应用举例 - 少数派</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一键安装 Zsh 增强环境]]></title>
+        <id>https://yz0812.github.io/post/yi-jian-an-zhuang-zsh-zeng-qiang-huan-jing/</id>
+        <link href="https://yz0812.github.io/post/yi-jian-an-zhuang-zsh-zeng-qiang-huan-jing/">
+        </link>
+        <updated>2025-05-22T02:33:04.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一键安装-zsh-增强环境">🚀 一键安装 Zsh 增强环境</h1>
+<p>使用以下命令快速安装 Zsh、Oh My Zsh 及常用增强插件：</p>
+<pre><code class="language-bash">bash &lt;(curl -sSL https://gitee.com/yz0812/script/raw/master/install_zsh_enhancements.sh)
+</code></pre>
+<h2 id="脚本自动安装内容">📦 脚本自动安装内容</h2>
+<ul>
+<li>安装 zsh 和 oh-my-zsh</li>
+<li>安装并配置插件：
+<ul>
+<li><code>git</code></li>
+<li><code>zsh-syntax-highlighting</code></li>
+<li><code>zsh-autosuggestions</code></li>
+<li><code>history</code></li>
+<li><code>z</code></li>
+<li><code>docker</code></li>
+<li><code>docker-compose</code></li>
+</ul>
+</li>
+<li>自动设置 zsh 为默认 shell</li>
+<li>自动配置 .zshrc 插件列表及补全功能</li>
+</ul>
+<h2 id="插件介绍与示例">🔌 插件介绍与示例</h2>
+<h3 id="git"><code>git</code></h3>
+<p>提供大量 Git 命令别名：</p>
+<pre><code class="language-bash">gst       # git status
+gco       # git checkout
+gaa       # git add .
+</code></pre>
+<hr>
+<h3 id="zsh-syntax-highlighting"><code>zsh-syntax-highlighting</code></h3>
+<p>命令输入实时高亮提示：</p>
+<ul>
+<li>正确命令为绿色 ✅</li>
+<li>错误命令为红色 ❌</li>
+</ul>
+<pre><code class="language-bash">ls -la        # 正确命令，高亮绿色
+lss -la       # 错误命令，高亮红色
+</code></pre>
+<hr>
+<h3 id="zsh-autosuggestions"><code>zsh-autosuggestions</code></h3>
+<p>根据历史记录自动提示命令，按 <code>→</code> 键补全。</p>
+<pre><code class="language-bash"># 输入 docker 会提示：
+docker-compose up  # 灰色显示，按 → 补全
+</code></pre>
+<hr>
+<h3 id="history"><code>history</code></h3>
+<p>增强历史命令搜索功能：</p>
+<pre><code class="language-bash">history 100 | grep docker
+</code></pre>
+<hr>
+<h3 id="z"><code>z</code></h3>
+<p>快速跳转常用目录：</p>
+<pre><code class="language-bash">z 项目名
+# 示例：
+cd ~/projects/my-app
+z my-app  # 下一次可直接跳转
+</code></pre>
+<hr>
+<h3 id="docker-和-docker-compose"><code>docker</code> 和 <code>docker-compose</code></h3>
+<p>提供常用快捷命令别名：</p>
+<pre><code class="language-bash">dcu   # docker-compose up
+dcd   # docker-compose down
+dps   # docker ps
+</code></pre>
+<hr>
+<h2 id="️-脚本做了什么">⚙️ 脚本做了什么？</h2>
+<h3 id="步骤概览">✅ 步骤概览</h3>
+<ol>
+<li>安装依赖：<code>git</code> <code>curl</code> <code>wget</code> <code>zsh</code></li>
+<li>安装 Oh My Zsh（支持 Gitee 镜像）</li>
+<li>克隆插件仓库到 <code>~/.oh-my-zsh/custom/plugins/</code></li>
+<li>自动修改 <code>.zshrc</code>：
+<ul>
+<li>启用插件列表</li>
+<li>初始化 <code>compinit</code></li>
+</ul>
+</li>
+<li>设置默认 shell 为 zsh</li>
+</ol>
+<hr>
+<h2 id="使用后如何生效">🧪 使用后如何生效？</h2>
+<ul>
+<li><strong>重启终端</strong> 或执行：</li>
+</ul>
+<pre><code class="language-bash">source ~/.zshrc
+</code></pre>
+<ul>
+<li><strong>如果 zsh 未生效</strong>，尝试重新登录或执行：</li>
+</ul>
+<pre><code class="language-bash">chsh -s $(which zsh)
+</code></pre>
+<hr>
+<h2 id="示例插件配置位于-zshrc">📝 示例插件配置（位于 <code>.zshrc</code>）：</h2>
+<pre><code class="language-zsh">plugins=(
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  history
+  z
+  docker
+  docker-compose
+)
+</code></pre>
+<hr>
+<h2 id="常见问题">❗ 常见问题</h2>
+<ul>
+<li><strong>提示符乱码？</strong> 请安装 <a href="https://github.com/powerline/fonts">Powerline 字体</a></li>
+<li><strong><code>compaudit: insecure directories</code> 错误？</strong></li>
+</ul>
+<pre><code class="language-bash">chmod -R 755 ~/.oh-my-zsh/custom/plugins &amp;&amp; compinit -u
+</code></pre>
+<hr>
+<h2 id="️-项目来源">❤️ 项目来源</h2>
+<ul>
+<li>插件仓库镜像由 <a href="https://gitee.com/yz0812">@yz0812</a> 提供</li>
+<li>欢迎 Fork、修改或提交 PR</li>
+</ul>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Rime 中州韻輸入法引擎 + 雾凇拼音]]></title>
+        <id>https://yz0812.github.io/post/rime-zhong-zhou-yun-shu-ru-fa-yin-qing-wu-song-pin-yin/</id>
+        <link href="https://yz0812.github.io/post/rime-zhong-zhou-yun-shu-ru-fa-yin-qing-wu-song-pin-yin/">
+        </link>
+        <updated>2025-03-26T10:25:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="rime-中州韻輸入法引擎-雾凇拼音">Rime 中州韻輸入法引擎 + 雾凇拼音</h1>
+<p>先看效果<br>
+<img src="upload://3sRDWweszjrAVo5WcYOMPmUes8r.png" alt="image|690x180" loading="lazy"></p>
+<blockquote>
+<p>前提，作者一直使用Windows自带输入法，但是windows自带输入法和CSGO冲突所以寻求第三方输入法，遂找到这个（妈的一样不可以，但是发现这个输入法还挺好用的），有关这个的介绍可以 <a href="https://sspai.com/post/73634">Rime 从了解到入门 - 少数派 (sspai.com)</a>参考这个</p>
+</blockquote>
+<h2 id="1-下载安装-rime-中州韻輸入法引擎">1.  <a href="https://rime.im/download/">下载安装 | RIME | 中州韻輸入法引擎</a></h2>
+<p>全部下一步下一步即可</p>
+<h2 id="雾凇拼音介绍与安装">雾凇拼音介绍与安装</h2>
+<blockquote>
+<p>简介和官方文档  <a href="https://dvel.me/posts/rime-ice/">雾凇拼音</a></p>
+</blockquote>
+<ul>
+<li>简体 | 全拼 | 双拼</li>
+<li>主要功能
+<ul>
+<li><a href="https://github.com/tumuyan/rime-melt">melt_eng</a> 英文输入</li>
+<li><a href="https://dvel.me/posts/make-rime-en-better/">优化英文输入体验</a></li>
+<li><a href="https://github.com/mirtlecn/rime-radical-pinyin">部件拆字方案</a> 反查、辅码</li>
+<li>自整理的 Emoji</li>
+<li><a href="https://github.com/BlindingDark/rime-lua-select-character">以词定字</a></li>
+<li><a href="https://github.com/tumuyan/rime-melt/blob/master/lua/melt.lua">长词优先</a></li>
+<li><a href="https://github.com/shewer/librime-lua-script/blob/main/lua/component/unicode.lua">Unicode</a></li>
+<li><a href="https://wb98.gitee.io/">数字、人民币大写</a></li>
+<li>日期、时间、星期、<a href="https://github.com/boomker/rime-fast-xhup">农历</a></li>
+<li>常见错音错字提示</li>
+<li>置顶候选项</li>
+<li>所有标点符号直接上屏，/ 模式改为 v 模式，/ 直接上屏</li>
+<li>增加了许多拼音纠错</li>
+</ul>
+</li>
+<li>简体字表、词库
+<ul>
+<li><a href="https://github.com/iDvel/The-Table-of-General-Standard-Chinese-Characters">《通用规范汉字表》</a></li>
+<li><a href="http://bbs.pinyin.thunisoft.com/forum.php?mod=viewthread&amp;tid=30049">华宇野风系统词库</a></li>
+<li><a href="https://github.com/thunlp/THUOCL">清华大学开源词库</a></li>
+<li><a href="https://gist.github.com/indiejoseph/eae09c673460aa0b56db">《现代汉语常用词表》</a></li>
+<li><a href="https://forum.freemdict.com/t/topic/12102">《现代汉语词典》</a></li>
+<li><a href="https://forum.freemdict.com/t/topic/1211">《同义词词林》</a></li>
+<li><a href="https://forum.freemdict.com/t/topic/11407">《新华成语大词典》</a></li>
+<li><a href="https://ai.tencent.com/ailab/nlp/en/download.html">腾讯词向量</a></li>
+</ul>
+</li>
+<li>词库修订
+<ul>
+<li>校对大量异形词、错别字、错误注音</li>
+<li>全词库完成注音</li>
+<li>同义多音字注音</li>
+</ul>
+</li>
+</ul>
+<h3 id="21-github下载">2.1  <a href="https://github.com/iDvel/rime-ice">github下载</a></h3>
+<ol>
+<li>github下载，解压</li>
+<li>打开用户文件夹</li>
+<li>全部复制进去</li>
+<li>右击选择重新部署<br>
+5.右击选择输入法设定选择雾凇拼音<br>
+<img src="upload://4eN14fm72uHkBcrd8ee7ON6J41Z.png" alt="image|270x417" loading="lazy"></li>
+</ol>
+<h3 id="22-命令安装">2.2 命令安装</h3>
+<ol>
+<li>点击输入法设定</li>
+<li>更多输入设置</li>
+<li>执行 <code>iDvel/rime-ice:others/recipes/full</code></li>
+<li>回车确认，随即 RIME 会自动下载</li>
+<li>稍等片刻，命令提示符出现「<code>Updated xxx files...</code> 」的提示（黄色字样），表示安装完成。此时可以直接关掉该窗口。</li>
+<li>右击选择重新部署</li>
+<li>右击选择输入法设定选择雾凇拼音</li>
+</ol>
+<h3 id="23-rime输入法安装脚本快捷安装">2.3 Rime输入法安装脚本快捷安装</h3>
+<p><a href="https://github.com/Mark24Code/rime-auto-deploy">Mark24Code/rime-auto-deploy: Rime输入法安装脚本，让一切更轻松。Make using Rime easy. (github.com)</a></p>
+<h2 id="3-同步设置">3. 同步设置</h2>
+<p>本人选择使用OneDrive同步</p>
+<ol>
+<li>右击选择用户文件夹</li>
+<li>找到 <code>installation.yaml</code></li>
+<li>编辑 sync_dir 和 installation_id</li>
+</ol>
+<pre><code class="language-properties">distribution_code_name: Weasel
+distribution_name: &quot;小狼毫&quot;
+distribution_version: 0.16.1
+install_time: &quot;Tue Sep 10 14:01:19 2024&quot;
+installation_id: &quot;Win NUC8&quot;  # 同步的ID，在同步文件夹作为文件夹名称显示
+rime_version: 1.11.2
+sync_dir: C:\Users\y\OneDrive\Rimeuser # 同步文件夹位置
+</code></pre>
+<ol start="4">
+<li>右击选择用户资料同步</li>
+</ol>
+<h2 id="4-皮肤设置">4. 皮肤设置</h2>
+<p><a href="https://github.com/rime/weasel/wiki/%E7%A4%BA%E4%BE%8B#windows-11-%E9%A3%8E%E6%A0%BC">示例 · rime/weasel Wiki (github.com)</a></p>
+<figure data-type="image" tabindex="1"><img src="upload://fONRb8lAWzs0WpMIA27RMSTrCM8.jpeg" alt="FireShot Capture 001 - 示例 · rime_weasel Wiki - github.com|128x500" loading="lazy"></figure>
+<blockquote>
+<p>分享本人基于官方windows11修改的皮肤设置</p>
+</blockquote>
+<pre><code>patch:
+  &quot;preset_color_schemes/+&quot;:
+    win11dark: {back_color: 0x2C2C2C, border_color: 0x002C2C2C, hilited_candidate_back_color: 0x383838, hilited_label_color: 0xf9f9f9, hilited_mark_color: 0xFFC24C, label_color: 0xf9f9f9, name: &quot;Win11暗色 / Win11Dark&quot;, shadow_color: 0x20000000, text_color: 0xf9f9f9}
+    win11light: {back_color: 0xf9f9f9, border_color: 0x009e5a00, hilited_candidate_back_color: 0xf0f0f0, hilited_label_color: 0x191919, hilited_mark_color: 0xc06700, label_color: 0x191919, name: &quot; Win11浅色 / Win11light&quot;, shadow_color: 0x20000000, text_color: 0x191919}
+  &quot;style/+&quot;:
+    color_scheme: win11light
+    color_scheme_dark: win11dark
+    comment_font_point: 10
+    font_point: 10
+    horizontal: true
+    inline_preedit: true
+    label_font_point: 10
+    label_format: &quot;%s&quot;
+    layout: {border: 2, candidate_spacing: 22, corner_radius: 10, hilite_padding: 8, hilite_padding_x: 8, hilite_spacing: 6, margin_x: 16, margin_y: 8, min_width: 10, round_corner: 8, shadow_radius: 8}
+  &quot;style/color_scheme&quot;: win11light
+</code></pre>
+<h2 id="5词库增强和自定义词库">5.词库增强和自定义词库</h2>
+<ol>
+<li>下载 <a href="https://github.com/Iorest/rime-setting">词库</a>，解压</li>
+<li>移动到用户文件夹</li>
+<li>挂载词库</li>
+</ol>
+<pre><code># rime_ice.dict.yaml
+
+---
+name: rime_ice
+version: &quot;1&quot;
+import_tables:
+  - mydict            # 挂载配置目录下的 mydict.dict.yaml
+  - cn_dicts/mydict2  # 挂载 cn_dicts/ 目录下的 mydict2.dict.yaml
+...
+</code></pre>
+<p>自定义词库<br>
+在 <code>custom_phrase.txt</code> 中可以放置一些特定的词汇与编码，比如输入 vmail 得到自己的邮箱，输入 vphone 得到手机号，输入 vuser 得到用户名等等。</p>
+<h2 id="优化设置">优化设置</h2>
+<ol>
+<li>修改候选词数量  <code>default.custom.yaml</code> 中 <code>patch.menu.page_size: 5</code></li>
+<li>[修改中英文切换提示图标] (https://linux.do/t/topic/201789/5) <code>weasel.yaml</code> show_notifications 为false</li>
+</ol>
+<p><em>最后表达歉意，本文章按照个人想法编写，没有携带较多图片教程，可能不太适合电脑小白，因为本人方便文章迁移，本人没有图床，所以尽可能的少使用图片</em></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[目录结构树生成器 ]]></title>
+        <id>https://yz0812.github.io/post/mu-lu-jie-gou-shu-sheng-cheng-qi/</id>
+        <link href="https://yz0812.github.io/post/mu-lu-jie-gou-shu-sheng-cheng-qi/">
+        </link>
+        <updated>2025-03-26T10:22:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="1-使用场景">1. 使用场景</h1>
+<p><strong>需要撰写README的模块结构，目录太多想着自己写一个小工具</strong><br>
+<img src="upload://l8uQU02oxfAaGVIHbP2ZgR2n9RL.png" alt="image|690x413" loading="lazy"></p>
+<h1 id="2访问地址">2.访问地址</h1>
+<p>访问地址 <a href="https://directory-structure.wuc0714.top/">https://directory-structure.wuc0714.top</a><br>
+git地址 <a href="https://github.com/yz0812/folders">yz0812/folders</a></p>
+<h1 id="3效果图">3.效果图</h1>
+<figure data-type="image" tabindex="1"><img src="upload://pMAq8PqltxnGoEC1C5YGtrJf5MK.png" alt="FireShot Capture 006 - 目录结构树生成器 - directory-structure.wuc0714.top|476x500" loading="lazy"></figure>
+<p><span style='color:red'> 欢迎大佬提PR</span></p>
+<p><span style='color:red'> 由于浏览器限制无法使用拖拽的方式</span><br>
+<span style='color:red'> 支持展示目录或者全部文件</span><br>
+<span style='color:red'> 支持设置层深</span><br>
+<span style='color:red'> 可以快捷部署cloudflare</span><br>
+<span style='color:red'> 支持忽略功能和备注功能</span></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ Cursor Java项目开发环境配置指南]]></title>
+        <id>https://yz0812.github.io/post/cursor-java-xiang-mu-kai-fa-huan-jing-pei-zhi-zhi-nan/</id>
+        <link href="https://yz0812.github.io/post/cursor-java-xiang-mu-kai-fa-huan-jing-pei-zhi-zhi-nan/">
+        </link>
+        <updated>2025-03-26T10:19:55.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="cursor-java项目开发环境配置指南">Cursor Java项目开发环境配置指南</h1>
+<h2 id="插件配置">插件配置</h2>
+<h3 id="idea与cursor跳转配置">Idea与Cursor跳转配置</h3>
+<p>使用以下插件可以在IntelliJ IDEA和Cursor之间快速切换：</p>
+<p><strong>Switch2Cursor (IDEA 插件)</strong><br>
+<strong>Switch2IDEA (Cursor 插件)</strong></p>
+<p><strong>快捷键</strong>：</p>
+<ul>
+<li><code>Alt+Shift+O</code>：在另一 IDE 中打开当前文件</li>
+<li><code>Alt+Shift+P</code>：在另一 IDE 中打开当前项目</li>
+</ul>
+<p><strong>安装和配置步骤</strong>：</p>
+<p><strong>IDEA 插件安装</strong>：</p>
+<ol>
+<li>打开 IntelliJ IDEA</li>
+<li>进入 <code>File</code> → <code>Settings</code> → <code>Plugins</code></li>
+<li>在搜索栏中输入 <code>switch2cursor</code></li>
+<li>点击 <code>Install</code> 按钮安装</li>
+<li>重启 IDEA 后生效</li>
+<li>进入 <code>File</code> → <code>Settings</code> → <code>Tools</code> → <code>Switch2Cursor</code></li>
+<li>设置 Cursor 可执行文件的路径（例如：<code>C:\Users\用户名\AppData\Local\Programs\Cursor\Cursor.exe</code>）</li>
+</ol>
+<p><strong>Cursor 插件安装</strong>：</p>
+<ol>
+<li>打开 Cursor</li>
+<li>点击左侧边栏的扩展图标或使用快捷键 <code>Ctrl+Shift+X</code></li>
+<li>在搜索栏中输入 <code>switch2idea</code></li>
+<li>点击 <code>Install</code> 按钮安装</li>
+<li>重启 Cursor 后生效</li>
+<li>点击左下角齿轮图标打开设置，或使用快捷键 <code>Ctrl+,</code></li>
+<li>在搜索栏中输入 <code>switch2idea</code></li>
+<li>设置 IDEA 可执行文件的路径（例如：<code>C:\Program Files\JetBrains\IntelliJ IDEA\bin\idea64.exe</code>）</li>
+</ol>
+<h3 id="java开发环境插件">Java开发环境插件</h3>
+<p>以下是在Cursor中配置Java开发环境的必备插件：</p>
+<ol>
+<li>
+<p><strong>Extension Pack for Java</strong></p>
+<ul>
+<li>包含了Java开发所需的核心扩展</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开Cursor</li>
+<li>点击左侧扩展图标或使用快捷键 <code>Ctrl+Shift+X</code></li>
+<li>搜索 &quot;Extension Pack for Java&quot;</li>
+<li>点击 &quot;Install&quot; 安装</li>
+</ol>
+</li>
+<li><strong>JDK配置</strong>：
+<ol>
+<li>使用快捷键 <code>Ctrl+,</code> 打开设置</li>
+<li>搜索 &quot;java.home&quot;</li>
+<li>在 &quot;Java &gt; Configuration: Runtimes&quot; 设置中点击 &quot;Edit in settings.json&quot;</li>
+<li>添加JDK路径配置：</li>
+</ol>
+<pre><code class="language-json">&quot;java.configuration.runtimes&quot;: [
+  {
+    &quot;name&quot;: &quot;JavaSE-17&quot;,
+    &quot;path&quot;: &quot;C:\\Program Files\\Java\\jdk-17&quot;,
+    &quot;default&quot;: true
+  }
+]
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Language Support for Java(TM) by Red Hat</strong></p>
+<ul>
+<li>提供基础的Java语法高亮、代码跳转、自动补全等功能</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Language Support for Java&quot;</li>
+<li>找到 Red Hat 提供的版本并安装</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Debugger for Java</strong></p>
+<ul>
+<li>支持Java代码的调试功能</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Debugger for Java&quot;</li>
+<li>安装该插件</li>
+</ol>
+</li>
+<li><strong>使用方法</strong>：
+<ol>
+<li>在代码左侧边栏点击设置断点</li>
+<li>按 <code>F5</code> 键或点击调试按钮开始调试</li>
+<li>使用调试工具栏控制执行流程</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Maven for Java</strong></p>
+<ul>
+<li>提供对Maven项目的支持</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Maven for Java&quot;</li>
+<li>安装该插件</li>
+</ol>
+</li>
+<li><strong>Maven配置</strong>：
+<ol>
+<li>使用快捷键 <code>Ctrl+,</code> 打开设置</li>
+<li>搜索 &quot;java.configuration.maven&quot;</li>
+<li>在设置中配置Maven路径，例如：</li>
+</ol>
+<pre><code class="language-json">&quot;java.configuration.maven.globalSettings&quot;: &quot;C:\\path\\to\\settings.xml&quot;,
+&quot;maven.executable.path&quot;: &quot;C:\\path\\to\\apache-maven\\bin\\mvn.cmd&quot;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Spring Boot Extension Pack</strong></p>
+<ul>
+<li>如果使用Spring Boot开发，此插件包提供便捷功能</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Spring Boot Extension Pack&quot;</li>
+<li>安装该插件包</li>
+</ol>
+</li>
+<li><strong>包含功能</strong>：
+<ul>
+<li>Spring Initializr</li>
+<li>Spring Boot Dashboard</li>
+<li>Spring Boot项目支持</li>
+<li>自动配置提示和导航</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Lombok Annotations Support</strong></p>
+<ul>
+<li>支持Lombok注解</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Lombok Annotations Support&quot;</li>
+<li>安装该插件</li>
+</ol>
+</li>
+<li><strong>配置</strong>：
+<ol>
+<li>确保项目中已添加Lombok依赖</li>
+<li>重启Cursor以使配置生效</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Java Extension Pack</strong></p>
+<ul>
+<li>包含多种必备的Java插件集合</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Java Extension Pack&quot;</li>
+<li>安装该插件包</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>MybatisX</strong></p>
+</li>
+</ol>
+<h3 id="jetbrains-fleet-主题">JetBrains Fleet 主题</h3>
+<p>使用JetBrainsd的Fleet主题使Cursor的界面风格更接近IntelliJ IDEA：</p>
+<p><strong>JetBrains Fleet Theme安装</strong>：</p>
+<ol>
+<li>打开扩展市场（<code>Ctrl+Shift+X</code>）</li>
+<li>搜索 &quot;Fleet Theme&quot;</li>
+<li>安装该主题</li>
+<li>使用 <code>Ctrl+K</code> 然后 <code>Ctrl+T</code> 打开主题选择器</li>
+<li>选择 &quot;Fleet Theme&quot; 应用主题</li>
+<li>重启Cursor使主题完全生效</li>
+</ol>
+<h2 id="推荐的额外配置">推荐的额外配置</h2>
+<h3 id="代码质量工具">代码质量工具</h3>
+<ol>
+<li>
+<p><strong>SonarLint</strong></p>
+<ul>
+<li>实时检测和修复代码质量问题</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;SonarLint&quot;</li>
+<li>安装该插件</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Checkstyle for Java</strong></p>
+<ul>
+<li>帮助强制执行代码风格规范</li>
+<li><strong>安装步骤</strong>：
+<ol>
+<li>打开扩展市场</li>
+<li>搜索 &quot;Checkstyle for Java&quot;</li>
+<li>安装该插件</li>
+</ol>
+</li>
+<li><strong>配置</strong>：
+<ol>
+<li>使用 <code>Ctrl+,</code> 打开设置</li>
+<li>搜索 &quot;java.checkstyle&quot;</li>
+<li>配置Checkstyle规则文件路径</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="性能优化">性能优化</h3>
+<p>为提高Cursor在处理大型Java项目时的性能：</p>
+<ol>
+<li>打开设置（<code>Ctrl+,</code>）</li>
+<li>搜索并调整以下设置：<pre><code class="language-json">&quot;java.server.launchMode&quot;: &quot;Standard&quot;,
+&quot;java.completion.maxResults&quot;: 50,
+&quot;java.autobuild.enabled&quot;: true,
+&quot;java.configuration.updateBuildConfiguration&quot;: &quot;automatic&quot;,
+&quot;java.jdt.ls.vmargs&quot;: &quot;-Xmx2G -XX:+UseG1GC -XX:+UseStringDeduplication&quot;
+</code></pre>
+</li>
+</ol>
+<h2 id="常见问题解决">常见问题解决</h2>
+<ol>
+<li>
+<p><strong>Java语言服务器未启动</strong></p>
+<ul>
+<li>检查Java路径配置是否正确</li>
+<li>在输出面板中查看错误日志（<code>Ctrl+Shift+U</code>）</li>
+<li>可能需要重启Cursor或增加JVM内存</li>
+</ul>
+</li>
+<li>
+<p><strong>Maven项目无法解析依赖</strong></p>
+<ul>
+<li>检查Maven配置路径</li>
+<li>确保settings.xml配置正确</li>
+<li>尝试在终端中运行 <code>mvn clean install -U</code> 强制更新</li>
+</ul>
+</li>
+<li>
+<p><strong>无法调试Java程序</strong></p>
+<ul>
+<li>确认JDK版本与项目兼容</li>
+<li>检查launch.json配置</li>
+<li>确保项目已成功编译</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[guava 常用工具类]]></title>
+        <id>https://yz0812.github.io/post/guava-chang-yong-gong-ju-lei/</id>
+        <link href="https://yz0812.github.io/post/guava-chang-yong-gong-ju-lei/">
+        </link>
+        <updated>2024-08-01T17:38:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="字符处理">字符处理</h2>
+<h3 id="caseformat-命名格式转换">CaseFormat 命名格式转换</h3>
+<p>用于在不同的命名格式之间进行转换。常见的命名格式包括下划线分隔（如 <code>LOWER_UNDERSCORE</code>）、驼峰命名（如 <code>LOWER_CAMEL</code> 和 <code>UPPER_CAMEL</code>）、中划线分隔（如 <code>LOWER_HYPHEN</code>）等。</p>
+<p>以下是 <code>CaseFormat</code> 支持的几种命名格式：</p>
+<ul>
+<li>LOWER_HYPHEN（如 lower-hyphen）</li>
+<li>LOWER_UNDERSCORE（如 lower_underscore）</li>
+<li>LOWER_CAMEL（如 lowerCamel）</li>
+<li>UPPER_CAMEL（如 UpperCamel）</li>
+<li>UPPER_UNDERSCORE（如 UPPER_UNDERSCORE）</li>
+</ul>
+<pre><code class="language-java"> 	    // 示例字符串
+        String lowerUnderscore = &quot;example_string&quot;;
+        String lowerHyphen = &quot;example-string&quot;;
+        String lowerCamel = &quot;exampleString&quot;;
+        String upperCamel = &quot;ExampleString&quot;;
+        String upperUnderscore = &quot;EXAMPLE_STRING&quot;;
+
+		// 下划线分隔 -&gt; 驼峰命名
+        String result1 = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, lowerUnderscore);
+        System.out.println(&quot;LOWER_UNDERSCORE to LOWER_CAMEL: &quot; + result1);
+
+        // 中划线分隔 -&gt; 下划线分隔
+        String result2 = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, lowerHyphen);
+        System.out.println(&quot;LOWER_HYPHEN to LOWER_UNDERSCORE: &quot; + result2);
+
+        // 驼峰命名 -&gt; 大写驼峰命名
+        String result3 = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, lowerCamel);
+        System.out.println(&quot;LOWER_CAMEL to UPPER_CAMEL: &quot; + result3);
+
+        // 大写驼峰命名 -&gt; 下划线分隔
+        String result4 = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, upperCamel);
+        System.out.println(&quot;UPPER_CAMEL to LOWER_UNDERSCORE: &quot; + result4);
+
+        // 大写下划线分隔 -&gt; 小写中划线分隔
+        String result5 = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, upperUnderscore);
+        System.out.println(&quot;UPPER_UNDERSCORE to LOWER_HYPHEN: &quot; + result5);
+</code></pre>
+<h3 id="charmatcher-字符串的匹配与过滤">CharMatcher 字符串的匹配与过滤</h3>
+<p>用于处理字符和字符串的匹配与过滤。<code>CharMatcher</code> 提供了一种方便的方式来匹配、过滤、替换字符串中的字符，支持多种预定义的匹配器（如匹配字母、数字、空白字符等）以及自定义匹配器。</p>
+<p>以下是一些常用的 <code>CharMatcher</code> 方法和预定义的匹配器：</p>
+<ul>
+<li><code>CharMatcher.any()</code>: 匹配任何字符。</li>
+<li><code>CharMatcher.none()</code>: 不匹配任何字符。</li>
+<li><code>CharMatcher.whitespace()</code>: 匹配空白字符（空格、制表符等）。</li>
+<li><code>CharMatcher.digit()</code>: 匹配数字字符。</li>
+<li><code>CharMatcher.javaLetter()</code>: 匹配 Java 字母字符。</li>
+<li><code>CharMatcher.javaDigit()</code>: 匹配 Java 数字字符。</li>
+<li><code>CharMatcher.is(char c)</code>: 匹配指定的字符。</li>
+<li><code>CharMatcher.isNot(char c)</code>: 匹配不是指定的字符。</li>
+<li><code>CharMatcher.inRange(char startInclusive, char endInclusive)</code>: 匹配指定范围内的字符。</li>
+</ul>
+<p>以下是一些常用的操作方法：</p>
+<ul>
+<li><code>retainFrom(CharSequence sequence)</code>: 保留匹配的字符。</li>
+<li><code>removeFrom(CharSequence sequence)</code>: 移除匹配的字符。</li>
+<li><code>replaceFrom(CharSequence sequence, char replacement)</code>: 替换匹配的字符。</li>
+<li><code>collapseFrom(CharSequence sequence, char replacement)</code>: 将连续匹配的字符替换为单个字符。</li>
+<li><code>trimFrom(CharSequence sequence)</code>: 去除字符串前后的匹配字符。</li>
+</ul>
+<pre><code class="language-java">        String input = &quot;This is a sample text, 1234!&quot;;
+
+        // 保留数字字符
+        String digitsOnly = CharMatcher.digit().retainFrom(input);
+        System.out.println(&quot;Digits only: &quot; + digitsOnly); // 输出: 1234
+
+        // 移除空白字符
+        String noWhitespace = CharMatcher.whitespace().removeFrom(input);
+        System.out.println(&quot;No whitespace: &quot; + noWhitespace); // 输出: Thisisasampletext,1234!
+
+        // 将所有字母转换为大写
+        String upperCaseLetters = CharMatcher.javaLetter().replaceFrom(input, c -&gt; Character.toUpperCase(c));
+        System.out.println(&quot;Upper case letters: &quot; + upperCaseLetters); // 输出: THIS IS A SAMPLE TEXT, 1234!
+
+        // 将连续的空白字符替换为单个空格
+        String collapsedWhitespace = CharMatcher.whitespace().collapseFrom(input, ' ');
+        System.out.println(&quot;Collapsed whitespace: &quot; + collapsedWhitespace); // 输出: This is a sample text, 1234!
+
+        // 去除字符串前后的标点符号
+        String trimPunctuation = CharMatcher.javaLetterOrDigit().negate().trimFrom(input);
+        System.out.println(&quot;Trim punctuation: &quot; + trimPunctuation); // 输出: This is a sample text, 1234
+
+        // 自定义匹配器：匹配所有小写字母
+        CharMatcher lowerCaseMatcher = CharMatcher.inRange('a', 'z');
+        String lowerCaseLetters = lowerCaseMatcher.retainFrom(input);
+        System.out.println(&quot;Lower case letters: &quot; + lowerCaseLetters); // 输出: hisisasampletext
+ 
+</code></pre>
+<h3 id="converter-类型转换">Converter 类型转换</h3>
+<p>用于在两种类型之间进行转换。<code>Converter</code> 提供了一种类型安全的方式来实现双向转换，可以定义从类型 A 到类型 B 的转换逻辑，以及从类型 B 到类型 A 的逆向转换逻辑。</p>
+<p>以下是 <code>Converter</code> 类的一些关键方法：</p>
+<ul>
+<li><code>doForward(A a)</code>: 将类型 A 转换为类型 B。</li>
+<li><code>doBackward(B b)</code>: 将类型 B 转换为类型 A。</li>
+<li><code>convert(A a)</code>: 调用 <code>doForward</code> 方法进行转换。</li>
+<li><code>reverse()</code>: 返回一个新的 <code>Converter</code>，其转换逻辑与当前 <code>Converter</code> 相反。</li>
+<li><code>andThen(Converter&lt;B, C&gt; other)</code>: 返回一个组合转换器，先应用当前转换器再应用 <code>other</code> 转换器。</li>
+</ul>
+<pre><code class="language-java">import com.google.common.base.Converter;
+
+public class ConverterExample {
+    public static void main(String[] args) {
+        // 创建一个字符串到整数的转换器
+        Converter&lt;String, Integer&gt; stringToIntegerConverter = new Converter&lt;String, Integer&gt;() {
+            @Override
+            protected Integer doForward(String s) {
+                return Integer.valueOf(s);
+            }
+
+            @Override
+            protected String doBackward(Integer integer) {
+                return integer.toString();
+            }
+        };
+
+        // 使用转换器进行正向转换
+        String str = &quot;1234&quot;;
+        Integer intValue = stringToIntegerConverter.convert(str);
+        System.out.println(&quot;String to Integer: &quot; + intValue); // 输出: 1234
+
+        // 使用转换器进行反向转换
+        String reversedStr = stringToIntegerConverter.reverse().convert(intValue);
+        System.out.println(&quot;Integer to String: &quot; + reversedStr); // 输出: 1234
+
+        // 创建一个小写到大写的转换器
+        Converter&lt;String, String&gt; lowerToUpperConverter = new Converter&lt;String, String&gt;() {
+            @Override
+            protected String doForward(String s) {
+                return s.toUpperCase();
+            }
+
+            @Override
+            protected String doBackward(String s) {
+                return s.toLowerCase();
+            }
+        };
+
+        // 组合转换器：先将字符串转换为整数，再将整数转换为大写字符串
+        Converter&lt;String, String&gt; combinedConverter = stringToIntegerConverter.andThen(new Converter&lt;Integer, String&gt;() {
+            @Override
+            protected String doForward(Integer integer) {
+                return &quot;Number: &quot; + integer;
+            }
+
+            @Override
+            protected Integer doBackward(String s) {
+                return Integer.valueOf(s.replace(&quot;Number: &quot;, &quot;&quot;));
+            }
+        });
+
+        // 使用组合转换器进行转换
+        String combinedResult = combinedConverter.convert(str);
+        System.out.println(&quot;Combined Converter Result: &quot; + combinedResult); // 输出: Number: 1234
+
+        // 使用组合转换器进行反向转换
+        String originalStr = combinedConverter.reverse().convert(combinedResult);
+        System.out.println(&quot;Original String: &quot; + originalStr); // 输出: 1234
+    }
+}
+
+</code></pre>
+<h3 id="defaults-默认值">Defaults 默认值</h3>
+<p><code>com.google.common.base.Defaults</code> 是 Google Guava 库中的一个类，用于提供 Java 基本数据类型和一些常见对象类型的默认值。这个类主要用在需要默认值的场景下，比如在反射或者泛型编程中。</p>
+<pre><code class="language-java">        boolean defaultBoolean = Defaults.defaultValue(boolean.class);
+        byte defaultByte = Defaults.defaultValue(byte.class);
+        char defaultChar = Defaults.defaultValue(char.class);
+        double defaultDouble = Defaults.defaultValue(double.class);
+        float defaultFloat = Defaults.defaultValue(float.class);
+        int defaultInt = Defaults.defaultValue(int.class);
+        long defaultLong = Defaults.defaultValue(long.class);
+        short defaultShort = Defaults.defaultValue(short.class);
+</code></pre>
+<h3 id="joiner-多字符串处理">Joiner 多字符串处理</h3>
+<p>用于将多个字符串或对象连接成一个字符串。它提供了一种简洁而强大的方式来处理字符串连接，支持处理 <code>null</code> 值以及指定分隔</p>
+<p><em>常用方法</em></p>
+<p><code>on(String delimiter)</code>: 指定分隔符。</p>
+<p><code>skipNulls()</code>: 跳过 <code>null</code> 值。</p>
+<p><code>useForNull(String nullText)</code>: 将 <code>null</code> 值替换为指定的字符串。</p>
+<p><code>join(Iterable&lt;?&gt; parts)</code>: 将集合中的元素连接成一个字符串。</p>
+<p><code>join(Object[] parts)</code>: 将数组中的元素连接成一个字符串。</p>
+<p><code>join(Object first, Object second, Object... rest)</code>: 将多个参数连接成一个字符串。</p>
+<h3 id="splitter-字符串拆分">Splitter 字符串拆分</h3>
+<p>用于将字符串拆分为子字符串。它提供了比 <code>String.split</code> 更加灵活和强大的功能，支持多种拆分模式和选项，例如去除空白字符串、去除结果中的空格、限制拆分结果的数量等。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li>
+<p><strong>基础拆分</strong>：</p>
+<ul>
+<li><code>Splitter.on(char separator)</code>: 基于单个字符进行拆分。</li>
+<li><code>Splitter.on(String separator)</code>: 基于字符串进行拆分。</li>
+<li><code>Splitter.onPattern(String pattern)</code>: 基于正则表达式进行拆分。</li>
+<li><code>Splitter.on(CharMatcher charMatcher)</code>: 基于 <code>CharMatcher</code> 进行拆分。</li>
+</ul>
+</li>
+<li>
+<p><strong>配置选项</strong>：</p>
+<ul>
+<li><code>omitEmptyStrings()</code>: 忽略空字符串。</li>
+<li><code>trimResults()</code>: 去除结果中的空格。</li>
+<li><code>trimResults(CharMatcher charMatcher)</code>: 根据 <code>CharMatcher</code> 去除结果中的字符。</li>
+<li><code>limit(int limit)</code>: 限制拆分结果的数量。</li>
+</ul>
+</li>
+<li>
+<p><strong>结果类型</strong>：</p>
+<ul>
+<li><code>split(CharSequence sequence)</code>: 拆分字符串，返回 <code>Iterable&lt;String&gt;</code>。</li>
+<li><code>splitToList(CharSequence sequence)</code>: 拆分字符串，返回 <code>List&lt;String&gt;</code>。</li>
+<li><code>splitToMap(CharSequence sequence)</code>: 将字符串拆分为键值对，返回 <code>Map&lt;String, String&gt;</code>。</li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h3 id="strings-字符串处理">Strings 字符串处理</h3>
+<p>提供了许多静态方法，用于处理和操作字符串。它包含了很多常用的字符串操作方法，可以简化代码并提高可读性。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li><strong>空字符串处理</strong>：
+<ul>
+<li><code>isNullOrEmpty(String string)</code>: 检查字符串是否为 <code>null</code> 或空。</li>
+<li><code>nullToEmpty(String string)</code>: 将 <code>null</code> 转换为空字符串。</li>
+<li><code>emptyToNull(String string)</code>: 将空字符串转换为 <code>null</code>。</li>
+</ul>
+</li>
+<li><strong>填充和重复</strong>：
+<ul>
+<li><code>padStart(String string, int minLength, char padChar)</code>: 用指定字符在字符串开头进行填充，使其达到指定长度。</li>
+<li><code>padEnd(String string, int minLength, char padChar)</code>: 用指定字符在字符串末尾进行填充，使其达到指定长度。</li>
+<li><code>repeat(String string, int count)</code>: 重复字符串指定次数。</li>
+</ul>
+</li>
+<li><strong>常用方法</strong>：
+<ul>
+<li><code>commonPrefix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共前缀。</li>
+<li><code>commonSuffix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共后缀。</li>
+</ul>
+</li>
+</ol>
+<h2 id="集合处理">集合处理</h2>
+<h3 id="lists">Lists</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li><strong><code>Lists.newArrayList()</code></strong>: 创建一个可变的、空的 <code>ArrayList</code>。</li>
+<li><strong><code>Lists.newArrayList(E... elements)</code></strong>: 使用指定的元素创建一个可变的 <code>ArrayList</code>。</li>
+<li>**<code>Lists.newLinkedList(): </code>**创建一个可变的、空的 <code>LinkedList</code>。</li>
+<li><strong><code>Lists.partition(List&lt;T&gt; list, int size)</code></strong>: 将一个 <code>List</code> 分割成若干个子列表，每个子列表的大小为指定的 <code>size</code>。</li>
+<li><strong><code>Lists.reverse(List&lt;T&gt; list)</code></strong>:   返回一个包含相同元素但顺序相反的 <code>List</code>。</li>
+<li><strong><code>Lists.transform(List&lt;F&gt; fromList, Function&lt;? super F, ? extends T&gt; function)</code></strong>:  返回一个新的 <code>List</code>，该列表是通过将给定列表的每个元素传递给给定函数的结果构成的视图。</li>
+</ol>
+<h3 id="maps">Maps</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Maps.newHashMap(): </code>**创建一个空的、可变的 <code>HashMap</code>。</li>
+<li><strong><code>Maps.newHashMapWithExpectedSize(int expectedSize)</code></strong>: 创建一个具有指定初始容量的 <code>HashMap</code>。</li>
+<li>**<code>Maps.newLinkedHashMap(): </code>**创建一个空的、可变的 <code>LinkedHashMap</code>。</li>
+<li>**<code>Maps.newTreeMap(): </code>**创建一个空的、可变的 <code>TreeMap</code>。</li>
+<li><strong><code>Maps.newConcurrentMap()</code></strong>: 创建一个空的、可变的 <code>ConcurrentMap</code>。</li>
+<li><strong><code>Maps.uniqueIndex(Iterable&lt;V&gt; values, Function&lt;? super V, K&gt; keyFunction)</code></strong>: 根据指定的键函数创建一个 <code>ImmutableMap</code>，键是由给定函数生成的。</li>
+<li><strong><code>Maps.difference(Map&lt;K, V&gt; left, Map&lt;K, V&gt; right)</code></strong>: 返回两个 <code>Map</code> 的差异视图。</li>
+</ol>
+<h3 id="range-范围">Range 范围</h3>
+<p><code>Range</code> 类可以表示一个区间，如 [1, 5]，(1, 5]，[1, 5)，(1, 5) 等等。它支持各种各样的操作，包括检查区间是否包含某个值、区间是否相交、区间的并集和交集等。</p>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Range.closed(C lower, C upper):</code>**创建一个包含下限和上限的范围 <code>[lower, upper]</code>。</li>
+<li><strong><code>Range.closedOpen(C lower, C upper)</code></strong>:创建一个包含下限但不包含上限的范围 <code>[lower, upper)</code>。</li>
+<li><strong><code>Range.openClosed(C lower, C upper)</code></strong>:创建一个不包含下限但包含上限的范围 <code>(lower, upper]</code>。</li>
+<li><strong><code>Range.open(C lower, C upper)</code></strong>:创建一个不包含下限和上限的范围 <code>(lower, upper)</code>。</li>
+<li><strong><code>Range.atLeast(C endpoint)</code></strong>:创建一个从指定值开始的范围 <code>[endpoint, ∞)</code>。</li>
+<li><strong><code>Range.atMost(C endpoint)</code></strong>:创建一个到指定值为止的范围 <code>(-∞, endpoint]</code>。</li>
+<li><strong><code>Range.greaterThan(C endpoint)</code></strong>:创建一个大于指定值的范围 <code>(endpoint, ∞)</code>。</li>
+<li><strong><code>Range.lessThan(C endpoint)</code></strong>:创建一个小于指定值的范围 <code>(-∞, endpoint)</code>。</li>
+<li><strong><code>Range.contains(C value)</code></strong>:检查范围是否包含指定值。</li>
+<li><strong><code>Range.isConnected(Range&lt;C&gt; other)</code></strong>:检查两个范围是否相连。</li>
+<li><strong><code>Range.intersection(Range&lt;C&gt; connectedRange)</code></strong>:返回两个相连范围的交集。</li>
+<li><strong><code>Range.span(Range&lt;C&gt; other)</code></strong>:返回两个范围的并集。</li>
+</ol>
+<h3 id="set">Set</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Sets.newHashSet()</code>**创建一个空的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSet(E... elements)</code>**创建一个包含指定元素的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSetWithExpectedSize(int expectedSize)</code>**创建一个具有指定初始容量的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet()</code>**创建一个空的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet(Iterable&lt;? extends E&gt; elements)</code>**创建一个包含指定元素的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newTreeSet()</code>**创建一个空的 <code>TreeSet</code>。</li>
+<li>**<code>Sets.newTreeSet(Comparator&lt;? super E&gt; comparator)</code>**创建一个带有比较器的空 <code>TreeSet</code>。</li>
+<li>**<code>Sets.union(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的并集。</li>
+<li>**<code>Sets.intersection(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的交集。</li>
+<li>**<code>Sets.difference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回第一个集合与第二个集合的差集。</li>
+<li>**<code>Sets.symmetricDifference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的对称差集。</li>
+<li>**<code>Sets.cartesianProduct(Set&lt;E&gt;... sets)</code>**返回多个集合的笛卡尔积。</li>
+<li>**<code>Sets.powerSet(Set&lt;E&gt; set)</code>**返回给定集合的幂集。</li>
+</ol>
+]]></content>
+    </entry>
+</feed>

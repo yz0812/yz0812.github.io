@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Spring Boot启动原理 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Spring Boot启动原理</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/Ksbd-vR2dH/" class="post--keyword"
+                                data-title="spring" data-type="post_tag" data-term-id="39">spring</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-06-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/38.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Spring Boot启动原理" /></p>
+                            
+                            <pre><code class="language-java">   public static ConfigurableApplicationContext run(Class&lt;?&gt;[] primarySources, String[] args) {
+       return (new SpringApplication(primarySources)).run(args);
+   }
+</code></pre>
+<h3 id="1-new-一个springapplication-对象进行初始化">1. new 一个SpringApplication 对象,进行初始化</h3>
+<pre><code class="language-java">   public SpringApplication(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources) {
+       this.sources = new LinkedHashSet();
+       this.bannerMode = Mode.CONSOLE;
+       this.logStartupInfo = true;
+       this.addCommandLineProperties = true;
+       this.addConversionService = true;
+       this.headless = true;
+       this.registerShutdownHook = true;
+       this.additionalProfiles = new HashSet();
+       this.isCustomEnvironment = false;
+       this.lazyInitialization = false;
+       this.resourceLoader = resourceLoader;
+       Assert.notNull(primarySources, &quot;PrimarySources must not be null&quot;);
+       this.primarySources = new LinkedHashSet(Arrays.asList(primarySources));
+       this.webApplicationType = WebApplicationType.deduceFromClasspath();
+       this.setInitializers(this.getSpringFactoriesInstances(ApplicationContextInitializer.class));
+       this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+       this.mainApplicationClass = this.deduceMainApplicationClass();
+   }
+</code></pre>
+<ul>
+<li>
+<p>推断WebApplicationType，主要思想就是在当前的classpath下搜索特定的类</p>
+</li>
+<li>
+<p>搜索META-INF\spring.factories文件配置的ApplicationContextInitializer的实现类</p>
+</li>
+<li>
+<p>搜索META-INF\spring.factories文件配置的ApplicationListenerr的实现类</p>
+</li>
+<li>
+<p>推断MainApplication的Class</p>
+</li>
+</ul>
+<h3 id="2-运行run方法">2. 运行run方法</h3>
+<ol>
+<li>创建一个StopWatch并执行start方法，这个类主要记录任务的执行时间</li>
+<li>配置Headless属性，Headless模式是在缺少显示屏、键盘或者鼠标时候的系统配置</li>
+<li>在文件META-INF\spring.factories中获取SpringApplicationRunListener接口的实现类EventPublishingRunListener，主要发布SpringApplicationEvent</li>
+<li>把输入参数转成DefaultApplicationArguments类</li>
+<li>创建Environment并设置比如环境信息，系统熟悉，输入参数和profile信息</li>
+<li>打印Banner信息</li>
+<li>创建Application的上下文，根据WebApplicationTyp来创建Context类，如果非web项目则创建AnnotationConfigApplicationContext，在构造方法中初始化AnnotatedBeanDefinitionReader和ClassPathBeanDefinitionScanner</li>
+<li>在文件META-INF\spring.factories中获取SpringBootExceptionReporter接口的实现类FailureAnalyzers</li>
+<li>准备application的上下文<br>
+9.1  初始化ApplicationContextInitializer<br>
+9.2 执行Initializer的contextPrepared方法，发布ApplicationContextInitializedEvent事件<br>
+9.3 如果延迟加载，在上下文添加处理器LazyInitializationBeanFactoryPostProcessor<br>
+9.4 执行加载方法，BeanDefinitionLoader.load方法，主要初始化了AnnotatedGenericBeanDefinition<br>
+9.5 执行Initializer的contextLoaded方法，发布ApplicationContextInitializedEvent事件</li>
+<li>刷新上下文（<strong>后文会单独分析refresh方法</strong>），在这里真正加载bean到容器中。如果是web容器，会在onRefresh方法中创建一个Server并启动。</li>
+</ol>
+<pre><code class="language-java">  public ConfigurableApplicationContext run(String... args) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        ConfigurableApplicationContext context = null;
+        Collection&lt;SpringBootExceptionReporter&gt; exceptionReporters = new ArrayList();
+        this.configureHeadlessProperty();
+        SpringApplicationRunListeners listeners = this.getRunListeners(args);
+        listeners.starting();
+
+        Collection exceptionReporters;
+        try {
+            ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+            ConfigurableEnvironment environment = this.prepareEnvironment(listeners, applicationArguments);
+            this.configureIgnoreBeanInfo(environment);
+            Banner printedBanner = this.printBanner(environment);
+            context = this.createApplicationContext();
+            exceptionReporters = this.getSpringFactoriesInstances(SpringBootExceptionReporter.class, new Class[]{ConfigurableApplicationContext.class}, context);
+            this.prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+            this.refreshContext(context);
+            this.afterRefresh(context, applicationArguments);
+            stopWatch.stop();
+            if (this.logStartupInfo) {
+                (new StartupInfoLogger(this.mainApplicationClass)).logStarted(this.getApplicationLog(), stopWatch);
+            }
+
+            listeners.started(context);
+            this.callRunners(context, applicationArguments);
+        } catch (Throwable var10) {
+            this.handleRunFailure(context, var10, exceptionReporters, listeners);
+            throw new IllegalStateException(var10);
+        }
+
+        try {
+            listeners.running(context);
+            return context;
+        } catch (Throwable var9) {
+            this.handleRunFailure(context, var9, exceptionReporters, (SpringApplicationRunListeners)null);
+            throw new IllegalStateException(var9);
+        }
+    }
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/springboot-qi-dong-yuan-li/" class="leancloud-visitors view"
+                              data-flag-title="Spring Boot启动原理">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/stream-api/" class="title">
+                                      <h4>Stream API</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-08-04</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/stream-api/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/39.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/springboot-zi-dong-zhuang-pei-yuan-li/" class="title">
+                                      <h4>Spring Boot自动装配原理</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-06-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/springboot-zi-dong-zhuang-pei-yuan-li/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/36.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-new-%E4%B8%80%E4%B8%AAspringapplication-%E5%AF%B9%E8%B1%A1%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96">1. new 一个SpringApplication 对象,进行初始化</a></li>
+<li><a href="#2-%E8%BF%90%E8%A1%8Crun%E6%96%B9%E6%B3%95">2. 运行run方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

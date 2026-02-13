@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title> Flyway指南 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title"> Flyway指南</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2022-11-06</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/68.jpg"
+                                class="attachment-full size-full wp-post-image" alt=" Flyway指南" /></p>
+                            
+                            <h3 id="flyway指南">Flyway指南</h3>
+<p>flyway工作流程如下：</p>
+<ol>
+<li>项目启动，应用程序完成数据库连接池的建立后，Flyway自动运行。</li>
+<li>初次使用时，flyway会创建一个 flyway_schema_history 表，用于记录sql执行记录。</li>
+<li>Flyway会扫描项目指定路径下(默认是 classpath:db/migration )的所有sql脚本，与 flyway_schema_history 表脚本记录进行比对。如果数据库记录执行过的脚本记录，与项目中的sql脚本不一致，Flyway会报错并停止项目执行。</li>
+<li>如果校验通过，则根据表中的sql记录最大版本号，忽略所有版本号不大于该版本的脚本。再按照版本号从小到大，逐个执行其余脚本。</li>
+</ol>
+<p>让我们开始使用Flyway进行数据库管理.</p>
+<h2 id="1配置">1.配置</h2>
+<blockquote>
+<p>创建一个springboot的项目,添加maven插件</p>
+</blockquote>
+<pre><code class="language-xml">			&lt;plugin&gt;
+				&lt;groupId&gt;org.flywaydb&lt;/groupId&gt;
+				&lt;artifactId&gt;flyway-maven-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+</code></pre>
+<blockquote>
+<p>导包</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dependency&gt;
+   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;mysql&lt;/groupId&gt;
+   &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.flywaydb&lt;/groupId&gt;
+   &lt;artifactId&gt;flyway-core&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.flywaydb&lt;/groupId&gt;
+   &lt;artifactId&gt;flyway-mysql&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+   &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+   &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p>application配置文件</p>
+</blockquote>
+<pre><code class="language-yaml">spring:
+  flyway:
+    # 文件位置
+    locations: classpath:db/sql
+    # 是否启用
+    enabled: true
+    # 文件版本
+    baseline-version: 1
+    # 文件前缀 社区版会报错
+    # baselineMigrationPrefix is not supported by Flyway Community Edition Try Flyway Teams Edition for free: https://rd.gt/2VzHpkY
+    # baseline-migration-prefix: V
+    # 在没有元数据表的情况下，针对非空Schema执行迁移时是否自动调用基线。 （默认值：false）
+    baseline-on-migrate: true
+    # 迁移时是否进行校验，默认true
+    validate-on-migrate: true
+    # 编码格式，默认UTF-8
+    encoding: UTF-8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${mysql.ip}:${mysql.port}/flyway?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=GMT%2b8
+    username: ${mysql.username}
+    password: ${mysql.password}
+</code></pre>
+<h2 id="2定义第一次迁移">2.定义第一次迁移</h2>
+<p>可以通过配置看到默认的路径是<code>classpath:db/migration</code>但是上面我们通过locations的配置改成了db/sql,所以我们在resources文件夹中创建目录db/sql</p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202211061802203.png" alt="" loading="lazy"></figure>
+<p>Flyway 遵循以下<strong>迁移脚本命名约定：</strong></p>
+<p><em>&lt;前缀&gt;&lt;版本&gt;__&lt;说明&gt;.sql</em></p>
+<ul>
+<li><em>&lt;前缀&gt;</em>–默认前缀是<em>V</em>，我们可以在上面的配置文件中使用<em>flyway.sqlMigrationPrefix</em>属性进行更改。</li>
+<li><em>&lt;版本&gt;</em> – 迁移版本号。主要版本和次要版本可以用<em>下划线</em>分隔。迁移版本应始终以 1 开头。</li>
+<li><em>&lt;描述&gt;</em> – 迁移的文本描述。双下划线将说明与版本号分开。</li>
+</ul>
+<p>示例：<em>V1.0.0__Base_version.sql</em></p>
+<p>现在让我们在项目的 resources/db/sql目录下面创建一个文件夹 1.0.0,再创建一个名为V1.0.0__Base_version.sql的迁移脚本</p>
+<pre><code class="language-sql">DROP TABLE IF EXISTS user ;
+CREATE TABLE `user` (
+                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                        `name` varchar(20) NOT NULL COMMENT '姓名',
+                        `age` int DEFAULT NULL COMMENT '年龄',
+                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+DROP TABLE IF EXISTS student ;
+CREATE TABLE `student` (
+                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                           `name` varchar(20) NOT NULL COMMENT '姓名',
+                           `age` int DEFAULT NULL COMMENT '年龄',
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+</code></pre>
+<p>这个时候启动springboot项目,就可以在数据库中看到三个表<code>flyway_schema_history</code>,<code>user</code>,<code>student</code>;</p>
+<h2 id="3定义第二次迁移">3.定义第二次迁移</h2>
+<p>在项目的 resources/db/sql目录下面创建一个文件夹 1.1.0,再创建一个名为V1.1.0__20221106_insert.sql的迁移脚本</p>
+<pre><code class="language-sql">insert into user(name,age) values ('张三',13);
+insert into user(name,age) values ('李四',14);
+insert into user(name,age) values ('王五',15);
+</code></pre>
+<p>启动springboot项目,就可以在数据库user表中看到插入的数据,而且还可以看到<code>flyway_schema_history</code>表多了两行数据对应我们刚刚的两个迁移脚本</p>
+<pre><code class="language-tex">installed_rank|version|description    |type|script                            |checksum   |installed_by|installed_on       |execution_time|success|
+--------------+-------+---------------+----+----------------------------------+-----------+------------+-------------------+--------------+-------+
+             1|1.0.0  |Base version   |SQL |v1.0.0/V1.0.0__Base_version.sql   | -852860158|root        |2022-11-06 10:10:47|           520|      1|
+             2|1.1.0  |20221106 insert|SQL |v1.1.0/V1.1.0__20221106_insert.sql|-1054580649|root        |2022-11-06 10:10:48|           306|      1|
+</code></pre>
+<h2 id="4定义第三次迁移">4.定义第三次迁移</h2>
+<p>在项目的 resources/db/sql目录下面创建一个文件夹1.2.0,再创建一个名为V1.2.0__20221106_insert.sql的迁移脚本</p>
+<pre><code class="language-sql">insert into student(name,age)values ('张三',13);
+insert into student(name,age)values ('李四',14);
+insert into student(name,age)values ('王五',15);
+</code></pre>
+<p>启动springboot项目,就可以在数据库student表中看到插入的数据</p>
+<h2 id="5定义第五次迁移">5.定义第五次迁移</h2>
+<p>我们更改db/sql/v1.2.0/V1.2.0__20221106_insert.sql这个文件,新加一条数据</p>
+<pre><code class="language-sql">insert into student(name,age)values ('张三',13);
+insert into student(name,age)values ('李四',14);
+insert into student(name,age)values ('王五',15);
+insert into student(name,age)values ('刘六',16);
+</code></pre>
+<p>启动springboot项目,我们就会得到一个错误<code>Validate failed: Migrations have failed validation</code>,这是因为检查到<code>V1.2.0__20221106_insert.sql</code>已经发生改变了与<code>flyway_schema_history</code> checksum的不一致</p>
+<pre><code class="language-tcl">
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1.2.0
+-&gt; Applied to database : -860246032
+-&gt; Resolved locally    : 461714632
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.23.jar:5.3.23]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) [spring-boot-2.7.5.jar:2.7.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) [spring-boot-2.7.5.jar:2.7.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.7.5.jar:2.7.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) [spring-boot-2.7.5.jar:2.7.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) [spring-boot-2.7.5.jar:2.7.5]
+	at com.example.flyway.FlywayApplication.main(FlywayApplication.java:10) [classes/:na]
+Caused by: org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
+Migration checksum mismatch for migration version 1.2.0
+-&gt; Applied to database : -860246032
+-&gt; Resolved locally    : 461714632
+Either revert the changes to the migration, or run repair to update the schema history.
+Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:130) ~[flyway-core-8.5.13.jar:na]
+	at org.flywaydb.core.Flyway$1.execute(Flyway.java:124) ~[flyway-core-8.5.13.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:205) ~[flyway-core-8.5.13.jar:na]
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:124) ~[flyway-core-8.5.13.jar:na]
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66) ~[spring-boot-autoconfigure-2.7.5.jar:2.7.5]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.3.23.jar:5.3.23]
+	... 17 common frames omitted
+</code></pre>
+<p>解决办法</p>
+<ul>
+<li>手动修正这一条数据,但是改动的数据不会执行,相当于跳过. <strong>update</strong> flyway_schema_history <strong>set</strong> checksum = 461714632 <strong>where</strong> <code>version</code> = '1.2.0';</li>
+<li>删除这条数据 <strong>delete</strong> <strong>from</strong> flyway_schema_history <strong>where</strong> <strong>version</strong> = '1.2.0';</li>
+</ul>
+<h2 id="6重复运行的sql">6.重复运行的SQL</h2>
+<p>可重复运行的SQL，则以大写的“R”开头，后面再以两个下划线分割，其后跟文件名称例如:<code>R__empty_data.sql</code> 他是不会被flyway检测的所以在<code>flyway_schema_history</code>中他的<code>checksum</code>的值是0;</p>
+<h2 id="7插件管理">7.插件管理</h2>
+<p>配置插件</p>
+<pre><code class="language-xml">			&lt;plugin&gt;
+				&lt;groupId&gt;org.flywaydb&lt;/groupId&gt;
+				&lt;artifactId&gt;flyway-maven-plugin&lt;/artifactId&gt;
+				&lt;configuration&gt;
+					&lt;user&gt;${mysql.username}&lt;/user&gt;
+					&lt;password&gt;${mysql.password}&lt;/password&gt;
+					&lt;url&gt;jdbc:mysql://${mysql.ip}:${mysql.port}/flyway?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=GMT%2b8&lt;/url&gt;
+					&lt;locations&gt;
+						&lt;location&gt;classpath:db/sql&lt;/location&gt;
+					&lt;/locations&gt;
+					&lt;schemas&gt;
+						&lt;schema&gt;flyway&lt;/schema&gt;
+					&lt;/schemas&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202211061852000.png" alt="" loading="lazy"></figure>
+<p>命令:</p>
+<ol>
+<li>
+<p>baseline</p>
+<p>对已经存在数据库Schema结构的数据库一种解决方案。实现在非空数据库新建MetaData表，并把Migrations应用到该数据库；也可以在已有表结构的数据库中实现添加Metadata表。</p>
+</li>
+<li>
+<p>clean</p>
+<p>清除掉对应数据库Schema中所有的对象，包括表结构，视图，存储过程等，clean操作在dev 和 test阶段很好用，但在生产环境务必禁用。</p>
+</li>
+<li>
+<p>info</p>
+<p>用于打印所有的Migrations的详细和状态信息，也是通过MetaData和Migrations完成的，可以快速定位当前的数据库版本。</p>
+</li>
+<li>
+<p>repair</p>
+<p>repair操作能够修复metaData表，该操作在metadata出现错误时很有用。</p>
+</li>
+<li>
+<p>undo</p>
+<p>撤销操作，社区版不支持。</p>
+</li>
+<li>
+<p>validate</p>
+<p>验证已经apply的Migrations是否有变更，默认开启的，原理是对比MetaData表与本地Migrations的checkNum值，如果值相同则验证通过，否则失败。</p>
+</li>
+</ol>
+<h2 id="7flyway知识补充">7.flyway知识补充</h2>
+<ul>
+<li>flyway执行migrate必须在空白的数据库上进行，否则报错。</li>
+<li>对于已经有数据的数据库，必须先baseline，然后才能migrate。</li>
+<li>clean操作是删除数据库的所有内容，包括baseline之前的内容。</li>
+<li>尽量不要修改已经执行过的SQL，即便是R开头的可反复执行的SQL，它们会不利于数据迁移。</li>
+<li>当需要做数据迁移的时候，更换一个新的空白数据库，执行下migrate命令，所有的数据库更改都可以一步到位地迁移过去。</li>
+</ul>
+<h2 id="8flyway配置清单">8.flyway配置清单</h2>
+<pre><code class="language-yaml">flyway.baseline-description对执行迁移时基准版本的描述.
+flyway.baseline-on-migrate当迁移时发现目标schema非空，而且带有没有元数据的表时，是否自动执行基准迁移，默认false.
+flyway.baseline-version开始执行基准迁移时对现有的schema的版本打标签，默认值为1.
+flyway.check-location检查迁移脚本的位置是否存在，默认false.
+flyway.clean-on-validation-error当发现校验错误时是否自动调用clean，默认false.
+flyway.enabled是否开启flywary，默认true.
+flyway.encoding设置迁移时的编码，默认UTF-8.
+flyway.ignore-failed-future-migration当读取元数据表时是否忽略错误的迁移，默认false.
+flyway.init-sqls当初始化好连接时要执行的SQL.
+flyway.locations迁移脚本的位置，默认db/migration.
+flyway.out-of-order是否允许无序的迁移，默认false.
+flyway.password目标数据库的密码.
+flyway.placeholder-prefix设置每个placeholder的前缀，默认${.
+flyway.placeholder-replacementplaceholders是否要被替换，默认true.
+flyway.placeholder-suffix设置每个placeholder的后缀，默认}.
+flyway.placeholders.[placeholder name]设置placeholder的value
+flyway.schemas设定需要flywary迁移的schema，大小写敏感，默认为连接默认的schema.
+flyway.sql-migration-prefix迁移文件的前缀，默认为V.
+flyway.sql-migration-separator迁移脚本的文件名分隔符，默认__
+flyway.sql-migration-suffix迁移脚本的后缀，默认为.sql
+flyway.tableflyway使用的元数据表名，默认为schema_version
+flyway.target迁移时使用的目标版本，默认为latest version
+flyway.url迁移时使用的JDBC URL，如果没有指定的话，将使用配置的主数据源
+flyway.user迁移数据库的用户名
+flyway.validate-on-migrate迁移时是否校验，默认为true
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/flyway-zhi-nan/" class="leancloud-visitors view"
+                              data-flag-title=" Flyway指南">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/javacv-shi-pin-liu-chou-zheng/" class="title">
+                                      <h4>JavaCV 视频流抽帧</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2022-12-10</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/javacv-shi-pin-liu-chou-zheng/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/69.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/han-shu-shi-jie-kou/" class="title">
+                                      <h4> 函数式接口</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2022-10-22</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/han-shu-shi-jie-kou/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/67.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#flyway%E6%8C%87%E5%8D%97">Flyway指南</a></li>
+</ul>
+</li>
+<li><a href="#1%E9%85%8D%E7%BD%AE">1.配置</a></li>
+<li><a href="#2%E5%AE%9A%E4%B9%89%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%81%E7%A7%BB">2.定义第一次迁移</a></li>
+<li><a href="#3%E5%AE%9A%E4%B9%89%E7%AC%AC%E4%BA%8C%E6%AC%A1%E8%BF%81%E7%A7%BB">3.定义第二次迁移</a></li>
+<li><a href="#4%E5%AE%9A%E4%B9%89%E7%AC%AC%E4%B8%89%E6%AC%A1%E8%BF%81%E7%A7%BB">4.定义第三次迁移</a></li>
+<li><a href="#5%E5%AE%9A%E4%B9%89%E7%AC%AC%E4%BA%94%E6%AC%A1%E8%BF%81%E7%A7%BB">5.定义第五次迁移</a></li>
+<li><a href="#6%E9%87%8D%E5%A4%8D%E8%BF%90%E8%A1%8C%E7%9A%84sql">6.重复运行的SQL</a></li>
+<li><a href="#7%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86">7.插件管理</a></li>
+<li><a href="#7flyway%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85">7.flyway知识补充</a></li>
+<li><a href="#8flyway%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95">8.flyway配置清单</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

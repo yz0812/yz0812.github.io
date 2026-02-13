@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Sentienl限流 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Sentienl限流</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/CRcloJmMj/" class="post--keyword"
+                                data-title="sentinel" data-type="post_tag" data-term-id="39">sentinel</a>
+                               <a href="https://yz0812.github.io/tag/hWFgAWK2c/" class="post--keyword"
+                                data-title="springcloud" data-type="post_tag" data-term-id="39">springcloud</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-05-17</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/28.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Sentienl限流" /></p>
+                            
+                            <p>官方文档:<a href="https://sentinelguard.io/zh-cn/docs">https://sentinelguard.io/zh-cn/docs</a></p>
+<p>使用手册:<a href="https://github.com/alibaba/Sentinel/wiki">https://github.com/alibaba/Sentinel/wiki</a></p>
+<h3 id="一sentinel引入">一.sentinel引入</h3>
+<h5 id="1安装sentinel客户端">1.安装sentinel客户端</h5>
+<h5 id="2pom文件导入包">2.pom文件导入包</h5>
+<h5 id="3配置文件修改">3.配置文件修改</h5>
+<pre><code class="language-yaml">spring:
+  sentinel:
+    transport:
+      #指定控制台
+      dashboard: 127.0.0.1:8858
+</code></pre>
+<h3 id="二流控规则">二.流控规则</h3>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210511005823.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>资源名: 访问路径</p>
+</li>
+<li>
+<p>针对来源:默认default,填写微服务名，指定对哪个微服务进行限流</p>
+</li>
+<li>
+<p>阈值类型:</p>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li>每秒钟的请求数量，当调用接口的QPS达到阈值的时候，进行限流；</li>
+<li>当调用接口的线程数达到阈值的时候，进行限流；</li>
+</ol>
+</blockquote>
+<ul>
+<li>是否集群：不需要集群</li>
+<li>流控模式：</li>
+</ul>
+<blockquote>
+<ol>
+<li>直接：接口达到限流条件时，直接限流；</li>
+<li>关联：当关联的资源达到阈值时，就限流自己；</li>
+<li>链路：只记录指定链路上的流量 (指定资源从入口资源进来的流量，如果达到阈值，就进行限流)【api级别的针对来源】；</li>
+</ol>
+</blockquote>
+<ul>
+<li>流控效果：</li>
+</ul>
+<blockquote>
+<ol>
+<li>快速失败：直接失败，抛异常；</li>
+<li>Warm Up：根据codeFactor（冷加载因子，默认为3）的值，即请求 QPS 从阈值 / codeFactor，经过预热时长，逐渐升至设定的QPS阈值；</li>
+<li>排队等待：匀速排队，让请求以匀速的速度通过，阈值类型必须设置为QPS,否则无效；</li>
+</ol>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resource</td>
+<td>资源名，资源名是限流规则的作用对象</td>
+<td></td>
+</tr>
+<tr>
+<td>count</td>
+<td>限流阈值</td>
+<td></td>
+</tr>
+<tr>
+<td>grade</td>
+<td>限流阈值类型，QPS 模式（1）或并发线程数模式（0）</td>
+<td>QPS 模式</td>
+</tr>
+<tr>
+<td>limitApp</td>
+<td>流控针对的调用来源</td>
+<td><code>default</code>，代表不区分调用来源</td>
+</tr>
+<tr>
+<td>strategy</td>
+<td>调用关系限流策略：直接、链路、关联</td>
+<td>根据资源本身（直接）</td>
+</tr>
+<tr>
+<td>controlBehavior</td>
+<td>流控效果（直接拒绝/WarmUp/匀速+排队等待），不支持按调用关系限流</td>
+<td>直接拒绝</td>
+</tr>
+<tr>
+<td>clusterMode</td>
+<td>是否集群限流</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码配置">代码配置</h5>
+<pre><code class="language-java">private void initFlowQpsRule() {
+    List&lt;FlowRule&gt; rules = new ArrayList&lt;&gt;();
+    // 资源名
+    FlowRule rule = new FlowRule(resourceName);
+    // set limit qps to 20  限流阈值
+    rule.setCount(20);
+    // 限流阙值类型
+    rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+    // 流控针对的调用来源
+    rule.setLimitApp(&quot;default&quot;);
+  	// 添加规则
+    rules.add(rule);
+    FlowRuleManager.loadRules(rules);
+}
+</code></pre>
+<h3 id="三降级规则">三.降级规则</h3>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210512005441.png" alt="" loading="lazy"></figure>
+<p>熔断有三种状态，分别为OPEN、HALF_OPEN、CLOSED。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OPEN</td>
+<td style="text-align:left">表示熔断开启，拒绝所有请求</td>
+</tr>
+<tr>
+<td style="text-align:left">HALF_OPEN</td>
+<td style="text-align:left">探测恢复状态，如果接下来的一个请求顺利通过则结束熔断，否则继续熔断</td>
+</tr>
+<tr>
+<td style="text-align:left">CLOSED</td>
+<td style="text-align:left">表示熔断关闭，请求顺利通过</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.慢调用比例</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">最大RT</td>
+<td style="text-align:left">需要设置的阈值，超过该值则为慢应用</td>
+</tr>
+<tr>
+<td style="text-align:left">比例阈值</td>
+<td style="text-align:left">慢调用占所有的调用的比率，范围：[0~1]</td>
+</tr>
+<tr>
+<td style="text-align:left">熔断时长</td>
+<td style="text-align:left">在这段时间内发生熔断、拒绝所有请求</td>
+</tr>
+<tr>
+<td style="text-align:left">最小请求数</td>
+<td style="text-align:left">即允许通过的最小请求数，在该数量内不发生熔断</td>
+</tr>
+</tbody>
+</table>
+<p><strong>执行逻辑</strong></p>
+<p>熔断（OPEN）：请求数大于最小请求数并且慢调用的比率大于比例阈值则发生熔断，熔断时长为用户自定义设置。<strong>当资源的响应时间超过最大RT（以ms为单位，最大RT即最大响应时间）之后，资源进入准降级状态</strong></p>
+<p>探测（HALFOPEN）：当熔断过了定义的熔断时长，状态由熔断（OPEN）变为探测（HALFOPEN）。</p>
+<ul>
+<li>如果接下来的一个请求小于最大RT，说明慢调用已经恢复，结束熔断，状态由探测（HALF_OPEN）变更为关闭（CLOSED）</li>
+<li>如果接下来的一个请求大于最大RT，说明慢调用未恢复，继续熔断，熔断时长保持一致</li>
+</ul>
+<p><strong>2.异常比例</strong></p>
+<p>通过计算异常比例与设置阈值对比的一种策略。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">异常比例阈值</td>
+<td style="text-align:left">异常比例=发生异常的请求数÷请求总数取值范围：[0~1]</td>
+</tr>
+<tr>
+<td style="text-align:left">熔断时长</td>
+<td style="text-align:left">在这段时间内发生熔断、拒绝所有请求</td>
+</tr>
+<tr>
+<td style="text-align:left">最小请求数</td>
+<td style="text-align:left">即允许通过的最小请求数，在该数量内不发生熔断</td>
+</tr>
+</tbody>
+</table>
+<p><strong>执行逻辑</strong></p>
+<p>熔断（OPEN）：当请求数大于最小请求并且异常比例大于设置的阈值时触发熔断，熔断时长由用户设置。</p>
+<p>探测（HALFOPEN）：当超过熔断时长时，由熔断（OPEN）转为探测（HALFOPEN）</p>
+<ul>
+<li>如果接下来的一个请求未发生错误，说明应用恢复，结束熔断，状态由探测（HALF_OPEN）变更为关闭（CLOSED）</li>
+<li>如果接下来的一个请求继续发生错误，说明应用未恢复，继续熔断，熔断时长保持一致</li>
+</ul>
+<p><strong>3.异常数</strong></p>
+<p>通过计算发生异常的请求数与设置阈值对比的一种策略。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">异常数</td>
+<td style="text-align:left">请求发生异常的数量</td>
+</tr>
+<tr>
+<td style="text-align:left">熔断时长</td>
+<td style="text-align:left">在这段时间内发生熔断、拒绝所有请求</td>
+</tr>
+<tr>
+<td style="text-align:left">最小请求数</td>
+<td style="text-align:left">即允许通过的最小请求数，在该数量内不发生熔断</td>
+</tr>
+</tbody>
+</table>
+<p><strong>执行逻辑</strong></p>
+<p>熔断（OPEN）：当请求数大于最小请求并且异常数量大于设置的阈值时触发熔断，熔断时长由用户设置。探测（HALFOPEN）：当超过熔断时长时，由熔断（OPEN）转为探测（HALFOPEN）</p>
+<ul>
+<li>如果接下来的一个请求未发生错误，说明应用恢复，结束熔断，状态由探测（HALF_OPEN）变更为关闭（CLOSED）</li>
+<li>如果接下来的一个请求继续发生错误，说明应用未恢复，继续熔断，熔断时长保持一致<br>
+<span style="color:red">由于异常数是一分钟统计一次,所以建议熔断时长设置&gt;60s</span></li>
+</ul>
+<p>三、规则参数说明</p>
+<p>熔断降级规则包含下面几个重要的属性：</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resource</td>
+<td>资源名，即规则的作用对象</td>
+<td></td>
+</tr>
+<tr>
+<td>grade</td>
+<td>熔断策略，支持慢调用比例/异常比例/异常数策略</td>
+<td>慢调用比例</td>
+</tr>
+<tr>
+<td>count</td>
+<td>慢调用比例模式下为慢调用临界 RT（超出该值计为慢调用）；异常比例/异常数模式下为对应的阈值</td>
+<td></td>
+</tr>
+<tr>
+<td>timeWindow</td>
+<td>熔断时长，单位为 s</td>
+<td></td>
+</tr>
+<tr>
+<td>minRequestAmount</td>
+<td>熔断触发的最小请求数，请求数小于该值时即使异常比率超出阈值也不会熔断（1.7.0 引入）</td>
+<td>5</td>
+</tr>
+<tr>
+<td>statIntervalMs</td>
+<td>统计时长（单位为 ms），如 60*1000 代表分钟级（1.8.0 引入）</td>
+<td>1000 ms</td>
+</tr>
+<tr>
+<td>slowRatioThreshold</td>
+<td>慢调用比例阈值，仅慢调用比例模式有效（1.8.0 引入）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>同一个资源可以同时有多个降级规则。</p>
+<p>理解上面规则的定义之后，我们可以通过调用 <code>DegradeRuleManager.loadRules()</code> 方法来用硬编码的方式定义流量控制规则。</p>
+<pre><code class="language-java">private void initDegradeRule() {
+    List&lt;DegradeRule&gt; rules = new ArrayList&lt;&gt;();
+    DegradeRule rule = new DegradeRule();
+    rule.setResource(KEY);
+    // set threshold RT, 10 ms
+    rule.setCount(10);
+    rule.setGrade(RuleConstant.DEGRADE_GRADE_RT);
+    rule.setTimeWindow(10);
+    rules.add(rule);
+    DegradeRuleManager.loadRules(rules);
+}
+</code></pre>
+<h3 id="四热点规则">四.热点规则</h3>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210512234252.png" alt="" loading="lazy"></figure>
+<p>何为热点？热点即经常访问的数据. 比较特殊的流控规则.主要针对参数</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>资源名</td>
+<td>必填</td>
+<td></td>
+</tr>
+<tr>
+<td>限流模式</td>
+<td></td>
+<td>QPS 模式</td>
+</tr>
+<tr>
+<td>参数索引</td>
+<td>热点，必填，对应 <code>api</code> 中的参数索引位置</td>
+<td></td>
+</tr>
+<tr>
+<td>单机阈值</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>统计窗口时长</td>
+<td></td>
+<td>1s</td>
+</tr>
+<tr>
+<td>是否集群</td>
+<td></td>
+<td>false</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>高级参数</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>参数类型</td>
+<td>可选</td>
+<td></td>
+</tr>
+<tr>
+<td>参数值</td>
+<td>对应值</td>
+<td></td>
+</tr>
+<tr>
+<td>限流阈值</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>现在我们可以写代码测试一下</strong></p>
+<pre><code class="language-java">@GetMapping(&quot;/hot&quot;)
+@SentinelResource(&quot;hot&quot;)
+public String hot(@RequestParam(required = false) String a, @RequestParam(required = false)String b){
+    return &quot;a=&quot;+a+&quot;b=&quot;+b;
+}
+</code></pre>
+<p>然后添加热点规则,规则添加到hot上</p>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210513001234.png" alt="" loading="lazy"></figure>
+<p>因为索引选择的是0,所有调用 <strong>http://127.0.0.1:6020/hot?a=11&amp;b==2</strong>,重复调用会限流.但是调用<strong>http://127.0.0.1:6020/hot?b==2</strong>不会限流</p>
+<p>然后添加高级参数</p>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210513001731.png" alt="" loading="lazy"></figure>
+<p>再访问<strong>http://127.0.0.1:6020/hot?a=5&amp;b=1</strong>他的参数是5,所以匹配上例外参数,他的阈值是1000,正常刷新不会触发限流,但是如果改成<strong>http://127.0.0.1:6020/hot?a=1&amp;b=1</strong>或者<strong>http://127.0.0.1:6020/hot?a=1&amp;b=5</strong>他的阈值还是1,会触发限流</p>
+<h3 id="五系统规则-systemrule">五.系统规则 (SystemRule)</h3>
+<p>Sentinel 系统自适应保护从整体维度对应用入口流量进行控制，结合应用的 Load、总体平均 RT、入口 QPS 和线程数等几个维度的监控指标，让系统的入口流量和系统的负载达到一个平衡，让系统尽可能跑在最大吞吐量的同时保证系统整体的稳定性。</p>
+<p>Sentinel 系统自适应限流从整体维度对应用入口流量进行控制，结合应用的 Load、CPU 使用率、总体平均 RT、入口 QPS 和并发线程数等几个维度的监控指标，通过自适应的流控策略，让系统的入口流量和系统的负载达到一个平衡，让系统尽可能跑在最大吞吐量的同时保证系统整体的稳定性。</p>
+<p>系统规则包含下面几个重要的属性：</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>highestSystemLoad</td>
+<td><code>load1</code> 触发值，用于触发自适应控制阶段</td>
+<td>-1 (不生效)</td>
+</tr>
+<tr>
+<td>avgRt</td>
+<td>所有入口流量的平均响应时间</td>
+<td>-1 (不生效)</td>
+</tr>
+<tr>
+<td>maxThread</td>
+<td>入口流量的最大并发数</td>
+<td>-1 (不生效)</td>
+</tr>
+<tr>
+<td>qps</td>
+<td>所有入口资源的 QPS</td>
+<td>-1 (不生效)</td>
+</tr>
+<tr>
+<td>highestCpuUsage</td>
+<td>当前系统的 CPU 使用率（0.0-1.0）</td>
+<td>-1 (不生效)</td>
+</tr>
+</tbody>
+</table>
+<p>理解上面规则的定义之后，我们可以通过调用 <code>SystemRuleManager.loadRules()</code> 方法来用硬编码的方式定义流量控制规则。</p>
+<pre><code class="language-java">private void initSystemRule() {
+    List&lt;SystemRule&gt; rules = new ArrayList&lt;&gt;();
+    SystemRule rule = new SystemRule();
+    rule.setHighestSystemLoad(10);
+    rules.add(rule);
+    SystemRuleManager.loadRules(rules);
+}
+</code></pre>
+<h3 id="六授权规则">六.授权规则</h3>
+<figure data-type="image" tabindex="6"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210513003211.png" alt="" loading="lazy"></figure>
+<table>
+<thead>
+<tr>
+<th>属性名字</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>资源名</td>
+<td>访问地址URL</td>
+</tr>
+<tr>
+<td>流控应用</td>
+<td>调用方,服务名</td>
+</tr>
+<tr>
+<td>授权类型</td>
+<td>白名单可以调用,黑名单无法调用</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-java">private void AuthorityRule() {
+  AuthorityRule rule = new AuthorityRule();
+  rule.setResource(&quot;test&quot;);
+  rule.setStrategy(RuleConstant.AUTHORITY_WHITE);
+  rule.setLimitApp(&quot;appA,appB&quot;);
+  AuthorityRuleManager.loadRules(Collections.singletonList(rule));
+}
+</code></pre>
+<h3 id="七sentinel与控制台通行原理">七.Sentinel与控制台通行原理</h3>
+<p>Sentinel Dashboard 定时心跳调用注册到控制台上的客户端的API</p>
+<figure data-type="image" tabindex="7"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210515020010.png" alt="" loading="lazy"></figure>
+<p>输入http://127.0.0.1:8719/api 查看客户端API</p>
+<p>输入 http://127.0.0.1:6020/actuator/sentinel 可以看到客户端定义的端口,心跳,和IP</p>
+<pre><code class="language-json">{
+&quot;blockPage&quot;: null,
+&quot;appName&quot;: &quot;spring-cloud-alibaba-feign&quot;,
+&quot;consoleServer&quot;: &quot;127.0.0.1:8858&quot;,
+&quot;coldFactor&quot;: &quot;3&quot;,
+&quot;rules&quot;: {
+&quot;systemRules&quot;: [],
+&quot;authorityRule&quot;: [],
+&quot;paramFlowRule&quot;: [],
+&quot;flowRules&quot;: [],
+&quot;degradeRules&quot;: []
+},
+&quot;metricsFileCharset&quot;: &quot;UTF-8&quot;,
+&quot;filter&quot;: {
+&quot;order&quot;: -2147483648,
+&quot;urlPatterns&quot;: [
+&quot;/*&quot;
+],
+&quot;enabled&quot;: true
+},
+&quot;totalMetricsFileCount&quot;: 6,
+&quot;datasource&quot;: {},
+&quot;clientIp&quot;: &quot;192.168.3.33&quot;,
+&quot;clientPort&quot;: &quot;8719&quot;,
+&quot;logUsePid&quot;: false,
+&quot;metricsFileSize&quot;: 52428800,
+&quot;logDir&quot;: &quot;/Users/yz/logs/csp/&quot;,
+&quot;heartbeatIntervalMs&quot;: 10000
+}
+</code></pre>
+<h3 id="八控制台相关配置">八.控制台相关配置</h3>
+<pre><code class="language-yaml">   sentinel:
+      transport:
+        #指定控制台
+        dashboard: 127.0.0.1:8858
+        #指定与控制台通信的IP
+        #如不配置，会选择一个IP注册
+        client-ip: 127.0.0.1
+        # 指定与控制台通信的端口
+        #默认是8719
+        port: 8719
+        # 心跳周期，默认null
+        #但是在SimpleHttpHeartbeatSender会用默认值10S
+        heartbeat-interval-ms: 10000
+</code></pre>
+<h3 id="九sentinelresource注解使用">九.@SentinelResource注解使用</h3>
+<pre><code class="language-java"> @GetMapping(&quot;/test-sentinel-api&quot;)
+    @SentinelResource(value = &quot;test-sentinel-api&quot;, blockHandler = &quot;block&quot;,blockHandlerClass = BlockHandlerClass.class,fallback = &quot;fallback&quot;,fallbackClass = FallbackClass.class)
+    public String testSentinelApi(@RequestParam(required = false) String a) {
+        if (StringUtil.isEmpty(a)) {
+            throw new IllegalArgumentException(&quot;参数异常&quot;);
+        }
+        return a;
+    }
+
+
+@Slf4j
+public class BlockHandlerClass {
+    /**
+     * 处理限流或者降级
+     * @param a
+     * @param e
+     * @return
+     */
+    public String block(String a, BlockException e) {
+        log.warn(&quot;限流&quot;);
+        return &quot;限流&quot;;
+    }
+
+}
+
+@Slf4j
+public class FallbackClass {
+    /**
+     * 降级
+     * @param a
+     * @return
+     */
+    public String fallback(String a,Exception e) {
+        log.warn(&quot;降级&quot;);
+        return &quot;降级&quot;;
+    }
+}
+
+</code></pre>
+<h3 id="十resttemplate整合sentinel">十.RestTemplate整合Sentinel</h3>
+<pre><code class="language-java">@SpringBootApplication
+public class SpringCloudAlibabaNacosApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringCloudAlibabaNacosApplication.class);
+    }
+    @Bean
+    @LoadBalanced
+    @SentinelRestTemplate
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
+}
+
+</code></pre>
+<pre><code class="language-yaml">用户关闭或者启动Sentinel
+resttemplate:
+  sentinel:
+    enabled: false
+</code></pre>
+<h3 id="十一feign限流">十一.feign限流</h3>
+<pre><code class="language-yaml">feign:
+  sentinel:
+    enabled: false
+</code></pre>
+<h3 id="十二sentinel规则持久化">十二.sentinel规则持久化</h3>
+<ul>
+<li>
+<p><strong>1.原始模式</strong></p>
+</li>
+<li>
+<p><strong>2.推模式</strong></p>
+</li>
+<li>
+<p><strong>3.拉模式</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>推送模式</th>
+<th>说明</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/alibaba/Sentinel/wiki/%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8-Sentinel#%E5%8E%9F%E5%A7%8B%E6%A8%A1%E5%BC%8F">原始模式</a></td>
+<td>API 将规则推送至客户端并直接更新到内存中，扩展写数据源（<a href="https://github.com/alibaba/Sentinel/wiki/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%99%E6%89%A9%E5%B1%95"><code>WritableDataSource</code></a>）</td>
+<td>简单，无任何依赖</td>
+<td>不保证一致性；规则保存在内存中，重启即消失。严重不建议用于生产环境</td>
+</tr>
+<tr>
+<td><a href="https://github.com/alibaba/Sentinel/wiki/%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8-Sentinel#Pull%E6%A8%A1%E5%BC%8F">Pull 模式</a></td>
+<td>扩展写数据源（<a href="https://github.com/alibaba/Sentinel/wiki/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%99%E6%89%A9%E5%B1%95"><code>WritableDataSource</code></a>）， 客户端主动向某个规则管理中心定期轮询拉取规则，这个规则中心可以是 RDBMS、文件 等</td>
+<td>简单，无任何依赖；规则持久化</td>
+<td>不保证一致性；实时性不保证，拉取过于频繁也可能会有性能问题。</td>
+</tr>
+<tr>
+<td><strong><a href="https://github.com/alibaba/Sentinel/wiki/%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8-Sentinel#Push%E6%A8%A1%E5%BC%8F">Push 模式</a></strong></td>
+<td>扩展读数据源（<a href="https://github.com/alibaba/Sentinel/wiki/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%99%E6%89%A9%E5%B1%95"><code>ReadableDataSource</code></a>），规则中心统一推送，客户端通过注册监听器的方式时刻监听变化，比如使用 Nacos、Zookeeper 等配置中心。这种方式有更好的实时性和一致性保证。<strong>生产环境下一般采用 push 模式的数据源。</strong></td>
+<td>规则持久化；一致性；快速</td>
+<td>引入第三方依赖</td>
+</tr>
+</tbody>
+</table>
+<h5 id="1原始模式">1.原始模式</h5>
+<p>这种做法的好处是简单，无依赖；坏处是应用重启规则就会消失，仅用于简单测试，不能用于生产环境。<br>
+<img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f34373638382f313533363636303239363237332d34663434306262612d356239652d343230352d393430322d6662363038336236363931322e706e67.png" alt="" loading="lazy"></p>
+<h5 id="2推模式">2.推模式</h5>
+<figure data-type="image" tabindex="8"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/53381986-a0b73f00-39ad-11e9-90cf-b49158ae4b6f.png" alt="" loading="lazy"></figure>
+<ul>
+<li>控制台推送规则：
+<ul>
+<li>将规则推送到Nacos或其他远程配置中心</li>
+<li>Sentinel客户端链接Nacos，获取规则配置；并监听Nacos配置变化，如发生变化，就更新本地缓存（从而让本地缓存总是和Nacos一致）</li>
+</ul>
+</li>
+<li>控制台监听Nacos配置变化，如发生变化就更新本地缓存（从而让控制台本地缓存总是和Nacos一致）</li>
+</ul>
+<h5 id="3拉模式">3.拉模式</h5>
+<figure data-type="image" tabindex="9"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f34373638382f313533363636303331313832362d61646466346666362d396663392d343538362d626138622d3463616633613931343537642e706e67.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>FileRefreshableDataSource <strong>定时</strong>从指定文件中读取规则JSON文件【图中的本地文件】，如果发现文件发生变化，就更新规则缓存。</p>
+</li>
+<li>
+<p>FileWritableDataSource 接收控制台规则推送，并根据配置，修改规则JSON文件【图中的本地文件】。</p>
+<p>代码实现</p>
+</li>
+</ul>
+<pre><code class="language-java">import com.alibaba.csp.sentinel.command.handler.ModifyParamFlowRulesCommandHandler;
+import com.alibaba.csp.sentinel.datasource.*;
+import com.alibaba.csp.sentinel.init.InitFunc;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRuleManager;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
+import com.alibaba.csp.sentinel.slots.system.SystemRule;
+import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
+import com.alibaba.csp.sentinel.transport.util.WritableDataSourceRegistry;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * 拉模式规则持久化
+ *
+ * @author itmuch.com
+ */
+public class FileDataSourceInit implements InitFunc {
+    @Override
+    public void init() throws Exception {
+        // TIPS: 如果你对这个路径不喜欢，可修改为你喜欢的路径
+        String ruleDir = System.getProperty(&quot;user.home&quot;) + &quot;/sentinel/rules&quot;;
+        String flowRulePath = ruleDir + &quot;/flow-rule.json&quot;;
+        String degradeRulePath = ruleDir + &quot;/degrade-rule.json&quot;;
+        String systemRulePath = ruleDir + &quot;/system-rule.json&quot;;
+        String authorityRulePath = ruleDir + &quot;/authority-rule.json&quot;;
+        String paramFlowRulePath = ruleDir + &quot;/param-flow-rule.json&quot;;
+
+        this.mkdirIfNotExits(ruleDir);
+        this.createFileIfNotExits(flowRulePath);
+        this.createFileIfNotExits(degradeRulePath);
+        this.createFileIfNotExits(systemRulePath);
+        this.createFileIfNotExits(authorityRulePath);
+        this.createFileIfNotExits(paramFlowRulePath);
+
+        // 流控规则
+        ReadableDataSource&lt;String, List&lt;FlowRule&gt;&gt; flowRuleRDS = new FileRefreshableDataSource&lt;&gt;(
+            flowRulePath,
+            flowRuleListParser
+        );
+        // 将可读数据源注册至FlowRuleManager
+        // 这样当规则文件发生变化时，就会更新规则到内存
+        FlowRuleManager.register2Property(flowRuleRDS.getProperty());
+        WritableDataSource&lt;List&lt;FlowRule&gt;&gt; flowRuleWDS = new FileWritableDataSource&lt;&gt;(
+            flowRulePath,
+            this::encodeJson
+        );
+        // 将可写数据源注册至transport模块的WritableDataSourceRegistry中
+        // 这样收到控制台推送的规则时，Sentinel会先更新到内存，然后将规则写入到文件中
+        WritableDataSourceRegistry.registerFlowDataSource(flowRuleWDS);
+
+        // 降级规则
+        ReadableDataSource&lt;String, List&lt;DegradeRule&gt;&gt; degradeRuleRDS = new FileRefreshableDataSource&lt;&gt;(
+            degradeRulePath,
+            degradeRuleListParser
+        );
+        DegradeRuleManager.register2Property(degradeRuleRDS.getProperty());
+        WritableDataSource&lt;List&lt;DegradeRule&gt;&gt; degradeRuleWDS = new FileWritableDataSource&lt;&gt;(
+            degradeRulePath,
+            this::encodeJson
+        );
+        WritableDataSourceRegistry.registerDegradeDataSource(degradeRuleWDS);
+
+        // 系统规则
+        ReadableDataSource&lt;String, List&lt;SystemRule&gt;&gt; systemRuleRDS = new FileRefreshableDataSource&lt;&gt;(
+            systemRulePath,
+            systemRuleListParser
+        );
+        SystemRuleManager.register2Property(systemRuleRDS.getProperty());
+        WritableDataSource&lt;List&lt;SystemRule&gt;&gt; systemRuleWDS = new FileWritableDataSource&lt;&gt;(
+            systemRulePath,
+            this::encodeJson
+        );
+        WritableDataSourceRegistry.registerSystemDataSource(systemRuleWDS);
+
+        // 授权规则
+        ReadableDataSource&lt;String, List&lt;AuthorityRule&gt;&gt; authorityRuleRDS = new FileRefreshableDataSource&lt;&gt;(
+            authorityRulePath,
+            authorityRuleListParser
+        );
+        AuthorityRuleManager.register2Property(authorityRuleRDS.getProperty());
+        WritableDataSource&lt;List&lt;AuthorityRule&gt;&gt; authorityRuleWDS = new FileWritableDataSource&lt;&gt;(
+            authorityRulePath,
+            this::encodeJson
+        );
+        WritableDataSourceRegistry.registerAuthorityDataSource(authorityRuleWDS);
+
+        // 热点参数规则
+        ReadableDataSource&lt;String, List&lt;ParamFlowRule&gt;&gt; paramFlowRuleRDS = new FileRefreshableDataSource&lt;&gt;(
+            paramFlowRulePath,
+            paramFlowRuleListParser
+        );
+        ParamFlowRuleManager.register2Property(paramFlowRuleRDS.getProperty());
+        WritableDataSource&lt;List&lt;ParamFlowRule&gt;&gt; paramFlowRuleWDS = new FileWritableDataSource&lt;&gt;(
+            paramFlowRulePath,
+            this::encodeJson
+        );
+        ModifyParamFlowRulesCommandHandler.setWritableDataSource(paramFlowRuleWDS);
+    }
+
+    private Converter&lt;String, List&lt;FlowRule&gt;&gt; flowRuleListParser = source -&gt; JSON.parseObject(
+        source,
+        new TypeReference&lt;List&lt;FlowRule&gt;&gt;() {
+        }
+    );
+    private Converter&lt;String, List&lt;DegradeRule&gt;&gt; degradeRuleListParser = source -&gt; JSON.parseObject(
+        source,
+        new TypeReference&lt;List&lt;DegradeRule&gt;&gt;() {
+        }
+    );
+    private Converter&lt;String, List&lt;SystemRule&gt;&gt; systemRuleListParser = source -&gt; JSON.parseObject(
+        source,
+        new TypeReference&lt;List&lt;SystemRule&gt;&gt;() {
+        }
+    );
+
+    private Converter&lt;String, List&lt;AuthorityRule&gt;&gt; authorityRuleListParser = source -&gt; JSON.parseObject(
+        source,
+        new TypeReference&lt;List&lt;AuthorityRule&gt;&gt;() {
+        }
+    );
+
+    private Converter&lt;String, List&lt;ParamFlowRule&gt;&gt; paramFlowRuleListParser = source -&gt; JSON.parseObject(
+        source,
+        new TypeReference&lt;List&lt;ParamFlowRule&gt;&gt;() {
+        }
+    );
+
+    private void mkdirIfNotExits(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
+
+    private void createFileIfNotExits(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
+
+    private &lt;T&gt; String encodeJson(T t) {
+        return JSON.toJSONString(t);
+    }
+}
+
+</code></pre>
+<p>然后在resources目录下下面添加 MATE-INF&gt;services目录添加 com.alibaba.csp.sentinel.init.InitFunc 文件</p>
+<p>然后在文件里面添加 所在地址全称例如  com.yz.alibaba.init.FileDataSourceInit</p>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/sentienl-xian-liu/" class="leancloud-visitors view"
+                              data-flag-title="Sentienl限流">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/" class="title">
+                                      <h4>Sentinel推模式持久化-与Nacos</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-05-17</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/sentinel-tui-mo-shi-chi-jiu-hua-yu-nacos/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/29.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/feign-yuan-cheng-diao-yong/" class="title">
+                                      <h4>Feign远程调用</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-05-10</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/feign-yuan-cheng-diao-yong/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/27.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%B8%80sentinel%E5%BC%95%E5%85%A5">一.sentinel引入</a><br>
+*
+<ul>
+<li><a href="#1%E5%AE%89%E8%A3%85sentinel%E5%AE%A2%E6%88%B7%E7%AB%AF">1.安装sentinel客户端</a></li>
+<li><a href="#2pom%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E5%8C%85">2.pom文件导入包</a></li>
+<li><a href="#3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9">3.配置文件修改</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C%E6%B5%81%E6%8E%A7%E8%A7%84%E5%88%99">二.流控规则</a><br>
+*
+<ul>
+<li><a href="#%E4%BB%A3%E7%A0%81%E9%85%8D%E7%BD%AE">代码配置</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E9%99%8D%E7%BA%A7%E8%A7%84%E5%88%99">三.降级规则</a></li>
+<li><a href="#%E5%9B%9B%E7%83%AD%E7%82%B9%E8%A7%84%E5%88%99">四.热点规则</a></li>
+<li><a href="#%E4%BA%94%E7%B3%BB%E7%BB%9F%E8%A7%84%E5%88%99-systemrule">五.系统规则 (SystemRule)</a></li>
+<li><a href="#%E5%85%AD%E6%8E%88%E6%9D%83%E8%A7%84%E5%88%99">六.授权规则</a></li>
+<li><a href="#%E4%B8%83sentinel%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%8F%B0%E9%80%9A%E8%A1%8C%E5%8E%9F%E7%90%86">七.Sentinel与控制台通行原理</a></li>
+<li><a href="#%E5%85%AB%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE">八.控制台相关配置</a></li>
+<li><a href="#%E4%B9%9Dsentinelresource%E6%B3%A8%E8%A7%A3%E4%BD%BF%E7%94%A8">九.@SentinelResource注解使用</a></li>
+<li><a href="#%E5%8D%81resttemplate%E6%95%B4%E5%90%88sentinel">十.RestTemplate整合Sentinel</a></li>
+<li><a href="#%E5%8D%81%E4%B8%80feign%E9%99%90%E6%B5%81">十一.feign限流</a></li>
+<li><a href="#%E5%8D%81%E4%BA%8Csentinel%E8%A7%84%E5%88%99%E6%8C%81%E4%B9%85%E5%8C%96">十二.sentinel规则持久化</a><br>
+*
+<ul>
+<li><a href="#1%E5%8E%9F%E5%A7%8B%E6%A8%A1%E5%BC%8F">1.原始模式</a></li>
+<li><a href="#2%E6%8E%A8%E6%A8%A1%E5%BC%8F">2.推模式</a></li>
+<li><a href="#3%E6%8B%89%E6%A8%A1%E5%BC%8F">3.拉模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

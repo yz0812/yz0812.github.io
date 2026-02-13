@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>guava 常用工具类 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">guava 常用工具类</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2024-08-02</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/77.jpg"
+                                class="attachment-full size-full wp-post-image" alt="guava 常用工具类" /></p>
+                            
+                            <h2 id="字符处理">字符处理</h2>
+<h3 id="caseformat-命名格式转换">CaseFormat 命名格式转换</h3>
+<p>用于在不同的命名格式之间进行转换。常见的命名格式包括下划线分隔（如 <code>LOWER_UNDERSCORE</code>）、驼峰命名（如 <code>LOWER_CAMEL</code> 和 <code>UPPER_CAMEL</code>）、中划线分隔（如 <code>LOWER_HYPHEN</code>）等。</p>
+<p>以下是 <code>CaseFormat</code> 支持的几种命名格式：</p>
+<ul>
+<li>LOWER_HYPHEN（如 lower-hyphen）</li>
+<li>LOWER_UNDERSCORE（如 lower_underscore）</li>
+<li>LOWER_CAMEL（如 lowerCamel）</li>
+<li>UPPER_CAMEL（如 UpperCamel）</li>
+<li>UPPER_UNDERSCORE（如 UPPER_UNDERSCORE）</li>
+</ul>
+<pre><code class="language-java"> 	    // 示例字符串
+        String lowerUnderscore = &quot;example_string&quot;;
+        String lowerHyphen = &quot;example-string&quot;;
+        String lowerCamel = &quot;exampleString&quot;;
+        String upperCamel = &quot;ExampleString&quot;;
+        String upperUnderscore = &quot;EXAMPLE_STRING&quot;;
+
+		// 下划线分隔 -&gt; 驼峰命名
+        String result1 = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, lowerUnderscore);
+        System.out.println(&quot;LOWER_UNDERSCORE to LOWER_CAMEL: &quot; + result1);
+
+        // 中划线分隔 -&gt; 下划线分隔
+        String result2 = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, lowerHyphen);
+        System.out.println(&quot;LOWER_HYPHEN to LOWER_UNDERSCORE: &quot; + result2);
+
+        // 驼峰命名 -&gt; 大写驼峰命名
+        String result3 = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, lowerCamel);
+        System.out.println(&quot;LOWER_CAMEL to UPPER_CAMEL: &quot; + result3);
+
+        // 大写驼峰命名 -&gt; 下划线分隔
+        String result4 = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, upperCamel);
+        System.out.println(&quot;UPPER_CAMEL to LOWER_UNDERSCORE: &quot; + result4);
+
+        // 大写下划线分隔 -&gt; 小写中划线分隔
+        String result5 = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, upperUnderscore);
+        System.out.println(&quot;UPPER_UNDERSCORE to LOWER_HYPHEN: &quot; + result5);
+</code></pre>
+<h3 id="charmatcher-字符串的匹配与过滤">CharMatcher 字符串的匹配与过滤</h3>
+<p>用于处理字符和字符串的匹配与过滤。<code>CharMatcher</code> 提供了一种方便的方式来匹配、过滤、替换字符串中的字符，支持多种预定义的匹配器（如匹配字母、数字、空白字符等）以及自定义匹配器。</p>
+<p>以下是一些常用的 <code>CharMatcher</code> 方法和预定义的匹配器：</p>
+<ul>
+<li><code>CharMatcher.any()</code>: 匹配任何字符。</li>
+<li><code>CharMatcher.none()</code>: 不匹配任何字符。</li>
+<li><code>CharMatcher.whitespace()</code>: 匹配空白字符（空格、制表符等）。</li>
+<li><code>CharMatcher.digit()</code>: 匹配数字字符。</li>
+<li><code>CharMatcher.javaLetter()</code>: 匹配 Java 字母字符。</li>
+<li><code>CharMatcher.javaDigit()</code>: 匹配 Java 数字字符。</li>
+<li><code>CharMatcher.is(char c)</code>: 匹配指定的字符。</li>
+<li><code>CharMatcher.isNot(char c)</code>: 匹配不是指定的字符。</li>
+<li><code>CharMatcher.inRange(char startInclusive, char endInclusive)</code>: 匹配指定范围内的字符。</li>
+</ul>
+<p>以下是一些常用的操作方法：</p>
+<ul>
+<li><code>retainFrom(CharSequence sequence)</code>: 保留匹配的字符。</li>
+<li><code>removeFrom(CharSequence sequence)</code>: 移除匹配的字符。</li>
+<li><code>replaceFrom(CharSequence sequence, char replacement)</code>: 替换匹配的字符。</li>
+<li><code>collapseFrom(CharSequence sequence, char replacement)</code>: 将连续匹配的字符替换为单个字符。</li>
+<li><code>trimFrom(CharSequence sequence)</code>: 去除字符串前后的匹配字符。</li>
+</ul>
+<pre><code class="language-java">        String input = &quot;This is a sample text, 1234!&quot;;
+
+        // 保留数字字符
+        String digitsOnly = CharMatcher.digit().retainFrom(input);
+        System.out.println(&quot;Digits only: &quot; + digitsOnly); // 输出: 1234
+
+        // 移除空白字符
+        String noWhitespace = CharMatcher.whitespace().removeFrom(input);
+        System.out.println(&quot;No whitespace: &quot; + noWhitespace); // 输出: Thisisasampletext,1234!
+
+        // 将所有字母转换为大写
+        String upperCaseLetters = CharMatcher.javaLetter().replaceFrom(input, c -&gt; Character.toUpperCase(c));
+        System.out.println(&quot;Upper case letters: &quot; + upperCaseLetters); // 输出: THIS IS A SAMPLE TEXT, 1234!
+
+        // 将连续的空白字符替换为单个空格
+        String collapsedWhitespace = CharMatcher.whitespace().collapseFrom(input, ' ');
+        System.out.println(&quot;Collapsed whitespace: &quot; + collapsedWhitespace); // 输出: This is a sample text, 1234!
+
+        // 去除字符串前后的标点符号
+        String trimPunctuation = CharMatcher.javaLetterOrDigit().negate().trimFrom(input);
+        System.out.println(&quot;Trim punctuation: &quot; + trimPunctuation); // 输出: This is a sample text, 1234
+
+        // 自定义匹配器：匹配所有小写字母
+        CharMatcher lowerCaseMatcher = CharMatcher.inRange('a', 'z');
+        String lowerCaseLetters = lowerCaseMatcher.retainFrom(input);
+        System.out.println(&quot;Lower case letters: &quot; + lowerCaseLetters); // 输出: hisisasampletext
+ 
+</code></pre>
+<h3 id="converter-类型转换">Converter 类型转换</h3>
+<p>用于在两种类型之间进行转换。<code>Converter</code> 提供了一种类型安全的方式来实现双向转换，可以定义从类型 A 到类型 B 的转换逻辑，以及从类型 B 到类型 A 的逆向转换逻辑。</p>
+<p>以下是 <code>Converter</code> 类的一些关键方法：</p>
+<ul>
+<li><code>doForward(A a)</code>: 将类型 A 转换为类型 B。</li>
+<li><code>doBackward(B b)</code>: 将类型 B 转换为类型 A。</li>
+<li><code>convert(A a)</code>: 调用 <code>doForward</code> 方法进行转换。</li>
+<li><code>reverse()</code>: 返回一个新的 <code>Converter</code>，其转换逻辑与当前 <code>Converter</code> 相反。</li>
+<li><code>andThen(Converter&lt;B, C&gt; other)</code>: 返回一个组合转换器，先应用当前转换器再应用 <code>other</code> 转换器。</li>
+</ul>
+<pre><code class="language-java">import com.google.common.base.Converter;
+
+public class ConverterExample {
+    public static void main(String[] args) {
+        // 创建一个字符串到整数的转换器
+        Converter&lt;String, Integer&gt; stringToIntegerConverter = new Converter&lt;String, Integer&gt;() {
+            @Override
+            protected Integer doForward(String s) {
+                return Integer.valueOf(s);
+            }
+
+            @Override
+            protected String doBackward(Integer integer) {
+                return integer.toString();
+            }
+        };
+
+        // 使用转换器进行正向转换
+        String str = &quot;1234&quot;;
+        Integer intValue = stringToIntegerConverter.convert(str);
+        System.out.println(&quot;String to Integer: &quot; + intValue); // 输出: 1234
+
+        // 使用转换器进行反向转换
+        String reversedStr = stringToIntegerConverter.reverse().convert(intValue);
+        System.out.println(&quot;Integer to String: &quot; + reversedStr); // 输出: 1234
+
+        // 创建一个小写到大写的转换器
+        Converter&lt;String, String&gt; lowerToUpperConverter = new Converter&lt;String, String&gt;() {
+            @Override
+            protected String doForward(String s) {
+                return s.toUpperCase();
+            }
+
+            @Override
+            protected String doBackward(String s) {
+                return s.toLowerCase();
+            }
+        };
+
+        // 组合转换器：先将字符串转换为整数，再将整数转换为大写字符串
+        Converter&lt;String, String&gt; combinedConverter = stringToIntegerConverter.andThen(new Converter&lt;Integer, String&gt;() {
+            @Override
+            protected String doForward(Integer integer) {
+                return &quot;Number: &quot; + integer;
+            }
+
+            @Override
+            protected Integer doBackward(String s) {
+                return Integer.valueOf(s.replace(&quot;Number: &quot;, &quot;&quot;));
+            }
+        });
+
+        // 使用组合转换器进行转换
+        String combinedResult = combinedConverter.convert(str);
+        System.out.println(&quot;Combined Converter Result: &quot; + combinedResult); // 输出: Number: 1234
+
+        // 使用组合转换器进行反向转换
+        String originalStr = combinedConverter.reverse().convert(combinedResult);
+        System.out.println(&quot;Original String: &quot; + originalStr); // 输出: 1234
+    }
+}
+
+</code></pre>
+<h3 id="defaults-默认值">Defaults 默认值</h3>
+<p><code>com.google.common.base.Defaults</code> 是 Google Guava 库中的一个类，用于提供 Java 基本数据类型和一些常见对象类型的默认值。这个类主要用在需要默认值的场景下，比如在反射或者泛型编程中。</p>
+<pre><code class="language-java">        boolean defaultBoolean = Defaults.defaultValue(boolean.class);
+        byte defaultByte = Defaults.defaultValue(byte.class);
+        char defaultChar = Defaults.defaultValue(char.class);
+        double defaultDouble = Defaults.defaultValue(double.class);
+        float defaultFloat = Defaults.defaultValue(float.class);
+        int defaultInt = Defaults.defaultValue(int.class);
+        long defaultLong = Defaults.defaultValue(long.class);
+        short defaultShort = Defaults.defaultValue(short.class);
+</code></pre>
+<h3 id="joiner-多字符串处理">Joiner 多字符串处理</h3>
+<p>用于将多个字符串或对象连接成一个字符串。它提供了一种简洁而强大的方式来处理字符串连接，支持处理 <code>null</code> 值以及指定分隔</p>
+<p><em>常用方法</em></p>
+<p><code>on(String delimiter)</code>: 指定分隔符。</p>
+<p><code>skipNulls()</code>: 跳过 <code>null</code> 值。</p>
+<p><code>useForNull(String nullText)</code>: 将 <code>null</code> 值替换为指定的字符串。</p>
+<p><code>join(Iterable&lt;?&gt; parts)</code>: 将集合中的元素连接成一个字符串。</p>
+<p><code>join(Object[] parts)</code>: 将数组中的元素连接成一个字符串。</p>
+<p><code>join(Object first, Object second, Object... rest)</code>: 将多个参数连接成一个字符串。</p>
+<h3 id="splitter-字符串拆分">Splitter 字符串拆分</h3>
+<p>用于将字符串拆分为子字符串。它提供了比 <code>String.split</code> 更加灵活和强大的功能，支持多种拆分模式和选项，例如去除空白字符串、去除结果中的空格、限制拆分结果的数量等。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li>
+<p><strong>基础拆分</strong>：</p>
+<ul>
+<li><code>Splitter.on(char separator)</code>: 基于单个字符进行拆分。</li>
+<li><code>Splitter.on(String separator)</code>: 基于字符串进行拆分。</li>
+<li><code>Splitter.onPattern(String pattern)</code>: 基于正则表达式进行拆分。</li>
+<li><code>Splitter.on(CharMatcher charMatcher)</code>: 基于 <code>CharMatcher</code> 进行拆分。</li>
+</ul>
+</li>
+<li>
+<p><strong>配置选项</strong>：</p>
+<ul>
+<li><code>omitEmptyStrings()</code>: 忽略空字符串。</li>
+<li><code>trimResults()</code>: 去除结果中的空格。</li>
+<li><code>trimResults(CharMatcher charMatcher)</code>: 根据 <code>CharMatcher</code> 去除结果中的字符。</li>
+<li><code>limit(int limit)</code>: 限制拆分结果的数量。</li>
+</ul>
+</li>
+<li>
+<p><strong>结果类型</strong>：</p>
+<ul>
+<li><code>split(CharSequence sequence)</code>: 拆分字符串，返回 <code>Iterable&lt;String&gt;</code>。</li>
+<li><code>splitToList(CharSequence sequence)</code>: 拆分字符串，返回 <code>List&lt;String&gt;</code>。</li>
+<li><code>splitToMap(CharSequence sequence)</code>: 将字符串拆分为键值对，返回 <code>Map&lt;String, String&gt;</code>。</li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h3 id="strings-字符串处理">Strings 字符串处理</h3>
+<p>提供了许多静态方法，用于处理和操作字符串。它包含了很多常用的字符串操作方法，可以简化代码并提高可读性。</p>
+<p><em>常用方法</em></p>
+<ol>
+<li><strong>空字符串处理</strong>：
+<ul>
+<li><code>isNullOrEmpty(String string)</code>: 检查字符串是否为 <code>null</code> 或空。</li>
+<li><code>nullToEmpty(String string)</code>: 将 <code>null</code> 转换为空字符串。</li>
+<li><code>emptyToNull(String string)</code>: 将空字符串转换为 <code>null</code>。</li>
+</ul>
+</li>
+<li><strong>填充和重复</strong>：
+<ul>
+<li><code>padStart(String string, int minLength, char padChar)</code>: 用指定字符在字符串开头进行填充，使其达到指定长度。</li>
+<li><code>padEnd(String string, int minLength, char padChar)</code>: 用指定字符在字符串末尾进行填充，使其达到指定长度。</li>
+<li><code>repeat(String string, int count)</code>: 重复字符串指定次数。</li>
+</ul>
+</li>
+<li><strong>常用方法</strong>：
+<ul>
+<li><code>commonPrefix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共前缀。</li>
+<li><code>commonSuffix(CharSequence a, CharSequence b)</code>: 返回两个字符串的公共后缀。</li>
+</ul>
+</li>
+</ol>
+<h2 id="集合处理">集合处理</h2>
+<h3 id="lists">Lists</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li><strong><code>Lists.newArrayList()</code></strong>: 创建一个可变的、空的 <code>ArrayList</code>。</li>
+<li><strong><code>Lists.newArrayList(E... elements)</code></strong>: 使用指定的元素创建一个可变的 <code>ArrayList</code>。</li>
+<li>**<code>Lists.newLinkedList(): </code>**创建一个可变的、空的 <code>LinkedList</code>。</li>
+<li><strong><code>Lists.partition(List&lt;T&gt; list, int size)</code></strong>: 将一个 <code>List</code> 分割成若干个子列表，每个子列表的大小为指定的 <code>size</code>。</li>
+<li><strong><code>Lists.reverse(List&lt;T&gt; list)</code></strong>:   返回一个包含相同元素但顺序相反的 <code>List</code>。</li>
+<li><strong><code>Lists.transform(List&lt;F&gt; fromList, Function&lt;? super F, ? extends T&gt; function)</code></strong>:  返回一个新的 <code>List</code>，该列表是通过将给定列表的每个元素传递给给定函数的结果构成的视图。</li>
+</ol>
+<h3 id="maps">Maps</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Maps.newHashMap(): </code>**创建一个空的、可变的 <code>HashMap</code>。</li>
+<li><strong><code>Maps.newHashMapWithExpectedSize(int expectedSize)</code></strong>: 创建一个具有指定初始容量的 <code>HashMap</code>。</li>
+<li>**<code>Maps.newLinkedHashMap(): </code>**创建一个空的、可变的 <code>LinkedHashMap</code>。</li>
+<li>**<code>Maps.newTreeMap(): </code>**创建一个空的、可变的 <code>TreeMap</code>。</li>
+<li><strong><code>Maps.newConcurrentMap()</code></strong>: 创建一个空的、可变的 <code>ConcurrentMap</code>。</li>
+<li><strong><code>Maps.uniqueIndex(Iterable&lt;V&gt; values, Function&lt;? super V, K&gt; keyFunction)</code></strong>: 根据指定的键函数创建一个 <code>ImmutableMap</code>，键是由给定函数生成的。</li>
+<li><strong><code>Maps.difference(Map&lt;K, V&gt; left, Map&lt;K, V&gt; right)</code></strong>: 返回两个 <code>Map</code> 的差异视图。</li>
+</ol>
+<h3 id="range-范围">Range 范围</h3>
+<p><code>Range</code> 类可以表示一个区间，如 [1, 5]，(1, 5]，[1, 5)，(1, 5) 等等。它支持各种各样的操作，包括检查区间是否包含某个值、区间是否相交、区间的并集和交集等。</p>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Range.closed(C lower, C upper):</code>**创建一个包含下限和上限的范围 <code>[lower, upper]</code>。</li>
+<li><strong><code>Range.closedOpen(C lower, C upper)</code></strong>:创建一个包含下限但不包含上限的范围 <code>[lower, upper)</code>。</li>
+<li><strong><code>Range.openClosed(C lower, C upper)</code></strong>:创建一个不包含下限但包含上限的范围 <code>(lower, upper]</code>。</li>
+<li><strong><code>Range.open(C lower, C upper)</code></strong>:创建一个不包含下限和上限的范围 <code>(lower, upper)</code>。</li>
+<li><strong><code>Range.atLeast(C endpoint)</code></strong>:创建一个从指定值开始的范围 <code>[endpoint, ∞)</code>。</li>
+<li><strong><code>Range.atMost(C endpoint)</code></strong>:创建一个到指定值为止的范围 <code>(-∞, endpoint]</code>。</li>
+<li><strong><code>Range.greaterThan(C endpoint)</code></strong>:创建一个大于指定值的范围 <code>(endpoint, ∞)</code>。</li>
+<li><strong><code>Range.lessThan(C endpoint)</code></strong>:创建一个小于指定值的范围 <code>(-∞, endpoint)</code>。</li>
+<li><strong><code>Range.contains(C value)</code></strong>:检查范围是否包含指定值。</li>
+<li><strong><code>Range.isConnected(Range&lt;C&gt; other)</code></strong>:检查两个范围是否相连。</li>
+<li><strong><code>Range.intersection(Range&lt;C&gt; connectedRange)</code></strong>:返回两个相连范围的交集。</li>
+<li><strong><code>Range.span(Range&lt;C&gt; other)</code></strong>:返回两个范围的并集。</li>
+</ol>
+<h3 id="set">Set</h3>
+<p><strong>常用方法</strong></p>
+<ol>
+<li>**<code>Sets.newHashSet()</code>**创建一个空的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSet(E... elements)</code>**创建一个包含指定元素的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newHashSetWithExpectedSize(int expectedSize)</code>**创建一个具有指定初始容量的 <code>HashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet()</code>**创建一个空的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newLinkedHashSet(Iterable&lt;? extends E&gt; elements)</code>**创建一个包含指定元素的 <code>LinkedHashSet</code>。</li>
+<li>**<code>Sets.newTreeSet()</code>**创建一个空的 <code>TreeSet</code>。</li>
+<li>**<code>Sets.newTreeSet(Comparator&lt;? super E&gt; comparator)</code>**创建一个带有比较器的空 <code>TreeSet</code>。</li>
+<li>**<code>Sets.union(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的并集。</li>
+<li>**<code>Sets.intersection(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的交集。</li>
+<li>**<code>Sets.difference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回第一个集合与第二个集合的差集。</li>
+<li>**<code>Sets.symmetricDifference(Set&lt;E&gt; set1, Set&lt;E&gt; set2)</code>**返回两个集合的对称差集。</li>
+<li>**<code>Sets.cartesianProduct(Set&lt;E&gt;... sets)</code>**返回多个集合的笛卡尔积。</li>
+<li>**<code>Sets.powerSet(Set&lt;E&gt; set)</code>**返回给定集合的幂集。</li>
+</ol>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/guava-chang-yong-gong-ju-lei/" class="leancloud-visitors view"
+                              data-flag-title="guava 常用工具类">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/cursor-java-xiang-mu-kai-fa-huan-jing-pei-zhi-zhi-nan/" class="title">
+                                      <h4> Cursor Java项目开发环境配置指南</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2025-03-26</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/cursor-java-xiang-mu-kai-fa-huan-jing-pei-zhi-zhi-nan/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/78.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/jpa-xiao-fang-fa/" class="title">
+                                      <h4>JPA 小方法</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2024-04-26</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/jpa-xiao-fang-fa/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/76.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86">字符处理</a>
+<ul>
+<li><a href="#caseformat-%E5%91%BD%E5%90%8D%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2">CaseFormat 命名格式转换</a></li>
+<li><a href="#charmatcher-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%8C%B9%E9%85%8D%E4%B8%8E%E8%BF%87%E6%BB%A4">CharMatcher 字符串的匹配与过滤</a></li>
+<li><a href="#converter-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">Converter 类型转换</a></li>
+<li><a href="#defaults-%E9%BB%98%E8%AE%A4%E5%80%BC">Defaults 默认值</a></li>
+<li><a href="#joiner-%E5%A4%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86">Joiner 多字符串处理</a></li>
+<li><a href="#splitter-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%86%E5%88%86">Splitter 字符串拆分</a></li>
+<li><a href="#strings-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86">Strings 字符串处理</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9B%86%E5%90%88%E5%A4%84%E7%90%86">集合处理</a>
+<ul>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#maps">Maps</a></li>
+<li><a href="#range-%E8%8C%83%E5%9B%B4">Range 范围</a></li>
+<li><a href="#set">Set</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

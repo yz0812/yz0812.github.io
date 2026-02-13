@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>RabbitMQ+SpringBoot整合 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">RabbitMQ+SpringBoot整合</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/Ksbd-vR2dH/" class="post--keyword"
+                                data-title="spring" data-type="post_tag" data-term-id="39">spring</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-09-22</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/48.jpg"
+                                class="attachment-full size-full wp-post-image" alt="RabbitMQ+SpringBoot整合" /></p>
+                            
+                            <h3 id="rabbitmqspringboot整合">RabbitMQ+SpringBoot整合</h3>
+<p><span style='color:red'>Exchange</span>类型</p>
+<ol>
+<li><strong>fanout</strong>：<code>Fanout-Exchange</code>会将它接收到的消息发往所有与他绑定的Queue中。</li>
+<li><strong>direct</strong>：<code>Direct-Exchange</code>会把它接收到的消息发往与它有绑定关系且<code>Routingkey</code>完全匹配的Queue中（默认）。</li>
+<li><strong>topic</strong>：<code>Topic-Exchange</code>与Direct-Exchange相似，不过Topic-Exchange不需要全匹配，可以部分匹配，它约定：<code>Routingkey</code>为一个句点号“. ”分隔的字符串（我们将被句点号“. ”分隔开的每一段独立的字符串称为一个单词）。</li>
+<li><strong>header</strong>：<code>Header-Exchange</code>不依赖于RoutingKey或绑定关系来分发消息，而是根据发送的消息内容中的headers属性进行匹配。此模式已经不再使用，本文中也不会去讲，大家知道即可。</li>
+</ol>
+<h4 id="1-fanout-exchange">1. Fanout-Exchange</h4>
+<p><code>Fanout-Exchange</code>又称扇形交换机</p>
+<p><code>Exchange</code>和<code>Queue</code>建立一个绑定关系，<code>Exchange</code>会分发给所有和它有绑定关系的<code>Queue</code>中，绑定了十个<code>Queue</code>就把消息复制十份进行分发。</p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210921211815.png" alt="" loading="lazy"></figure>
+<p>代码实现</p>
+<pre><code class="language-java">String QUEUE_FANOUT1 = &quot;queue.fanout1&quot;;
+
+String QUEUE_FANOUT2 = &quot;queue.fanout2&quot;;
+
+String FANOUT_EXCHANG = &quot;fanoutExchange&quot;;
+</code></pre>
+<pre><code class="language-java">@Configuration
+public class RabbitMqConfig {
+
+    @Bean
+    public Queue fanout1() {
+        return new Queue(QUEUE_FANOUT1);
+    }
+
+    @Bean
+    public Queue fanout2() {
+        return new Queue(QUEUE_FANOUT2);
+    }
+
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        // 三个构造参数：name durable autoDelete
+        return new FanoutExchange(FANOUT_EXCHANG, false, false);
+    }
+
+    @Bean
+    public Binding binding1() {
+        return BindingBuilder.bind(fanout1()).to(fanoutExchange());
+    }
+
+    @Bean
+    public Binding binding2() {
+        return BindingBuilder.bind(fanout2()).to(fanoutExchange());
+    }
+}
+</code></pre>
+<p>新建了两个演示用的队列，然后建了一个<code>FanoutExchange</code>，最后给他们都设置上绑定关系，这样一组队列和交换机的绑定设置就算完成了。</p>
+<p>消息生产者</p>
+<pre><code class="language-java">@Override
+public void senFanoutExchange(String msg) {
+    rabbitTemplate.convertAndSend(FANOUT_EXCHANG,null,msg);
+    System.out.println(&quot;消息发送完毕。&quot;);
+}
+</code></pre>
+<p>消息消费者</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class FanoutExchangeCustomer {
+    @RabbitListener(queues =QUEUE_FANOUT1 )
+    public void onMessage1(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+    @RabbitListener(queues = QUEUE_FANOUT2)
+    public void onMessage2(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+}
+</code></pre>
+<h4 id="2-direct-exchange">2. Direct-Exchange</h4>
+<p><code>Direct-Exchange</code>是一种精准匹配的交换机</p>
+<p>将queue绑定到不同routingKey,然后发送消息指定routingKey,就由绑定的queue消费</p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210921225924.png" alt="" loading="lazy"></figure>
+<p>代码实现</p>
+<pre><code class="language-java">String DIRECT_QUEUE1 = &quot;queue.direct1&quot;;
+
+String DIRECT_QUEUE2 = &quot;queue.direct2&quot;;
+
+String DIRECT_EXCHANGE = &quot;directExchange&quot;;
+
+String ROUTING_KEY_ERROR = &quot;error&quot;;
+
+String ROUTING_KEY_INFO = &quot;info&quot;;
+</code></pre>
+<p>RabbitMqConfig  添加</p>
+<pre><code class="language-java">@Bean
+public Queue directQueue1() {
+    return new Queue(DIRECT_QUEUE1);
+}
+
+@Bean
+public Queue directQueue2() {
+    return new Queue(DIRECT_QUEUE2);
+}
+
+@Bean
+public DirectExchange directExchange() {
+    // 三个构造参数：name durable autoDelete
+    return new DirectExchange(DIRECT_EXCHANGE, false, false);
+}
+
+/**
+ *     绑定到routingKey
+ */
+@Bean
+public Binding directBinding1() {
+    return BindingBuilder.bind(directQueue1()).to(directExchange()).with(ROUTING_KEY_INFO);
+}
+
+/**
+ *     绑定到routingKey
+ */
+@Bean
+public Binding directBinding2() {
+    return BindingBuilder.bind(directQueue2()).to(directExchange()).with(ROUTING_KEY_ERROR);
+}
+</code></pre>
+<p>生产者</p>
+<pre><code class="language-java">    @Override
+    public void sendDirect(String msg,String routingKey) {
+        rabbitTemplate.convertAndSend(DIRECT_EXCHANGE,routingKey,msg);
+    }
+}
+</code></pre>
+<p>消费者</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class RabbitDirectConsumer {
+    @RabbitListener(queues = DIRECT_QUEUE1)
+    public void onMessage1(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+    @RabbitListener(queues = DIRECT_QUEUE2)
+    public void onMessage2(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+}
+</code></pre>
+<h4 id="3-topic-exchange">3. Topic-Exchange</h4>
+<p><code>Topic-Exchange</code>是直接交换机的模糊匹配版本，Topic类型的交换器，支持使用&quot;*&quot;和&quot;#&quot;通配符定义模糊bindingKey，然后按照<code>routingKey</code>进行模糊匹配队列进行分发。</p>
+<ul>
+<li><code>*</code>：能够模糊匹配一个单词。</li>
+<li><code>#</code>：能够模糊匹配零个或多个单词。</li>
+</ul>
+<p>因为加入了两个通配定义符，所以Topic交换机的<code>routingKey</code>也有些变化，<code>routingKey</code>可以使用<code>.</code>将单词分开。</p>
+<pre><code class="language-java">String TOPIC_FANOUT1 = &quot;topic.fanout1&quot;;
+
+String TOPIC_FANOUT2 = &quot;topic.fanout2&quot;;
+
+String TOPIC_EXCHANG = &quot;topicExchange&quot;;
+
+String ROUTING_KEY_ERROR_ONE = &quot;log.error.*&quot;;
+
+String ROUTING_KEY_INFO_ALL = &quot;log.info.#&quot;;
+</code></pre>
+<p>RabbitMqConfig</p>
+<pre><code class="language-java">// 主题交换机示例
+@Bean
+public Queue topicQueue1() {
+    return new Queue(TOPIC_FANOUT1);
+}
+
+@Bean
+public Queue topicQueue2() {
+    return new Queue(TOPIC_FANOUT2);
+}
+
+@Bean
+public TopicExchange topicExchange() {
+    // 三个构造参数：name durable autoDelete
+    return new TopicExchange(TOPIC_EXCHANG, false, false);
+}
+
+@Bean
+public Binding topicBinding1() {
+    return BindingBuilder.bind(topicQueue1()).to(topicExchange()).with(ROUTING_KEY_INFO_ALL);
+}
+
+@Bean
+public Binding topicBinding2() {
+    return BindingBuilder.bind(topicQueue2()).to(topicExchange()).with(ROUTING_KEY_ERROR_ONE);
+}
+</code></pre>
+<p>生产者</p>
+<pre><code class="language-java">@Override
+public void sendTopic(String msg,String routingKey) {
+    rabbitTemplate.convertAndSend(TOPIC_EXCHANG,routingKey,msg);
+}
+</code></pre>
+<p>消费者</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class RabbitTopicConsumer {
+    @RabbitListener(queues = TOPIC_FANOUT1)
+    public void onMessage1(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+    @RabbitListener(queues = TOPIC_FANOUT2)
+    public void onMessage2(Message message, Channel channel) throws Exception {
+        log.info(&quot;Message content : &quot; + message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        log.info(&quot;消息已确认&quot;);
+    }
+
+}
+</code></pre>
+<h4 id="4-注解方式">4. 注解方式</h4>
+<p>使用注解方式实现 topic</p>
+<pre><code class="language-java">String BROADCAST_TOPIC = &quot;topic.broadcast&quot;;
+
+String FANOUT_TOPIC = &quot;fanout&quot;;
+</code></pre>
+<pre><code class="language-java">@Component
+public class FanoutCustomer {
+  
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue,
+            exchange = @Exchange(name= RabbitmqConstant.BROADCAST_TOPIC,type = RabbitmqConstant.FANOUT_TOPIC)
+    ))
+    public void receive1(String message){
+        System.out.println(&quot;message1 = &quot; + message);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue, //创建临时队列
+            exchange = @Exchange(name=RabbitmqConstant.BROADCAST_TOPIC,type = RabbitmqConstant.FANOUT_TOPIC)  //绑定交换机类型
+    ))
+    public void receive2(String message){
+        System.out.println(&quot;message2 = &quot; + message);
+    }
+}
+</code></pre>
+<h4 id="5消息可靠性">5.消息可靠性</h4>
+<ul>
+<li>生产者发出后保证到达了MQ。</li>
+<li>MQ收到消息保证分发到了消息对应的Exchange。</li>
+<li>Exchange分发消息入队之后保证消息的持久性。</li>
+<li>消费者收到消息之后保证消息的正确消费。</li>
+</ul>
+<p>经历了这四个保证，我们才能保证消息的可靠性，从而保证消息不会丢失。</p>
+<h5 id="1-生产者发送消息到mq失败">1. 生产者发送消息到MQ失败</h5>
+<p>我们的生产者发送消息之后可能由于网络闪断等各种原因导致我们的消息并没有发送到MQ之中，但是这个时候我们生产端又不知道我们的消息没有发出去，这就会造成消息的丢失。</p>
+<p>为了解决这个问题，<code>RabbitMQ</code>引入了<strong>事务机制</strong>和<strong>发送方确认机制（publisher confirm）</strong>，由于事务机制过于耗费性能所以一般不用，这里我着重讲述<strong>发送方确认机制</strong>。</p>
+<p>这个机制很好理解，就是<strong>消息发送到MQ那端之后，MQ会回一个确认收到的消息给我们</strong>。</p>
+<pre><code class="language-yaml">spring:
+    application:
+        name: spring-boot-rabbitmq
+    rabbitmq:
+        host: 127.0.0.1
+        port: 5672
+        username: guest
+        password: guest
+        # 发送者开启 return 确认机制
+        publisher-returns: true
+        # 发送者开启 confirm 确认机制
+        publisher-confirm-type: correlated
+      
+</code></pre>
+<h5 id="2-消息入队之后mq宕机">2. 消息入队之后MQ宕机</h5>
+<p>到这一步基本都是一些很小概率的问题了，比如MQ突然宕机了或者被关闭了，这种问题就必须要对消息做持久化，以便MQ重新启动之后消息还能重新恢复过来。</p>
+<p>消息的持久化要做，但是不能只做消息的持久化，还要做队列的持久化和Exchange的持久化。</p>
+<pre><code class="language-java">/**
+ * value      队列名称
+ * durable    是否持久化
+ * exclusive  否为独占队列
+ * autoDelete 是否自动删除
+ */
+@Bean
+public Queue topicConfirmCallbackQueue() {
+    // 其三个参数：durable exclusive autoDelete
+    return new Queue(CONFIRM_CALLBACK_QUEUE,true);
+}
+
+/**
+ * value      交换机名称
+ * type       交换机类型，默认 direct
+ * durable    是否持久化，默认 true
+ * autoDelete 是否自动删除，默认 false
+ * internal   是否为内部交换机，默认为 false
+ */
+
+@Bean
+public DirectExchange topicConfirmCallbackExchange() {
+    // 三个构造参数：name durable autoDelete
+    return new DirectExchange(CONFIRM_CALLBACK, true, false);
+}
+
+@Bean
+public Binding topicConfirmCallbackBinding() {
+    return BindingBuilder.bind(topicConfirmCallbackQueue()).to(topicConfirmCallbackExchange()).with(ROUTING_KEY_INFO);
+}
+</code></pre>
+<h5 id="3-消费者无法正常消费">3. 消费者无法正常消费</h5>
+<p>最后一步会出问题的地方就在消费者端了, 就是消费者的消息确认。</p>
+<pre><code class="language-yaml">spring:
+    application:
+        name: spring-boot-rabbitmq
+    rabbitmq:
+        host: 127.0.0.1
+        port: 5672
+        username: guest
+        password: guest
+        # 发送者开启 return 确认机制
+        publisher-returns: true
+        # 发送者开启 confirm 确认机制
+        publisher-confirm-type: correlated
+        # 设置消费端手动 ack
+        listener:
+          simple:
+              acknowledge-mode: manual
+              # 是否支持重试
+              retry:
+                  enabled: true
+</code></pre>
+<h5 id="4-消费者收到消息之后保证消息的正确消费">4. 消费者收到消息之后保证消息的正确消费。</h5>
+<p>可以将消费失败的存入数据库或者重新消费</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class ReceiverMessage {
+
+    @RabbitListener(queues = CONFIRM_CALLBACK_QUEUE)
+    public void processHandler(String msg, Channel channel, Message message) throws IOException {
+
+        try {
+            log.info(&quot;小富收到消息：{}&quot;, msg);
+            //发生异常
+            double a = 1/0;
+            //TODO 具体业务
+
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+
+        } catch (Exception e) {
+
+            if (message.getMessageProperties().getRedelivered()) {
+
+                log.error(&quot;消息已重复处理失败,拒绝再次接收...&quot;);
+
+                channel.basicReject(message.getMessageProperties().getDeliveryTag(), false); // 拒绝消息
+            } else {
+
+                log.error(&quot;消息即将再次返回队列处理...&quot;);
+
+                channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
+            }
+        }
+    }
+}
+</code></pre>
+<h5 id="5代码实现">5.代码实现</h5>
+<pre><code class="language-java">String CONFIRM_CALLBACK = &quot;topic.confirm.callback&quot;;
+
+String CONFIRM_CALLBACK_QUEUE = &quot;topic.confirm.callback.queue&quot;;
+</code></pre>
+<pre><code class="language-java">/**
+ * value      队列名称
+ * durable    是否持久化
+ * exclusive  否为独占队列
+ * autoDelete 是否自动删除
+ */
+@Bean
+public Queue topicConfirmCallbackQueue() {
+    // 其三个参数：durable exclusive autoDelete
+    return new Queue(CONFIRM_CALLBACK_QUEUE,true);
+}
+
+/**
+ * value      交换机名称
+ * type       交换机类型，默认 direct
+ * durable    是否持久化，默认 true
+ * autoDelete 是否自动删除，默认 false
+ * internal   是否为内部交换机，默认为 false
+ */
+
+@Bean
+public DirectExchange topicConfirmCallbackExchange() {
+    // 三个构造参数：name durable autoDelete
+    return new DirectExchange(CONFIRM_CALLBACK, true, false);
+}
+
+@Bean
+public Binding topicConfirmCallbackBinding() {
+    return BindingBuilder.bind(topicConfirmCallbackQueue()).to(topicConfirmCallbackExchange()).with(ROUTING_KEY_INFO);
+}
+</code></pre>
+<p>生产者</p>
+<pre><code class="language-java">
+    private final ConfirmCallbackService confirmCallbackService;
+
+    private final ReturnCallbackService returnCallbackService;
+
+@Override
+public void confirmCallback(String msg,String routingKey) {
+    /**
+     * 确保消息发送失败后可以重新返回到队列中
+     * 注意：yml需要配置 publisher-returns: true
+     */
+    rabbitTemplate.setMandatory(true);
+
+    /**
+     * 消费者确认收到消息后，手动ack回执回调处理
+     */
+    rabbitTemplate.setConfirmCallback(confirmCallbackService);
+
+    /**
+     * 消息投递到队列失败回调处理
+     */
+    rabbitTemplate.setReturnCallback(returnCallbackService);
+
+    /**
+     * 发送消息
+     */
+    rabbitTemplate.convertAndSend(RabbitmqConstant.CONFIRM_CALLBACK,routingKey, msg,
+            message -&gt; {
+                message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                return message;
+            },
+            new CorrelationData(UUID.randomUUID().toString()));
+
+}
+</code></pre>
+<pre><code class="language-java">@Slf4j
+@Component
+public class ConfirmCallbackService implements RabbitTemplate.ConfirmCallback {
+
+    @Override
+    public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+
+        if (!ack) {
+            log.error(&quot;消息发送异常!&quot;);
+        } else {
+            log.info(&quot;发送者爸爸已经收到确认，correlationData={} ,ack={}, cause={}&quot;, correlationData.getId(), ack, cause);
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-java">@Slf4j
+@Component
+public class ReturnCallbackService implements RabbitTemplate.ReturnCallback {
+
+    @Override
+    public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
+        log.info(&quot;returnedMessage ===&gt; replyCode={} ,replyText={} ,exchange={} ,routingKey={}&quot;, replyCode, replyText, exchange, routingKey);
+    }
+}
+</code></pre>
+<p>消费者</p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class ReceiverMessage {
+
+    @RabbitListener(queues = CONFIRM_CALLBACK_QUEUE)
+    public void processHandler(String msg, Channel channel, Message message) throws IOException {
+
+        try {
+            log.info(&quot;小富收到消息：{}&quot;, msg);
+            //发生异常
+            double a = 1/0;
+            //TODO 具体业务
+
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+
+        } catch (Exception e) {
+
+            if (message.getMessageProperties().getRedelivered()) {
+
+                log.error(&quot;消息已重复处理失败,拒绝再次接收...&quot;);
+
+                channel.basicReject(message.getMessageProperties().getDeliveryTag(), false); // 拒绝消息
+            } else {
+
+                log.error(&quot;消息即将再次返回队列处理...&quot;);
+
+                channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="6-死信队列">6. 死信队列</h4>
+<h5 id="1什么是死信队列">1.什么是死信队列</h5>
+<p>死信，在官网中对应的单词为“Dead Letter”，可以看出翻译确实非常的简单粗暴。那么死信是个什么东西呢？</p>
+<p>“死信”是RabbitMQ中的一种消息机制，当你在消费消息时，如果队列里的消息出现以下情况：</p>
+<ol>
+<li>消息被否定确认，使用 <code>channel.basicNack</code> 或 <code>channel.basicReject</code> ，并且此时<code>requeue</code> 属性被设置为<code>false</code>。</li>
+<li>消息在队列的存活时间超过设置的TTL时间。</li>
+<li>消息队列的消息数量已经超过最大队列长度。</li>
+</ol>
+<p>那么该消息将成为“死信”。</p>
+<p>“死信”消息会被RabbitMQ进行特殊处理，如果配置了死信队列信息，那么该消息将会被丢进死信队列中，如果没有配置，则该消息将会被丢弃。</p>
+<h5 id="2如何配置死信队列">2.如何配置死信队列</h5>
+<ol>
+<li>配置业务队列，绑定到业务交换机上</li>
+<li>为业务队列配置死信交换机和路由key</li>
+<li>为死信交换机配置死信队列</li>
+</ol>
+<pre><code class="language-java">	  // RabbitmqConstant添加
+    String BUSINESS_EXCHANGE_NAME = &quot;dead.letter.demo.simple.business.exchange&quot;;
+    String BUSINESS_QUEUEA_NAME = &quot;dead.letter.demo.simple.business.queuea&quot;;
+    String BUSINESS_QUEUEB_NAME = &quot;dead.letter.demo.simple.business.queueb&quot;;
+    String DEAD_LETTER_EXCHANGE = &quot;dead.letter.demo.simple.deadletter.exchange&quot;;
+    String DEAD_LETTER_QUEUEA_ROUTING_KEY = &quot;dead.letter.demo.simple.deadletter.queuea.routingkey&quot;;
+    String DEAD_LETTER_QUEUEB_ROUTING_KEY = &quot;dead.letter.demo.simple.deadletter.queueb.routingkey&quot;;
+    String DEAD_LETTER_QUEUEA_NAME = &quot;dead.letter.demo.simple.deadletter.queuea&quot;;
+    String DEAD_LETTER_QUEUEB_NAME = &quot;dead.letter.demo.simple.deadletter.queueb&quot;;
+
+</code></pre>
+<pre><code class="language-java">		// RabbitMqConfig 添加
+
+    // 声明业务Exchange
+    @Bean(&quot;businessExchange&quot;)
+    public FanoutExchange businessExchange() {
+        return new FanoutExchange(BUSINESS_EXCHANGE_NAME);
+    }
+
+    // 声明死信Exchange
+    @Bean(&quot;deadLetterExchange&quot;)
+    public DirectExchange deadLetterExchange() {
+        return new DirectExchange(DEAD_LETTER_EXCHANGE);
+    }
+
+    // 声明业务队列A
+    @Bean(&quot;businessQueueA&quot;)
+    public Queue businessQueueA() {
+        Map&lt;String, Object&gt; args = new HashMap&lt;&gt;(2);
+        // x-dead-letter-exchange 这里声明当前队列绑定的死信交换机
+        args.put(&quot;x-dead-letter-exchange&quot;, DEAD_LETTER_EXCHANGE);
+        // x-dead-letter-routing-key 这里声明当前队列的死信路由key
+        args.put(&quot;x-dead-letter-routing-key&quot;, DEAD_LETTER_QUEUEA_ROUTING_KEY);
+        return QueueBuilder.durable(BUSINESS_QUEUEA_NAME).withArguments(args).build();
+    }
+
+    // 声明业务队列B
+    @Bean(&quot;businessQueueB&quot;)
+    public Queue businessQueueB() {
+        Map&lt;String, Object&gt; args = new HashMap&lt;&gt;(2);
+        // x-dead-letter-exchange 这里声明当前队列绑定的死信交换机
+        args.put(&quot;x-dead-letter-exchange&quot;, DEAD_LETTER_EXCHANGE);
+        // x-dead-letter-routing-key 这里声明当前队列的死信路由key
+        args.put(&quot;x-dead-letter-routing-key&quot;, DEAD_LETTER_QUEUEB_ROUTING_KEY);
+        return QueueBuilder.durable(BUSINESS_QUEUEB_NAME).withArguments(args).build();
+    }
+
+    // 声明死信队列A
+    @Bean(&quot;deadLetterQueueA&quot;)
+    public Queue deadLetterQueueA() {
+        return new Queue(DEAD_LETTER_QUEUEA_NAME);
+    }
+
+    // 声明死信队列B
+    @Bean(&quot;deadLetterQueueB&quot;)
+    public Queue deadLetterQueueB() {
+        return new Queue(DEAD_LETTER_QUEUEB_NAME);
+    }
+
+    // 声明业务队列A绑定关系
+    @Bean
+    public Binding businessBindingA(@Qualifier(&quot;businessQueueA&quot;) Queue queue, @Qualifier(&quot;businessExchange&quot;) FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
+    }
+
+    // 声明业务队列B绑定关系
+    @Bean
+    public Binding businessBindingB(@Qualifier(&quot;businessQueueB&quot;) Queue queue, @Qualifier(&quot;businessExchange&quot;) FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
+    }
+
+    // 声明死信队列A绑定关系
+    @Bean
+    public Binding deadLetterBindingA(@Qualifier(&quot;deadLetterQueueA&quot;) Queue queue, @Qualifier(&quot;deadLetterExchange&quot;) DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(DEAD_LETTER_QUEUEA_ROUTING_KEY);
+    }
+
+    // 声明死信队列B绑定关系
+    @Bean
+    public Binding deadLetterBindingB(@Qualifier(&quot;deadLetterQueueB&quot;) Queue queue, @Qualifier(&quot;deadLetterExchange&quot;) DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(DEAD_LETTER_QUEUEB_ROUTING_KEY);
+    }
+
+</code></pre>
+<p><strong>消费者</strong></p>
+<pre><code class="language-java">@Slf4j
+@Component
+public class BusinessMessageReceiver {
+    @RabbitListener(queues = BUSINESS_QUEUEA_NAME)
+    public void receiveA(Message message, Channel channel) throws IOException {
+        String msg = new String(message.getBody());
+        log.info(&quot;收到业务消息A：{}&quot;, msg);
+        boolean ack = true;
+        Exception exception = null;
+        try {
+            if (msg.contains(&quot;deadletter&quot;)) {
+                throw new RuntimeException(&quot;dead letter exception&quot;);
+            }
+        } catch (Exception e) {
+            ack = false;
+            exception = e;
+        }
+        if (!ack) {
+            log.error(&quot;消息消费发生异常，error msg:{}&quot;, exception.getMessage(), exception);
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+        } else {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }
+    }
+
+    @RabbitListener(queues = BUSINESS_QUEUEB_NAME)
+    public void receiveB(Message message, Channel channel) throws IOException {
+        System.out.println(&quot;收到业务消息B：&quot; + new String(message.getBody()));
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+}
+</code></pre>
+<pre><code class="language-java">@Component
+public class DeadLetterMessageReceiver {
+
+    @RabbitListener(queues = DEAD_LETTER_QUEUEA_NAME)
+    public void receiveA(Message message, Channel channel) throws IOException {
+        System.out.println(&quot;收到死信消息A：&quot; + new String(message.getBody()));
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+    @RabbitListener(queues = DEAD_LETTER_QUEUEB_NAME)
+    public void receiveB(Message message, Channel channel) throws IOException {
+        System.out.println(&quot;收到死信消息B：&quot; + new String(message.getBody()));
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+}
+</code></pre>
+<p>这里记得将<code>default-requeue-rejected</code>属性设置为false。</p>
+<pre><code class="language-yaml">rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    # 发送者开启 return 确认机制
+    publisher-returns: true
+    # 发送者开启 confirm 确认机制
+    publisher-confirm-type: correlated
+    # 设置消费端手动 ack
+    listener:
+      simple:
+          default-requeue-rejected: false
+          acknowledge-mode: manual
+          # 是否支持重试
+          retry:
+              enabled: true
+</code></pre>
+<p>生产者</p>
+<pre><code class="language-java">		@GetMapping(&quot;sendmsg&quot;) public void sendMsg(String msg){ sendService.sendMsg(msg); }
+
+	
+    /**
+     * @param msg
+     * @return void
+     * @description 死信队列
+     * @author yz
+     * @date 2021/10/18 11:26 下午
+     * @method sendMsg
+     */
+    void sendMsg(String msg);
+
+
+    @Override
+    public void sendMsg(String msg) {
+        rabbitTemplate.convertSendAndReceive(BUSINESS_EXCHANGE_NAME, &quot;&quot;, msg);
+    }
+
+</code></pre>
+<p>调用</p>
+<pre><code class="language-http">### 正常
+GET http://localhost:8080/sendmsg?msg=hello word
+</code></pre>
+<p>日志</p>
+<pre><code class="language-tex">2021-10-19 00:19:49.691  INFO 1847 --- [nio-8080-exec-3] .l.DirectReplyToMessageListenerContainer : SimpleConsumer [queue=amq.rabbitmq.reply-to, consumerTag=amq.ctag-xnAuIjQEQI6V4AI6oLgmag identity=d2235db] started
+收到业务消息B：hello word
+2021-10-19 00:19:49.697  INFO 1847 --- [ntContainer#1-1] c.e.s.consumer.BusinessMessageReceiver   : 收到业务消息A：hello word
+</code></pre>
+<p>表示两个Consumer都正常收到了消息。这代表正常消费的消息，ack后正常返回。然后我们再来测试nck的消息。</p>
+<pre><code class="language-http">### 失败
+GET http://localhost:8080/sendmsg?msg=deadletter
+</code></pre>
+<p>日志</p>
+<pre><code class="language-tex">收到业务消息B：deadletter
+收到业务消息A：deadletter
+消息消费发生异常，error msg:dead letter exception
+java.lang.RuntimeException: dead letter exception
+收到死信消息A：deadletter
+</code></pre>
+<p>可以看到，死信队列的Consumer接受到了这个消息，所以流程到此为止就打通了。</p>
+<h5 id="3死信消息的变化">3.死信消息的变化</h5>
+<p>那么“死信”被丢到死信队列中后，会发生什么变化呢？</p>
+<p>如果队列配置了参数 <code>x-dead-letter-routing-key</code> 的话，“死信”的路由key将会被替换成该参数对应的值。如果没有设置，则保留该消息原有的路由key。</p>
+<p>举个栗子：</p>
+<p>如果原有消息的路由key是<code>testA</code>，被发送到业务Exchage中，然后被投递到业务队列QueueA中，如果该队列没有配置参数<code>x-dead-letter-routing-key</code>，则该消息成为死信后，将保留原有的路由key<code>testA</code>，如果配置了该参数，并且值设置为<code>testB</code>，那么该消息成为死信后，路由key将会被替换为<code>testB</code>，然后被抛到死信交换机中。</p>
+<p>另外，由于被抛到了死信交换机，所以消息的Exchange Name也会被替换为死信交换机的名称。</p>
+<p>消息的Header中，也会添加很多奇奇怪怪的字段，修改一下上面的代码，在死信队列的消费者中添加一行日志输出：</p>
+<pre><code class="language-java">log.info(&quot;死信消息properties：{}&quot;, message.getMessageProperties());
+</code></pre>
+<p>Header中看起来有很多信息，实际上并不多，只是值比较长而已。下面就简单说明一下Header中的值：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段名</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">x-first-death-exchange</td>
+<td style="text-align:left">第一次被抛入的死信交换机的名称</td>
+</tr>
+<tr>
+<td style="text-align:left">x-first-death-reason</td>
+<td style="text-align:left">第一次成为死信的原因，<code>rejected</code>：消息在重新进入队列时被队列拒绝，由于<code>default-requeue-rejected</code> 参数被设置为<code>false</code>。<code>expired</code> ：消息过期。<code>maxlen</code> ： 队列内消息数量超过队列最大容量</td>
+</tr>
+<tr>
+<td style="text-align:left">x-first-death-queue</td>
+<td style="text-align:left">第一次成为死信前所在队列名称</td>
+</tr>
+<tr>
+<td style="text-align:left">x-death</td>
+<td style="text-align:left">历次被投入死信交换机的信息列表，同一个消息每次进入一个死信交换机，这个数组的信息就会被更新</td>
+</tr>
+</tbody>
+</table>
+<h5 id="4-死信队列应用场景">4. 死信队列应用场景</h5>
+<p>通过上面的信息，我们已经知道如何使用死信队列了，那么死信队列一般在什么场景下使用呢？</p>
+<p>一般用在较为重要的业务队列中，确保未被正确消费的消息不被丢弃，一般发生消费异常可能原因主要有由于消息信息本身存在错误导致处理异常，处理过程中参数校验异常，或者因网络波动导致的查询异常等等，当发生异常时，当然不能每次通过日志来获取原消息，然后让运维帮忙重新投递消息（没错，以前就是这么干的= =）。通过配置死信队列，可以让未正确处理的消息暂存到另一个队列中，待后续排查清楚问题后，编写相应的处理代码来处理死信消息，这样比手工恢复数据要好太多了。</p>
+<h4 id="7延迟队列">7.延迟队列</h4>
+<p>那么什么时候需要用延时队列呢？考虑一下以下场景：</p>
+<ol>
+<li>订单在十分钟之内未支付则自动取消。</li>
+<li>新创建的店铺，如果在十天内都没有上传过商品，则自动发送消息提醒。</li>
+<li>账单在一周内未支付，则自动结算。</li>
+<li>用户注册成功后，如果三天内没有登陆则进行短信提醒。</li>
+<li>用户发起退款，如果三天内没有得到处理则通知相关运营人员。</li>
+<li>预定会议后，需要在预定的时间点前十分钟通知各个与会人员参加会议。</li>
+</ol>
+<h5 id="1rabbitmq安装插件实现延时队列">1.rabbitmq安装插件实现延时队列</h5>
+<p>下载<a href="https://www.rabbitmq.com/community-plugins.html"><strong>rabbitmq_delayed_message_exchange</strong></a>插件,下载前请确认自己的 RabbitMQ 版本，下载对应版本的插件。</p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20211019011920.png" alt="" loading="lazy"></figure>
+<h5 id="2安装插件">2.安装插件</h5>
+<pre><code class="language-shell">#拿到CONTAINER ID
+docker ps
+#宿主机上传文件到容器
+docker cp /Users/yz/Downloads/rabbitmq_delayed_message_exchange-3.8.0.ez 7bc42bc3bf07:/plugins
+#进入容器
+docker exec -it 7bc42bc3bf07 bash
+#进入文件夹
+cd plugins
+#安装插件
+rabbitmq-plugins enable rabbitmq_delayed_message_exchange
+Enabling plugins on node rabbit@7bc42bc3bf07:
+rabbitmq_delayed_message_exchange
+The following plugins have been configured:
+  rabbitmq_delayed_message_exchange
+  rabbitmq_management
+  rabbitmq_management_agent
+  rabbitmq_web_dispatch
+Applying plugin configuration to rabbit@7bc42bc3bf07...
+Plugin configuration unchanged.
+#退出
+exit
+#重启
+docker restart 7bc42bc3bf07
+</code></pre>
+<p>容器启动成功之后，登录 <code>RabbitMQ</code>的管理界面，找到<code>Exchanges Tab</code>页。点击 <code>add a new...</code>，在 <code>Type</code> 里面查看是否有<code>x-delayed-message</code>选项，如果存在就代表插件安装成功。</p>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20211019012757.png" alt="" loading="lazy"></figure>
+<h5 id="3代码实现">3.代码实现</h5>
+<pre><code class="language-java">// RabbitmqConstant 添加
+String DELAYED_QUEUE_NAME = &quot;delay.queue.demo.delay.queue&quot;;
+String DELAYED_EXCHANGE_NAME = &quot;delay.queue.demo.delay.exchange&quot;;
+String DELAYED_ROUTING_KEY = &quot;delay.queue.demo.delay.routingkey&quot;;
+</code></pre>
+<pre><code class="language-java">// RabbitMqConfig 添加
+@Bean
+public Queue immediateQueue() {
+    return new Queue(DELAYED_QUEUE_NAME);
+}
+
+@Bean
+public CustomExchange customExchange() {
+    Map&lt;String, Object&gt; args = new HashMap&lt;&gt;();
+    args.put(&quot;x-delayed-type&quot;, &quot;direct&quot;);
+    return new CustomExchange(DELAYED_EXCHANGE_NAME, &quot;x-delayed-message&quot;, true, false, args);
+}
+
+@Bean
+public Binding bindingNotify(@Qualifier(&quot;immediateQueue&quot;) Queue queue,
+                             @Qualifier(&quot;customExchange&quot;) CustomExchange customExchange) {
+    return BindingBuilder.bind(queue).to(customExchange).with(DELAYED_ROUTING_KEY).noargs();
+}
+</code></pre>
+<pre><code class="language-java">// 消息生产者
+@GetMapping(&quot;delayMsg&quot;)
+public void delayMsg2(String msg, Integer delayTime) {
+    log.info(&quot;当前时间：{},收到请求，msg:{},delayTime:{}&quot;, new Date(), msg, delayTime);
+    sendService.sendDelayMsg(msg, delayTime);
+}
+
+  /**
+     * @description 延时队列
+     * @author yz
+     * @date 2021/10/27 12:37 上午
+     * @method  sendDelayMsg
+     * @param msg
+    * @param delayTime
+     * @return void
+     */
+    void sendDelayMsg(String msg, Integer delayTime);
+    
+    
+    
+    @Override
+    public void sendDelayMsg(String msg, Integer delayTime) {
+        rabbitTemplate.convertAndSend(DELAYED_EXCHANGE_NAME, DELAYED_ROUTING_KEY, msg, a -&gt;{
+            a.getMessageProperties().setDelay(delayTime);
+            return a;
+        });
+    }
+</code></pre>
+<pre><code class="language-java">//消息消费者
+@Component
+@Slf4j
+public class DelayMessageReceiver {
+    @RabbitListener(queues = DELAYED_QUEUE_NAME)
+    public void receiveD(Message message, Channel channel) throws IOException {
+        String msg = new String(message.getBody());
+        log.info(&quot;当前时间：{},延时队列收到消息：{}&quot;, new Date(), msg);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+}
+</code></pre>
+<p><em>测试</em></p>
+<pre><code class="language-http">### 20秒
+http://localhost:8080/delayMsg?msg=msg1&amp;delayTime=20000
+
+### 2秒
+http://localhost:8080/delayMsg?msg=msg2&amp;delayTime=2000
+
+
+</code></pre>
+<p><em>日志</em></p>
+<pre><code>2021-10-27 00:41:25.250  INFO 1988 --- [nio-8080-exec-5] c.e.s.controller.SenController           : 当前时间：Wed Oct 27 00:41:25 CST 2021,收到请求，msg:msg1,delayTime:20000
+2021-10-27 00:41:45.244  INFO 1988 --- [ntContainer#4-1] c.e.s.consumer.DelayMessageReceiver      : 当前时间：Wed Oct 27 00:41:45 CST 2021,延时队列收到消息：msg1
+2021-10-27 00:41:50.399  INFO 1988 --- [nio-8080-exec-7] c.e.s.controller.SenController           : 当前时间：Wed Oct 27 00:41:50 CST 2021,收到请求，msg:msg2,delayTime:2000
+2021-10-27 00:41:52.421  INFO 1988 --- [ntContainer#4-1] c.e.s.consumer.DelayMessageReceiver      : 当前时间：Wed Oct 27 00:41:52 CST 2021,延时队列收到消息：msg2
+
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/rabbitmqspringboot-zheng-he/" class="leancloud-visitors view"
+                              data-flag-title="RabbitMQ+SpringBoot整合">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/optional-shi-yong/" class="title">
+                                      <h4>Optional 使用</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-10-11</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/optional-shi-yong/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/49.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/duo-xian-cheng/" class="title">
+                                      <h4>多线程</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-09-05</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/duo-xian-cheng/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/51.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#rabbitmqspringboot%E6%95%B4%E5%90%88">RabbitMQ+SpringBoot整合</a>
+<ul>
+<li><a href="#1-fanout-exchange">1. Fanout-Exchange</a></li>
+<li><a href="#2-direct-exchange">2. Direct-Exchange</a></li>
+<li><a href="#3-topic-exchange">3. Topic-Exchange</a></li>
+<li><a href="#4-%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F">4. 注解方式</a></li>
+<li><a href="#5%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7">5.消息可靠性</a>
+<ul>
+<li><a href="#1-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%88%B0mq%E5%A4%B1%E8%B4%A5">1. 生产者发送消息到MQ失败</a></li>
+<li><a href="#2-%E6%B6%88%E6%81%AF%E5%85%A5%E9%98%9F%E4%B9%8B%E5%90%8Emq%E5%AE%95%E6%9C%BA">2. 消息入队之后MQ宕机</a></li>
+<li><a href="#3-%E6%B6%88%E8%B4%B9%E8%80%85%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E6%B6%88%E8%B4%B9">3. 消费者无法正常消费</a></li>
+<li><a href="#4-%E6%B6%88%E8%B4%B9%E8%80%85%E6%94%B6%E5%88%B0%E6%B6%88%E6%81%AF%E4%B9%8B%E5%90%8E%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B6%88%E8%B4%B9">4. 消费者收到消息之后保证消息的正确消费。</a></li>
+<li><a href="#5%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">5.代码实现</a></li>
+</ul>
+</li>
+<li><a href="#6-%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97">6. 死信队列</a>
+<ul>
+<li><a href="#1%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97">1.什么是死信队列</a></li>
+<li><a href="#2%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97">2.如何配置死信队列</a></li>
+<li><a href="#3%E6%AD%BB%E4%BF%A1%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%98%E5%8C%96">3.死信消息的变化</a></li>
+<li><a href="#4-%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">4. 死信队列应用场景</a></li>
+</ul>
+</li>
+<li><a href="#7%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97">7.延迟队列</a>
+<ul>
+<li><a href="#1rabbitmq%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97">1.rabbitmq安装插件实现延时队列</a></li>
+<li><a href="#2%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6">2.安装插件</a></li>
+<li><a href="#3%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">3.代码实现</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

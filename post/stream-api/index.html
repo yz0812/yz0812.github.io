@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Stream API - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">Stream API</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/IusPLq9nv3/" class="post--keyword"
+                                data-title="java" data-type="post_tag" data-term-id="39">java</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-08-04</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/39.jpg"
+                                class="attachment-full size-full wp-post-image" alt="Stream API" /></p>
+                            
+                            <figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/202212132210248.png" alt="" loading="lazy"></figure>
+<h3 id="构造一个-stream-对象">构造一个 Stream 对象</h3>
+<pre><code class="language-java">    new ArrayList&lt;&gt;().stream();
+    Arrays.stream(new String[]{});
+	Stream.of(new String[]{});
+	//构建一个空的
+	Stream.empty();
+	//连接两个 Stream对象,返回一个新的
+	Stream.concat(a,b);
+</code></pre>
+<h3 id="中间操作">中间操作</h3>
+<h4 id="筛选与切片">筛选与切片</h4>
+<h5 id="filter">filter</h5>
+<blockquote>
+<p>根据条件过滤</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;);
+    list.stream().filter(i-&gt;i.equals(&quot;1&quot;)).forEach(System.out::println);
+	// 输出结果: 1
+</code></pre>
+<h5 id="distinct">distinct</h5>
+<blockquote>
+<p>筛选，通过流所生成元素的 hashCode() 和 equals() 去 除重复元素。</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    list.stream().distinct().forEach(System.out::println);
+	// 输出结果: 1 3
+</code></pre>
+<h5 id="limit">limit</h5>
+<blockquote>
+<p>截断流，使其元素不超过给定数量。</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+	list.stream().limit(2).forEach(System.out::println);
+	// 输出结果: 1 3
+</code></pre>
+<h5 id="skip">skip</h5>
+<blockquote>
+<p>跳过元素，返回一个扔掉了前 n 个元素的流。若流中元素 不足 n 个，则返回一个空流。与 limit(n) 互补。</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    list.stream().skip(2).forEach(System.out::println);
+    // 输出结果: 3 3
+</code></pre>
+<h4 id="映射">映射</h4>
+<h5 id="map">map</h5>
+<blockquote>
+<p>接收一个函数作为参数，映射成一个新的元素</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    List&lt;Integer&gt; intList =  list.stream().map(i-&gt;Integer.parseInt(i)).collect(Collectors.toList());
+</code></pre>
+<h5 id="maptodouble">mapToDouble</h5>
+<blockquote>
+<p>接收一个函数作为参数,产生一个新的 DoubleStream。</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+	double sum=  list.stream().mapToDouble(i-&gt;Double.valueOf(i)).sum();
+</code></pre>
+<h5 id="maptoint">mapToInt</h5>
+<blockquote>
+<p>接收一个函数作为参数,产生一个新的  IntStream。</p>
+</blockquote>
+<pre><code class="language-java"> 	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+	 int sum=  list.stream().mapToInt(i-&gt;Integer.valueOf(i)).sum();
+</code></pre>
+<h5 id="maptolong">mapToLong</h5>
+<blockquote>
+<p>接收一个函数作为参数,产生一个新的 LongStream。</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+	Long sum=  list.stream().mapToLong(i-&gt;Long.valueOf(i)).sum();
+</code></pre>
+<h5 id="flatmap">flatMap</h5>
+<blockquote>
+<p>接收一个函数作为参数，将流中的每个值都换成另 一个流，然后把所有流连接成一个流</p>
+</blockquote>
+<pre><code class="language-java">	 List&lt;String&gt; fun1 = Arrays.asList(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;);
+     List&lt;String&gt; fun2 = Arrays.asList(&quot;four&quot;, &quot;five&quot;, &quot;six&quot;);
+     Stream.of(fun1,fun2).flatMap(List::stream).forEach(System.out::println);
+	 // 输出
+	 // one
+	 // two
+	 // three
+	 // four
+	 // five
+	 // six
+    /**
+    *使用map
+    */
+     List&lt;String&gt; fun1 = Arrays.asList(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;);
+     List&lt;String&gt; fun2 = Arrays.asList(&quot;four&quot;, &quot;five&quot;, &quot;six&quot;);
+     Stream.of(fun1,fun2).map(List::stream).forEach(System.out::println);
+	 // 输出
+	 // java.util.stream.ReferencePipeline$Head@2f00f851
+	 // java.util.stream.ReferencePipeline$Head@4207609e
+</code></pre>
+<h5 id="flatmaptolong">flatMapToLong</h5>
+<blockquote>
+<p>将给定的mapper函数应用于流的每个元素，并返回LongStream</p>
+</blockquote>
+<pre><code>    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;);
+    Long sum = list.stream().flatMapToLong(num -&gt; LongStream.of(Long.parseLong(num))).sum();
+</code></pre>
+<h5 id="flatmaptodouble">flatMapToDouble</h5>
+<blockquote>
+<p>将给定的mapper函数应用于流的每个元素，并返回flatMapToDouble</p>
+</blockquote>
+<pre><code class="language-java">        List&lt;String&gt; list = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;);
+        Double sum = list.stream().flatMapToDouble(num -&gt; DoubleStream.of(Double.valueOf(num))).sum();
+</code></pre>
+<h5 id="flatmaptoint">flatMapToInt</h5>
+<blockquote>
+<p>将给定的mapper函数应用于流的每个元素，并返回IntStream</p>
+</blockquote>
+<pre><code class="language-java">        List&lt;String&gt; list = Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;);
+        int sum = list.stream().flatMapToInt(num -&gt; IntStream.of(Integer.valueOf(num))).sum();
+</code></pre>
+<h4 id="排序">排序</h4>
+<h5 id="sorted">sorted</h5>
+<blockquote>
+<p>产生一个新流，其中按自然顺序排序或者按照比较器顺序排序</p>
+</blockquote>
+<pre><code class="language-java">        List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+        // 自然排序
+        List persons = list.stream().sorted().collect(Collectors.toList());
+        // 自然排序 倒叙
+        List personsReverse = list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        // 实体按照字段排序
+        List&lt;User&gt; userList = Arrays.asList(new User(18,&quot;张三&quot;),new User(16,&quot;李四&quot;),new User(20,&quot;王五&quot;));
+        userList.stream().sorted(Comparator.comparing(User::getAge)).collect(Collectors.toList());
+        //倒叙
+        userList.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());
+		//定制排序
+        List persons1 = list.stream().sorted((e1, e2) -&gt; {
+            if (e1.getAge() == e2.getAge()) {
+                return 0;
+            } else if (e1.getAge() &gt; e2.getAge()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }).collect(Collectors.toList());
+</code></pre>
+<h4 id="消费">消费</h4>
+<h5 id="peek">peek</h5>
+<blockquote>
+<p>用来消费 Stream 元素,peek主要被用在debug用途。不会对元素产生更改</p>
+</blockquote>
+<pre><code class="language-java">	Stream&lt;String&gt; a = Stream.of(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);
+    List&lt;String&gt; list = a.peek(e-&gt;System.out.println(e.toUpperCase())).collect(Collectors.toList());
+</code></pre>
+<h5 id="foreach">forEach</h5>
+<blockquote>
+<p>peek 方法类似，都接收一个消费者函数式接口</p>
+</blockquote>
+<pre><code class="language-java">        List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+        list.stream().forEach(System.out::println);
+</code></pre>
+<h5 id="foreachordered">forEachOrdered</h5>
+<blockquote>
+<p>功能与 <code>forEach</code>是一样的，不同的是，<code>forEachOrdered</code>是有顺序保证的，也就是对 Stream 中元素按插入时的顺序进行消费</p>
+</blockquote>
+<pre><code class="language-java">        List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+        list.stream().forEachOrdered(System.out::println);
+</code></pre>
+<h4 id="终端操作">终端操作</h4>
+<h5 id="min">min</h5>
+<blockquote>
+<p>最小值</p>
+</blockquote>
+<pre><code class="language-java">  List&lt;Integer&gt; list = Arrays.asList(1,2,3,4);
+  list.stream().min(Integer::compareTo).get();
+</code></pre>
+<h5 id="max">max</h5>
+<blockquote>
+<p>最大值</p>
+</blockquote>
+<pre><code class="language-java">  List&lt;Integer&gt; list = Arrays.asList(1,2,3,4);
+  list.stream().max(Integer::compareTo).get();
+</code></pre>
+<h5 id="count">count</h5>
+<blockquote>
+<p>个数</p>
+</blockquote>
+<pre><code class="language-java">  List&lt;Integer&gt; list = Arrays.asList(1,2,3,4);
+  list.stream().count();
+</code></pre>
+<h5 id="sum">sum</h5>
+<blockquote>
+<p>合</p>
+</blockquote>
+<pre><code class="language-java">List&lt;Integer&gt; integers = Arrays.asList(1, 2, 3, 4, 5);
+Integer sum = integers.stream()
+  .mapToInt(Integer::intValue)
+  .sum();
+</code></pre>
+<h5 id="anymatch">anyMatch</h5>
+<blockquote>
+<p>anyMatch匹配判断的条件里，任意一个元素成功，返回true</p>
+<p>allMatch表示，判断条件里的元素，所有的都是，返回true</p>
+<p>noneMatch跟allMatch相反，判断条件里的元素，所有的都不是，返回true</p>
+</blockquote>
+<pre><code class="language-java">List&lt;Integer&gt; integers = Arrays.asList(1, 2, 3, 4, 5);
+boolean aa = integers.stream().anyMatch(i -&gt; i.equals(1));
+</code></pre>
+<h5 id="findfirst">findFirst</h5>
+<blockquote>
+<p>获取第一个元素</p>
+</blockquote>
+<pre><code class="language-java">   List&lt;Integer&gt; list = Arrays.asList(1,2,3,4);
+   list.stream().findFirst().get();
+   list.stream().findAny().orElse(Integer.MIN_VALUE);
+</code></pre>
+<h5 id="findany">findAny</h5>
+<blockquote>
+<p>获取 Stream 中的某个元素，如果是串行情况下，一般都会返回第一个元素，并行情况下就不一定</p>
+</blockquote>
+<pre><code class="language-java">   List&lt;Integer&gt; list = Arrays.asList(1,2,3,4);
+   list.stream().findAny().get();
+   list.stream().findAny().orElse(Integer.MIN_VALUE);
+</code></pre>
+<h5 id="reduce">reduce</h5>
+<blockquote>
+<p>它的作用是每次计算的时候都用到上一次的计算结果，比如求和操作</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;Long&gt; list = Arrays.asList(1L,3L,3L,3L);
+    list.stream().map(l -&gt; BigDecimal.valueOf(l)).reduce(BigDecimal.ZERO, BigDecimal::add);
+</code></pre>
+<h5 id="toarray">toArray</h5>
+<blockquote>
+<p><code>collection</code>是返回列表、map 等，<code>toArray</code>是返回数组，有两个重载，一个空参数，返回的是 <code>Object[]</code></p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    Object[] objectArr=  list.stream().toArray();
+    List&lt;User&gt; userList = Arrays.asList(new User(18,&quot;张三&quot;),new User(16,&quot;李四&quot;),new User(20,&quot;王五&quot;));
+    Object[] userArr=  list.stream().toArray(User[]::new);
+</code></pre>
+<h5 id="collection">collection</h5>
+<blockquote>
+<p>在进行了一系列操作之后，我们最终的结果大多数时候并不是为了获取 Stream 类型的数据，而是要把结果变为 List、Map 这样的常用数据结构</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    list.stream().collect(Collectors.toList());
+</code></pre>
+<h3 id="collectors用法">Collectors用法</h3>
+<h4 id="1-collectorstolist">1. Collectors.toList()</h4>
+<blockquote>
+<p>将stream转换为list。</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    list.stream().collect(Collectors.toList());
+</code></pre>
+<h4 id="2-collectorstoset">2. Collectors.toSet()</h4>
+<blockquote>
+<p>toSet将Stream转换成为set</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+    Set&lt;String&gt; set = list.stream().collect(Collectors.toSet());
+</code></pre>
+<h4 id="3-collectorstocollection">3. Collectors.toCollection()</h4>
+<blockquote>
+<p>需要自定义，则可以使用toCollection()</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;3&quot;,&quot;3&quot;);
+	list.stream().collect(Collectors.toCollection(LinkedList::new));
+</code></pre>
+<h4 id="4-collectorstomap">4. Collectors.toMap()</h4>
+<blockquote>
+<p>toMap接收两个参数，第一个参数是keyMapper，第二个参数是valueMapper:</p>
+</blockquote>
+<pre><code class="language-java">     List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+     Map&lt;String, Integer&gt; mapResult =  list.stream().collect(Collectors.toMap(Function.identity(),String::length));
+</code></pre>
+<h4 id="5-collectorscollectingandthen">5. Collectors.collectingAndThen()</h4>
+<blockquote>
+<p>collectingAndThen允许我们对生成的集合再做一次操作。</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+    List&lt;String&gt; collectAndThenResult = list.stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), l -&gt; new ArrayList&lt;&gt;(l)));
+</code></pre>
+<h4 id="6-collectorsjoining">6. Collectors.joining()</h4>
+<blockquote>
+<p>Joining用来连接stream中的元素</p>
+</blockquote>
+<pre><code class="language-java">     List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+     String str = list.stream().collect(Collectors.joining(&quot;,&quot;));
+	// 输出 1,3,4,5
+</code></pre>
+<h4 id="7-collectorscounting">7. Collectors.counting()</h4>
+<blockquote>
+<p>返回元素个数</p>
+</blockquote>
+<pre><code class="language-java">     List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+     long str = list.stream().collect(Collectors.counting());
+</code></pre>
+<h4 id="8-collectorssummarizingdoublelongint">8. Collectors.summarizingDouble/Long/Int()</h4>
+<blockquote>
+<p>对stream中的元素做统计操作</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+    DoubleSummaryStatistics summingResult = list.stream().collect(Collectors.summarizingDouble(i-&gt;Double.valueOf(i)));
+    IntSummaryStatistics  summingResultInt = list.stream().collect(Collectors.summarizingInt(i-&gt;Integer.valueOf(i)));
+    LongSummaryStatistics summingResultLong = list.stream().collect(Collectors.summarizingLong(i-&gt;Long.valueOf(i)));
+	//输出 DoubleSummaryStatistics{count=4, sum=13.000000, min=1.000000, average=3.250000, max=5.000000}
+</code></pre>
+<h4 id="9-collectorsaveragingdoublelongint">9. Collectors.averagingDouble/Long/Int()</h4>
+<blockquote>
+<p>对stream中的元素做平均操作</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+    Double summingResult = list.stream().collect(Collectors.averagingDouble(i-&gt;Double.valueOf(i)));
+    Double  summingResultInt = list.stream().collect(Collectors.averagingInt(i-&gt;Integer.valueOf(i)));
+    Double summingResultLong = list.stream().collect(Collectors.averagingLong(i-&gt;Long.valueOf(i)));
+</code></pre>
+<h4 id="10-collectorssummingdoublelongint">10. Collectors.summingDouble/Long/Int()</h4>
+<blockquote>
+<p>对stream中的元素做sum操作</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+    Double summingResult = list.stream().collect(Collectors.summingDouble(i-&gt;Double.valueOf(i)));
+    int summingResultInt = list.stream().collect(Collectors.summingInt(i-&gt;Integer.valueOf(i)));
+    Long summingResultLong = list.stream().collect(Collectors.summingLong(i-&gt;Long.valueOf(i)));
+</code></pre>
+<h4 id="11-collectorsmaxbyminby">11. Collectors.maxBy()/minBy()</h4>
+<blockquote>
+<p>根据提供的Comparator,返回stream中的最大或者最小值</p>
+</blockquote>
+<pre><code class="language-java">    List&lt;String&gt; list = Arrays.asList(&quot;1&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;);
+    String max = list.stream().collect(Collectors.maxBy(Comparator.naturalOrder())).get();
+    String min = list.stream().collect(Collectors.minBy(Comparator.naturalOrder())).get();
+	//Comparator.naturalOrder() 自然顺序
+</code></pre>
+<h4 id="12-collectorsgroupingby">12. Collectors.groupingBy()</h4>
+<blockquote>
+<p>根据条件分组</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;User&gt; userList = Arrays.asList(new User(18,&quot;张三&quot;),new User(16,&quot;李四&quot;),new User(20,&quot;王五&quot;),
+        new User(20,&quot;小李&quot;),new User(18,&quot;小盘&quot;),new User(18,&quot;小琪&quot;));
+	Map&lt;Integer, List&lt;User&gt;&gt; groupByResultList = userList.stream().collect(Collectors.groupingBy(i-&gt;i.getAge(), 		                 Collectors.toList()));
+	Map&lt;Integer, Set&lt;User&gt;&gt; groupByResultSet = userList.stream().collect(Collectors.groupingBy(i-&gt;i.getAge(), 		                     Collectors.toSet()));
+	//计数
+	Map&lt;Integer, Long&gt; counting = userList.stream().collect(Collectors.groupingBy(i-&gt;i.getAge(),Collectors.counting()));
+</code></pre>
+<h4 id="13-collectorspartitioningby">13. Collectors.partitioningBy()</h4>
+<blockquote>
+<p>特殊的groupingBy，key为Boolean</p>
+</blockquote>
+<pre><code class="language-java">	List&lt;User&gt; userList = Arrays.asList(new User(18,&quot;张三&quot;),new User(16,&quot;李四&quot;),new User(20,&quot;王五&quot;),
+        new User(20,&quot;小李&quot;),new User(18,&quot;小盘&quot;),new User(18,&quot;小琪&quot;));
+	Map&lt;Boolean, List&lt;User&gt;&gt; groupByResultList = userList.stream().collect(Collectors.partitioningBy(i-&gt;i.getAge()&gt;18,                   Collectors.toList()));
+	Map&lt;Boolean, Set&lt;User&gt;&gt; groupByResultSet = userList.stream().collect(Collectors.partitioningBy(i-&gt;i.getAge()&gt;18,                     Collectors.toSet()));
+</code></pre>
+<h3 id="在map中使用stream">在map中使用stream</h3>
+<h4 id="查找value">查找value</h4>
+<pre><code class="language-java"> Map&lt;String, String&gt; someMap = new HashMap&lt;&gt;();
+    someMap.put(&quot;jack&quot;,&quot;20&quot;);
+    someMap.put(&quot;bill&quot;,&quot;35&quot;);
+    // 查找age=20的key
+    Optional&lt;String&gt; optionalName = someMap.entrySet().stream()
+            .filter(e -&gt; &quot;20&quot;.equals(e.getValue()))
+            .map(Map.Entry::getKey)
+            .findFirst();
+</code></pre>
+<h4 id="查找多个值">查找多个值</h4>
+<pre><code class="language-java">  Map&lt;String, String&gt; someMap = new HashMap&lt;&gt;();
+    someMap.put(&quot;jack&quot;,&quot;20&quot;);
+    someMap.put(&quot;bill&quot;,&quot;35&quot;);
+    someMap.put(&quot;alice&quot;,&quot;20&quot;);
+    // 多个值
+    List&lt;String&gt; listnames = someMap.entrySet().stream()
+            .filter(e -&gt; e.getValue().equals(&quot;20&quot;))
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+</code></pre>
+<h4 id="使用stream获取map的value">使用stream获取map的value</h4>
+<pre><code class="language-java">    List&lt;String&gt; listAges = someMap.entrySet().stream()
+            .filter(e -&gt; e.getKey().equals(&quot;alice&quot;))
+            .map(Map.Entry::getValue)
+            .collect(Collectors.toList());
+</code></pre>
+<h3 id="并行流">并行流</h3>
+<h4 id="默认线程">默认线程</h4>
+<blockquote>
+<p>parallelStream其实就是一个并行执行的流，它通过默认的ForkJoinPool，<strong>可能</strong>提高你的多线程任务的速度。</p>
+</blockquote>
+<p>测试一下</p>
+<pre><code class="language-java">   @Test
+    void contextLoads() {
+        IntStream list = IntStream.range(0, 10);
+        Set&lt;Thread&gt; threadSet = new CopyOnWriteArraySet&lt;&gt;();
+        //开始并行执行
+        list.parallel().forEach(i -&gt; {
+            Thread thread = Thread.currentThread();
+            System.err.println(&quot;integer：&quot; + i + &quot;，&quot; + &quot;currentThread:&quot; + thread.getName());
+            threadSet.add(thread);
+        });
+        System.out.println(&quot;all threads：&quot; + threadSet.stream().map(Thread::getName).collect(Collectors.joining(&quot;:&quot;)));
+    }
+</code></pre>
+<p>返回值</p>
+<pre><code class="language-tcl">integer：6，currentThread:main
+integer：5，currentThread:main
+integer：2，currentThread:ForkJoinPool.commonPool-worker-9
+integer：9，currentThread:ForkJoinPool.commonPool-worker-13
+integer：0，currentThread:ForkJoinPool.commonPool-worker-6
+integer：7，currentThread:ForkJoinPool.commonPool-worker-4
+integer：1，currentThread:ForkJoinPool.commonPool-worker-11
+integer：3，currentThread:ForkJoinPool.commonPool-worker-13
+integer：8，currentThread:ForkJoinPool.commonPool-worker-2
+integer：4，currentThread:ForkJoinPool.commonPool-worker-9
+all threads：main:ForkJoinPool.commonPool-worker-9:ForkJoinPool.commonPool-worker-13:ForkJoinPool.commonPool-worker-6:ForkJoinPool.commonPool-worker-4:ForkJoinPool.commonPool-worker-11:ForkJoinPool.commonPool-worker-2
+</code></pre>
+<blockquote>
+<p>从运行结果里面我们可以很清楚的看到parallelStream同时使用了主线程和ForkJoinPool.commonPool创建的线程。</p>
+<p>默认的线程数量就是你的处理器数量</p>
+</blockquote>
+<h4 id="自定义线程">自定义线程</h4>
+<pre><code class="language-java">ForkJoinPool customThreadPool = new ForkJoinPool(4);
+    IntStream list = IntStream.range(0, 10);
+    Set&lt;Thread&gt; threadSet = new CopyOnWriteArraySet&lt;&gt;();
+    //开始并行执行
+    customThreadPool.submit(() -&gt; list.parallel().forEach(i -&gt; {
+                Thread thread = Thread.currentThread();
+                System.err.println(&quot;integer：&quot; + i + &quot;，&quot; + &quot;currentThread:&quot; + thread.getName());
+                threadSet.add(thread);
+            })
+    );
+    System.out.println(&quot;all threads：&quot; + threadSet.stream().map(Thread::getName).collect(Collectors.joining(&quot;:&quot;)));
+</code></pre>
+<p>返回值: 可以看到这里已经使用我们定义的ForkJoinPool线程</p>
+<pre><code>all threads：
+integer：6，currentThread:ForkJoinPool-1-worker-1
+integer：5，currentThread:ForkJoinPool-1-worker-1
+integer：7，currentThread:ForkJoinPool-1-worker-1
+integer：8，currentThread:ForkJoinPool-1-worker-3
+integer：2，currentThread:ForkJoinPool-1-worker-2
+integer：9，currentThread:ForkJoinPool-1-worker-1
+integer：4，currentThread:ForkJoinPool-1-worker-2
+integer：1，currentThread:ForkJoinPool-1-worker-3
+integer：0，currentThread:ForkJoinPool-1-worker-0
+integer：3，currentThread:ForkJoinPool-1-worker-1
+</code></pre>
+<h3 id="stream异常处理">Stream异常处理</h3>
+<h4 id="runtimeexception">RuntimeException</h4>
+<blockquote>
+<p>运行时异常，可以通过编译，但是上面有一个问题，如果list中有一个0的话，就会抛出ArithmeticException。</p>
+</blockquote>
+<pre><code class="language-java">@Test
+void contextLoads() {
+    List&lt;Integer&gt; integers = Arrays.asList(1,2,0,4,5);
+    integers.forEach(consumerWrapperWithExceptionClass(i -&gt; System.out.println(1 / i), ArithmeticException.class));
+
+}
+
+static &lt;T, E extends Exception&gt; Consumer&lt;T&gt; consumerWrapperWithExceptionClass(Consumer&lt;T&gt; consumer, Class&lt;E&gt; clazz) {
+    return i -&gt; {
+        try {
+            consumer.accept(i);
+        } catch (Exception ex) {
+            try {
+                E exCast = clazz.cast(ex);
+                System.err.println(&quot;Exception occured : &quot; + exCast.getMessage());
+            } catch (ClassCastException ccEx) {
+                throw ex;
+            }
+        }
+    };
+}
+</code></pre>
+<h4 id="checked-exception">checked Exception</h4>
+<blockquote>
+<p>checked Exception是必须要处理的异常,这个例子是编译不过去的必须要将throwIOException方法try-catch,简单但是破坏了lambda表达式的最佳实践。代码变得臃肿。</p>
+</blockquote>
+<pre><code class="language-java">    //在编译期间，我们仍然会得到同样的未处理IOException错误.
+    @Test
+    void contextLoads() {
+        List&lt;Integer&gt; integers = Arrays.asList(3, 9, 7, 0, 10, 20);
+        integers.forEach(i -&gt; writeToFile(i));
+    }
+
+    static void writeToFile(Integer integer) throws IOException {
+        // logic to write to file which throws IOException
+    }
+</code></pre>
+<p>我们也可以封装一下异常</p>
+<pre><code class="language-java">    @FunctionalInterface
+    public interface ThrowingConsumer&lt;T, E extends Exception&gt; {
+        void accept(T t) throws E;
+    }
+
+
+    @Test
+    void contextLoads()  {
+        List&lt;Integer&gt; integers = Arrays.asList(3, 9, 7, 0, 10, 20);
+        integers.forEach(throwingConsumerWrapper(i -&gt; writeToFile(i)));
+    }
+
+    static void writeToFile(Integer integer) throws IOException {
+        // logic to write to file which throws IOException
+    }
+
+    static &lt;T&gt; Consumer&lt;T&gt; throwingConsumerWrapper(
+            ThrowingConsumer&lt;T, Exception&gt; throwingConsumer) {
+
+        return i -&gt; {
+            try {
+                throwingConsumer.accept(i);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        };
+    }
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/stream-api/" class="leancloud-visitors view"
+                              data-flag-title="Stream API">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/spring-boot-zhi-spring-zu-jian-zhu-ce/" class="title">
+                                      <h4>Spring Boot之 Spring组件注册</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-08-18</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/spring-boot-zhi-spring-zu-jian-zhu-ce/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/44.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/springboot-qi-dong-yuan-li/" class="title">
+                                      <h4>Spring Boot启动原理</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-06-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/springboot-qi-dong-yuan-li/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/38.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E6%9E%84%E9%80%A0%E4%B8%80%E4%B8%AA-stream-%E5%AF%B9%E8%B1%A1">构造一个 Stream 对象</a></li>
+<li><a href="#%E4%B8%AD%E9%97%B4%E6%93%8D%E4%BD%9C">中间操作</a>
+<ul>
+<li><a href="#%E7%AD%9B%E9%80%89%E4%B8%8E%E5%88%87%E7%89%87">筛选与切片</a>
+<ul>
+<li><a href="#filter">filter</a></li>
+<li><a href="#distinct">distinct</a></li>
+<li><a href="#limit">limit</a></li>
+<li><a href="#skip">skip</a></li>
+</ul>
+</li>
+<li><a href="#%E6%98%A0%E5%B0%84">映射</a>
+<ul>
+<li><a href="#map">map</a></li>
+<li><a href="#maptodouble">mapToDouble</a></li>
+<li><a href="#maptoint">mapToInt</a></li>
+<li><a href="#maptolong">mapToLong</a></li>
+<li><a href="#flatmap">flatMap</a></li>
+<li><a href="#flatmaptolong">flatMapToLong</a></li>
+<li><a href="#flatmaptodouble">flatMapToDouble</a></li>
+<li><a href="#flatmaptoint">flatMapToInt</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%92%E5%BA%8F">排序</a>
+<ul>
+<li><a href="#sorted">sorted</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B6%88%E8%B4%B9">消费</a>
+<ul>
+<li><a href="#peek">peek</a></li>
+<li><a href="#foreach">forEach</a></li>
+<li><a href="#foreachordered">forEachOrdered</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%88%E7%AB%AF%E6%93%8D%E4%BD%9C">终端操作</a>
+<ul>
+<li><a href="#min">min</a></li>
+<li><a href="#max">max</a></li>
+<li><a href="#count">count</a></li>
+<li><a href="#sum">sum</a></li>
+<li><a href="#anymatch">anyMatch</a></li>
+<li><a href="#findfirst">findFirst</a></li>
+<li><a href="#findany">findAny</a></li>
+<li><a href="#reduce">reduce</a></li>
+<li><a href="#toarray">toArray</a></li>
+<li><a href="#collection">collection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#collectors%E7%94%A8%E6%B3%95">Collectors用法</a>
+<ul>
+<li><a href="#1-collectorstolist">1. Collectors.toList()</a></li>
+<li><a href="#2-collectorstoset">2. Collectors.toSet()</a></li>
+<li><a href="#3-collectorstocollection">3. Collectors.toCollection()</a></li>
+<li><a href="#4-collectorstomap">4. Collectors.toMap()</a></li>
+<li><a href="#5-collectorscollectingandthen">5. Collectors.collectingAndThen()</a></li>
+<li><a href="#6-collectorsjoining">6. Collectors.joining()</a></li>
+<li><a href="#7-collectorscounting">7. Collectors.counting()</a></li>
+<li><a href="#8-collectorssummarizingdoublelongint">8. Collectors.summarizingDouble/Long/Int()</a></li>
+<li><a href="#9-collectorsaveragingdoublelongint">9. Collectors.averagingDouble/Long/Int()</a></li>
+<li><a href="#10-collectorssummingdoublelongint">10. Collectors.summingDouble/Long/Int()</a></li>
+<li><a href="#11-collectorsmaxbyminby">11. Collectors.maxBy()/minBy()</a></li>
+<li><a href="#12-collectorsgroupingby">12. Collectors.groupingBy()</a></li>
+<li><a href="#13-collectorspartitioningby">13. Collectors.partitioningBy()</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%A8map%E4%B8%AD%E4%BD%BF%E7%94%A8stream">在map中使用stream</a>
+<ul>
+<li><a href="#%E6%9F%A5%E6%89%BEvalue">查找value</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E5%A4%9A%E4%B8%AA%E5%80%BC">查找多个值</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8stream%E8%8E%B7%E5%8F%96map%E7%9A%84value">使用stream获取map的value</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E6%B5%81">并行流</a>
+<ul>
+<li><a href="#%E9%BB%98%E8%AE%A4%E7%BA%BF%E7%A8%8B">默认线程</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B">自定义线程</a></li>
+</ul>
+</li>
+<li><a href="#stream%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">Stream异常处理</a>
+<ul>
+<li><a href="#runtimeexception">RuntimeException</a></li>
+<li><a href="#checked-exception">checked Exception</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

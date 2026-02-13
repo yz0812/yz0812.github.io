@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>WebFlux增删改查样例 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">WebFlux增删改查样例</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/Ksbd-vR2dH/" class="post--keyword"
+                                data-title="spring" data-type="post_tag" data-term-id="39">spring</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-08-23</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/46.jpg"
+                                class="attachment-full size-full wp-post-image" alt="WebFlux增删改查样例" /></p>
+                            
+                            <h3 id="跟着鸟哥学spring-boot-20-webflux增删改查样例">跟着鸟哥学Spring Boot 2.0  WebFlux增删改查样例</h3>
+<p>Spring MVC Web架构是基于阻塞式Servlet API构建的。Servlet 3.1后提供了非阻塞API，Spring 5.0后基于这些API构建了一套全新的非阻塞Web框架 —— WebFlux。Spring Boot 2.0基于Spring 5.0构建，所以要在Spring Boot中使用WebFlux架构，版本必须大于2.0。</p>
+<p>通过下面这张图了解下Spring MVC和Spring WebFlux的区别：</p>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/diagram-reactive-dark-31d740ed8e454af5f1b8d55ae716525d.svg" alt="" loading="lazy"></figure>
+<p>可以看到，Spring WebFlux是非阻塞式的，支持 Reactive Streams背压，并在Netty，Undertow和Servlet 3.1+容器等服务器上运行。其目前只支持非关系型数据库，如Mongo，Redis等。非阻塞式的编程模型可以提高程序的并发量，提升性能和吞吐量。</p>
+<p>Mono和Flux在发布订阅模式中都属于发布者（不清楚的可以参考<a href="https://mrbird.cc/Java-9-Flow-API-Learn.html">Java 9 Flow API学习</a>），查看源码会发现它们都实现了Publisher接口。</p>
+<p>Mono表示0 ~ 1个元素的数据发布者，Flux表示 0 ~ N个元素的数据发布者。我们可以通过一个例子来了解Mono和Flux，创建<code>MonoFluxTest</code>类：</p>
+<h4 id="monoflux常用方法">Mono,Flux常用方法</h4>
+<h5 id="源头操作">源头操作</h5>
+<p>可以通过Flux类的静态方法来生成：</p>
+<ol>
+<li><code>just()</code>：可以指定序列中包含的全部元素。创建出来的 Flux 序列在发布这些元素之后会自动结束。</li>
+<li><code>fromArray()</code>，<code>fromIterable()</code>和 <code>fromStream()</code>：可以从一个数组、Iterable 对象或 Stream 对象中创建 Flux 对象。</li>
+<li><code>empty()</code>：创建一个不包含任何元素，只发布结束消息的序列。</li>
+<li><code>error(Throwable error)</code>：创建一个只包含错误消息的序列。</li>
+<li><code>never()</code>：创建一个不包含任何消息通知的序列。</li>
+<li><code>range(int start, int count)</code>：创建包含从 start 起始的 count 个数量的 Integer 对象的序列。</li>
+<li><code>interval(Duration period)</code>和 <code>interval(Duration delay, Duration period)</code>：创建一个包含了从 0 开始递增的 Long 对象的序列。其中包含的元素按照指定的间隔来发布。除了间隔时间之外，还可以指定起始元素发布之前的延迟时间。</li>
+</ol>
+<p>举些例子：</p>
+<pre><code class="language-java">@Test
+void flux() throws InterruptedException {
+        Flux.just(&quot;Hello&quot;, &quot;World&quot;).subscribe(System.out::println);
+        Flux.fromArray(new Integer[] {1, 2, 3}).subscribe(System.out::println);
+        Flux.empty().subscribe(System.out::println);
+        Flux.range(1, 4).subscribe(System.out::println);
+        Flux.interval(Duration.of(1, ChronoUnit.SECONDS)).subscribe(System.out::println);
+        // 线程延迟关闭，不然最后一个例子木有输出
+        Thread.currentThread().join(10000);
+}
+</code></pre>
+<p>输出如下所示：</p>
+<figure data-type="image" tabindex="2"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210823004020.png" alt="" loading="lazy"></figure>
+<p>上面的这些静态方法适合于简单的Flux序列生成，当序列的生成需要复杂的逻辑时，则应该使用<code>generate()</code>或<code>create()</code>方法。</p>
+<p><strong>generate()</strong></p>
+<p>generate()方法通过同步和逐一的方式来产生 Flux 序列。序列的产生是通过调用所提供的 SynchronousSink 对象的 next()，complete()和 error(Throwable)方法来完成的：</p>
+<pre><code class="language-java">@Test
+void flux1() throws InterruptedException {
+    Flux.generate(sink -&gt; {
+        sink.next(&quot;Hello&quot;);
+        sink.complete();
+    }).subscribe(System.out::println);
+
+
+    final Random random = new Random();
+    Flux.generate(ArrayList::new, (list, sink) -&gt; {
+        int value = random.nextInt(100);
+        list.add(value);
+        sink.next(value);
+        if (list.size() == 10) {
+            sink.complete();
+        }
+        return list;
+    }).subscribe(System.out::println);
+}
+</code></pre>
+<p>输出如下所示:</p>
+<figure data-type="image" tabindex="3"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210823004208.png" alt="" loading="lazy"></figure>
+<p>如果不调用 complete()方法，所产生的是一个无限序列。</p>
+<p><strong>create()</strong></p>
+<p>create()方法与 generate()方法的不同之处在于所使用的是 FluxSink 对象。FluxSink 支持同步和异步的消息产生，并且可以在一次调用中产生多个元素：</p>
+<pre><code class="language-java">@Test
+void flux2() {
+    Flux.create(sink -&gt; {
+        for (int i = 0; i &lt; 10; i++) {
+            sink.next(i);
+        }
+        sink.complete();
+    }).subscribe(System.out::println);
+}
+</code></pre>
+<p><strong>Mono</strong></p>
+<p>Mono 的创建方式与之前介绍的 Flux 比较相似。Mono 类中也包含了一些与 Flux 类中相同的静态方法。这些方法包括 just()，empty()，error()和 never()等。除了这些方法之外，Mono 还有一些独有的静态方法：</p>
+<ol>
+<li><code>fromCallable()</code>、<code>fromCompletionStage()</code>、<code>fromFuture()</code>、<code>fromRunnable(</code>)和 <code>fromSupplier()</code>：分别从 Callable、CompletionStage、CompletableFuture、Runnable 和 Supplier 中创建 Mono。</li>
+<li><code>delay(Duration duration)</code>：创建一个 Mono 序列，在指定的延迟时间之后，产生数字 0 作为唯一值。</li>
+<li><code>ignoreElements(Publisher&lt;T&gt; source)</code>：创建一个 Mono 序列，忽略作为源的 Publisher 中的所有元素，只产生结束消息。</li>
+<li><code>justOrEmpty(Optional&lt;? extends T&gt; data)</code>和 <code>justOrEmpty(T data)</code>：从一个 Optional 对象或可能为 null 的对象中创建 Mono。只有 Optional 对象中包含值或对象不为 null 时，Mono 序列才产生对应的元素。</li>
+</ol>
+<pre><code class="language-java">@Test
+void mono() {
+    Mono.just(&quot;are&quot;).subscribe(System.out::println);
+    Mono.empty().subscribe(System.out::println);
+    Mono.fromSupplier(() -&gt; &quot;you&quot;).subscribe(System.out::println);
+    Mono.justOrEmpty(Optional.of(&quot;ok&quot;)).subscribe(System.out::println);
+}
+</code></pre>
+<p>输出:</p>
+<figure data-type="image" tabindex="4"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210823011143.png" alt="" loading="lazy"></figure>
+<p>还可以通过 create()方法来使用 MonoSink 来创建 Mono：</p>
+<pre><code class="language-java">Mono.create(sink -&gt; sink.success(&quot;Hello&quot;)).subscribe(System.out::println);
+</code></pre>
+<h5 id="中间操作">中间操作</h5>
+<p><strong>filter</strong></p>
+<p>对流中包含的元素进行过滤，只留下满足 Predicate 指定条件的元素：</p>
+<pre><code class="language-java">Flux.range(1, 10).filter(i -&gt; i % 2 == 0).subscribe(System.out::println);
+</code></pre>
+<p>输出前10偶数。</p>
+<p><strong>take</strong></p>
+<p>take 系列操作符用来从当前流中提取元素。提取的方式可以有很多种。</p>
+<ol>
+<li><code>take(long n)</code>：按照指定的数量来提取。</li>
+<li><code>takeLast(long n)</code>：提取流中的最后 N 个元素。</li>
+<li><code>takeUntil(Predicate&lt;? super T&gt; predicate)</code>：提取元素直到 Predicate 返回 true。</li>
+</ol>
+<p>4 <code>takeWhile(Predicate&lt;? super T&gt; continuePredicate)</code>： 当 Predicate 返回 true 时才进行提取。</p>
+<p>举些例子：</p>
+<pre><code class="language-java">Flux.range(1, 20).take(10).subscribe(System.out::println);
+Flux.range(1, 20).takeLast(10).subscribe(System.out::println);
+Flux.range(1, 20).takeWhile(i -&gt; i &lt; 10).subscribe(System.out::println);
+Flux.range(1, 20).takeUntil(i -&gt; i == 10).subscribe(System.out::println);
+</code></pre>
+<p><strong>reduce 和 reduceWith</strong></p>
+<p>reduce 和 reduceWith 操作符对流中包含的所有元素进行累积操作，得到一个包含计算结果的 Mono 序列。累积操作是通过一个 BiFunction 来表示的。在操作时可以指定一个初始值。如果没有初始值，则序列的第一个元素作为初始值。</p>
+<p>比如：</p>
+<pre><code class="language-java">Flux.range(1, 10).reduce((x, y) -&gt; x + y).subscribe(System.out::println);
+Flux.range(1, 10).reduceWith(() -&gt; 10, (x, y) -&gt; x + y).subscribe(System.out::println);
+</code></pre>
+<p>第一行语句对流中的元素进行相加操作，结果为 55；第二行语句同样也是进行相加操作，不过通过一个 Supplier 给出了初始值为 10，所以结果为 65。</p>
+<p><strong>merge</strong></p>
+<p><code>merge</code>操作符用来把多个流合并成一个 Flux 序列：</p>
+<pre><code class="language-java">Flux.merge(
+        Flux.interval(Duration.of(500, ChronoUnit.MILLIS)).take(2),
+        Flux.interval(Duration.of(500, ChronoUnit.MILLIS)).take(2)
+).toStream().forEach(System.out::println);
+</code></pre>
+<p>输出 0 0 1 1。</p>
+<p><strong>buffer</strong></p>
+<p>buffer 操作符的作用是把当前流中的元素收集到集合中，并把集合对象作为流中的新元素：</p>
+<pre><code class="language-java">    @Test
+    void buff() {
+        //输出 5个包含 20 个元素的数组
+        Flux.range(1, 100).buffer(20).subscribe(System.out::println);
+        //bufferUntil 会一直收集直到 Predicate 返回为 true。使得 Predicate 返回 true 的那个元素可以选择添加到当前集合或下一个集合中；
+        // 输出的是 5 个包含 2 个元素的数组
+        // 每当遇到一个偶数就会结束当前的收集
+        Flux.range(1, 10).bufferUntil(i -&gt; i % 2 == 0).subscribe(System.out::println);
+        // 第四行语句输出的是 5 个包含 1 个元素的数组
+        // 数组里面包含的只有偶数。
+        Flux.range(1, 10).bufferWhile(i -&gt; i % 2 == 0).subscribe(System.out::println);
+    }
+</code></pre>
+<p>输出如下所示：</p>
+<figure data-type="image" tabindex="5"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210823005059.png" alt="" loading="lazy"></figure>
+<h5 id="终端处理">终端处理</h5>
+<p>通过<code>subscribe()</code>方法处理正常和错误消息：</p>
+<pre><code class="language-java">Flux.just(1, 2)
+    .concatWith(Mono.error(new IllegalStateException()))
+    .subscribe(System.out::println, System.err::println);
+</code></pre>
+<p>输出:</p>
+<pre><code class="language-java">1
+2
+java.lang.IllegalStateException
+</code></pre>
+<p>出现错误时返回默认值：</p>
+<pre><code class="language-java">Flux.just(1, 2)
+    .concatWith(Mono.error(new IllegalStateException()))
+    .onErrorReturn(0)
+    .subscribe(System.out::println);
+</code></pre>
+<p>输出：</p>
+<pre><code>1
+2
+0
+</code></pre>
+<p>出现错误时使用另外的流：</p>
+<pre><code class="language-java">Flux.just(1, 2)
+    .concatWith(Mono.error(new IllegalArgumentException()))
+    .onErrorResume(e -&gt; {
+        if (e instanceof IllegalStateException) {
+            return Mono.just(0);
+        } else if (e instanceof IllegalArgumentException) {
+            return Mono.just(-1);
+        }
+        return Mono.empty();
+    }).subscribe(System.out::println);
+</code></pre>
+<p>输出如下:</p>
+<pre><code class="language-java">1
+2
+-1
+</code></pre>
+<p><a href="https://skyao.io/learning-reactor/docs.html">学习连接</a></p>
+<h4 id="webflux增删改查样例">WebFlux增删改查样例</h4>
+<h5 id="项目准备">项目准备</h5>
+<p>新建一个Spring Boot项目，版本为2.1.3.RELEASE，并引入<code>webflux</code>和<code>reactive mongodb</code>依赖</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-mongodb-reactive&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-webflux&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>要开启<code>Reactive Mongo DB</code>的相关配置，需要在Spring Boot启动类上添加<code>@EnableReactiveMongoRepositories</code>注解：</p>
+<pre><code class="language-java">@SpringBootApplication
+@EnableReactiveMongoRepositories
+public class SpringBootWebfluxCrudApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootWebfluxCrudApplication.class, args);
+    }
+
+}
+</code></pre>
+<p>接着在配置文件application.yml里配置Mongo DB连接：</p>
+<pre><code class="language-yaml">spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: user
+</code></pre>
+<p>创建<code>User</code>实体类:</p>
+<pre><code class="language-java">@Document(collection = &quot;user&quot;)
+@Data
+public class User {
+
+    @Id
+    private String id;
+    private String name;
+    private Integer age;
+    private String description;
+
+}
+</code></pre>
+<h5 id="简单增删改查">简单增删改查</h5>
+<p>创建<code>UserDao</code>接口，继承自<code>ReactiveMongoRepository</code>：</p>
+<pre><code class="language-java">@Repository
+public interface UserDao extends ReactiveMongoRepository&lt;User, String&gt; {
+}
+</code></pre>
+<p>和 Spring Boot整合Mongo DB 不同的是，我们继承的是<code>ReactiveMongoRepository</code>而非<code>MongoRepository</code>，它所提供的方法都是响应式的：</p>
+<figure data-type="image" tabindex="6"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210823010039.png" alt="" loading="lazy"></figure>
+<p>在<code>UserService</code>里通过<code>UserDao</code>定义简单增删改查方法：</p>
+<pre><code class="language-java">@Service
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class UserService {
+
+    private final ReactiveMongoTemplate reactiveMongoTemplate;
+    private final UserDao userDao;
+
+    public Flux&lt;User&gt; getUsers() {
+        return userDao.findAll();
+    }
+
+    public Mono&lt;User&gt; getUser(String id) {
+        return this.userDao.findById(id);
+    }
+
+    public Mono&lt;User&gt; createUser(User user) {
+        return userDao.save(user);
+    }
+
+    public Mono&lt;Void&gt; deleteUser(String id) {
+        return this.userDao.findById(id)
+                .flatMap(user -&gt; this.userDao.delete(user));
+    }
+
+    public Mono&lt;User&gt; updateUser(String id, User user) {
+        return this.userDao.findById(id)
+            .flatMap(u -&gt; {
+                u.setName(user.getName());
+                u.setAge(user.getAge());
+                u.setDescription(user.getDescription());
+                return this.userDao.save(u);
+            });
+    }
+
+    public Mono&lt;Page&lt;User&gt;&gt; getUserByCondition(User user, Integer page, Integer size) {
+
+        Criteria criteria = new Criteria();
+        //根据名字查找
+        if (!StringUtils.isEmpty(user.getName())) {
+            criteria.and(&quot;name&quot;).is(user.getName());
+        }
+        //根据描述查找
+        if (!StringUtils.isEmpty(user.getDescription())) {
+            criteria.and(&quot;description&quot;).regex(user.getDescription());
+        }
+        //根据年龄降序
+        Sort sort =Sort.by(Sort.Direction.DESC,&quot;age&quot;);
+
+        Pageable pageable = PageRequest.of(page, size,sort);
+        Query query = new Query().with(pageable);
+        query.addCriteria(criteria);
+        Flux&lt;User&gt; chatUserFlux = reactiveMongoTemplate.find(query, User.class);
+        Mono&lt;Long&gt; countMono = reactiveMongoTemplate.count(Query.of(query).limit(-1).skip(-1), User.class);
+        return Mono.zip(chatUserFlux.collectList(),countMono).map(tuple2 -&gt; PageableExecutionUtils.getPage(
+                tuple2.getT1(),
+                pageable,
+                () -&gt; tuple2.getT2()));
+
+    }
+}
+</code></pre>
+<p>编写RESTful<code>UserController</code>：</p>
+<pre><code class="language-java">@RestController
+@RequestMapping(&quot;user&quot;)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
+public class UserController {
+
+    private final UserService userService;
+
+    /**
+     * 以数组的形式一次性返回所有数据
+     */
+    @GetMapping
+    public Flux&lt;User&gt; getUsers() {
+        return userService.getUsers();
+    }
+
+    /**
+     * 以 Server sent events形式多次返回数据
+     */
+    @GetMapping(value = &quot;/stream&quot;, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux&lt;User&gt; getUsersStream() {
+        return userService.getUsers();
+    }
+
+    @PostMapping
+    public Mono&lt;User&gt; createUser(User user) {
+        return userService.createUser(user);
+    }
+
+    /**
+     * 存在返回 200，不存在返回 404
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public Mono&lt;ResponseEntity&lt;Void&gt;&gt; deleteUser(@PathVariable String id) {
+        return userService.deleteUser(id)
+                .then(Mono.just(new ResponseEntity&lt;Void&gt;(HttpStatus.OK)))
+                .defaultIfEmpty(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * 存在返回修改后的 User
+     * 不存在返回 404
+     */
+    @PutMapping(&quot;/{id}&quot;)
+    public Mono&lt;ResponseEntity&lt;User&gt;&gt; updateUser(@PathVariable String id, User user) {
+        return userService.updateUser(id, user)
+                .map(u -&gt; new ResponseEntity&lt;&gt;(u, HttpStatus.OK))
+                .defaultIfEmpty(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * 根据用户 id查找
+     * 存在返回，不存在返回 404
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public Mono&lt;ResponseEntity&lt;User&gt;&gt; getUser(@PathVariable String id) {
+        return userService.getUser(id)
+                .map(user -&gt; new ResponseEntity&lt;&gt;(user, HttpStatus.OK))
+                .defaultIfEmpty(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * 分页
+     * @param size
+     * @param page
+     * @param user
+     * @return
+     */
+    @GetMapping(&quot;/condition&quot;)
+    public Mono&lt;Page&lt;User&gt;&gt;  getUserByCondition(int size, int page, User user) {
+        return userService.getUserByCondition(user, page, size);
+    }
+}
+</code></pre>
+<p>对于返回值为<code>Flux&lt;T&gt;</code>类型的方法，推荐定义两个一样的方法，一个以普通形式返回，一个以Server Sent Event的形式返回。对于修改和删除，如果需要修改和删除的用户不存在，我们返回404。</p>
+<h5 id="postman测试">postman测试</h5>
+<pre><code class="language-json">{
+	&quot;info&quot;: {
+		&quot;_postman_id&quot;: &quot;57b5f9bd-0dc5-4c53-9478-e5e8e1158657&quot;,
+		&quot;name&quot;: &quot;spring&quot;,
+		&quot;schema&quot;: &quot;https://schema.getpostman.com/json/collection/v2.1.0/collection.json&quot;
+	},
+	&quot;item&quot;: [
+		{
+			&quot;name&quot;: &quot;webflux-mongodb&quot;,
+			&quot;item&quot;: [
+				{
+					&quot;name&quot;: &quot;getUser&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;getUserStream&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user/stream&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;,
+								&quot;stream&quot;
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;updateUser&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user?name=yz&amp;description=mongodb&amp;age=20&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;
+							],
+							&quot;query&quot;: [
+								{
+									&quot;key&quot;: &quot;name&quot;,
+									&quot;value&quot;: &quot;yz&quot;
+								},
+								{
+									&quot;key&quot;: &quot;description&quot;,
+									&quot;value&quot;: &quot;mongodb&quot;
+								},
+								{
+									&quot;key&quot;: &quot;age&quot;,
+									&quot;value&quot;: &quot;20&quot;
+								}
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;getUserByID&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user/612122fb75da162aac4dee19&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;,
+								&quot;612122fb75da162aac4dee19&quot;
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;deleteUserById&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;DELETE&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user/612122fb75da162aac4dee19&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;,
+								&quot;612122fb75da162aac4dee19&quot;
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;updateUserById&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user/612122fb75da162aac4dee19?name=yz&amp;description=mongodb&amp;age=20&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;,
+								&quot;612122fb75da162aac4dee19&quot;
+							],
+							&quot;query&quot;: [
+								{
+									&quot;key&quot;: &quot;name&quot;,
+									&quot;value&quot;: &quot;yz&quot;
+								},
+								{
+									&quot;key&quot;: &quot;description&quot;,
+									&quot;value&quot;: &quot;mongodb&quot;
+								},
+								{
+									&quot;key&quot;: &quot;age&quot;,
+									&quot;value&quot;: &quot;20&quot;
+								}
+							]
+						}
+					},
+					&quot;response&quot;: []
+				},
+				{
+					&quot;name&quot;: &quot;分页&quot;,
+					&quot;request&quot;: {
+						&quot;method&quot;: &quot;GET&quot;,
+						&quot;header&quot;: [],
+						&quot;url&quot;: {
+							&quot;raw&quot;: &quot;127.0.0.1:8080/user/condition?size=10&amp;page=0&amp;name=yz&quot;,
+							&quot;host&quot;: [
+								&quot;127&quot;,
+								&quot;0&quot;,
+								&quot;0&quot;,
+								&quot;1&quot;
+							],
+							&quot;port&quot;: &quot;8080&quot;,
+							&quot;path&quot;: [
+								&quot;user&quot;,
+								&quot;condition&quot;
+							],
+							&quot;query&quot;: [
+								{
+									&quot;key&quot;: &quot;size&quot;,
+									&quot;value&quot;: &quot;10&quot;
+								},
+								{
+									&quot;key&quot;: &quot;page&quot;,
+									&quot;value&quot;: &quot;0&quot;
+								},
+								{
+									&quot;key&quot;: &quot;name&quot;,
+									&quot;value&quot;: &quot;yz&quot;
+								}
+							]
+						}
+					},
+					&quot;response&quot;: []
+				}
+			]
+		}
+	]
+}
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/gen-zhao-niao-ge-xue-spring-boot-20-webflux-zeng-shan-gai-cha-yang-li/" class="leancloud-visitors view"
+                              data-flag-title="WebFlux增删改查样例">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/mongodb-jian-dan-xue-xi/" class="title">
+                                      <h4>MongoDB 简单学习</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-08-28</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/mongodb-jian-dan-xue-xi/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/47.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/spring-boot-zheng-he-mongo-db/" class="title">
+                                      <h4>Spring Boot整合Mongo DB</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-08-22</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/spring-boot-zheng-he-mongo-db/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/43.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%B7%9F%E7%9D%80%E9%B8%9F%E5%93%A5%E5%AD%A6spring-boot-20-webflux%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E6%A0%B7%E4%BE%8B">跟着鸟哥学Spring Boot 2.0  WebFlux增删改查样例</a>
+<ul>
+<li><a href="#monoflux%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95">Mono,Flux常用方法</a>
+<ul>
+<li><a href="#%E6%BA%90%E5%A4%B4%E6%93%8D%E4%BD%9C">源头操作</a></li>
+<li><a href="#%E4%B8%AD%E9%97%B4%E6%93%8D%E4%BD%9C">中间操作</a></li>
+<li><a href="#%E7%BB%88%E7%AB%AF%E5%A4%84%E7%90%86">终端处理</a></li>
+</ul>
+</li>
+<li><a href="#webflux%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E6%A0%B7%E4%BE%8B">WebFlux增删改查样例</a>
+<ul>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E5%87%86%E5%A4%87">项目准备</a></li>
+<li><a href="#%E7%AE%80%E5%8D%95%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5">简单增删改查</a></li>
+<li><a href="#postman%E6%B5%8B%E8%AF%95">postman测试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>微信小程序使用Vant - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">微信小程序使用Vant</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/880hupr9Q/" class="post--keyword"
+                                data-title="小程序" data-type="post_tag" data-term-id="39">小程序</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2021-04-20</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/22.jpg"
+                                class="attachment-full size-full wp-post-image" alt="微信小程序使用Vant" /></p>
+                            
+                            <h2 id="微信小程序使用vant构建">微信小程序使用Vant构建</h2>
+<h3 id="1-创建好后使用-npm-init-命令构建packagejson文件">1. 创建好后使用 npm init 命令构建package.json文件</h3>
+<h3 id="2-安装vant">2. 安装vant</h3>
+<pre><code># 通过 npm 安装
+npm i @vant/weapp -S --production
+
+# 通过 yarn 安装
+yarn add @vant/weapp --production
+
+# 安装 0.x 版本
+npm i vant-weapp -S --production
+</code></pre>
+<h3 id="3-修改-appjson">3. 修改 app.json</h3>
+<ul>
+<li>将 app.json 中的 <code>&quot;style&quot;: &quot;v2&quot;</code> 去除，小程序的<a href="https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html#style">新版基础组件</a>强行加上了许多样式，难以覆盖，不关闭将造成部分组件样式混乱。</li>
+</ul>
+<h3 id="4-步骤三-修改-projectconfigjson">4. 步骤三 修改 project.config.json</h3>
+<p>开发者工具创建的项目，miniprogramRoot 默认为 miniprogram，package.json 在其外部，npm 构建无法正常工作。</p>
+<p>需要手动在 project.config.json 内添加如下配置，使开发者工具可以正确索引到 npm 依赖的位置。</p>
+<pre><code class="language-json">{
+  ...
+  &quot;setting&quot;: {
+    ...
+    &quot;packNpmManually&quot;: true,
+    &quot;packNpmRelationList&quot;: [
+      {
+        &quot;packageJsonPath&quot;: &quot;./package.json&quot;,
+        &quot;miniprogramNpmDistDir&quot;: &quot;./&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<p>注意： 由于目前新版开发者工具创建的小程序目录文件结构问题，npm构建的文件目录为miniprogram_npm，并且开发工具会默认在当前目录下创建miniprogram_npm的文件名，所以新版本的miniprogramNpmDistDir配置为'./'即可</p>
+<h3 id="5-构建-npm-包-打开微信开发者工具点击-工具-构建-npm并勾选-使用-npm-模块-选项构建完成后即可引入组件">5. 构建 npm 包  打开微信开发者工具，点击 工具 -&gt; 构建 npm，并勾选 使用 npm 模块 选项，构建完成后，即可引入组件。</h3>
+<figure data-type="image" tabindex="1"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/20210408011924.png" alt="" loading="lazy"></figure>
+<h3 id="6-使用">6. 使用</h3>
+<h3 id="引入组件">引入组件</h3>
+<p>以 Button 组件为例，只需要在<code>app.json</code>或<code>index.json</code>中配置 Button 对应的路径即可。</p>
+<p>所有组件文档中的引入路径均以 npm 安装为例，如果你是通过下载源代码的方式使用 @vant/weapp，请将路径修改为项目中 @vant/weapp 所在的目录。</p>
+<pre><code class="language-json">// 通过 npm 安装
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;@vant/weapp/button/index&quot;
+}
+// 通过下载源码使用 es6版本
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;path/to/@vant/weapp/dist/button/index&quot;
+}
+// 通过下载源码使用 es5版本
+// app.json
+&quot;usingComponents&quot;: {
+  &quot;van-button&quot;: &quot;path/to/@vant/weapp/lib/button/index&quot;
+}
+</code></pre>
+<h3 id="使用组件">使用组件</h3>
+<p>引入组件后，可以在 wxml 中直接使用组件</p>
+<pre><code class="language-xml">&lt;van-button type=&quot;primary&quot;&gt;按钮&lt;/van-button&gt;
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/wei-xin-xiao-cheng-xu-shi-yong-vant/" class="leancloud-visitors view"
+                              data-flag-title="微信小程序使用Vant">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/" class="title">
+                                      <h4>微信小程序使用 Eslint</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2021-04-20</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/wei-xin-xiao-cheng-xu-shi-yong-eslint/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/23.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/docker-an-zhuang-nginx/" class="title">
+                                      <h4> Docker 安装Nginx</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2021-04-07</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/docker-an-zhuang-nginx/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/21.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8vant%E6%9E%84%E5%BB%BA">微信小程序使用Vant构建</a>
+<ul>
+<li><a href="#1-%E5%88%9B%E5%BB%BA%E5%A5%BD%E5%90%8E%E4%BD%BF%E7%94%A8-npm-init-%E5%91%BD%E4%BB%A4%E6%9E%84%E5%BB%BApackagejson%E6%96%87%E4%BB%B6">1. 创建好后使用 npm init 命令构建package.json文件</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85vant">2. 安装vant</a></li>
+<li><a href="#3-%E4%BF%AE%E6%94%B9-appjson">3. 修改 app.json</a></li>
+<li><a href="#4-%E6%AD%A5%E9%AA%A4%E4%B8%89-%E4%BF%AE%E6%94%B9-projectconfigjson">4. 步骤三 修改 project.config.json</a></li>
+<li><a href="#5-%E6%9E%84%E5%BB%BA-npm-%E5%8C%85-%E6%89%93%E5%BC%80%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E7%82%B9%E5%87%BB-%E5%B7%A5%E5%85%B7-%E6%9E%84%E5%BB%BA-npm%E5%B9%B6%E5%8B%BE%E9%80%89-%E4%BD%BF%E7%94%A8-npm-%E6%A8%A1%E5%9D%97-%E9%80%89%E9%A1%B9%E6%9E%84%E5%BB%BA%E5%AE%8C%E6%88%90%E5%90%8E%E5%8D%B3%E5%8F%AF%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6">5. 构建 npm 包  打开微信开发者工具，点击 工具 -&gt; 构建 npm，并勾选 使用 npm 模块 选项，构建完成后，即可引入组件。</a></li>
+<li><a href="#6-%E4%BD%BF%E7%94%A8">6. 使用</a></li>
+<li><a href="#%E5%BC%95%E5%85%A5%E7%BB%84%E4%BB%B6">引入组件</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E7%BB%84%E4%BB%B6">使用组件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>

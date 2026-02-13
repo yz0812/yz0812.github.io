@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>一键安装 Zsh 增强环境 - yz</title>
+<meta name="description" content="少年拥有了时间,时间带走了年少" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+<link type="text/css" rel="stylesheet" href="https://yz0812.github.io/styles/main.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css" integrity="sha512-FwY1WVsm4UQgrOXt6kaQ53w83cOHa8fSvjFn/BvVOCYVPmkSR39k/xnU+8hht3zW6JL1TBd4C/aVQIAV58Cg6A==" crossorigin="anonymous" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/atom-one-dark.min.css" integrity="sha512-Jlyabam8ztU2kOGN19fSzv1Go9nt9A43UA6vhmL1MPsQMeoPZd+p7pbmegAtyl8kulna0Cqwb7Pgj4adGTLCXA==" crossorigin="anonymous" />
+<script type="text/javascript" src="https://yz0812.github.io/media/scripts/jquery.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js" integrity="sha512-tHQeqtcNWlZtEh8As/4MmZ5qpy0wj04svWFK7MIzLmUVIzaHXS8eod9OmHxyBL1UET5Rchvw7Ih4ZDv5JojZww==" crossorigin="anonymous"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7JNCPNX91Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'G-7JNCPNX91Z');
+</script>
+
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://yz0812.github.io">
+								<img class="logo" src="https://yz0812.github.io/media/images/site_avatar.png?v=1770995982259"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">一键安装 Zsh 增强环境</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://yz0812.github.io/tag/EXPhuDLUo/" class="post--keyword"
+                                data-title="教程" data-type="post_tag" data-term-id="39">教程</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2025-05-22</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/83.jpg"
+                                class="attachment-full size-full wp-post-image" alt="一键安装 Zsh 增强环境" /></p>
+                            
+                            <h1 id="一键安装-zsh-增强环境">🚀 一键安装 Zsh 增强环境</h1>
+<p>使用以下命令快速安装 Zsh、Oh My Zsh 及常用增强插件：</p>
+<pre><code class="language-bash">bash &lt;(curl -sSL https://gitee.com/yz0812/script/raw/master/install_zsh_enhancements.sh)
+</code></pre>
+<h2 id="脚本自动安装内容">📦 脚本自动安装内容</h2>
+<ul>
+<li>安装 zsh 和 oh-my-zsh</li>
+<li>安装并配置插件：
+<ul>
+<li><code>git</code></li>
+<li><code>zsh-syntax-highlighting</code></li>
+<li><code>zsh-autosuggestions</code></li>
+<li><code>history</code></li>
+<li><code>z</code></li>
+<li><code>docker</code></li>
+<li><code>docker-compose</code></li>
+</ul>
+</li>
+<li>自动设置 zsh 为默认 shell</li>
+<li>自动配置 .zshrc 插件列表及补全功能</li>
+</ul>
+<h2 id="插件介绍与示例">🔌 插件介绍与示例</h2>
+<h3 id="git"><code>git</code></h3>
+<p>提供大量 Git 命令别名：</p>
+<pre><code class="language-bash">gst       # git status
+gco       # git checkout
+gaa       # git add .
+</code></pre>
+<hr>
+<h3 id="zsh-syntax-highlighting"><code>zsh-syntax-highlighting</code></h3>
+<p>命令输入实时高亮提示：</p>
+<ul>
+<li>正确命令为绿色 ✅</li>
+<li>错误命令为红色 ❌</li>
+</ul>
+<pre><code class="language-bash">ls -la        # 正确命令，高亮绿色
+lss -la       # 错误命令，高亮红色
+</code></pre>
+<hr>
+<h3 id="zsh-autosuggestions"><code>zsh-autosuggestions</code></h3>
+<p>根据历史记录自动提示命令，按 <code>→</code> 键补全。</p>
+<pre><code class="language-bash"># 输入 docker 会提示：
+docker-compose up  # 灰色显示，按 → 补全
+</code></pre>
+<hr>
+<h3 id="history"><code>history</code></h3>
+<p>增强历史命令搜索功能：</p>
+<pre><code class="language-bash">history 100 | grep docker
+</code></pre>
+<hr>
+<h3 id="z"><code>z</code></h3>
+<p>快速跳转常用目录：</p>
+<pre><code class="language-bash">z 项目名
+# 示例：
+cd ~/projects/my-app
+z my-app  # 下一次可直接跳转
+</code></pre>
+<hr>
+<h3 id="docker-和-docker-compose"><code>docker</code> 和 <code>docker-compose</code></h3>
+<p>提供常用快捷命令别名：</p>
+<pre><code class="language-bash">dcu   # docker-compose up
+dcd   # docker-compose down
+dps   # docker ps
+</code></pre>
+<hr>
+<h2 id="️-脚本做了什么">⚙️ 脚本做了什么？</h2>
+<h3 id="步骤概览">✅ 步骤概览</h3>
+<ol>
+<li>安装依赖：<code>git</code> <code>curl</code> <code>wget</code> <code>zsh</code></li>
+<li>安装 Oh My Zsh（支持 Gitee 镜像）</li>
+<li>克隆插件仓库到 <code>~/.oh-my-zsh/custom/plugins/</code></li>
+<li>自动修改 <code>.zshrc</code>：
+<ul>
+<li>启用插件列表</li>
+<li>初始化 <code>compinit</code></li>
+</ul>
+</li>
+<li>设置默认 shell 为 zsh</li>
+</ol>
+<hr>
+<h2 id="使用后如何生效">🧪 使用后如何生效？</h2>
+<ul>
+<li><strong>重启终端</strong> 或执行：</li>
+</ul>
+<pre><code class="language-bash">source ~/.zshrc
+</code></pre>
+<ul>
+<li><strong>如果 zsh 未生效</strong>，尝试重新登录或执行：</li>
+</ul>
+<pre><code class="language-bash">chsh -s $(which zsh)
+</code></pre>
+<hr>
+<h2 id="示例插件配置位于-zshrc">📝 示例插件配置（位于 <code>.zshrc</code>）：</h2>
+<pre><code class="language-zsh">plugins=(
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  history
+  z
+  docker
+  docker-compose
+)
+</code></pre>
+<hr>
+<h2 id="常见问题">❗ 常见问题</h2>
+<ul>
+<li><strong>提示符乱码？</strong> 请安装 <a href="https://github.com/powerline/fonts">Powerline 字体</a></li>
+<li><strong><code>compaudit: insecure directories</code> 错误？</strong></li>
+</ul>
+<pre><code class="language-bash">chmod -R 755 ~/.oh-my-zsh/custom/plugins &amp;&amp; compinit -u
+</code></pre>
+<hr>
+<h2 id="️-项目来源">❤️ 项目来源</h2>
+<ul>
+<li>插件仓库镜像由 <a href="https://gitee.com/yz0812">@yz0812</a> 提供</li>
+<li>欢迎 Fork、修改或提交 PR</li>
+</ul>
+<hr>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/yi-jian-an-zhuang-zsh-zeng-qiang-huan-jing/" class="leancloud-visitors view"
+                              data-flag-title="一键安装 Zsh 增强环境">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/" class="title">
+                                      <h4>节省C盘空间的方式——符号链接</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2025-05-24</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/jie-sheng-c-pan-kong-jian-de-fang-shi-fu-hao-lian-jie/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/84.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://yz0812.github.io/post/rime-zhong-zhou-yun-shu-ru-fa-yin-qing-wu-song-pin-yin/" class="title">
+                                      <h4>Rime 中州韻輸入法引擎 + 雾凇拼音</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2025-03-26</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://yz0812.github.io/post/rime-zhong-zhou-yun-shu-ru-fa-yin-qing-wu-song-pin-yin/"
+                                    style="background-image: url('https://fastly.jsdelivr.net/gh/yz0812/mypic@master/img/81.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments" id="comments">
+                          
+                            
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85-zsh-%E5%A2%9E%E5%BC%BA%E7%8E%AF%E5%A2%83">🚀 一键安装 Zsh 增强环境</a>
+<ul>
+<li><a href="#%E8%84%9A%E6%9C%AC%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85%E5%86%85%E5%AE%B9">📦 脚本自动安装内容</a></li>
+<li><a href="#%E6%8F%92%E4%BB%B6%E4%BB%8B%E7%BB%8D%E4%B8%8E%E7%A4%BA%E4%BE%8B">🔌 插件介绍与示例</a>
+<ul>
+<li><a href="#git"><code>git</code></a></li>
+<li><a href="#zsh-syntax-highlighting"><code>zsh-syntax-highlighting</code></a></li>
+<li><a href="#zsh-autosuggestions"><code>zsh-autosuggestions</code></a></li>
+<li><a href="#history"><code>history</code></a></li>
+<li><a href="#z"><code>z</code></a></li>
+<li><a href="#docker-%E5%92%8C-docker-compose"><code>docker</code> 和 <code>docker-compose</code></a></li>
+</ul>
+</li>
+<li><a href="#%EF%B8%8F-%E8%84%9A%E6%9C%AC%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">⚙️ 脚本做了什么？</a>
+<ul>
+<li><a href="#%E6%AD%A5%E9%AA%A4%E6%A6%82%E8%A7%88">✅ 步骤概览</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%90%8E%E5%A6%82%E4%BD%95%E7%94%9F%E6%95%88">🧪 使用后如何生效？</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%8D%E4%BA%8E-zshrc">📝 示例插件配置（位于 <code>.zshrc</code>）：</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">❗ 常见问题</a></li>
+<li><a href="#%EF%B8%8F-%E9%A1%B9%E7%9B%AE%E6%9D%A5%E6%BA%90">❤️ 项目来源</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									<span>© 2018-05-01 </span>
+									<a href="https://yz0812.github.io" title="yz">yz</a>
+									<span class="px-2">⋅</span>
+									
+									
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://yz0812.github.io/media/scripts/main.js'></script>
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?1bcfcef443c3da9720b8bc3f63856c73";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+	
+
+  </div>
+</body>
+
+</html>
